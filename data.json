@@ -2,8 +2,13 @@
   "names": [
     {
       "name": "د. MAXILLOFACIAL TEST 01",
-      "phone": "+9647732298185",
-      "spec": "MF"
+      "spec": "MF",
+      "phone": "+9647732298185"
+    },
+    {
+      "name": "د. مصطفى محمد علي الديوان",
+      "spec": "GS",
+      "phone": "+9647800020294"
     }
   ],
   "schedule": [
