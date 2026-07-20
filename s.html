@@ -24,12 +24,12 @@
         }
 
         /* track accent colors – kept but refined */
-        .track-NS { --spec-color: #fbbf24; } .track-CT { --spec-color: #f87171; }
+        .track-OR { --spec-color: #fbbf24; } .track-MF { --spec-color: #f87171; }
         .track-GS { --spec-color: #34d399; } .track-US { --spec-color: #60a5fa; }
-        .track-ENT { --spec-color: #a78bfa; } .track-H { --spec-color: #fb7185; }
+        .track-ENT { --spec-color: #a78bfa; } .track-M { --spec-color: #fb7185; }
         .track-D { --spec-color: #94a3b8; } .track-OP { --spec-color: #fb923c; }
         .track-ICU { --spec-color: #2dd4bf; } .track-R { --spec-color: #818cf8; }
-        .track-ON { --spec-color: #f472b6; }
+        .track-O { --spec-color: #f472b6; }
 
         /* base */
         body {
@@ -448,12 +448,10 @@
     let nameData = {};
 
     const specialties = [
-        { id: "MF", name: "MaxilloFacial Surgery" }, { id: "M", name: "Internal Medicine" },
-        { id: "GS", name: "General Surg" }, { id: "US", name: "Urosurgery" },
-        { id: "ENT", name: "ENT" }, { id: "O", name: "Ophthalmology" },
-        { id: "D", name: "Death Certs" }, { id: "OP", name: "OT Anaesth" },
-        { id: "ICU", name: "ICU Anaesth" }, { id: "R", name: "Radiology" },
-        { id: "OR", name: "Orthopaedics" }
+        { id: "MF", name: "MaxilloFacial Surgery" }, { id: "GS", name: "General Surg" }, { id: "OR", name: "Orthopaedics" } ,  
+        { id: "US", name: "Urosurgery" }, { id: "ENT", name: "ENT" }, { id: "O", name: "Ophthalmology" },
+        { id: "M", name: "Internal Medicine" }, { id: "ICU", name: "ICU Anaesth" }, { id: "OP", name: "OT Anaesth" }, 
+        { id: "D", name: "Death Certs" }, { id: "R", name: "Radiology" }
     ];
 
     // ----- INIT -----
