@@ -544,6 +544,11 @@
       "name": "د. PED 02",
       "spec": "Pe",
       "phone": "123412"
+    },
+    {
+      "name": "د. NEU",
+      "spec": "NM",
+      "phone": "1234512"
     }
   ],
   "schedule": [
