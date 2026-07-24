@@ -549,6 +549,11 @@
       "name": "د. NEU",
       "spec": "NM",
       "phone": "1234512"
+    },
+    {
+      "name": "د. NEPH",
+      "spec": "N",
+      "phone": "134512345"
     }
   ],
   "schedule": [
