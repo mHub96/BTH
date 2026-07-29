@@ -1501,15 +1501,22 @@
     {
       "name": "د. عمر ضاحي",
       "spec": "P",
-      "tag": "P",
       "phone": "+9647703655514",
+      "tag": "P",
       "active": true
     },
     {
       "name": "د. شمس جمال",
       "spec": "P",
-      "tag": "P",
       "phone": "+9647858887899",
+      "tag": "P",
+      "active": true
+    },
+    {
+      "name": "د. تقى حافظ",
+      "spec": "P",
+      "tag": "P",
+      "phone": "+9647832365659",
       "active": true
     }
   ],
