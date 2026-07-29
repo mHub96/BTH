@@ -1459,43 +1459,50 @@
     {
       "name": "د. فرح رحيم",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647707376328",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. رفل اسامه",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647721895042",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. عمر جليل عيسى",
       "spec": "E",
-      "tag": "E",
       "phone": "+9647746927069",
+      "tag": "E",
       "active": true
     },
     {
       "name": "د. زهراء محمد",
       "spec": "E",
-      "tag": "E",
       "phone": "+9647718713995",
+      "tag": "E",
       "active": true
     },
     {
       "name": "د. علي قاسم",
       "spec": "E",
-      "tag": "E",
       "phone": "+9647712901906",
+      "tag": "E",
       "active": true
     },
     {
       "name": "د. ايات عبدالكريم",
       "spec": "E",
-      "tag": "E",
       "phone": "+9647709401868",
+      "tag": "E",
+      "active": true
+    },
+    {
+      "name": "د. عمر ضاحي",
+      "spec": "P",
+      "tag": "P",
+      "phone": "+9647703655514",
       "active": true
     }
   ],
