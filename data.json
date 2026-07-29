@@ -1396,64 +1396,71 @@
     {
       "name": "د. براء عباس",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647714985674",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. فاتن سلمان",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647707009908",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. زمن مصطفى",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647731972744",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. مريم حسن",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647709640919",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. نور عمار",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647722921447",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. نور رياض",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647717539972",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. ثناء احمد",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647716750774",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. طيبة حميد",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647819600025",
+      "tag": "F",
       "active": true
     },
     {
       "name": "د. صفا احمد",
       "spec": "F",
-      "tag": "F",
       "phone": "+9647814095288",
+      "tag": "F",
+      "active": true
+    },
+    {
+      "name": "د. فرح رحيم",
+      "spec": "F",
+      "tag": "F",
+      "phone": "+9647707376328",
       "active": true
     }
   ],
