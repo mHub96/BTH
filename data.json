@@ -1522,8 +1522,15 @@
     {
       "name": "د. ضرغام قاسم",
       "spec": "Pe",
-      "tag": "Pe",
       "phone": "+9647725588277",
+      "tag": "Pe",
+      "active": true
+    },
+    {
+      "name": "د. شهد سعدون",
+      "spec": "F",
+      "tag": "F",
+      "phone": "+9647721497466",
       "active": true
     }
   ],
