@@ -1515,8 +1515,15 @@
     {
       "name": "د. تقى حافظ",
       "spec": "P",
-      "tag": "P",
       "phone": "+9647832365659",
+      "tag": "P",
+      "active": true
+    },
+    {
+      "name": "د. ضرغام قاسم",
+      "spec": "Pe",
+      "tag": "Pe",
+      "phone": "+9647725588277",
       "active": true
     }
   ],
