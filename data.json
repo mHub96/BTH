@@ -1066,8 +1066,8 @@
     },
     {
       "name": "د. جبار جليل",
+      "phone": "+9647813977691",
       "spec": "OR",
-      "phone": "",
       "tag": "OR",
       "active": true
     },
@@ -1557,22 +1557,22 @@
     {
       "name": "د. هبة اياد بركات",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647806028076",
+      "tag": "OR",
       "active": true
     },
     {
       "name": "د. زهراء توفيق",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647811991975",
+      "tag": "OR",
       "active": true
     },
     {
       "name": "د. رسل منذر",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647706223309",
+      "tag": "OR",
       "active": true
     }
   ],
