@@ -1543,8 +1543,15 @@
     {
       "name": "د. عيسى وليد",
       "spec": "NM",
-      "tag": "NM",
       "phone": "+9647840828301",
+      "tag": "NM",
+      "active": true
+    },
+    {
+      "name": "د. مها عباس",
+      "spec": "M",
+      "tag": "M",
+      "phone": "+9647717806124",
       "active": true
     }
   ],
