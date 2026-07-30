@@ -1536,8 +1536,15 @@
     {
       "name": "د. نور صادق",
       "spec": "N",
-      "tag": "N",
       "phone": "+9647703296793",
+      "tag": "N",
+      "active": true
+    },
+    {
+      "name": "د. عيسى وليد",
+      "spec": "NM",
+      "tag": "NM",
+      "phone": "+9647840828301",
       "active": true
     }
   ],
