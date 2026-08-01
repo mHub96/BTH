@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Basra Teaching Hosp. Duties</title>
+    <title>Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #1a1c20;
-            --light: #2a2d34;
-            --shadow: #0d0e11;
+            --bg: #14171c;
+            --light: #23272e;
+            --glow: #fbbf24;
+            --shadow: #0b0d10;
             --accent: #fbbf24;
             --crimson: #e11d48;
             --emerald: #10b981;
+            --card-bg: #1e2229;
         }
+        * { box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
-            color: #94a3b8;
+            color: #a0aec0;
             margin: 0;
             min-height: 100vh;
             display: flex;
@@ -27,36 +30,39 @@
             padding: 1.5rem;
         }
 
-        /* --- MAIN OUTER CONTAINER — SPACIOUS --- */
+        /* --- MAIN CONTAINER — elevated, spacious, glass-morph --- */
         .embossed-card {
             position: relative;
-            background: var(--bg);
-            border-radius: 4rem;
+            background: rgba(20, 23, 28, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 3.5rem;
             padding: 3rem 2.5rem;
-            box-shadow: 24px 24px 80px var(--shadow), -16px -16px 56px var(--light);
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(251, 191, 36, 0.04),
+                inset 0 0 80px rgba(251, 191, 36, 0.01);
             z-index: 10;
-            transition: all 0.7s ease;
-            outline: 1px solid rgba(148, 163, 184, 0.06);
-            outline-offset: 0px;
             width: 100%;
             max-width: 540px;
             margin: 0 auto;
+            border: 1px solid rgba(251, 191, 36, 0.04);
         }
         .embossed-card::before {
             content: '';
             position: absolute;
             inset: -2px;
-            border-radius: 4rem;
-            border: 1px solid rgba(148, 163, 184, 0.04);
+            border-radius: 3.5rem;
+            border: 1px solid rgba(251, 191, 36, 0.03);
             pointer-events: none;
             z-index: 5;
         }
         .breathing {
-            animation: frameBreath 4s infinite ease-in-out;
+            animation: framePulse 5s infinite ease-in-out;
         }
-        @keyframes frameBreath {
-            0%, 100% { box-shadow: 24px 24px 80px var(--shadow), -16px -16px 56px var(--light); }
-            50% { box-shadow: 18px 18px 60px var(--shadow), -12px -12px 40px var(--light), 0 0 60px rgba(251, 191, 36, 0.12); }
+        @keyframes framePulse {
+            0%, 100% { box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(251, 191, 36, 0.04); }
+            50% { box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(251, 191, 36, 0.03), 0 0 0 1px rgba(251, 191, 36, 0.08); }
         }
 
         .tube-container {
@@ -69,7 +75,7 @@
         }
         #tube-bg {
             fill: none;
-            stroke: rgba(251, 191, 36, 0.03);
+            stroke: rgba(251, 191, 36, 0.02);
             stroke-width: 4;
         }
         #tube-fluid {
@@ -92,13 +98,13 @@
             to { stroke-dashoffset: 0; }
         }
 
+        /* --- LOGIN --- */
         .recessed-input {
             background: var(--bg);
-            border-radius: 2rem;
-            box-shadow: inset 10px 10px 20px var(--shadow), inset -6px -6px 16px var(--light);
+            border-radius: 2.2rem;
+            box-shadow: inset 10px 10px 24px var(--shadow), inset -6px -6px 18px var(--light);
             position: relative;
         }
-
         .password-container {
             display: flex;
             align-items: center;
@@ -108,83 +114,60 @@
             min-height: 4.5rem;
             direction: ltr;
         }
-
         .password-dot {
             width: 1.4rem;
             height: 1.4rem;
             border-radius: 50%;
-            background: rgba(251, 191, 36, 0.08);
-            border: 2px solid rgba(251, 191, 36, 0.06);
+            background: rgba(251, 191, 36, 0.06);
+            border: 2px solid rgba(251, 191, 36, 0.04);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform: scale(0.5);
             opacity: 0;
             position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
         }
-
         .password-dot.active {
             background: var(--accent);
             border-color: var(--accent);
             transform: scale(1.2);
             opacity: 1;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3), 0 0 60px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
             animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
         @keyframes dotPop {
             0% { transform: scale(0.5); opacity: 0; }
             50% { transform: scale(1.4); opacity: 1; }
             100% { transform: scale(1.2); opacity: 1; }
         }
-
-        .password-dot.active::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.15);
-            animation: rippleDot 0.6s ease-out;
-        }
-
-        @keyframes rippleDot {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
-        }
-
         .password-dot.filled {
             background: var(--accent);
             border-color: var(--accent);
             transform: scale(1);
             opacity: 1;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.12), inset 0 2px 4px rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1), inset 0 2px 4px rgba(255,255,255,0.1);
         }
-
         .password-dot.filled::after {
             content: '';
             position: absolute;
             inset: -3px;
             border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.06);
+            border: 2px solid rgba(251, 191, 36, 0.05);
             animation: pulseFilled 2s ease-in-out infinite;
         }
-
         @keyframes pulseFilled {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(1.3); opacity: 0.2; }
         }
-
         .password-dot.empty {
             transform: scale(0.5);
             opacity: 0;
         }
-
         .password-dot.error-shake {
             animation: shakeError 0.5s ease;
             border-color: var(--crimson);
             background: var(--crimson);
-            box-shadow: 0 0 30px rgba(225, 29, 72, 0.3);
+            box-shadow: 0 0 40px rgba(225, 29, 72, 0.3);
         }
-
         @keyframes shakeError {
             0%, 100% { transform: translateX(0) scale(1); }
             15% { transform: translateX(-10px) scale(1.05); }
@@ -193,7 +176,6 @@
             60% { transform: translateX(6px) scale(1.02); }
             80% { transform: translateX(-3px) scale(1); }
         }
-
         .password-input-overlay {
             position: absolute;
             inset: 0;
@@ -216,10 +198,6 @@
             cursor: text;
             text-align: center;
         }
-        .password-input-overlay input::selection {
-            background: transparent;
-        }
-
         .cursor-indicator {
             position: absolute;
             bottom: -2px;
@@ -234,23 +212,18 @@
             transition: opacity 0.3s ease;
             box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         }
-        .cursor-indicator.visible {
-            opacity: 1;
-        }
+        .cursor-indicator.visible { opacity: 1; }
         @keyframes cursorPulse {
             0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
             50% { transform: translateX(-50%) scale(3); opacity: 1; }
         }
 
         .embossed-btn {
-            background: #2a2d34;
-            border-radius: 2rem;
-            box-shadow: 
-                0 10px 0 #0d0e11,
-                14px 14px 28px var(--shadow), 
-                -10px -10px 24px var(--light);
+            background: #23272e;
+            border-radius: 2.2rem;
+            box-shadow: 0 10px 0 #0b0d10, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.3);
             transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #94a3b8;
+            color: #a0aec0;
             font-weight: 800;
             border: none;
             cursor: pointer;
@@ -263,57 +236,29 @@
             transform: translateY(0);
         }
         .embossed-btn:active {
-            box-shadow: 
-                0 3px 0 #0d0e11,
-                8px 8px 16px var(--shadow), 
-                -6px -6px 14px var(--light);
+            box-shadow: 0 3px 0 #0b0d10, 8px 8px 16px rgba(0,0,0,0.6), -4px -4px 12px rgba(40,45,55,0.2);
             transform: translateY(7px);
         }
         .embossed-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 
-                0 8px 0 #0d0e11,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light);
+            box-shadow: 0 8px 0 #0b0d10, 12px 12px 24px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2);
         }
-
         .fetched-active {
             background: var(--accent) !important;
-            color: #1a1c20 !important;
-            box-shadow: 
-                0 10px 0 #b08830,
-                14px 14px 28px var(--shadow), 
-                -10px -10px 24px var(--light),
-                0 0 40px rgba(251, 191, 36, 0.4) !important;
+            color: #14171c !important;
+            box-shadow: 0 10px 0 #b08830, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2), 0 0 50px rgba(251, 191, 36, 0.3) !important;
         }
         .fetched-active:active {
-            box-shadow: 
-                0 3px 0 #b08830,
-                8px 8px 16px var(--shadow), 
-                -6px -6px 14px var(--light),
-                0 0 30px rgba(251, 191, 36, 0.3) !important;
+            box-shadow: 0 3px 0 #b08830, 8px 8px 16px rgba(0,0,0,0.6), -4px -4px 12px rgba(40,45,55,0.1), 0 0 40px rgba(251, 191, 36, 0.2) !important;
             transform: translateY(7px);
         }
-
         .crimson-warning {
             background: var(--crimson) !important;
             color: white !important;
-            box-shadow: 
-                0 10px 0 #8a1428,
-                14px 14px 28px var(--shadow), 
-                -10px -10px 24px var(--light),
-                0 0 40px rgba(225, 29, 72, 0.4) !important;
+            box-shadow: 0 10px 0 #8a1428, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2), 0 0 50px rgba(225, 29, 72, 0.3) !important;
             animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        .crimson-warning:active {
-            box-shadow: 
-                0 3px 0 #8a1428,
-                8px 8px 16px var(--shadow), 
-                -6px -6px 14px var(--light),
-                0 0 30px rgba(225, 29, 72, 0.3) !important;
-            transform: translateY(7px);
         }
         @keyframes quickShake {
             10%, 90% { transform: translate3d(-2px, 0, 0); }
@@ -343,7 +288,7 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         #shield .shield-text {
-            color: rgba(251, 191, 36, 0.3);
+            color: rgba(251, 191, 36, 0.2);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.2em;
@@ -353,7 +298,7 @@
         .hidden { display: none !important; }
         .toast-error {
             background: rgba(225, 29, 72, 0.06);
-            border: 1px solid rgba(225, 29, 72, 0.1);
+            border: 1px solid rgba(225, 29, 72, 0.08);
             border-radius: 1.2rem;
             padding: 0.9rem 1.2rem;
             font-size: 0.75rem;
@@ -372,25 +317,23 @@
             justify-content: center;
             gap: 0.6rem;
             font-size: 0.75rem;
-            color: rgba(148, 163, 184, 0.4);
+            color: rgba(160, 174, 192, 0.3);
             cursor: pointer;
             user-select: none;
             transition: color 0.3s ease;
             margin-top: 6px;
         }
-        .toggle-remember:hover {
-            color: rgba(148, 163, 184, 0.6);
-        }
+        .toggle-remember:hover { color: rgba(160, 174, 192, 0.5); }
         .toggle-remember input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
             width: 1.3rem;
             height: 1.3rem;
-            background: #2a2d34;
+            background: #23272e;
             border-radius: 6px;
             cursor: pointer;
             position: relative;
-            border: 1px solid rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(160, 174, 192, 0.06);
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
@@ -404,12 +347,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #1a1c20;
+            color: #14171c;
             font-size: 0.9rem;
             font-weight: 900;
-        }
-        .toggle-remember input[type="checkbox"]:hover {
-            border-color: rgba(148, 163, 184, 0.2);
         }
 
         .view-wrapper {
@@ -431,158 +371,144 @@
             font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 0.15em;
-            color: rgba(148, 163, 184, 0.3);
+            color: rgba(160, 174, 192, 0.2);
             transition: all 0.4s ease;
             text-transform: uppercase;
         }
         .status-text.ready {
-            color: rgba(16, 185, 129, 0.5);
+            color: rgba(16, 185, 129, 0.4);
             animation: blinkReady 1.2s ease-in-out infinite;
         }
-        .status-text.error {
-            color: rgba(225, 29, 72, 0.5);
-        }
+        .status-text.error { color: rgba(225, 29, 72, 0.4); }
         @keyframes blinkReady {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
         }
 
         .engraved-text {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(201, 184, 154, 0.35);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.04),
-                0 -1px 0 rgba(0, 0, 0, 0.25);
+            color: rgba(160, 174, 192, 0.15);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.02);
             padding: 0.6rem 0 0.3rem 0;
             margin-top: 0.7rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.04);
+            border-top: 1px solid rgba(160, 174, 192, 0.03);
             text-align: center;
         }
 
         /* ============================================================
-           ROSTER CARDS — PERFECT SPACING, MEDIUM SPECIALTY, LARGE NAME
+           ROSTER CARDS — FRESH, MODERN, SPACIOUS
            ============================================================ */
         .roster-grid {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            max-height: 58vh;
+            gap: 1.2rem;
+            max-height: 56vh;
             overflow-y: auto;
-            padding: 0.25rem 0.1rem;
+            padding: 0.25rem 0.1rem 0.25rem 0.1rem;
         }
         .roster-grid::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
         .roster-grid::-webkit-scrollbar-track {
             background: transparent;
         }
         .roster-grid::-webkit-scrollbar-thumb {
-            background: rgba(251, 191, 36, 0.2);
+            background: rgba(251, 191, 36, 0.15);
             border-radius: 4px;
         }
 
-        /* CARDS WITH PROPER SPACING — NOT TOUCHING THE EDGES */
+        /* CARD — glassmorphism + 3D depth, spacious padding */
         .roster-card {
-            background: #2a2d34;
-            border-radius: 2rem;
-            padding: 1.4rem 1.6rem 1.2rem;
+            background: rgba(30, 34, 41, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2.2rem;
+            padding: 1.6rem 1.8rem 1.4rem;
             box-shadow: 
-                0 8px 0 #0b0c0f,
-                0 12px 28px rgba(0,0,0,0.7),
-                0 4px 12px rgba(0,0,0,0.4),
-                0 0 0 1px rgba(255,255,255,0.02);
-            transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(148, 163, 184, 0.05);
+                0 8px 0 #0a0c0e,
+                0 16px 40px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(251, 191, 36, 0.03),
+                inset 0 1px 0 rgba(255,255,255,0.02);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(251, 191, 36, 0.04);
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.5rem;
             transform: translateY(0);
         }
         .roster-card:hover {
-            transform: translateY(-3px) scale(1.005);
-            border-color: rgba(251, 191, 36, 0.13);
+            transform: translateY(-4px);
+            border-color: rgba(251, 191, 36, 0.08);
             box-shadow: 
-                0 10px 0 #0b0c0f,
-                0 18px 36px rgba(0,0,0,0.8),
-                0 6px 14px rgba(0,0,0,0.5),
-                0 0 0 1px rgba(251, 191, 36, 0.03);
+                0 10px 0 #0a0c0e,
+                0 24px 50px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(251, 191, 36, 0.06),
+                inset 0 1px 0 rgba(255,255,255,0.03);
         }
         .roster-card:active {
             transform: translateY(4px) scale(0.99);
             box-shadow: 
-                0 4px 0 #0b0c0f,
-                0 10px 22px rgba(0,0,0,0.7),
-                0 3px 8px rgba(0,0,0,0.3);
+                0 4px 0 #0a0c0e,
+                0 12px 28px rgba(0,0,0,0.6);
         }
 
-        /* Header: Specialty — MEDIUM SIZE, centered, glowing */
+        /* Specialty — medium, glowing, centered */
         .roster-card .card-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-bottom: 0.1rem;
         }
         .roster-card .resident-spec {
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--accent);
-            background: rgba(251, 191, 36, 0.06);
-            padding: 0.2rem 1.2rem;
+            background: rgba(251, 191, 36, 0.04);
+            padding: 0.2rem 1.4rem;
             border-radius: 100px;
-            border: 1px solid rgba(251, 191, 36, 0.08);
-            letter-spacing: 0.04em;
-            text-shadow: 
-                0 0 20px rgba(251, 191, 36, 0.3),
-                0 0 40px rgba(251, 191, 36, 0.1),
-                0 2px 4px rgba(0,0,0,0.4);
-            box-shadow: 
-                0 0 30px rgba(251, 191, 36, 0.05),
-                inset 0 0 30px rgba(251, 191, 36, 0.02);
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            letter-spacing: 0.06em;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.15), 0 0 60px rgba(251, 191, 36, 0.05);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.02), inset 0 0 40px rgba(251, 191, 36, 0.01);
             transition: all 0.3s ease;
         }
         .roster-card:hover .resident-spec {
-            text-shadow: 
-                0 0 30px rgba(251, 191, 36, 0.5),
-                0 0 60px rgba(251, 191, 36, 0.2),
-                0 2px 4px rgba(0,0,0,0.4);
-            box-shadow: 
-                0 0 40px rgba(251, 191, 36, 0.08),
-                inset 0 0 40px rgba(251, 191, 36, 0.03);
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.1);
+            box-shadow: 0 0 50px rgba(251, 191, 36, 0.04), inset 0 0 50px rgba(251, 191, 36, 0.02);
         }
 
-        /* Middle: Resident name — LARGE FONT, embossed 3D */
+        /* Name — large, bold, 3D embossed */
         .roster-card .resident-name {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #f0ece4;
-            letter-spacing: 0.02em;
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #edf2f7;
+            letter-spacing: 0.01em;
             text-align: center;
-            padding: 0.3rem 0;
+            padding: 0.2rem 0;
             text-shadow: 
-                0 4px 0 #0b0c0f,
-                0 8px 20px rgba(0,0,0,0.6),
+                0 4px 0 #0a0c0e,
+                0 8px 24px rgba(0,0,0,0.6),
                 0 2px 4px rgba(0,0,0,0.3);
             line-height: 1.2;
             word-break: break-word;
         }
 
-        /* Phone number — smaller, subtle */
+        /* Phone — subtle, monospace */
         .roster-card .resident-phone {
             font-size: 0.8rem;
             font-weight: 700;
-            color: #94a3b8;
+            color: #718096;
             font-family: monospace;
             direction: ltr;
             unicode-bidi: isolate;
             text-align: center;
-            opacity: 0.6;
-            margin-top: -0.1rem;
+            opacity: 0.5;
+            letter-spacing: 0.04em;
         }
 
-        /* Bottom: Action buttons */
+        /* Actions — sleek, pill-shaped */
         .roster-card .card-actions {
             display: flex;
             gap: 0.6rem;
@@ -593,39 +519,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 0.6rem 0.7rem;
-            border-radius: 1.2rem;
+            gap: 8px;
+            padding: 0.65rem 0.8rem;
+            border-radius: 1.4rem;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.6rem;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.04em;
             white-space: nowrap;
-            background: #1a1c20;
+            background: rgba(20, 23, 28, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             box-shadow: 
-                0 5px 0 #0d0e11,
-                0 8px 18px rgba(0,0,0,0.5),
-                0 3px 6px rgba(0,0,0,0.3);
-            color: #94a3b8;
+                0 5px 0 #0a0c0e,
+                0 8px 20px rgba(0,0,0,0.5);
+            color: #a0aec0;
             transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(0);
-            border: none;
+            border: 1px solid rgba(160, 174, 192, 0.04);
             cursor: pointer;
         }
         .roster-card .action-btn-sm:active {
             transform: translateY(4px);
-            box-shadow: 
-                0 1px 0 #0d0e11,
-                0 4px 12px rgba(0,0,0,0.5),
-                0 1px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 0 #0a0c0e, 0 4px 14px rgba(0,0,0,0.4);
         }
         .roster-card .action-btn-sm.call {
             color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.08);
+            border-color: rgba(96, 165, 250, 0.06);
         }
         .roster-card .action-btn-sm.wa {
             color: var(--emerald);
-            border: 1px solid rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.06);
         }
         .roster-card .action-btn-sm.call:hover {
             background: rgba(96, 165, 250, 0.04);
@@ -637,24 +561,24 @@
         .empty-state {
             text-align: center;
             padding: 2.5rem 1rem;
-            color: rgba(148, 163, 184, 0.2);
+            color: rgba(160, 174, 192, 0.15);
             font-size: 0.9rem;
             font-weight: 600;
         }
         .empty-state .icon {
             font-size: 3rem;
             margin-bottom: 0.75rem;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         @media (max-width: 480px) {
             .embossed-card {
                 padding: 2rem 1.2rem;
-                border-radius: 3rem;
+                border-radius: 2.5rem;
                 max-width: 100%;
             }
             .roster-card {
-                padding: 1rem 1.2rem 1rem;
+                padding: 1.2rem 1.2rem 1rem;
                 border-radius: 1.6rem;
             }
             .roster-card .resident-name {
@@ -718,7 +642,7 @@
                         <input type="checkbox" id="rememberMe" checked>
                         <span>تذكرني</span>
                     </label>
-                    <span class="text-[0.55rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.12);">✦ SECURE</span>
+                    <span class="text-[0.5rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.06);">✦ SECURE</span>
                 </div>
                 
                 <div id="login-error" class="hidden toast-error"></div>
@@ -729,13 +653,13 @@
         <!-- ROSTER VIEW -->
         <div id="roster-view" class="hidden-view view-wrapper">
             <div class="text-center mb-5">
-                <h2 class="text-white text-xl font-extrabold tracking-tight">📋 Basra Teaching Hosp. Today's Duty</h2>
+                <h2 class="text-white text-xl font-extrabold tracking-tight">📋 Today's Duty</h2>
                 <p id="roster-date" class="text-[0.7rem] text-slate-500 mt-1 font-bold tracking-wider uppercase"></p>
-                <p id="roster-count" class="text-[0.65rem] text-amber-500/60 mt-1 font-bold tracking-wider"></p>
+                <p id="roster-count" class="text-[0.65rem] text-amber-500/50 mt-1 font-bold tracking-wider"></p>
             </div>
             
             <div id="roster-container" class="roster-grid">
-                <!-- Roster cards will be rendered here -->
+                <!-- Roster cards rendered here -->
             </div>
 
             <div class="mt-5 text-center">
@@ -747,7 +671,7 @@
 
 <script>
     // ############################################################
-    // ROSTER FUNCTIONALITY - Password animation, Remember Me, 8-digit PIN
+    // ROSTER FUNCTIONALITY — FULLY INTACT
     // ############################################################
 
     const CONFIG = { user: "mHub96", repo: "BTH", path: "data.json" };
@@ -772,16 +696,14 @@
     const STORAGE_KEY = 'duty_portal_session';
     const SESSION_PIN = '1234';
 
-    // ---------- PASSWORD ANIMATION ----------
+    // ---------- PASSWORD ----------
     let passwordValue = '';
 
     function updateDots(value) {
         const dots = document.querySelectorAll('.password-dot');
         const len = value.length;
-        
         dots.forEach((dot, index) => {
             dot.className = 'password-dot';
-            
             if (index < len) {
                 dot.classList.add('filled');
                 if (dot.dataset.wasEmpty === 'true') {
@@ -794,27 +716,19 @@
                 dot.dataset.wasEmpty = 'true';
             }
         });
-
         const cursor = document.getElementById('cursorIndicator');
-        if (len < 8) {
-            cursor.classList.add('visible');
-        } else {
-            cursor.classList.remove('visible');
-        }
+        if (len < 8) cursor.classList.add('visible');
+        else cursor.classList.remove('visible');
     }
 
     function handlePasswordInput() {
         const input = document.getElementById('pw');
-        const value = input.value;
-        passwordValue = value;
-        updateDots(value);
+        passwordValue = input.value;
+        updateDots(input.value);
     }
 
     function handlePasswordKey(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            handleEntry();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); handleEntry(); }
         if (e.key === 'Backspace') {
             setTimeout(() => {
                 const input = document.getElementById('pw');
@@ -825,23 +739,17 @@
 
     function showCursor() {
         const cursor = document.getElementById('cursorIndicator');
-        if (passwordValue.length < 8) {
-            cursor.classList.add('visible');
-        }
+        if (passwordValue.length < 8) cursor.classList.add('visible');
     }
 
     function hideCursor() {
-        const cursor = document.getElementById('cursorIndicator');
-        cursor.classList.remove('visible');
+        document.getElementById('cursorIndicator').classList.remove('visible');
     }
 
     function shakeDots() {
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
-            if (dot.classList.contains('filled')) {
-                dot.classList.add('error-shake');
-                setTimeout(() => dot.classList.remove('error-shake'), 500);
-            }
+        document.querySelectorAll('.password-dot.filled').forEach(dot => {
+            dot.classList.add('error-shake');
+            setTimeout(() => dot.classList.remove('error-shake'), 500);
         });
     }
 
@@ -850,14 +758,13 @@
         input.value = '';
         passwordValue = '';
         updateDots('');
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
+        document.querySelectorAll('.password-dot').forEach(dot => {
             dot.className = 'password-dot empty';
             dot.dataset.wasEmpty = 'true';
         });
     }
 
-    // ---------- REMEMBER ME ----------
+    // ---------- SESSION ----------
     function saveSession() {
         const remember = document.getElementById('rememberMe');
         if (remember && remember.checked) {
@@ -875,10 +782,7 @@
         const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
         if (timestamp) {
             const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
-            if (days > 7) {
-                clearSession();
-                return false;
-            }
+            if (days > 7) { clearSession(); return false; }
         }
         return session === 'authenticated';
     }
@@ -892,7 +796,6 @@
         clearSession();
         const loginView = document.getElementById('login-view');
         const rosterView = document.getElementById('roster-view');
-        
         if (!rosterView.classList.contains('hidden-view')) {
             rosterView.classList.add('exit');
             setTimeout(() => {
@@ -900,7 +803,6 @@
                 rosterView.classList.remove('exit');
             }, 400);
         }
-        
         setTimeout(() => {
             loginView.classList.remove('hidden-view');
             loginView.classList.add('enter');
@@ -919,7 +821,7 @@
         }, 300);
     }
 
-    // ---------- ENTRY HANDLER ----------
+    // ---------- ENTRY ----------
     window.handleEntry = function() {
         if (!dataLoaded) {
             showLoginError('البيانات لم تكتمل، حاول مرة أخرى');
@@ -927,7 +829,6 @@
         }
         const input = document.getElementById('pw');
         const pin = input.value;
-        
         if (pin === SESSION_PIN) {
             saveSession();
             proceedAfterAuth();
@@ -946,17 +847,13 @@
                     btn.innerText = 'جاري التحميل...';
                 }
             }, 1000);
-            setTimeout(() => {
-                resetPasswordInput();
-                input.focus();
-            }, 400);
+            setTimeout(() => { resetPasswordInput(); input.focus(); }, 400);
         }
     };
 
     function proceedAfterAuth() {
         const loginView = document.getElementById('login-view');
         const rosterView = document.getElementById('roster-view');
-        
         loginView.classList.add('exit');
         setTimeout(() => {
             loginView.classList.add('hidden-view');
@@ -975,14 +872,11 @@
         setTimeout(() => errEl.classList.add('hidden'), 4000);
     }
 
-    // ---------- LOADING & INIT ----------
+    // ---------- LOADING ----------
     window.onload = async function() {
         const hasSession = checkSession();
         const loginView = document.getElementById('login-view');
-        
-        if (hasSession) {
-            loginView.classList.add('hidden-view');
-        }
+        if (hasSession) loginView.classList.add('hidden-view');
 
         const shieldTimeout = setTimeout(() => {
             const s = document.getElementById('shield');
@@ -999,10 +893,7 @@
             loadError = true;
             const cached = localStorage.getItem('duty_db_cache');
             if (cached) {
-                try {
-                    db = JSON.parse(cached);
-                    dataLoaded = true;
-                } catch (e2) { /* ignore */ }
+                try { db = JSON.parse(cached); dataLoaded = true; } catch (e2) {}
             }
         }
 
@@ -1029,9 +920,7 @@
                 }, 200);
             } else {
                 if (!loginView.classList.contains('hidden-view')) {
-                    setTimeout(() => {
-                        document.getElementById('pw').focus();
-                    }, 300);
+                    setTimeout(() => document.getElementById('pw').focus(), 300);
                 } else {
                     loginView.classList.remove('hidden-view');
                     loginView.classList.add('enter');
@@ -1048,7 +937,6 @@
             entryBtn.innerText = '⚠️ خطأ في الاتصال';
             entryBtn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
             showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
-            
             if (loginView.classList.contains('hidden-view')) {
                 loginView.classList.remove('hidden-view');
                 loginView.classList.add('enter');
@@ -1056,25 +944,19 @@
             }
         }
 
-        const rememberCheck = document.getElementById('rememberMe');
-        if (rememberCheck) {
-            rememberCheck.checked = true;
-        }
-
+        document.getElementById('rememberMe').checked = true;
         resetPasswordInput();
     };
 
     async function fetchDataWithTimeout(timeoutMs) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
         try {
             const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
                 headers: { "Authorization": `token ${GH_TOKEN}` },
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
-
             if (res.ok) {
                 const data = await res.json();
                 const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
@@ -1100,7 +982,7 @@
         return `${d}/${m}/${now.getFullYear()}`;
     }
 
-    // ---------- ROSTER RENDERER ----------
+    // ---------- RENDER ----------
     function renderRoster() {
         const container = document.getElementById('roster-container');
         const dateDisplay = document.getElementById('roster-date');
@@ -1125,7 +1007,6 @@
         }
 
         countDisplay.innerText = `${todayEntries.length} مقيم في الخدمة`;
-
         const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
 
         container.innerHTML = sortedEntries.map(entry => {
@@ -1162,8 +1043,7 @@
     window.logout = logout;
 
     document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('passwordContainer');
-        container.addEventListener('click', function() {
+        document.getElementById('passwordContainer').addEventListener('click', function() {
             document.getElementById('pw').focus();
         });
     });
