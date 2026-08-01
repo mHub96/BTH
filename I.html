@@ -578,51 +578,29 @@
         }
 
         /* ============================================================
-           ENGRAVED TEXT - 3D engraved effect into the card
+           ENGRAVED TEXT - 3D engraved effect into the card (BRIGHTER)
            ============================================================ */
         .engraved-text {
-            font-size: 0.55rem;
-            font-weight: 600;
+            font-size: 0.6rem;
+            font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.15);
+            color: rgba(201, 184, 154, 0.35);
             text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.02),
-                0 -1px 0 rgba(0, 0, 0, 0.3);
-            background: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: all 0.3s ease;
-        }
-        .engraved-text:hover {
-            color: rgba(148, 163, 184, 0.25);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.03),
-                0 -1px 0 rgba(0, 0, 0, 0.35);
-        }
-
-        /* ============================================================
-           RIGHTS RESERVED TEXT - Embossed at bottom
-           ============================================================ */
-        .rights-text {
-            font-size: 0.5rem;
-            font-weight: 500;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.12);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.02),
+                0 1px 0 rgba(255, 255, 255, 0.04),
                 0 -1px 0 rgba(0, 0, 0, 0.25);
             background: transparent;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 0.75rem 0 0.25rem 0;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0 0.25rem 0;
             margin-top: 0.5rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.03);
+            border-top: 1px solid rgba(148, 163, 184, 0.04);
             text-align: center;
         }
-        .rights-text:hover {
-            color: rgba(148, 163, 184, 0.2);
+        .engraved-text:hover {
+            color: rgba(201, 184, 154, 0.5);
             text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.03),
+                0 1px 0 rgba(255, 255, 255, 0.06),
                 0 -1px 0 rgba(0, 0, 0, 0.3);
         }
     </style>
@@ -688,9 +666,7 @@
             </div>
             
             <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text text-center mt-6 tracking-[0.15em]">By Dr. MOHAMMED RIYADH</p>
-            <!-- RIGHTS RESERVED - Embossed at bottom -->
-            <p class="rights-text">All Rights Reserved</p>
+            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
         </div>
 
         <!-- LOOKUP VIEW -->
@@ -714,8 +690,8 @@
             <div class="mt-4">
                 <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
             </div>
-            <!-- RIGHTS RESERVED - Embossed at bottom -->
-            <p class="rights-text mt-6">All Rights Reserved</p>
+            <!-- ENGRAVED TEXT - 3D engraved effect -->
+            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
         </div>
 
         <!-- REGISTER VIEW -->
@@ -757,8 +733,8 @@
             <div class="text-center pt-2">
                 <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
             </div>
-            <!-- RIGHTS RESERVED - Embossed at bottom -->
-            <p class="rights-text">All Rights Reserved</p>
+            <!-- ENGRAVED TEXT - 3D engraved effect -->
+            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
         </div>
     </div>
 
