@@ -6,7 +6,6 @@
     <title>Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
             --bg: #1a1c20;
@@ -15,15 +14,7 @@
             --accent: #fbbf24;
             --crimson: #e11d48;
             --emerald: #10b981;
-            --btn-grey: #33373e;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
@@ -31,454 +22,305 @@
             margin: 0;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             padding: 1.5rem;
         }
 
-        /* Full page layout */
-        .page-container {
+        /* --- MAIN OUTER CONTAINER — SPACIOUS --- */
+        .embossed-card {
+            position: relative;
+            background: var(--bg);
+            border-radius: 4rem;
+            padding: 3rem 2.5rem;
+            box-shadow: 24px 24px 80px var(--shadow), -16px -16px 56px var(--light);
+            z-index: 10;
+            transition: all 0.7s ease;
+            outline: 1px solid rgba(148, 163, 184, 0.06);
+            outline-offset: 0px;
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
-
-        /* Header with day/night toggle */
-        .roster-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 0 0.25rem;
-        }
-        .roster-header h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #f0ece4;
-            letter-spacing: 0.02em;
-        }
-        .roster-header .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle-wrap {
-            perspective: 200px;
-            display: inline-block;
-        }
-        .theme-toggle-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(148, 163, 184, 0.15);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(148, 163, 184, 0.1);
-        }
-        .theme-toggle-btn .icon-wrap {
-            position: relative;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .theme-toggle-btn .icon-wrap i {
-            position: absolute;
-            font-size: 1rem;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backface-visibility: hidden;
-        }
-        .theme-toggle-btn .icon-wrap .icon-moon {
-            transform: rotateY(0deg);
-            opacity: 1;
-            color: #94a3b8;
-        }
-        .theme-toggle-btn .icon-wrap .icon-sun {
-            transform: rotateY(180deg);
-            opacity: 0;
-            color: #fbbf24;
-        }
-        body.light .theme-toggle-btn .icon-wrap .icon-moon {
-            transform: rotateY(-180deg);
-            opacity: 0;
-        }
-        body.light .theme-toggle-btn .icon-wrap .icon-sun {
-            transform: rotateY(0deg);
-            opacity: 1;
-        }
-        .theme-toggle-btn:hover {
-            transform: scale(1.05);
-            border-color: rgba(251, 191, 36, 0.2);
-        }
-
-        /* Logout button */
-        .logout-btn {
-            background: transparent;
-            border: none;
-            color: rgba(148, 163, 184, 0.3);
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            padding: 0.3rem 0.6rem;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(148, 163, 184, 0.05);
-        }
-        .logout-btn:hover {
-            color: rgba(148, 163, 184, 0.6);
-            border-color: rgba(148, 163, 184, 0.1);
-        }
-
-        /* Roster grid - full width */
-        .roster-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            max-height: 65vh;
-            overflow-y: auto;
-            padding-right: 0.25rem;
-            padding-bottom: 1rem;
-        }
-        .roster-grid::-webkit-scrollbar {
-            width: 4px;
-        }
-        .roster-grid::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .roster-grid::-webkit-scrollbar-thumb {
-            background: rgba(251, 191, 36, 0.2);
-            border-radius: 4px;
-        }
-
-        /* ============================================================
-           SPECIALTY THEMED CARDS
-           ============================================================ */
-        .roster-card {
-            border-radius: 1.5rem;
-            padding: 1.1rem 1.3rem;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            transform: translateY(0);
-            border: 1px solid rgba(255,255,255,0.03);
-            position: relative;
-            overflow: hidden;
-        }
-        .roster-card::before {
+        .embossed-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            opacity: 0.6;
+            inset: -2px;
+            border-radius: 4rem;
+            border: 1px solid rgba(148, 163, 184, 0.04);
+            pointer-events: none;
+            z-index: 5;
         }
-        .roster-card:hover {
-            transform: translateY(-2px) scale(1.01);
+        .breathing {
+            animation: frameBreath 4s infinite ease-in-out;
         }
-        .roster-card:active {
-            transform: scale(0.98);
+        @keyframes frameBreath {
+            0%, 100% { box-shadow: 24px 24px 80px var(--shadow), -16px -16px 56px var(--light); }
+            50% { box-shadow: 18px 18px 60px var(--shadow), -12px -12px 40px var(--light), 0 0 60px rgba(251, 191, 36, 0.12); }
         }
 
-        .roster-card .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.4rem;
+        .tube-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+            width: 100%;
+            height: 100%;
         }
-        .roster-card .resident-name {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 0.02em;
+        #tube-bg {
+            fill: none;
+            stroke: rgba(251, 191, 36, 0.03);
+            stroke-width: 4;
         }
-        .roster-card .resident-spec {
-            font-size: 0.55rem;
-            font-weight: 700;
-            padding: 0.15rem 0.6rem;
-            border-radius: 100px;
-            border: 1px solid rgba(255,255,255,0.08);
-            white-space: nowrap;
+        #tube-fluid {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 5;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 12px var(--accent));
+            stroke-dasharray: 500 1200;
+            stroke-dashoffset: 1700;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
-        .roster-card .resident-phone {
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: monospace;
-            direction: ltr;
-            unicode-bidi: isolate;
-            opacity: 0.8;
+        .loading-active #tube-fluid {
+            opacity: 1;
+            animation: seamlessFlow 2s linear infinite;
         }
-        .roster-card .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.2rem;
+        @keyframes seamlessFlow {
+            from { stroke-dashoffset: 1700; }
+            to { stroke-dashoffset: 0; }
         }
-        .roster-card .action-btn-sm {
-            flex: 1;
+
+        .recessed-input {
+            background: var(--bg);
+            border-radius: 2rem;
+            box-shadow: inset 10px 10px 20px var(--shadow), inset -6px -6px 16px var(--light);
+            position: relative;
+        }
+
+        .password-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            padding: 0.5rem 0.6rem;
-            border-radius: 1rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.55rem;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-            transform: translateY(0);
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            min-height: 4.5rem;
+            direction: ltr;
+        }
+
+        .password-dot {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background: rgba(251, 191, 36, 0.08);
+            border: 2px solid rgba(251, 191, 36, 0.06);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.5);
+            opacity: 0;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .password-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.2);
+            opacity: 1;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3), 0 0 60px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
+            animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes dotPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.4); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .password-dot.active::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(251, 191, 36, 0.15);
+            animation: rippleDot 0.6s ease-out;
+        }
+
+        @keyframes rippleDot {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .password-dot.filled {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.12), inset 0 2px 4px rgba(255,255,255,0.1);
+        }
+
+        .password-dot.filled::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(251, 191, 36, 0.06);
+            animation: pulseFilled 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseFilled {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 0.2; }
+        }
+
+        .password-dot.empty {
+            transform: scale(0.5);
+            opacity: 0;
+        }
+
+        .password-dot.error-shake {
+            animation: shakeError 0.5s ease;
+            border-color: var(--crimson);
+            background: var(--crimson);
+            box-shadow: 0 0 30px rgba(225, 29, 72, 0.3);
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0) scale(1); }
+            15% { transform: translateX(-10px) scale(1.05); }
+            30% { transform: translateX(10px) scale(1.05); }
+            45% { transform: translateX(-6px) scale(1.02); }
+            60% { transform: translateX(6px) scale(1.02); }
+            80% { transform: translateX(-3px) scale(1); }
+        }
+
+        .password-input-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: text;
+            z-index: 5;
+        }
+        .password-input-overlay input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: transparent;
+            caret-color: var(--accent);
+            font-size: 1px;
+            letter-spacing: 1px;
+            padding: 0;
+            margin: 0;
+            cursor: text;
+            text-align: center;
+        }
+        .password-input-overlay input::selection {
+            background: transparent;
+        }
+
+        .cursor-indicator {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: cursorPulse 1.2s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+        .cursor-indicator.visible {
+            opacity: 1;
+        }
+        @keyframes cursorPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+            50% { transform: translateX(-50%) scale(3); opacity: 1; }
+        }
+
+        .embossed-btn {
+            background: #2a2d34;
+            border-radius: 2rem;
+            box-shadow: 
+                0 10px 0 #0d0e11,
+                14px 14px 28px var(--shadow), 
+                -10px -10px 24px var(--light);
+            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #94a3b8;
+            font-weight: 800;
             border: none;
             cursor: pointer;
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(4px);
-        }
-        .roster-card .action-btn-sm:active {
-            transform: scale(0.96);
-        }
-        .roster-card .action-btn-sm.call {
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.15);
-        }
-        .roster-card .action-btn-sm.call:hover {
-            background: rgba(96, 165, 250, 0.12);
-        }
-        .roster-card .action-btn-sm.wa {
-            color: var(--emerald);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-        }
-        .roster-card .action-btn-sm.wa:hover {
-            background: rgba(16, 185, 129, 0.12);
-        }
-        .roster-card .action-btn-sm .icon {
-            font-size: 0.9rem;
-        }
-
-        .empty-state {
+            padding: 1.2rem 1.8rem;
+            width: 100%;
             text-align: center;
-            padding: 3rem 1rem;
-            color: rgba(148, 163, 184, 0.2);
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            transform: translateY(0);
         }
-        .empty-state .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.3;
+        .embossed-btn:active {
+            box-shadow: 
+                0 3px 0 #0d0e11,
+                8px 8px 16px var(--shadow), 
+                -6px -6px 14px var(--light);
+            transform: translateY(7px);
         }
-
-        /* ============================================================
-           SPECIALTY COLORS (Dark Theme)
-           ============================================================ */
-        /* GS - General Surgery */
-        .card-gs { background: linear-gradient(145deg, #1a2a1a, #0f1a0f); border-color: rgba(74, 222, 128, 0.1); }
-        .card-gs .resident-name { color: #86efac; }
-        .card-gs .resident-spec { background: rgba(74, 222, 128, 0.12); color: #86efac; border-color: rgba(74, 222, 128, 0.1); }
-        .card-gs::before { background: linear-gradient(90deg, #4ade80, #22c55e); }
-
-        /* US - Urosurgery */
-        .card-us { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(96, 165, 250, 0.1); }
-        .card-us .resident-name { color: #93c5fd; }
-        .card-us .resident-spec { background: rgba(96, 165, 250, 0.12); color: #93c5fd; border-color: rgba(96, 165, 250, 0.1); }
-        .card-us::before { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
-
-        /* OR - Orthopaedics */
-        .card-or { background: linear-gradient(145deg, #2a1a1a, #1a0f0f); border-color: rgba(251, 146, 60, 0.1); }
-        .card-or .resident-name { color: #fdba74; }
-        .card-or .resident-spec { background: rgba(251, 146, 60, 0.12); color: #fdba74; border-color: rgba(251, 146, 60, 0.1); }
-        .card-or::before { background: linear-gradient(90deg, #fb923c, #f97316); }
-
-        /* ENT */
-        .card-ent { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(196, 181, 253, 0.1); }
-        .card-ent .resident-name { color: #c4b5fd; }
-        .card-ent .resident-spec { background: rgba(196, 181, 253, 0.12); color: #c4b5fd; border-color: rgba(196, 181, 253, 0.1); }
-        .card-ent::before { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
-
-        /* M - Internal Medicine */
-        .card-m { background: linear-gradient(145deg, #1a2a1a, #0f1a0f); border-color: rgba(52, 211, 153, 0.1); }
-        .card-m .resident-name { color: #6ee7b7; }
-        .card-m .resident-spec { background: rgba(52, 211, 153, 0.12); color: #6ee7b7; border-color: rgba(52, 211, 153, 0.1); }
-        .card-m::before { background: linear-gradient(90deg, #34d399, #10b981); }
-
-        /* Pe - Paediatrics */
-        .card-pe { background: linear-gradient(145deg, #2a1a2a, #1a0f1a); border-color: rgba(244, 114, 182, 0.1); }
-        .card-pe .resident-name { color: #f9a8d4; }
-        .card-pe .resident-spec { background: rgba(244, 114, 182, 0.12); color: #f9a8d4; border-color: rgba(244, 114, 182, 0.1); }
-        .card-pe::before { background: linear-gradient(90deg, #f472b6, #ec4899); }
-
-        /* NM - Neuromedicine */
-        .card-nm { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(129, 140, 248, 0.1); }
-        .card-nm .resident-name { color: #a5b4fc; }
-        .card-nm .resident-spec { background: rgba(129, 140, 248, 0.12); color: #a5b4fc; border-color: rgba(129, 140, 248, 0.1); }
-        .card-nm::before { background: linear-gradient(90deg, #818cf8, #6366f1); }
-
-        /* N - Nephrology */
-        .card-n { background: linear-gradient(145deg, #1a2a2a, #0f1a1a); border-color: rgba(56, 189, 248, 0.1); }
-        .card-n .resident-name { color: #7dd3fc; }
-        .card-n .resident-spec { background: rgba(56, 189, 248, 0.12); color: #7dd3fc; border-color: rgba(56, 189, 248, 0.1); }
-        .card-n::before { background: linear-gradient(90deg, #38bdf8, #0ea5e9); }
-
-        /* O - Ophthalmology */
-        .card-o { background: linear-gradient(145deg, #1a2a1a, #0f1a0f); border-color: rgba(74, 222, 128, 0.08); }
-        .card-o .resident-name { color: #86efac; }
-        .card-o .resident-spec { background: rgba(74, 222, 128, 0.1); color: #86efac; border-color: rgba(74, 222, 128, 0.08); }
-        .card-o::before { background: linear-gradient(90deg, #4ade80, #22c55e); }
-
-        /* ICU */
-        .card-icu { background: linear-gradient(145deg, #1a1a1a, #0f0f0f); border-color: rgba(248, 113, 113, 0.1); }
-        .card-icu .resident-name { color: #fca5a5; }
-        .card-icu .resident-spec { background: rgba(248, 113, 113, 0.12); color: #fca5a5; border-color: rgba(248, 113, 113, 0.1); }
-        .card-icu::before { background: linear-gradient(90deg, #f87171, #ef4444); }
-
-        /* OP - Anesthesia OP */
-        .card-op { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(167, 139, 250, 0.1); }
-        .card-op .resident-name { color: #c4b5fd; }
-        .card-op .resident-spec { background: rgba(167, 139, 250, 0.12); color: #c4b5fd; border-color: rgba(167, 139, 250, 0.1); }
-        .card-op::before { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
-
-        /* MF - MaxilloFacial */
-        .card-mf { background: linear-gradient(145deg, #2a1a1a, #1a0f0f); border-color: rgba(251, 191, 36, 0.1); }
-        .card-mf .resident-name { color: #fcd34d; }
-        .card-mf .resident-spec { background: rgba(251, 191, 36, 0.12); color: #fcd34d; border-color: rgba(251, 191, 36, 0.1); }
-        .card-mf::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
-
-        /* R - Radiology */
-        .card-r { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(103, 232, 249, 0.1); }
-        .card-r .resident-name { color: #67e8f9; }
-        .card-r .resident-spec { background: rgba(103, 232, 249, 0.12); color: #67e8f9; border-color: rgba(103, 232, 249, 0.1); }
-        .card-r::before { background: linear-gradient(90deg, #67e8f9, #22d3ee); }
-
-        /* G - Gynecology */
-        .card-g { background: linear-gradient(145deg, #2a1a2a, #1a0f1a); border-color: rgba(244, 114, 182, 0.1); }
-        .card-g .resident-name { color: #f9a8d4; }
-        .card-g .resident-spec { background: rgba(244, 114, 182, 0.12); color: #f9a8d4; border-color: rgba(244, 114, 182, 0.1); }
-        .card-g::before { background: linear-gradient(90deg, #f472b6, #ec4899); }
-
-        /* P - Psychiatry */
-        .card-p { background: linear-gradient(145deg, #1a1a2a, #0f0f1a); border-color: rgba(196, 181, 253, 0.08); }
-        .card-p .resident-name { color: #c4b5fd; }
-        .card-p .resident-spec { background: rgba(196, 181, 253, 0.1); color: #c4b5fd; border-color: rgba(196, 181, 253, 0.08); }
-        .card-p::before { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
-
-        /* D - Death */
-        .card-d { background: linear-gradient(145deg, #1a1a1a, #0f0f0f); border-color: rgba(148, 163, 184, 0.05); }
-        .card-d .resident-name { color: #94a3b8; }
-        .card-d .resident-spec { background: rgba(148, 163, 184, 0.08); color: #94a3b8; border-color: rgba(148, 163, 184, 0.05); }
-        .card-d::before { background: linear-gradient(90deg, #94a3b8, #64748b); }
-
-        /* Default fallback */
-        .card-default { background: #2a2d34; border-color: rgba(148, 163, 184, 0.05); }
-        .card-default .resident-name { color: #f0ece4; }
-        .card-default .resident-spec { background: rgba(148, 163, 184, 0.08); color: #94a3b8; border-color: rgba(148, 163, 184, 0.05); }
-        .card-default::before { background: linear-gradient(90deg, #94a3b8, #64748b); }
-
-        /* ============================================================
-           LIGHT THEME OVERRIDES
-           ============================================================ */
-        body.light {
-            background: #e8edf2;
-        }
-        body.light .roster-header h1 {
-            color: #1a2332;
-        }
-        body.light .theme-toggle-btn {
-            background: rgba(255,255,255,0.5);
-            border-color: rgba(0,0,0,0.08);
-        }
-        body.light .logout-btn {
-            color: rgba(74, 85, 104, 0.3);
-            border-color: rgba(0,0,0,0.05);
-        }
-        body.light .logout-btn:hover {
-            color: rgba(74, 85, 104, 0.6);
+        .embossed-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 
+                0 8px 0 #0d0e11,
+                12px 12px 24px var(--shadow), 
+                -8px -8px 20px var(--light);
         }
 
-        /* Light theme card overrides */
-        body.light .card-gs { background: linear-gradient(145deg, #e8f5e8, #d4edda); border-color: rgba(34, 197, 94, 0.15); }
-        body.light .card-gs .resident-name { color: #166534; }
-        body.light .card-gs .resident-spec { background: rgba(34, 197, 94, 0.12); color: #166534; }
+        .fetched-active {
+            background: var(--accent) !important;
+            color: #1a1c20 !important;
+            box-shadow: 
+                0 10px 0 #b08830,
+                14px 14px 28px var(--shadow), 
+                -10px -10px 24px var(--light),
+                0 0 40px rgba(251, 191, 36, 0.4) !important;
+        }
+        .fetched-active:active {
+            box-shadow: 
+                0 3px 0 #b08830,
+                8px 8px 16px var(--shadow), 
+                -6px -6px 14px var(--light),
+                0 0 30px rgba(251, 191, 36, 0.3) !important;
+            transform: translateY(7px);
+        }
 
-        body.light .card-us { background: linear-gradient(145deg, #e8f0f8, #d4e4f0); border-color: rgba(37, 99, 235, 0.15); }
-        body.light .card-us .resident-name { color: #1e40af; }
-        body.light .card-us .resident-spec { background: rgba(37, 99, 235, 0.12); color: #1e40af; }
+        .crimson-warning {
+            background: var(--crimson) !important;
+            color: white !important;
+            box-shadow: 
+                0 10px 0 #8a1428,
+                14px 14px 28px var(--shadow), 
+                -10px -10px 24px var(--light),
+                0 0 40px rgba(225, 29, 72, 0.4) !important;
+            animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        .crimson-warning:active {
+            box-shadow: 
+                0 3px 0 #8a1428,
+                8px 8px 16px var(--shadow), 
+                -6px -6px 14px var(--light),
+                0 0 30px rgba(225, 29, 72, 0.3) !important;
+            transform: translateY(7px);
+        }
+        @keyframes quickShake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            30%, 70% { transform: translate3d(4px, 0, 0); }
+            40%, 60% { transform: translate3d(-4px, 0, 0); }
+        }
 
-        body.light .card-or { background: linear-gradient(145deg, #f8ede8, #f0ddd4); border-color: rgba(234, 88, 12, 0.15); }
-        body.light .card-or .resident-name { color: #7c2d12; }
-        body.light .card-or .resident-spec { background: rgba(234, 88, 12, 0.12); color: #7c2d12; }
-
-        body.light .card-ent { background: linear-gradient(145deg, #ede8f8, #ddd4f0); border-color: rgba(109, 40, 217, 0.15); }
-        body.light .card-ent .resident-name { color: #4c1d95; }
-        body.light .card-ent .resident-spec { background: rgba(109, 40, 217, 0.12); color: #4c1d95; }
-
-        body.light .card-m { background: linear-gradient(145deg, #e8f5ed, #d4ede0); border-color: rgba(5, 150, 105, 0.15); }
-        body.light .card-m .resident-name { color: #064e3b; }
-        body.light .card-m .resident-spec { background: rgba(5, 150, 105, 0.12); color: #064e3b; }
-
-        body.light .card-pe { background: linear-gradient(145deg, #f8edf0, #f0dde4); border-color: rgba(190, 24, 93, 0.15); }
-        body.light .card-pe .resident-name { color: #831843; }
-        body.light .card-pe .resident-spec { background: rgba(190, 24, 93, 0.12); color: #831843; }
-
-        body.light .card-nm { background: linear-gradient(145deg, #edf0f8, #dde4f0); border-color: rgba(67, 56, 202, 0.15); }
-        body.light .card-nm .resident-name { color: #312e81; }
-        body.light .card-nm .resident-spec { background: rgba(67, 56, 202, 0.12); color: #312e81; }
-
-        body.light .card-n { background: linear-gradient(145deg, #e8f4f8, #d4e8f0); border-color: rgba(2, 132, 199, 0.15); }
-        body.light .card-n .resident-name { color: #0c4a6e; }
-        body.light .card-n .resident-spec { background: rgba(2, 132, 199, 0.12); color: #0c4a6e; }
-
-        body.light .card-o { background: linear-gradient(145deg, #e8f5ec, #d4ede0); border-color: rgba(5, 150, 105, 0.12); }
-        body.light .card-o .resident-name { color: #064e3b; }
-        body.light .card-o .resident-spec { background: rgba(5, 150, 105, 0.1); color: #064e3b; }
-
-        body.light .card-icu { background: linear-gradient(145deg, #f8ecec, #f0dcdc); border-color: rgba(185, 28, 28, 0.15); }
-        body.light .card-icu .resident-name { color: #7f1d1d; }
-        body.light .card-icu .resident-spec { background: rgba(185, 28, 28, 0.12); color: #7f1d1d; }
-
-        body.light .card-op { background: linear-gradient(145deg, #ede8f8, #ddd4f0); border-color: rgba(109, 40, 217, 0.12); }
-        body.light .card-op .resident-name { color: #4c1d95; }
-        body.light .card-op .resident-spec { background: rgba(109, 40, 217, 0.1); color: #4c1d95; }
-
-        body.light .card-mf { background: linear-gradient(145deg, #f8f0e8, #f0e4d4); border-color: rgba(180, 83, 9, 0.15); }
-        body.light .card-mf .resident-name { color: #78350f; }
-        body.light .card-mf .resident-spec { background: rgba(180, 83, 9, 0.12); color: #78350f; }
-
-        body.light .card-r { background: linear-gradient(145deg, #e8f4f8, #d4e8f0); border-color: rgba(6, 182, 212, 0.15); }
-        body.light .card-r .resident-name { color: #164e63; }
-        body.light .card-r .resident-spec { background: rgba(6, 182, 212, 0.12); color: #164e63; }
-
-        body.light .card-g { background: linear-gradient(145deg, #f8edf0, #f0dde4); border-color: rgba(190, 24, 93, 0.12); }
-        body.light .card-g .resident-name { color: #831843; }
-        body.light .card-g .resident-spec { background: rgba(190, 24, 93, 0.1); color: #831843; }
-
-        body.light .card-p { background: linear-gradient(145deg, #edf0f8, #dde4f0); border-color: rgba(67, 56, 202, 0.12); }
-        body.light .card-p .resident-name { color: #312e81; }
-        body.light .card-p .resident-spec { background: rgba(67, 56, 202, 0.1); color: #312e81; }
-
-        body.light .card-d { background: linear-gradient(145deg, #ececec, #dcdcdc); border-color: rgba(100, 116, 139, 0.12); }
-        body.light .card-d .resident-name { color: #334155; }
-        body.light .card-d .resident-spec { background: rgba(100, 116, 139, 0.1); color: #334155; }
-
-        body.light .card-default { background: #e8edf2; border-color: rgba(0,0,0,0.05); }
-        body.light .card-default .resident-name { color: #1a2332; }
-        body.light .card-default .resident-spec { background: rgba(0,0,0,0.05); color: #475569; }
-
-        body.light .empty-state { color: rgba(74, 85, 104, 0.2); }
-
-        /* ============================================================
-           SHIELD / LOADING
-           ============================================================ */
         #shield {
             position: fixed;
             inset: 0;
@@ -507,245 +349,69 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
         }
-        body.light #shield {
-            background: #e8edf2;
-        }
-        body.light #shield .shield-text {
-            color: rgba(59, 130, 246, 0.3);
-        }
-        body.light #shield .shield-spinner {
-            border-color: rgba(59, 130, 246, 0.06);
-            border-top-color: #3b82f6;
-        }
 
         .hidden { display: none !important; }
-
-        /* ============================================================
-           LOGIN SCREEN (embedded)
-           ============================================================ */
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 2rem 1.5rem;
-            background: var(--bg);
-            border-radius: 3rem;
-            box-shadow: 20px 20px 60px var(--shadow), -10px -10px 40px var(--light);
-            outline: 1px solid rgba(148, 163, 184, 0.06);
-            position: relative;
-            z-index: 10;
-        }
-        body.light .login-container {
-            background: #e8edf2;
-            box-shadow: 20px 20px 60px rgba(163, 177, 198, 0.3), -10px -10px 40px rgba(255,255,255,0.5);
-            outline-color: rgba(0,0,0,0.04);
-        }
-
-        .login-container .recessed-input {
-            background: var(--bg);
-            border-radius: 1.5rem;
-            box-shadow: inset 8px 8px 16px var(--shadow), inset -4px -4px 12px var(--light);
-            position: relative;
-        }
-        body.light .login-container .recessed-input {
-            background: #e8edf2;
-            box-shadow: inset 8px 8px 16px rgba(163, 177, 198, 0.3), inset -4px -4px 12px rgba(255,255,255,0.5);
-        }
-
-        .login-container .embossed-btn {
-            background: #2a2d34;
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 0 #0d0e11, 12px 12px 24px var(--shadow), -8px -8px 20px var(--light);
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #94a3b8;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            text-align: center;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            position: relative;
-            transform: translateY(0);
-        }
-        .login-container .embossed-btn:active {
-            box-shadow: 0 2px 0 #0d0e11, 6px 6px 12px var(--shadow), -4px -4px 10px var(--light);
-            transform: translateY(6px);
-        }
-        .login-container .embossed-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 6px 0 #0d0e11, 12px 12px 24px var(--shadow), -8px -8px 20px var(--light);
-        }
-        body.light .login-container .embossed-btn {
-            background: #dce3ec;
-            box-shadow: 0 8px 0 #a3b1c6, 12px 12px 24px rgba(163,177,198,0.3), -8px -8px 20px rgba(255,255,255,0.5);
-            color: #475569;
-        }
-        body.light .login-container .embossed-btn:active {
-            box-shadow: 0 2px 0 #a3b1c6, 6px 6px 12px rgba(163,177,198,0.3), -4px -4px 10px rgba(255,255,255,0.5);
-        }
-        body.light .login-container .embossed-btn:disabled {
-            opacity: 0.4;
-            box-shadow: 0 6px 0 #a3b1c6, 12px 12px 24px rgba(163,177,198,0.3), -8px -8px 20px rgba(255,255,255,0.5);
-        }
-
-        .login-container .fetched-active {
-            background: var(--accent) !important;
-            color: #1a1c20 !important;
-            box-shadow: 0 8px 0 #b08830, 12px 12px 24px var(--shadow), -8px -8px 20px var(--light), 0 0 30px rgba(251, 191, 36, 0.4) !important;
-        }
-        body.light .login-container .fetched-active {
-            background: #3b82f6 !important;
-            color: white !important;
-            box-shadow: 0 8px 0 #1d4ed8, 12px 12px 24px rgba(163,177,198,0.3), -8px -8px 20px rgba(255,255,255,0.5), 0 0 30px rgba(59,130,246,0.3) !important;
-        }
-
-        .login-container .crimson-warning {
-            background: var(--crimson) !important;
-            color: white !important;
-            box-shadow: 0 8px 0 #8a1428, 12px 12px 24px var(--shadow), -8px -8px 20px var(--light), 0 0 30px rgba(225, 29, 72, 0.4) !important;
-            animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        body.light .login-container .crimson-warning {
-            background: #dc2626 !important;
-            box-shadow: 0 8px 0 #991b1b, 12px 12px 24px rgba(163,177,198,0.3), -8px -8px 20px rgba(255,255,255,0.5), 0 0 30px rgba(220,38,38,0.3) !important;
-        }
-        @keyframes quickShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            30%, 70% { transform: translate3d(4px, 0, 0); }
-            40%, 60% { transform: translate3d(-4px, 0, 0); }
-        }
-
-        .login-container .toast-error {
+        .toast-error {
             background: rgba(225, 29, 72, 0.06);
             border: 1px solid rgba(225, 29, 72, 0.1);
-            border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.7rem;
+            border-radius: 1.2rem;
+            padding: 0.9rem 1.2rem;
+            font-size: 0.75rem;
             color: #f1948a;
             text-align: center;
             animation: slideDown 0.4s ease;
-        }
-        body.light .login-container .toast-error {
-            background: rgba(220, 38, 38, 0.06);
-            color: #dc2626;
         }
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .login-container .engraved-text {
-            font-size: 0.55rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.15);
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.02), 0 -1px 0 rgba(0, 0, 0, 0.3);
-            text-align: center;
-            margin-top: 1rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.04);
-        }
-        body.light .login-container .engraved-text {
-            color: rgba(74, 85, 104, 0.15);
-            text-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 -1px 0 rgba(0,0,0,0.05);
-        }
-
-        .login-container .toggle-remember {
+        .toggle-remember {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.7rem;
-            color: rgba(148, 163, 184, 0.3);
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            color: rgba(148, 163, 184, 0.4);
             cursor: pointer;
             user-select: none;
-            margin-top: 0.5rem;
+            transition: color 0.3s ease;
+            margin-top: 6px;
         }
-        body.light .login-container .toggle-remember {
-            color: rgba(74, 85, 104, 0.3);
-        }
-        .login-container .toggle-remember:hover {
+        .toggle-remember:hover {
             color: rgba(148, 163, 184, 0.6);
         }
-        body.light .login-container .toggle-remember:hover {
-            color: rgba(74, 85, 104, 0.6);
-        }
-        .login-container .toggle-remember input[type="checkbox"] {
+        .toggle-remember input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 1.1rem;
-            height: 1.1rem;
+            width: 1.3rem;
+            height: 1.3rem;
             background: #2a2d34;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             position: relative;
             border: 1px solid rgba(148, 163, 184, 0.1);
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
-        body.light .login-container .toggle-remember input[type="checkbox"] {
-            background: #dce3ec;
-            border-color: rgba(0,0,0,0.05);
-        }
-        .login-container .toggle-remember input[type="checkbox"]:checked {
+        .toggle-remember input[type="checkbox"]:checked {
             background: var(--accent);
             border-color: var(--accent);
         }
-        body.light .login-container .toggle-remember input[type="checkbox"]:checked {
-            background: #3b82f6;
-            border-color: #3b82f6;
-        }
-        .login-container .toggle-remember input[type="checkbox"]:checked::after {
+        .toggle-remember input[type="checkbox"]:checked::after {
             content: '✓';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: #1a1c20;
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 900;
         }
-        body.light .login-container .toggle-remember input[type="checkbox"]:checked::after {
-            color: white;
-        }
-        .login-container .toggle-remember input[type="checkbox"]:hover {
+        .toggle-remember input[type="checkbox"]:hover {
             border-color: rgba(148, 163, 184, 0.2);
         }
-        body.light .login-container .toggle-remember input[type="checkbox"]:hover {
-            border-color: rgba(0,0,0,0.1);
-        }
 
-        .login-container .status-text {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            color: rgba(148, 163, 184, 0.3);
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-        }
-        body.light .login-container .status-text {
-            color: rgba(74, 85, 104, 0.3);
-        }
-        .login-container .status-text.ready {
-            color: rgba(16, 185, 129, 0.5);
-            animation: blinkReady 1.2s ease-in-out infinite;
-        }
-        body.light .login-container .status-text.ready {
-            color: rgba(16, 185, 129, 0.5);
-        }
-        .login-container .status-text.error {
-            color: rgba(225, 29, 72, 0.5);
-        }
-        @keyframes blinkReady {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* View transitions */
         .view-wrapper {
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             opacity: 1;
@@ -760,27 +426,271 @@
             transform: translateY(0) scale(1);
         }
         .hidden-view { display: none !important; }
+
+        .status-text {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: rgba(148, 163, 184, 0.3);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+        .status-text.ready {
+            color: rgba(16, 185, 129, 0.5);
+            animation: blinkReady 1.2s ease-in-out infinite;
+        }
+        .status-text.error {
+            color: rgba(225, 29, 72, 0.5);
+        }
+        @keyframes blinkReady {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .engraved-text {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(201, 184, 154, 0.35);
+            text-shadow: 
+                0 1px 0 rgba(255, 255, 255, 0.04),
+                0 -1px 0 rgba(0, 0, 0, 0.25);
+            padding: 0.6rem 0 0.3rem 0;
+            margin-top: 0.7rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.04);
+            text-align: center;
+        }
+
+        /* ============================================================
+           ROSTER CARDS — PERFECT SPACING, MEDIUM SPECIALTY, LARGE NAME
+           ============================================================ */
+        .roster-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 58vh;
+            overflow-y: auto;
+            padding: 0.25rem 0.1rem;
+        }
+        .roster-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .roster-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .roster-grid::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 4px;
+        }
+
+        /* CARDS WITH PROPER SPACING — NOT TOUCHING THE EDGES */
+        .roster-card {
+            background: #2a2d34;
+            border-radius: 2rem;
+            padding: 1.4rem 1.6rem 1.2rem;
+            box-shadow: 
+                0 8px 0 #0b0c0f,
+                0 12px 28px rgba(0,0,0,0.7),
+                0 4px 12px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.02);
+            transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(148, 163, 184, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transform: translateY(0);
+        }
+        .roster-card:hover {
+            transform: translateY(-3px) scale(1.005);
+            border-color: rgba(251, 191, 36, 0.13);
+            box-shadow: 
+                0 10px 0 #0b0c0f,
+                0 18px 36px rgba(0,0,0,0.8),
+                0 6px 14px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(251, 191, 36, 0.03);
+        }
+        .roster-card:active {
+            transform: translateY(4px) scale(0.99);
+            box-shadow: 
+                0 4px 0 #0b0c0f,
+                0 10px 22px rgba(0,0,0,0.7),
+                0 3px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Header: Specialty — MEDIUM SIZE, centered, glowing */
+        .roster-card .card-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 0.1rem;
+        }
+        .roster-card .resident-spec {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(251, 191, 36, 0.06);
+            padding: 0.2rem 1.2rem;
+            border-radius: 100px;
+            border: 1px solid rgba(251, 191, 36, 0.08);
+            letter-spacing: 0.04em;
+            text-shadow: 
+                0 0 20px rgba(251, 191, 36, 0.3),
+                0 0 40px rgba(251, 191, 36, 0.1),
+                0 2px 4px rgba(0,0,0,0.4);
+            box-shadow: 
+                0 0 30px rgba(251, 191, 36, 0.05),
+                inset 0 0 30px rgba(251, 191, 36, 0.02);
+            transition: all 0.3s ease;
+        }
+        .roster-card:hover .resident-spec {
+            text-shadow: 
+                0 0 30px rgba(251, 191, 36, 0.5),
+                0 0 60px rgba(251, 191, 36, 0.2),
+                0 2px 4px rgba(0,0,0,0.4);
+            box-shadow: 
+                0 0 40px rgba(251, 191, 36, 0.08),
+                inset 0 0 40px rgba(251, 191, 36, 0.03);
+        }
+
+        /* Middle: Resident name — LARGE FONT, embossed 3D */
+        .roster-card .resident-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #f0ece4;
+            letter-spacing: 0.02em;
+            text-align: center;
+            padding: 0.3rem 0;
+            text-shadow: 
+                0 4px 0 #0b0c0f,
+                0 8px 20px rgba(0,0,0,0.6),
+                0 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        /* Phone number — smaller, subtle */
+        .roster-card .resident-phone {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #94a3b8;
+            font-family: monospace;
+            direction: ltr;
+            unicode-bidi: isolate;
+            text-align: center;
+            opacity: 0.6;
+            margin-top: -0.1rem;
+        }
+
+        /* Bottom: Action buttons */
+        .roster-card .card-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.3rem;
+        }
+        .roster-card .action-btn-sm {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0.6rem 0.7rem;
+            border-radius: 1.2rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.6rem;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            background: #1a1c20;
+            box-shadow: 
+                0 5px 0 #0d0e11,
+                0 8px 18px rgba(0,0,0,0.5),
+                0 3px 6px rgba(0,0,0,0.3);
+            color: #94a3b8;
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0);
+            border: none;
+            cursor: pointer;
+        }
+        .roster-card .action-btn-sm:active {
+            transform: translateY(4px);
+            box-shadow: 
+                0 1px 0 #0d0e11,
+                0 4px 12px rgba(0,0,0,0.5),
+                0 1px 4px rgba(0,0,0,0.2);
+        }
+        .roster-card .action-btn-sm.call {
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.08);
+        }
+        .roster-card .action-btn-sm.wa {
+            color: var(--emerald);
+            border: 1px solid rgba(16, 185, 129, 0.08);
+        }
+        .roster-card .action-btn-sm.call:hover {
+            background: rgba(96, 165, 250, 0.04);
+        }
+        .roster-card .action-btn-sm.wa:hover {
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: rgba(148, 163, 184, 0.2);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 480px) {
+            .embossed-card {
+                padding: 2rem 1.2rem;
+                border-radius: 3rem;
+                max-width: 100%;
+            }
+            .roster-card {
+                padding: 1rem 1.2rem 1rem;
+                border-radius: 1.6rem;
+            }
+            .roster-card .resident-name {
+                font-size: 1.3rem;
+            }
+            .roster-card .resident-spec {
+                font-size: 0.75rem;
+                padding: 0.15rem 1rem;
+            }
+        }
     </style>
 </head>
-<body class="" id="app-body">
+<body>
 
     <div id="shield">
         <div class="shield-spinner"></div>
         <span class="shield-text">Iraqi Hosp. Duty Portal</span>
     </div>
 
-    <!-- LOGIN VIEW -->
-    <div id="login-view" class="view-wrapper" style="width:100%; display:flex; justify-content:center; align-items:center; min-height:80vh;">
-        <div class="login-container">
+    <div id="main-card" class="embossed-card breathing">
+        <svg class="tube-container" viewBox="0 0 384 512" preserveAspectRatio="none">
+            <rect id="tube-bg" x="2" y="2" width="380" height="508" rx="48" />
+            <rect id="tube-fluid" x="2" y="2" width="380" height="508" rx="48" />
+        </svg>
+
+        <!-- LOGIN VIEW -->
+        <div id="login-view" class="view-wrapper">
             <div class="text-center mb-8">
-                <h1 class="text-white text-2xl font-extrabold tracking-tight" style="color: var(--text-primary, #f0ece4);">Duty Roster</h1>
-                <div class="flex items-center justify-center gap-2 mt-3">
+                <h1 class="text-white text-3xl font-extrabold tracking-tight">Duty Roster</h1>
+                <div class="flex items-center justify-center gap-2 mt-4">
                     <span id="status-text" class="status-text">جاري التحميل...</span>
                 </div>
             </div>
-            <div class="space-y-6">
-                <div class="recessed-input p-2" id="passwordContainer">
-                    <div class="password-container" style="display:flex; align-items:center; justify-content:center; gap:0.6rem; padding:0.5rem 1.25rem; min-height:4rem; direction:ltr;">
+            <div class="space-y-8">
+                <div class="recessed-input p-3" id="passwordContainer">
+                    <div class="password-container" id="dotContainer">
                         <div class="password-dot empty" id="dot0"></div>
                         <div class="password-dot empty" id="dot1"></div>
                         <div class="password-dot empty" id="dot2"></div>
@@ -789,67 +699,55 @@
                         <div class="password-dot empty" id="dot5"></div>
                         <div class="password-dot empty" id="dot6"></div>
                         <div class="password-dot empty" id="dot7"></div>
-                        <div class="cursor-indicator" style="position:absolute; bottom:-2px; left:50%; transform:translateX(-50%); width:3px; height:3px; background:var(--accent); border-radius:50%; animation:cursorPulse 1.2s ease-in-out infinite; opacity:0; transition:opacity 0.3s ease; box-shadow:0 0 10px rgba(251,191,36,0.3);"></div>
+                        <div class="cursor-indicator" id="cursorIndicator"></div>
                     </div>
-                    <div class="password-input-overlay" style="position:absolute; inset:0; opacity:0; cursor:text; z-index:5;">
+                    <div class="password-input-overlay">
                         <input type="password" id="pw" inputmode="numeric" maxlength="8" 
                                autofocus
                                onkeydown="handlePasswordKey(event)"
                                oninput="handlePasswordInput()"
                                onfocus="showCursor()"
-                               onblur="hideCursor()"
-                               style="width:100%; height:100%; background:transparent; border:none; outline:none; color:transparent; caret-color:var(--accent); font-size:1px; letter-spacing:1px; padding:0; margin:0; cursor:text; text-align:center;">
+                               onblur="hideCursor()">
                     </div>
                 </div>
 
-                <button id="entry-btn" onclick="handleEntry()" class="embossed-btn w-full py-5 tracking-widest uppercase" disabled>جاري التحميل...</button>
+                <button id="entry-btn" onclick="handleEntry()" class="embossed-btn w-full py-7 tracking-widest uppercase" disabled>جاري التحميل...</button>
                 
                 <div class="flex items-center justify-center px-1">
                     <label class="toggle-remember">
                         <input type="checkbox" id="rememberMe" checked>
                         <span>تذكرني</span>
                     </label>
-                    <span class="text-[0.5rem] tracking-widest mr-3" style="color: rgba(251, 191, 36, 0.12);">✦ SECURE</span>
+                    <span class="text-[0.55rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.12);">✦ SECURE</span>
                 </div>
                 
                 <div id="login-error" class="hidden toast-error"></div>
             </div>
             <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
         </div>
-    </div>
 
-    <!-- ROSTER VIEW -->
-    <div id="roster-view" class="hidden-view view-wrapper page-container" style="padding-top:0.5rem;">
-        <div class="roster-header">
-            <h1>📋 Duty Roster</h1>
-            <div class="header-actions">
-                <div class="theme-toggle-wrap">
-                    <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
-                        <span class="icon-wrap">
-                            <i class="fas fa-moon icon-moon"></i>
-                            <i class="fas fa-sun icon-sun"></i>
-                        </span>
-                    </button>
-                </div>
-                <button onclick="logout()" class="logout-btn">تسجيل الخروج</button>
+        <!-- ROSTER VIEW -->
+        <div id="roster-view" class="hidden-view view-wrapper">
+            <div class="text-center mb-5">
+                <h2 class="text-white text-xl font-extrabold tracking-tight">📋 Today's Duty</h2>
+                <p id="roster-date" class="text-[0.7rem] text-slate-500 mt-1 font-bold tracking-wider uppercase"></p>
+                <p id="roster-count" class="text-[0.65rem] text-amber-500/60 mt-1 font-bold tracking-wider"></p>
             </div>
-        </div>
-        
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding:0 0.25rem;">
-            <p id="roster-date" class="text-[0.6rem] text-slate-500 font-bold tracking-wider uppercase"></p>
-            <p id="roster-count" class="text-[0.55rem] text-amber-500/60 font-bold tracking-wider"></p>
-        </div>
-        
-        <div id="roster-container" class="roster-grid">
-            <!-- Roster cards will be rendered here -->
-        </div>
+            
+            <div id="roster-container" class="roster-grid">
+                <!-- Roster cards will be rendered here -->
+            </div>
 
-        <p class="engraved-text" style="margin-top:1.5rem; padding-top:0.75rem; border-top:1px solid rgba(148,163,184,0.04); text-align:center; font-size:0.5rem; opacity:0.3;">By Dr. MOHAMMED RIYADH</p>
+            <div class="mt-5 text-center">
+                <button onclick="logout()" class="text-[0.65rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
+            </div>
+            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
+        </div>
     </div>
 
 <script>
     // ############################################################
-    // COMPLETE ROSTER FUNCTIONALITY
+    // ROSTER FUNCTIONALITY - Password animation, Remember Me, 8-digit PIN
     // ############################################################
 
     const CONFIG = { user: "mHub96", repo: "BTH", path: "data.json" };
@@ -867,33 +765,11 @@
         "R": "الأشعة و السونار","O": "العيون", "D": "الوفيات"
     };
 
-    // Icons for each specialty
-    const specIcons = {
-        "GS": "🔪",
-        "US": "🧬",
-        "OR": "🦴",
-        "ENT": "👂",
-        "M": "💊",
-        "Pe": "👶",
-        "NM": "🧠",
-        "N": "🧫",
-        "O": "👁️",
-        "ICU": "💉",
-        "OP": "💉",
-        "MF": "🦷",
-        "R": "🩻",
-        "G": "🌸",
-        "P": "🧠",
-        "D": "📋"
-    };
-
     let db = { names: [], schedule: [] };
-    let fileSha = "";
     let dataLoaded = false;
     let loadError = false;
-    let isSessionRestored = false;
 
-    const STORAGE_KEY = 'duty_roster_session';
+    const STORAGE_KEY = 'duty_portal_session';
     const SESSION_PIN = '1234';
 
     // ---------- PASSWORD ANIMATION ----------
@@ -919,13 +795,11 @@
             }
         });
 
-        const cursor = document.querySelector('.cursor-indicator');
-        if (cursor) {
-            if (len < 8) {
-                cursor.classList.add('visible');
-            } else {
-                cursor.classList.remove('visible');
-            }
+        const cursor = document.getElementById('cursorIndicator');
+        if (len < 8) {
+            cursor.classList.add('visible');
+        } else {
+            cursor.classList.remove('visible');
         }
     }
 
@@ -950,15 +824,15 @@
     }
 
     function showCursor() {
-        const cursor = document.querySelector('.cursor-indicator');
-        if (cursor && passwordValue.length < 8) {
+        const cursor = document.getElementById('cursorIndicator');
+        if (passwordValue.length < 8) {
             cursor.classList.add('visible');
         }
     }
 
     function hideCursor() {
-        const cursor = document.querySelector('.cursor-indicator');
-        if (cursor) cursor.classList.remove('visible');
+        const cursor = document.getElementById('cursorIndicator');
+        cursor.classList.remove('visible');
     }
 
     function shakeDots() {
@@ -981,18 +855,6 @@
             dot.className = 'password-dot empty';
             dot.dataset.wasEmpty = 'true';
         });
-    }
-
-    // ---------- THEME ----------
-    function toggleTheme() {
-        document.getElementById('app-body').classList.toggle('light');
-        const isLight = document.getElementById('app-body').classList.contains('light');
-        localStorage.setItem('roster_theme', isLight ? 'light' : 'dark');
-    }
-
-    // Load theme from localStorage
-    if (localStorage.getItem('roster_theme') === 'light') {
-        document.getElementById('app-body').classList.add('light');
     }
 
     // ---------- REMEMBER ME ----------
@@ -1028,7 +890,6 @@
 
     function logout() {
         clearSession();
-        isSessionRestored = false;
         const loginView = document.getElementById('login-view');
         const rosterView = document.getElementById('roster-view');
         
@@ -1049,11 +910,11 @@
             if (dataLoaded) {
                 entryBtn.disabled = false;
                 entryBtn.innerText = 'SIGN IN';
-                entryBtn.className = 'embossed-btn fetched-active w-full py-5 tracking-widest uppercase';
+                entryBtn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
             } else {
                 entryBtn.disabled = true;
                 entryBtn.innerText = 'جاري التحميل...';
-                entryBtn.className = 'embossed-btn w-full py-5 tracking-widest uppercase';
+                entryBtn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
             }
         }, 300);
     }
@@ -1074,15 +935,14 @@
             shakeDots();
             showLoginError('الرمز غير صحيح');
             const btn = document.getElementById('entry-btn');
-            btn.className = 'embossed-btn crimson-warning w-full py-5 tracking-widest uppercase';
-            const original = btn.innerText;
+            btn.className = 'embossed-btn crimson-warning w-full py-7 tracking-widest uppercase';
             btn.innerText = "INCORRECT!";
             setTimeout(() => {
                 if (dataLoaded) {
-                    btn.className = 'embossed-btn fetched-active w-full py-5 tracking-widest uppercase';
+                    btn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
                     btn.innerText = 'SIGN IN';
                 } else {
-                    btn.className = 'embossed-btn w-full py-5 tracking-widest uppercase';
+                    btn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
                     btn.innerText = 'جاري التحميل...';
                 }
             }, 1000);
@@ -1122,7 +982,6 @@
         
         if (hasSession) {
             loginView.classList.add('hidden-view');
-            isSessionRestored = true;
         }
 
         const shieldTimeout = setTimeout(() => {
@@ -1159,7 +1018,7 @@
             statusText.className = 'status-text ready';
             entryBtn.disabled = false;
             entryBtn.innerText = 'SIGN IN';
-            entryBtn.className = 'embossed-btn fetched-active w-full py-5 tracking-widest uppercase';
+            entryBtn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
             
             if (hasSession) {
                 setTimeout(() => {
@@ -1187,7 +1046,7 @@
             statusText.className = 'status-text error';
             entryBtn.disabled = true;
             entryBtn.innerText = '⚠️ خطأ في الاتصال';
-            entryBtn.className = 'embossed-btn w-full py-5 tracking-widest uppercase';
+            entryBtn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
             showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
             
             if (loginView.classList.contains('hidden-view')) {
@@ -1218,7 +1077,6 @@
 
             if (res.ok) {
                 const data = await res.json();
-                fileSha = data.sha;
                 const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
                 db = decoded;
                 localStorage.setItem('duty_db_cache', JSON.stringify(db));
@@ -1274,28 +1132,26 @@
             const resident = db.names.find(n => n.name === entry.name);
             const phone = resident?.phone || "رقم غير متوفر";
             const specName = arabicSpecs[entry.specCode] || entry.specCode;
-            const icon = specIcons[entry.specCode] || "🏥";
             const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
-            const cardClass = `card-${entry.specCode.toLowerCase()}` || 'card-default';
             
             return `
-                <div class="roster-card ${cardClass}">
+                <div class="roster-card">
                     <div class="card-header">
-                        <span class="resident-name">${icon} ${entry.name}</span>
                         <span class="resident-spec">${specName}</span>
                     </div>
+                    <div class="resident-name">${entry.name}</div>
                     <div class="resident-phone">${phone}</div>
                     <div class="card-actions">
                         <a href="${isPhoneValid ? 'tel:' + phone : '#'}" 
                            class="action-btn-sm call ${!isPhoneValid ? 'opacity-40 pointer-events-none' : ''}"
                            style="${!isPhoneValid ? 'cursor:default;' : ''}">
-                            <span class="icon">📞</span> Call
+                            <span>📞</span> <span>Call</span>
                         </a>
                         <a href="${isPhoneValid ? 'whatsapp://send?phone=' + phone : '#'}" 
                            class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40 pointer-events-none' : ''}"
                            style="${!isPhoneValid ? 'cursor:default;' : ''}"
                            onclick="${isPhoneValid ? 'event.preventDefault(); window.location.href=this.href;' : 'event.preventDefault();'}">
-                            <span class="icon">💬</span> WhatsApp
+                            <span>💬</span> <span>WhatsApp</span>
                         </a>
                     </div>
                 </div>
@@ -1303,17 +1159,13 @@
         }).join('');
     }
 
-    // Expose functions globally
     window.logout = logout;
-    window.toggleTheme = toggleTheme;
 
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('passwordContainer');
-        if (container) {
-            container.addEventListener('click', function() {
-                document.getElementById('pw').focus();
-            });
-        }
+        container.addEventListener('click', function() {
+            document.getElementById('pw').focus();
+        });
     });
 </script>
 </body>
