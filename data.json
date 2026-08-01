@@ -1733,11 +1733,6 @@
       "timestamp": "22:48"
     },
     {
-      "date": "01/08/2026",
-      "specCode": "MF",
-      "name": "د. تقى حسن"
-    },
-    {
       "date": "02/08/2026",
       "specCode": "MF",
       "name": "د. عبد الله صادق"
@@ -3852,6 +3847,12 @@
       "specCode": "G",
       "name": "د. زينب حاكم فيصل",
       "timestamp": "08:21"
+    },
+    {
+      "date": "01/08/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "timestamp": "08:53"
     }
   ],
   "passwords": {
