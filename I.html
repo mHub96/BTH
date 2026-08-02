@@ -411,6 +411,11 @@
             font-size: 2.5rem;
             animation: flicker 1.2s infinite alternate;
             display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .trending-fire-icon:hover {
+            transform: scale(1.15);
         }
         @keyframes flicker {
             0% { transform: scale(1) rotate(-2deg); text-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b; }
@@ -521,7 +526,7 @@
             <div class="spacer"></div>
             <div class="flex items-center gap-2">
                 <button onclick="showTrendingModal()" class="trending-btn text-xs px-4 py-2">
-                    <i class="fas fa-trophy"></i> Leaderboard
+                    <i class="fas fa-trophy"></i> لوحة المتصدرين
                 </button>
                 <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn text-xs px-4 py-2">
                     <i class="fas fa-file-alt"></i> Report
@@ -539,8 +544,8 @@
             <i class="fas fa-users mr-1"></i> جاري التحميل...
         </p>
 
-        <!-- TRENDING CARD with fire border + confetti + hand animation -->
-        <div id="trending-container" class="mb-4" onclick="handleTrendingClick()"></div>
+        <!-- TRENDING CARD with fire border + hand animation -->
+        <div id="trending-container" class="mb-4"></div>
 
         <!-- ROSTER GRID with uniform spacing -->
         <div id="roster-container" class="roster-grid"></div>
@@ -553,7 +558,7 @@
         <div class="modal-card glass-card">
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-xl font-black text-primary flex items-center gap-2">
-                    <i class="fas fa-trophy text-amber-500"></i> Leaderboard
+                    <i class="fas fa-trophy text-amber-500"></i> لوحة المتصدرين
                 </h3>
                 <button onclick="closeTrendingModal()" class="text-secondary/30 hover:text-secondary/60 text-xl transition-colors">
                     <i class="fas fa-times"></i>
@@ -817,11 +822,11 @@
             
             if (trending) {
                 tc.innerHTML = `
-                    <div class="trending-fire-border">
+                    <div class="trending-fire-border" onclick="handleTrendingClick()">
                         <div class="trending-inner">
                             ${handHtml}
                             <div class="flex items-center gap-3">
-                                <span class="trending-fire-icon">🔥</span>
+                                <span class="trending-fire-icon" onclick="event.stopPropagation(); showTrendingModal();">🔥</span>
                                 <span class="text-sm font-bold text-primary">Trending Today:</span>
                                 <span class="trending-badge text-sm px-3 py-1">
                                     <i class="fas fa-star"></i> ${trending.name}
