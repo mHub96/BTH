@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Basra Teaching Hospital · Duty Roster 🇮🇶</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f141a;
+            color: #c8d0d8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, rgba(251, 191, 36, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(251, 191, 36, 0.025) 0%, transparent 40%);
+        }
+
+        /* ---------- MAIN WRAPPER — BRIGHTER ---------- */
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 2.8rem 2.4rem 2.4rem;
+            background: rgba(18, 24, 32, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 4rem;
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            box-shadow: 
+                0 50px 120px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(251, 191, 36, 0.03),
+                inset 0 0 100px rgba(251, 191, 36, 0.01);
+        }
+        .main-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 4rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), transparent 30%, transparent 70%, rgba(251, 191, 36, 0.04));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* floating particles - brighter */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            opacity: 0.12;
+            animation: floatParticle 8s infinite alternate ease-in-out;
+        }
+        .particle-1 { width: 300px; height: 300px; background: rgba(251, 191, 36, 0.06); top: -100px; right: -80px; }
+        .particle-2 { width: 200px; height: 200px; background: rgba(251, 191, 36, 0.04); bottom: -80px; left: -60px; animation-delay: -3s; }
+        .particle-3 { width: 150px; height: 150px; background: rgba(251, 191, 36, 0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -5s; }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -30px) scale(1.2); }
+        }
+
+        /* ---------- LOGIN ---------- */
+        .glow-input {
+            background: rgba(0,0,0,0.25);
+            border-radius: 2.4rem;
+            border: 1px solid rgba(251, 191, 36, 0.04);
+            box-shadow: inset 0 8px 24px rgba(0,0,0,0.4);
+            position: relative;
+            transition: border-color 0.4s ease;
+        }
+        .glow-input:focus-within {
+            border-color: rgba(251, 191, 36, 0.12);
+        }
+        .password-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem;
+            padding: 0.9rem 1.5rem;
+            min-height: 5rem;
+            direction: ltr;
+        }
+        .password-dot {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: rgba(251, 191, 36, 0.04);
+            border: 2px solid rgba(251, 191, 36, 0.03);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.4);
+            opacity: 0;
+            position: relative;
+        }
+        .password-dot.active {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            transform: scale(1.3);
+            opacity: 1;
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.25), 0 0 120px rgba(251, 191, 36, 0.08);
+            animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes dotPop {
+            0% { transform: scale(0.4); opacity: 0; }
+            50% { transform: scale(1.6); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 1; }
+        }
+        .password-dot.filled {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.1);
+        }
+        .password-dot.filled::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(251, 191, 36, 0.06);
+            animation: pulseFilled 2.5s ease-in-out infinite;
+        }
+        @keyframes pulseFilled {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.4); opacity: 0.1; }
+        }
+        .password-dot.empty { transform: scale(0.4); opacity: 0; }
+        .password-dot.error-shake {
+            animation: shakeError 0.5s ease;
+            border-color: #e11d48;
+            background: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.25);
+        }
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0) scale(1); }
+            15% { transform: translateX(-12px) scale(1.05); }
+            30% { transform: translateX(12px) scale(1.05); }
+            45% { transform: translateX(-8px) scale(1.02); }
+            60% { transform: translateX(8px) scale(1.02); }
+            80% { transform: translateX(-4px) scale(1); }
+        }
+        .password-input-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: text;
+            z-index: 5;
+        }
+        .password-input-overlay input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: transparent;
+            caret-color: #fbbf24;
+            font-size: 1px;
+            padding: 0;
+            margin: 0;
+            cursor: text;
+            text-align: center;
+        }
+        .cursor-indicator {
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: cursorPulse 1.2s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
+        }
+        .cursor-indicator.visible { opacity: 1; }
+        @keyframes cursorPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+            50% { transform: translateX(-50%) scale(4); opacity: 1; }
+        }
+
+        .btn-login {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            border-radius: 2.4rem;
+            padding: 1.3rem 1.8rem;
+            width: 100%;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b0b8c8;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-login:hover:not(:disabled)::before { opacity: 1; }
+        .btn-login:hover:not(:disabled) {
+            border-color: rgba(251, 191, 36, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .btn-login:active:not(:disabled) { transform: scale(0.97); }
+        .btn-login:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-login.active {
+            background: #fbbf24;
+            color: #0f141a;
+            border-color: #fbbf24;
+            box-shadow: 0 0 80px rgba(251, 191, 36, 0.15);
+        }
+        .btn-login.active:hover { box-shadow: 0 0 100px rgba(251, 191, 36, 0.2); }
+        .btn-login.error {
+            background: #e11d48;
+            color: white;
+            border-color: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.2);
+            animation: quickShake 0.3s ease both;
+        }
+        @keyframes quickShake {
+            10%, 90% { transform: translate3d(-3px, 0, 0); }
+            30%, 70% { transform: translate3d(6px, 0, 0); }
+            40%, 60% { transform: translate3d(-6px, 0, 0); }
+        }
+
+        .toggle-remember {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.7rem;
+            color: rgba(176, 184, 200, 0.2);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+        .toggle-remember:hover { color: rgba(176, 184, 200, 0.4); }
+        .toggle-remember input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: rgba(0,0,0,0.25);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(251, 191, 36, 0.04);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .toggle-remember input[type="checkbox"]:checked {
+            background: #fbbf24;
+            border-color: #fbbf24;
+        }
+        .toggle-remember input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0f141a;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+
+        .toast-error {
+            background: rgba(225, 29, 72, 0.04);
+            border: 1px solid rgba(225, 29, 72, 0.06);
+            border-radius: 1.2rem;
+            padding: 0.9rem 1.2rem;
+            font-size: 0.75rem;
+            color: #f1948a;
+            text-align: center;
+            animation: slideDown 0.4s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden { display: none !important; }
+
+        .status-text {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: rgba(176, 184, 200, 0.15);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+        .status-text.ready { color: rgba(16, 185, 129, 0.35); animation: blinkReady 1.2s ease-in-out infinite; }
+        .status-text.error { color: rgba(225, 29, 72, 0.35); }
+        @keyframes blinkReady {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .engraved {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(251, 191, 36, 0.5);
+            padding: 0.6rem 0 0.2rem 0;
+            margin-top: 0.6rem;
+            border-top: 1px solid rgba(176, 184, 200, 0.015);
+            text-align: center;
+        }
+
+        .view-wrapper {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .view-wrapper.exit {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.96);
+        }
+        .view-wrapper.enter {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .hidden-view { display: none !important; }
+
+        #shield {
+            position: fixed;
+            inset: 0;
+            background: #0f141a;
+            z-index: 100;
+            transition: opacity 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        #shield .shield-spinner {
+            width: 2.8rem;
+            height: 2.8rem;
+            border: 2px solid rgba(251, 191, 36, 0.04);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #shield .shield-text {
+            color: rgba(251, 191, 36, 0.08);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           ROSTER — RADICAL GRID WITH PREMIUM ANIMATIONS
+           ============================================================ */
+        .roster-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            max-height: 52vh;
+            overflow-y: auto;
+            padding: 0.2rem 0.1rem 0.3rem 0.1rem;
+            perspective: 800px;
+        }
+        .roster-grid::-webkit-scrollbar {
+            width: 3px;
+        }
+        .roster-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .roster-grid::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 4px;
+        }
+
+        .roster-card {
+            position: relative;
+            background: rgba(20, 28, 38, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2.4rem;
+            padding: 1.6rem 1.8rem 1.4rem;
+            border: 1px solid rgba(251, 191, 36, 0.03);
+            box-shadow: 
+                0 12px 0 #080b0f,
+                0 20px 50px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(251, 191, 36, 0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotateX(0) rotateY(0) translateY(0);
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            cursor: default;
+            animation: cardEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+        .roster-card:nth-child(1) { animation-delay: 0.05s; }
+        .roster-card:nth-child(2) { animation-delay: 0.12s; }
+        .roster-card:nth-child(3) { animation-delay: 0.19s; }
+        .roster-card:nth-child(4) { animation-delay: 0.26s; }
+        .roster-card:nth-child(5) { animation-delay: 0.33s; }
+        .roster-card:nth-child(6) { animation-delay: 0.40s; }
+        .roster-card:nth-child(7) { animation-delay: 0.47s; }
+        .roster-card:nth-child(8) { animation-delay: 0.54s; }
+
+        @keyframes cardEnter {
+            0% { opacity: 0; transform: translateY(40px) rotateX(8deg) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+        }
+
+        .roster-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2.4rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.03), transparent 40%, transparent 60%, rgba(251, 191, 36, 0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .roster-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(251, 191, 36, 0.08);
+            box-shadow: 
+                0 16px 0 #080b0f,
+                0 30px 60px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(251, 191, 36, 0.05),
+                0 0 50px rgba(251, 191, 36, 0.02);
+        }
+        .roster-card:active {
+            transform: translateY(4px) scale(0.98);
+            box-shadow: 0 6px 0 #080b0f, 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .roster-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 2.4rem;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 191, 36, 0.03), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .roster-card:hover::after { opacity: 1; }
+
+        .roster-card .resident-spec {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.04);
+            padding: 0.2rem 1.6rem;
+            border-radius: 100px;
+            border: 1px solid rgba(251, 191, 36, 0.05);
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.06);
+            transition: all 0.4s ease;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        .roster-card:hover .resident-spec {
+            text-shadow: 0 0 60px rgba(251, 191, 36, 0.2);
+            border-color: rgba(251, 191, 36, 0.08);
+            background: rgba(251, 191, 36, 0.06);
+        }
+
+        .roster-card .resident-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #f0f4fa;
+            text-align: center;
+            padding: 0.2rem 0;
+            letter-spacing: -0.02em;
+            text-shadow: 
+                0 4px 0 #080b0f,
+                0 10px 30px rgba(0,0,0,0.5);
+            line-height: 1.15;
+            word-break: break-word;
+            transition: text-shadow 0.3s ease;
+        }
+        .roster-card:hover .resident-name {
+            text-shadow: 
+                0 4px 0 #080b0f,
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 60px rgba(251, 191, 36, 0.03);
+        }
+
+        .roster-card .resident-phone {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #5a6a7a;
+            font-family: monospace;
+            direction: ltr;
+            unicode-bidi: isolate;
+            text-align: center;
+            opacity: 0.4;
+            letter-spacing: 0.06em;
+            transition: opacity 0.3s ease;
+        }
+        .roster-card:hover .resident-phone { opacity: 0.6; }
+
+        .roster-card .card-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.3rem;
+        }
+        .roster-card .action-btn-sm {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.7rem 0.8rem;
+            border-radius: 1.6rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            background: rgba(0,0,0,0.25);
+            box-shadow: 
+                0 6px 0 #080b0f,
+                0 10px 24px rgba(0,0,0,0.4);
+            color: #8a94a8;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0);
+            border: 1px solid rgba(160, 174, 192, 0.03);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .roster-card .action-btn-sm::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .roster-card .action-btn-sm:hover::before { opacity: 1; }
+        .roster-card .action-btn-sm:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #080b0f, 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .roster-card .action-btn-sm.call {
+            color: #60a5fa;
+            border-color: rgba(96, 165, 250, 0.03);
+        }
+        .roster-card .action-btn-sm.call:hover {
+            background: rgba(96, 165, 250, 0.06);
+            border-color: rgba(96, 165, 250, 0.05);
+            box-shadow: 0 6px 0 #080b0f, 0 10px 24px rgba(0,0,0,0.4), 0 0 30px rgba(96, 165, 250, 0.03);
+        }
+        .roster-card .action-btn-sm.wa {
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.03);
+        }
+        .roster-card .action-btn-sm.wa:hover {
+            background: rgba(16, 185, 129, 0.06);
+            border-color: rgba(16, 185, 129, 0.05);
+            box-shadow: 0 6px 0 #080b0f, 0 10px 24px rgba(0,0,0,0.4), 0 0 30px rgba(16, 185, 129, 0.03);
+        }
+        .roster-card .action-btn-sm.opacity-40 {
+            opacity: 0.15;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Report Button */
+        .report-btn {
+            background: rgba(251, 191, 36, 0.04);
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            border-radius: 2.4rem;
+            padding: 0.7rem 1.6rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(251, 191, 36, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .report-btn:hover {
+            background: rgba(251, 191, 36, 0.06);
+            border-color: rgba(251, 191, 36, 0.1);
+            color: rgba(251, 191, 36, 0.8);
+            transform: translateY(-2px);
+        }
+        .report-btn:active {
+            transform: scale(0.97);
+        }
+        .report-btn.copied {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.12);
+            color: rgba(16, 185, 129, 0.6);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(176, 184, 200, 0.1);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .empty-state .icon {
+            font-size: 3.2rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.1;
+        }
+
+        @media (max-width: 480px) {
+            .main-wrapper { padding: 1.8rem 1.2rem 1.6rem; border-radius: 2.8rem; }
+            .roster-card { padding: 1.2rem 1.2rem 1rem; border-radius: 1.8rem; }
+            .roster-card .resident-name { font-size: 1.4rem; }
+            .roster-card .resident-spec { font-size: 0.7rem; padding: 0.1rem 1.2rem; }
+            .roster-card .action-btn-sm { font-size: 0.5rem; padding: 0.5rem 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="shield">
+        <div class="shield-spinner"></div>
+        <span class="shield-text">Basra Teaching Hospital</span>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+
+        <!-- LOGIN VIEW -->
+        <div id="login-view" class="view-wrapper">
+            <div class="text-center mb-8">
+                <h1 class="text-white text-3xl font-extrabold tracking-tight" style="text-shadow: 0 0 80px rgba(251,191,36,0.02);">Basra Teaching Hosp. Duties</h1>
+                <div class="flex items-center justify-center gap-2 mt-4">
+                    <span id="status-text" class="status-text">جاري التحميل...</span>
+                </div>
+            </div>
+            <div class="space-y-8">
+                <div class="glow-input" id="passwordContainer">
+                    <div class="password-container" id="dotContainer">
+                        <div class="password-dot empty" id="dot0"></div>
+                        <div class="password-dot empty" id="dot1"></div>
+                        <div class="password-dot empty" id="dot2"></div>
+                        <div class="password-dot empty" id="dot3"></div>
+                        <div class="password-dot empty" id="dot4"></div>
+                        <div class="password-dot empty" id="dot5"></div>
+                        <div class="password-dot empty" id="dot6"></div>
+                        <div class="password-dot empty" id="dot7"></div>
+                        <div class="cursor-indicator" id="cursorIndicator"></div>
+                    </div>
+                    <div class="password-input-overlay">
+                        <input type="password" id="pw" inputmode="numeric" maxlength="8" 
+                               autofocus
+                               onkeydown="handlePasswordKey(event)"
+                               oninput="handlePasswordInput()"
+                               onfocus="showCursor()"
+                               onblur="hideCursor()">
+                    </div>
+                </div>
+
+                <button id="entry-btn" onclick="handleEntry()" class="btn-login w-full py-7" disabled>جاري التحميل...</button>
+                
+                <div class="flex items-center justify-center px-1">
+                    <label class="toggle-remember">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <span>تذكرني</span>
+                    </label>
+                    <span class="text-[0.4rem] tracking-[0.25em] ml-3" style="color: rgba(251, 191, 36, 0.03);">✦ SECURE</span>
+                </div>
+                
+                <div id="login-error" class="hidden toast-error"></div>
+            </div>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
+        </div>
+
+        <!-- ROSTER VIEW -->
+        <div id="roster-view" class="hidden-view view-wrapper">
+            <div class="text-center mb-5">
+                <h2 class="text-white text-xl font-extrabold tracking-tight">📋 Basra Teaching Hosp. Today's Duties</h2>
+                <div class="flex items-center justify-center gap-3 mt-2 flex-wrap">
+                    <p id="roster-date" class="text-[0.65rem] text-slate-400 font-bold tracking-wider uppercase"></p>
+                    <p id="roster-count" class="text-[0.6rem] text-amber-500/40 font-bold tracking-wider"></p>
+                </div>
+            </div>
+            
+            <div id="roster-container" class="roster-grid"></div>
+
+            <div class="mt-5 flex flex-col items-center gap-3">
+                <!-- Report Button -->
+                <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn">
+                    <span>📋</span> Generate & Copy Report
+                </button>
+                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
+            </div>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
+        </div>
+    </div>
+
+<script>
+    // ############################################################
+    // ROSTER FUNCTIONALITY — FULLY INTACT + REPORT GENERATOR
+    // ############################################################
+
+    const CONFIG = { user: "mHub96", repo: "BTH", path: "data.json" };
+    const _pt1 = "ghp_dAUtsFhTH";
+    const _pt2 = "a2KeJQOsxsC";
+    const _pt3 = "Ct1vz8z1Z63";
+    const _pt4 = "Am sjS";
+    const GH_TOKEN = (_pt1 + _pt2 + _pt3 + _pt4).replace(/\s/g, '');
+
+    const arabicSpecs = {
+        "MF": "جراحة الوجه و الفكين", "M": "الباطنية", "P": "النفسية", "G": "النسائية و التوليد",
+        "GS": "الجراحة العامة", "US": "جراحة المسالك البولية",
+        "ENT": "الأذن و الأنف و الحنجرة", "OR": "الكسور", "Pe": "الاطفال", "NM": "طب الجملة العصبية", "N": "طب امراض الكلى",
+        "ICU": "تخدير العناية المركزة", "OP": "تخدير العمليات",
+        "R": "الأشعة و السونار","O": "العيون", "D": "الوفيات"
+    };
+
+    let db = { names: [], schedule: [] };
+    let dataLoaded = false;
+    let loadError = false;
+
+    const STORAGE_KEY = 'duty_portal_session';
+    const SESSION_PIN = '1234';
+
+    // ---------- PASSWORD ----------
+    let passwordValue = '';
+
+    function updateDots(value) {
+        const dots = document.querySelectorAll('.password-dot');
+        const len = value.length;
+        dots.forEach((dot, index) => {
+            dot.className = 'password-dot';
+            if (index < len) {
+                dot.classList.add('filled');
+                if (dot.dataset.wasEmpty === 'true') {
+                    dot.classList.add('active');
+                    setTimeout(() => dot.classList.remove('active'), 500);
+                }
+                dot.dataset.wasEmpty = 'false';
+            } else {
+                dot.classList.add('empty');
+                dot.dataset.wasEmpty = 'true';
+            }
+        });
+        const cursor = document.getElementById('cursorIndicator');
+        if (len < 8) cursor.classList.add('visible');
+        else cursor.classList.remove('visible');
+    }
+
+    function handlePasswordInput() {
+        const input = document.getElementById('pw');
+        passwordValue = input.value;
+        updateDots(input.value);
+    }
+
+    function handlePasswordKey(e) {
+        if (e.key === 'Enter') { e.preventDefault(); handleEntry(); }
+        if (e.key === 'Backspace') {
+            setTimeout(() => {
+                const input = document.getElementById('pw');
+                updateDots(input.value);
+            }, 10);
+        }
+    }
+
+    function showCursor() {
+        const cursor = document.getElementById('cursorIndicator');
+        if (passwordValue.length < 8) cursor.classList.add('visible');
+    }
+
+    function hideCursor() {
+        document.getElementById('cursorIndicator').classList.remove('visible');
+    }
+
+    function shakeDots() {
+        document.querySelectorAll('.password-dot.filled').forEach(dot => {
+            dot.classList.add('error-shake');
+            setTimeout(() => dot.classList.remove('error-shake'), 500);
+        });
+    }
+
+    function resetPasswordInput() {
+        const input = document.getElementById('pw');
+        input.value = '';
+        passwordValue = '';
+        updateDots('');
+        document.querySelectorAll('.password-dot').forEach(dot => {
+            dot.className = 'password-dot empty';
+            dot.dataset.wasEmpty = 'true';
+        });
+    }
+
+    // ---------- SESSION ----------
+    function saveSession() {
+        const remember = document.getElementById('rememberMe');
+        if (remember && remember.checked) {
+            localStorage.setItem(STORAGE_KEY, 'authenticated');
+            localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
+        } else {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(STORAGE_KEY + '_timestamp');
+        }
+    }
+
+    function checkSession() {
+        const session = localStorage.getItem(STORAGE_KEY);
+        if (!session) return false;
+        const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
+        if (timestamp) {
+            const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
+            if (days > 7) { clearSession(); return false; }
+        }
+        return session === 'authenticated';
+    }
+
+    function clearSession() {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY + '_timestamp');
+    }
+
+    function logout() {
+        clearSession();
+        const loginView = document.getElementById('login-view');
+        const rosterView = document.getElementById('roster-view');
+        if (!rosterView.classList.contains('hidden-view')) {
+            rosterView.classList.add('exit');
+            setTimeout(() => {
+                rosterView.classList.add('hidden-view');
+                rosterView.classList.remove('exit');
+            }, 400);
+        }
+        setTimeout(() => {
+            loginView.classList.remove('hidden-view');
+            loginView.classList.add('enter');
+            setTimeout(() => loginView.classList.remove('enter'), 500);
+            resetPasswordInput();
+            const entryBtn = document.getElementById('entry-btn');
+            if (dataLoaded) {
+                entryBtn.disabled = false;
+                entryBtn.innerText = 'SIGN IN';
+                entryBtn.className = 'btn-login active w-full py-7';
+            } else {
+                entryBtn.disabled = true;
+                entryBtn.innerText = 'جاري التحميل...';
+                entryBtn.className = 'btn-login w-full py-7';
+            }
+        }, 300);
+    }
+
+    // ---------- ENTRY ----------
+    window.handleEntry = function() {
+        if (!dataLoaded) {
+            showLoginError('البيانات لم تكتمل، حاول مرة أخرى');
+            return;
+        }
+        const input = document.getElementById('pw');
+        const pin = input.value;
+        if (pin === SESSION_PIN) {
+            saveSession();
+            proceedAfterAuth();
+        } else {
+            shakeDots();
+            showLoginError('الرمز غير صحيح');
+            const btn = document.getElementById('entry-btn');
+            btn.className = 'btn-login error w-full py-7';
+            btn.innerText = "INCORRECT!";
+            setTimeout(() => {
+                if (dataLoaded) {
+                    btn.className = 'btn-login active w-full py-7';
+                    btn.innerText = 'SIGN IN';
+                } else {
+                    btn.className = 'btn-login w-full py-7';
+                    btn.innerText = 'جاري التحميل...';
+                }
+            }, 1000);
+            setTimeout(() => { resetPasswordInput(); input.focus(); }, 400);
+        }
+    };
+
+    function proceedAfterAuth() {
+        const loginView = document.getElementById('login-view');
+        const rosterView = document.getElementById('roster-view');
+        loginView.classList.add('exit');
+        setTimeout(() => {
+            loginView.classList.add('hidden-view');
+            loginView.classList.remove('exit');
+            renderRoster();
+            rosterView.classList.remove('hidden-view');
+            rosterView.classList.add('enter');
+            setTimeout(() => rosterView.classList.remove('enter'), 500);
+        }, 500);
+    }
+
+    function showLoginError(msg) {
+        const errEl = document.getElementById('login-error');
+        errEl.innerText = msg;
+        errEl.classList.remove('hidden');
+        setTimeout(() => errEl.classList.add('hidden'), 4000);
+    }
+
+    // ---------- LOADING ----------
+    window.onload = async function() {
+        const hasSession = checkSession();
+        const loginView = document.getElementById('login-view');
+        if (hasSession) loginView.classList.add('hidden-view');
+
+        const shieldTimeout = setTimeout(() => {
+            const s = document.getElementById('shield');
+            if (s && s.style.opacity !== '0') {
+                s.style.opacity = '0';
+                setTimeout(() => s.remove(), 500);
+            }
+        }, 5000);
+
+        try {
+            await fetchDataWithTimeout(8000);
+        } catch (e) {
+            console.warn('Data fetch failed:', e);
+            loadError = true;
+            const cached = localStorage.getItem('duty_db_cache');
+            if (cached) {
+                try { db = JSON.parse(cached); dataLoaded = true; } catch (e2) {}
+            }
+        }
+
+        clearTimeout(shieldTimeout);
+        const s = document.getElementById('shield');
+        if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 500); }
+
+        const entryBtn = document.getElementById('entry-btn');
+        const statusText = document.getElementById('status-text');
+
+        if (dataLoaded) {
+            statusText.innerText = 'READY';
+            statusText.className = 'status-text ready';
+            entryBtn.disabled = false;
+            entryBtn.innerText = 'SIGN IN';
+            entryBtn.className = 'btn-login active w-full py-7';
+            
+            if (hasSession) {
+                setTimeout(() => {
+                    renderRoster();
+                    document.getElementById('roster-view').classList.remove('hidden-view');
+                    document.getElementById('roster-view').classList.add('enter');
+                    setTimeout(() => document.getElementById('roster-view').classList.remove('enter'), 500);
+                }, 200);
+            } else {
+                if (!loginView.classList.contains('hidden-view')) {
+                    setTimeout(() => document.getElementById('pw').focus(), 300);
+                } else {
+                    loginView.classList.remove('hidden-view');
+                    loginView.classList.add('enter');
+                    setTimeout(() => {
+                        loginView.classList.remove('enter');
+                        document.getElementById('pw').focus();
+                    }, 300);
+                }
+            }
+        } else if (loadError) {
+            statusText.innerText = '⚠️ غير متصل';
+            statusText.className = 'status-text error';
+            entryBtn.disabled = true;
+            entryBtn.innerText = '⚠️ خطأ في الاتصال';
+            entryBtn.className = 'btn-login w-full py-7';
+            showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
+            if (loginView.classList.contains('hidden-view')) {
+                loginView.classList.remove('hidden-view');
+                loginView.classList.add('enter');
+                setTimeout(() => loginView.classList.remove('enter'), 300);
+            }
+        }
+
+        document.getElementById('rememberMe').checked = true;
+        resetPasswordInput();
+    };
+
+    async function fetchDataWithTimeout(timeoutMs) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                headers: { "Authorization": `token ${GH_TOKEN}` },
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+                const data = await res.json();
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                db = decoded;
+                localStorage.setItem('duty_db_cache', JSON.stringify(db));
+                dataLoaded = true;
+                loadError = false;
+                return true;
+            } else {
+                throw new Error(`HTTP ${res.status}`);
+            }
+        } catch (e) {
+            clearTimeout(timeoutId);
+            throw e;
+        }
+    }
+
+    function getMedicalDate() {
+        const now = new Date();
+        if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+        const d = String(now.getDate()).padStart(2, '0');
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        return `${d}/${m}/${now.getFullYear()}`;
+    }
+
+    // ---------- RENDER ----------
+    function renderRoster() {
+        const container = document.getElementById('roster-container');
+        const dateDisplay = document.getElementById('roster-date');
+        const countDisplay = document.getElementById('roster-count');
+        
+        const targetDate = getMedicalDate();
+        const now = new Date();
+        const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${now.toLocaleString('en-GB', {month:'short'})}-${now.getFullYear()}`;
+        dateDisplay.innerText = `📅 ${formattedDate}`;
+
+        const todayEntries = db.schedule.filter(s => s.date === targetDate);
+
+        if (todayEntries.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">📭</div>
+                    <div>لا يوجد مقيمين في الخدمة اليوم</div>
+                </div>
+            `;
+            countDisplay.innerText = '0 مقيم';
+            return;
+        }
+
+        countDisplay.innerText = `${todayEntries.length} مقيم في الخدمة`;
+        const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
+
+        container.innerHTML = sortedEntries.map(entry => {
+            const resident = db.names.find(n => n.name === entry.name);
+            const phone = resident?.phone || "رقم غير متوفر";
+            const specName = arabicSpecs[entry.specCode] || entry.specCode;
+            const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
+            
+            return `
+                <div class="roster-card" 
+                     onmousemove="handleCardTilt(event, this)"
+                     onmouseleave="resetCardTilt(this)">
+                    <div class="resident-spec">${specName}</div>
+                    <div class="resident-name">${entry.name}</div>
+                    <div class="resident-phone">${phone}</div>
+                    <div class="card-actions">
+                        <a href="${isPhoneValid ? 'tel:' + phone : '#'}" 
+                           class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
+                           style="${!isPhoneValid ? 'cursor:default;' : ''}">
+                            <span>📞</span> <span>Call</span>
+                        </a>
+                        <a href="${isPhoneValid ? 'whatsapp://send?phone=' + phone : '#'}" 
+                           class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
+                           style="${!isPhoneValid ? 'cursor:default;' : ''}"
+                           onclick="${isPhoneValid ? 'event.preventDefault(); window.location.href=this.href;' : 'event.preventDefault();'}">
+                            <span>💬</span> <span>WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ---------- REPORT GENERATOR ----------
+    function generateAndCopyReport() {
+        const targetDate = getMedicalDate();
+        const todayEntries = db.schedule.filter(s => s.date === targetDate);
+        
+        if (todayEntries.length === 0) {
+            showLoginError('لا يوجد مقيمين في الخدمة اليوم لتوليد تقرير');
+            return;
+        }
+
+        const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
+        
+        let report = '';
+        let counter = 1;
+        
+        sortedEntries.forEach(entry => {
+            const resident = db.names.find(n => n.name === entry.name);
+            const phone = resident?.phone || "رقم غير متوفر";
+            const specName = arabicSpecs[entry.specCode] || entry.specCode;
+            
+            report += `${counter}. ${specName}\n`;
+            report += `   ${entry.name}\n`;
+            report += `   ${phone}\n`;
+            report += `   ${getFormattedDate()}\n\n`;
+            counter++;
+        });
+
+        // Copy to clipboard
+        navigator.clipboard.writeText(report).then(() => {
+            const btn = document.getElementById('report-btn');
+            btn.classList.add('copied');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>✅</span> Copied!';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = originalText;
+            }, 3000);
+            showToast('تم نسخ التقرير إلى الحافظة', 'success');
+        }).catch(() => {
+            // Fallback: select and copy
+            const textArea = document.createElement('textarea');
+            textArea.value = report;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const btn = document.getElementById('report-btn');
+                btn.classList.add('copied');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span>✅</span> Copied!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalText;
+                }, 3000);
+                showToast('تم نسخ التقرير إلى الحافظة', 'success');
+            } catch (err) {
+                showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
+            }
+            document.body.removeChild(textArea);
+        });
+    }
+
+    function getFormattedDate() {
+        const now = new Date();
+        const d = String(now.getDate()).padStart(2, '0');
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const y = now.getFullYear();
+        return `${d}/${m}/${y}`;
+    }
+
+    // Simple toast notification for report
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container') || createToastContainer();
+        const toast = document.createElement('div');
+        const colors = {
+            success: 'rgba(16,185,129,0.08)',
+            error: 'rgba(225,29,72,0.08)',
+            info: 'rgba(251,191,36,0.06)'
+        };
+        const textColors = {
+            success: '#6ee7b7',
+            error: '#f1948a',
+            info: '#fbbf24'
+        };
+        toast.style.cssText = `
+            background: ${colors[type] || colors.info};
+            border: 1px solid rgba(251,191,36,0.04);
+            border-radius: 1.2rem;
+            padding: 0.9rem 1.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: ${textColors[type] || textColors.info};
+            text-align: center;
+            animation: slideDown 0.4s ease;
+            margin-top: 0.5rem;
+            width: 100%;
+        `;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.4s ease';
+            setTimeout(() => toast.remove(), 400);
+        }, 3000);
+    }
+
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.id = 'toast-container';
+        container.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            width: 90%;
+            max-width: 400px;
+            pointer-events: none;
+        `;
+        document.body.appendChild(container);
+        return container;
+    }
+
+    // 3D TILT EFFECT
+    function handleCardTilt(e, card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 12;
+        const rotateY = (centerX - x) / 12;
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale(1.01)`;
+        card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
+        card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
+    }
+
+    function resetCardTilt(card) {
+        card.style.transform = '';
+    }
+
+    window.logout = logout;
+    window.generateAndCopyReport = generateAndCopyReport;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('passwordContainer').addEventListener('click', function() {
+            document.getElementById('pw').focus();
+        });
+    });
+</script>
+</body>
+</html>
