@@ -1,9 +1,8 @@
 {
-  "passwords": 
-    {
+  "passwords": {
     "user": "1234",
     "admin": "MrjBth1996*"
-    },
+  },
   "names": [
     {
       "name": "د. مصطفى محمد علي الديوان",
@@ -1746,7 +1745,7 @@
       "date": "02/08/2026",
       "specCode": "MF",
       "name": "د. عبد الله صادق",
-      "VisitCount": 4
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -2052,7 +2051,7 @@
       "date": "02/08/2026",
       "specCode": "OR",
       "name": "د. عبد العزيز وئام عبد الحميد",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -2208,7 +2207,7 @@
       "date": "02/08/2026",
       "specCode": "US",
       "name": "د. حسين علي عطيه",
-      "VisitCount": 2
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -2514,7 +2513,7 @@
       "date": "02/08/2026",
       "specCode": "O",
       "name": "د. غفران علي صبري",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -2670,7 +2669,7 @@
       "date": "02/08/2026",
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -2976,7 +2975,7 @@
       "date": "02/08/2026",
       "specCode": "N",
       "name": "د. دعاء خضير",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -3177,7 +3176,7 @@
       "date": "02/08/2026",
       "specCode": "G",
       "name": "د. امنه صفاء احمد",
-      "VisitCount": 2
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -3233,7 +3232,7 @@
       "date": "02/08/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
-      "VisitCount": 4
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -3389,7 +3388,7 @@
       "date": "02/08/2026",
       "specCode": "OP",
       "name": "د. رسل عوده ساري",
-      "VisitCount": 5
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -3695,7 +3694,7 @@
       "date": "02/08/2026",
       "specCode": "R",
       "name": "د. زينب فيصل",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "03/08/2026",
@@ -3853,7 +3852,7 @@
       "specCode": "GS",
       "name": "د. امل اياد عبدالكريم",
       "timestamp": "20:06",
-      "VisitCount": 1
+      "VisitCount": 0
     },
     {
       "date": "02/08/2026",
