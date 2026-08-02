@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Basra Teaching Hospital · Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             direction: rtl;
@@ -22,808 +19,250 @@
             transition: background 0.6s ease, color 0.4s ease;
             overflow-x: hidden;
         }
-
-        /* ============================================================
-           LIGHT THEME
-        ============================================================ */
-        body.light {
-            background: #f2f6fc;
-            color: #1a2332;
-        }
-        body.light .bg-surface {
-            background: #ffffff;
-        }
-        body.light .bg-surface2 {
-            background: #f8fafc;
-        }
-        body.light .text-primary {
-            color: #1a2332;
-        }
-        body.light .text-secondary {
-            color: #475569;
-        }
-        body.light .border-subtle {
-            border-color: #e2e8f0;
-        }
-        body.light .glass-card {
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        }
-        body.light .lock-card {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        body.light .modal-card {
-            background: #ffffff;
-        }
-        body.light .badge-spec {
-            background: #dbeafe;
-            color: #1e40af;
-            font-weight: 700;
-        }
-        body.light .badge-active {
-            background: #d1fae5;
-            color: #065f46;
-            font-weight: 700;
-        }
-        body.light .badge-reserve {
-            background: #fef3c7;
-            color: #92400e;
-            font-weight: 700;
-        }
-        body.light .counter-badge {
-            background: #dbeafe;
-            color: #1e40af;
-            border-color: #bfdbfe;
-        }
-        body.light .counter-badge i {
-            color: #3b82f6;
-        }
-        body.light .toast-success { background: #10b981; color: white; }
-        body.light .toast-error { background: #ef4444; color: white; }
-        body.light .toast-info { background: #3b82f6; color: white; }
-        body.light .resident-name {
-            color: #1a2332 !important;
-        }
-        body.light .resident-phone {
-            color: #475569 !important;
-        }
-        /* Light theme card - less greyish, more 3D extrusion */
-        body.light .roster-card {
-            background: rgba(248, 250, 252, 0.95);
-            border-color: rgba(200, 210, 220, 0.4);
-            box-shadow: 
-                10px 10px 20px rgba(0, 0, 0, 0.06),
-                -8px -8px 18px rgba(255, 255, 255, 0.8),
-                0 4px 0 rgba(0, 0, 0, 0.03),
-                0 8px 24px rgba(0, 0, 0, 0.02),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-        body.light .roster-card:hover {
-            border-color: #2563eb;
-            box-shadow: 
-                14px 14px 28px rgba(0, 0, 0, 0.08),
-                -10px -10px 22px rgba(255, 255, 255, 0.9),
-                0 6px 0 rgba(0, 0, 0, 0.03),
-                0 12px 32px rgba(0, 0, 0, 0.03),
-                inset 0 1px 0 rgba(255, 255, 255, 0.95);
-            transform: translateY(-4px) scale(1.005);
-        }
-        body.light .roster-card:active {
-            transform: translateY(4px) scale(0.97);
-            box-shadow: 
-                4px 4px 10px rgba(0, 0, 0, 0.04),
-                -3px -3px 10px rgba(255, 255, 255, 0.5),
-                0 1px 0 rgba(0, 0, 0, 0.01);
-        }
-        body.light .roster-card .resident-spec {
-            background: #dbeafe;
-            color: #1e40af;
-            border-color: #bfdbfe;
-        }
-        body.light .roster-card .action-btn-sm {
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.04), -3px -3px 8px rgba(255, 255, 255, 0.7), 0 1px 0 rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        /* Light theme report button - better contrast */
-        body.light .report-btn {
-            background: #2563eb;
-            border-color: #1d4ed8;
-            color: white;
-        }
-        body.light .report-btn:hover {
-            background: #1d4ed8;
-            border-color: #1a4a8a;
-            color: white;
-        }
-
-        /* ============================================================
-           DARK THEME - Fixed contrast
-        ============================================================ */
-        body.dark {
-            background: #0b0e12;
-            color: #e8edf5;
-        }
-        body.dark::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.08;
-            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.25'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            background-size: 120px 120px;
-        }
-        body.dark .bg-surface { background: #141a24; }
-        body.dark .bg-surface2 { background: #0f151e; }
-        body.dark .text-primary { color: #f0f3f8; }
-        body.dark .text-secondary { color: #a8b3c9; }
-        body.dark .border-subtle { border-color: #2a3346; }
-        body.dark .glass-card {
-            background: rgba(16, 22, 34, 0.82);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(212, 175, 55, 0.12);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-        }
-        body.dark .badge-spec {
-            background: rgba(212, 175, 55, 0.15);
-            color: #d4af37;
-            font-weight: 700;
-        }
-        body.dark .badge-active {
-            background: rgba(16, 185, 129, 0.15);
-            color: #6ee7b7;
-            font-weight: 700;
-        }
-        body.dark .badge-reserve {
-            background: rgba(251, 191, 36, 0.12);
-            color: #fbbf24;
-            font-weight: 700;
-        }
-        body.dark .counter-badge {
-            background: rgba(212, 175, 55, 0.12);
-            color: #d4af37;
-            border-color: rgba(212, 175, 55, 0.15);
-        }
-        body.dark .counter-badge i {
-            color: #d4af37;
-        }
-        body.dark .lock-card {
-            background: rgba(12, 18, 30, 0.92);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.12);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-        }
-        body.dark .modal-card {
-            background: #141c2a;
-            border: 1px solid rgba(212, 175, 55, 0.08);
-        }
-        body.dark .btn-gradient {
-            background: linear-gradient(135deg, #d4af37, #b8942e);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
-            color: #0b0e12;
-        }
-        body.dark .btn-gradient:hover {
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.3);
-        }
-        body.dark .text-blue-600 { color: #d4af37 !important; }
-        body.dark .text-blue-500 { color: #d4af37 !important; }
-        body.dark .bg-blue-50 { background: rgba(212, 175, 55, 0.06) !important; }
-        body.dark .bg-blue-100 { background: rgba(212, 175, 55, 0.10) !important; }
-        body.dark .text-blue-700 { color: #d4af37 !important; }
-        body.dark .border-blue-500 { border-color: rgba(212, 175, 55, 0.2) !important; }
-        body.dark .shadow-blue-500\/30 { box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15) !important; }
-        body.dark .from-blue-500 { --tw-gradient-from: #d4af37 !important; }
-        body.dark .to-blue-600 { --tw-gradient-to: #b8942e !important; }
-        body.dark .bg-gradient-to-br { background-image: linear-gradient(to bottom right, #d4af37, #b8942e) !important; }
-        body.dark .bg-blue-600 { background: #d4af37 !important; }
-        body.dark .hover\:bg-blue-700:hover { background: #b8942e !important; }
-        body.dark .text-white { color: #f0f3f8 !important; }
-        body.dark .border-amber-200 { border-color: rgba(212, 175, 55, 0.2) !important; }
-        body.dark .bg-amber-50 { background: rgba(212, 175, 55, 0.06) !important; }
-        body.dark .text-amber-600 { color: #d4af37 !important; }
-        body.dark .text-amber-700 { color: #d4af37 !important; }
-        body.dark .bg-amber-100 { background: rgba(212, 175, 55, 0.10) !important; }
-        body.dark .text-amber-500 { color: #d4af37 !important; }
-        body.dark .bg-amber-500 { background: #d4af37 !important; }
-        body.dark .from-amber-500 { --tw-gradient-from: #d4af37 !important; }
-        body.dark .to-amber-600 { --tw-gradient-to: #b8942e !important; }
-        body.dark .ring-amber-500 { --tw-ring-color: #d4af37 !important; }
-        body.dark .shadow-amber-500\/20 { box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15) !important; }
-        body.dark .accent-amber-500 { accent-color: #d4af37 !important; }
-        body.dark .toast-success { background: #10b981; color: white; }
-        body.dark .toast-error { background: #ef4444; color: white; }
-        body.dark .toast-info { background: #3b82f6; color: white; }
-        
-        /* Dark theme card embossing - dramatic 3D extrusion */
-        body.dark .roster-card {
-            background: rgba(14, 20, 32, 0.8);
-            border-color: rgba(212, 175, 55, 0.06);
-            box-shadow: 
-                12px 12px 28px rgba(0, 0, 0, 0.7),
-                -10px -10px 24px rgba(255, 255, 255, 0.02),
-                0 5px 0 rgba(0, 0, 0, 0.5),
-                0 0 50px rgba(212, 175, 55, 0.01),
-                inset 0 1px 0 rgba(255, 255, 255, 0.02);
-        }
-        body.dark .roster-card:hover {
-            border-color: rgba(212, 175, 55, 0.15);
-            box-shadow: 
-                16px 16px 36px rgba(0, 0, 0, 0.8),
-                -12px -12px 28px rgba(255, 255, 255, 0.03),
-                0 7px 0 rgba(0, 0, 0, 0.5),
-                0 0 70px rgba(212, 175, 55, 0.04),
-                0 0 100px rgba(212, 175, 55, 0.01),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
-            transform: translateY(-5px) scale(1.01);
-        }
-        body.dark .roster-card:active {
-            transform: translateY(5px) scale(0.97);
-            box-shadow: 
-                5px 5px 14px rgba(0, 0, 0, 0.4),
-                -4px -4px 12px rgba(255, 255, 255, 0.01),
-                0 1px 0 rgba(0, 0, 0, 0.2);
-        }
-        body.dark .roster-card .resident-spec {
-            color: #d4af37 !important;
-        }
-        body.dark .roster-card .action-btn-sm {
-            background: rgba(0, 0, 0, 0.35);
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.02), 0 1px 0 rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
-        /* Dark theme report button */
-        body.dark .report-btn {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.12);
-            color: #d4af37;
-        }
-        body.dark .report-btn:hover {
-            background: rgba(212, 175, 55, 0.12);
-            border-color: rgba(212, 175, 55, 0.2);
-            color: #d4af37;
-        }
-
-        /* FIXED: High contrast for resident names in dark mode */
-        body.dark .resident-name {
-            color: #f0f3f8 !important;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.02);
-        }
-        body.dark .resident-phone {
-            color: #a8b3c9 !important;
-        }
-
-        /* ============================================================
-           SHARED STYLES
-        ============================================================ */
-        .glass-card {
-            border-radius: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .input-field {
-            border-radius: 1rem;
-            padding: 0.9rem 1.4rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            width: 100%;
-            border: 2px solid;
-            outline: none;
-        }
-        .input-field:focus {
-            transform: translateY(-1px);
-        }
-
-        .btn-gradient {
-            border: none;
-            font-weight: 700;
-            padding: 0.9rem 2rem;
-            border-radius: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
-        }
-        .btn-gradient:hover {
-            transform: translateY(-2px) scale(1.01);
-        }
-        .btn-gradient:active {
-            transform: scale(0.97);
-        }
-
-        .btn-ghost {
-            border-radius: 1.2rem;
-            padding: 0.6rem 1.4rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid;
-        }
-
-        /* ============================================================
-           ROSTER CARDS — CUBIC 3D EMBOSSED
-        ============================================================ */
+        body.light { background: #d1d9e6; color: #1a2332; }
+        body.light .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+        body.light .roster-card { background: rgba(255,255,255,0.92); border-color: rgba(200,210,220,0.3); box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9); }
+        body.light .roster-card .action-btn-sm { background: rgba(255,255,255,0.7); box-shadow: 3px 3px 8px rgba(0,0,0,0.04), -3px -3px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(0,0,0,0.02); border: 1px solid rgba(255,255,255,0.3); }
+        body.light .report-btn { background: #2563eb; border-color: #1d4ed8; color: white; }
+        body.light .trending-btn { background: #f59e0b; border-color: #d97706; color: white; }
+        body.dark { background: #0b0e12; color: #e8edf5; }
+        body.dark .glass-card { background: rgba(16,22,34,0.82); backdrop-filter: blur(14px); border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+        body.dark .roster-card { background: rgba(14,20,32,0.8); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
+        body.dark .roster-card .action-btn-sm { background: rgba(0,0,0,0.35); box-shadow: 4px 4px 10px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.02), 0 1px 0 rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.02); }
+        body.dark .report-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.12); color: #d4af37; }
+        body.dark .trending-btn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.2); color: #fbbf24; }
+        body.dark .btn-gradient { background: linear-gradient(135deg, #d4af37, #b8942e); box-shadow: 0 8px 24px rgba(212,175,55,0.2); color: #0b0e12; }
+        .glass-card { border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 1; }
         .roster-card {
-            border-radius: 1.4rem;
-            padding: 1.3rem 1.6rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            cursor: default;
+            border-radius: 1.4rem; padding: 1.3rem 1.6rem; margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+            border: 1px solid; flex-wrap: wrap; gap: 0.5rem;
+            position: relative; overflow: hidden; cursor: default;
         }
-        /* 3D edge highlight - top */
-        .roster-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            pointer-events: none;
-            opacity: 0.6;
-            border-radius: 50%;
-        }
-        body.light .roster-card::before {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            opacity: 0.8;
-            height: 2px;
-        }
-        /* 3D edge shadow - bottom */
-        .roster-card::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 5%;
-            right: 5%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
-            pointer-events: none;
-            filter: blur(3px);
-        }
-        body.light .roster-card::after {
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12), transparent);
-        }
-
-        .roster-card .card-info {
-            flex: 1;
-            min-width: 140px;
-        }
-        .roster-card .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        /* 3D cubic buttons */
         .roster-card .action-btn-sm {
-            padding: 0.5rem 0.9rem;
-            border-radius: 0.9rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            transform: translateY(0);
-        }
-        body.light .roster-card .action-btn-sm:active {
-            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04), -1px -1px 4px rgba(255, 255, 255, 0.5);
-        }
-        body.dark .roster-card .action-btn-sm:active {
-            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3), -1px -1px 3px rgba(255, 255, 255, 0.01);
-        }
-        .roster-card .action-btn-sm:active {
-            transform: translateY(3px) scale(0.95);
-        }
-        .roster-card .action-btn-sm.call {
-            color: #2563eb;
-        }
-        body.dark .roster-card .action-btn-sm.call {
-            color: #60a5fa;
-        }
-        .roster-card .action-btn-sm.call:hover {
-            background: rgba(37, 99, 235, 0.08);
-        }
-        body.dark .roster-card .action-btn-sm.call:hover {
-            background: rgba(96, 165, 250, 0.08);
-        }
-        .roster-card .action-btn-sm.wa {
-            color: #059669;
-        }
-        body.dark .roster-card .action-btn-sm.wa {
-            color: #34d399;
-        }
-        .roster-card .action-btn-sm.wa:hover {
-            background: rgba(5, 150, 105, 0.08);
-        }
-        body.dark .roster-card .action-btn-sm.wa:hover {
-            background: rgba(52, 211, 153, 0.08);
-        }
-        .roster-card .action-btn-sm.opacity-40 {
-            opacity: 0.25;
-            cursor: default;
-            pointer-events: none;
-        }
-
-        .roster-card .resident-name {
-            font-weight: 800;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .roster-card .resident-spec {
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.1rem 0.6rem;
-            border-radius: 100px;
-            display: inline-block;
-            border: 1px solid;
-        }
-        .roster-card .resident-phone {
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: monospace;
-            direction: ltr;
-            unicode-bidi: isolate;
-            margin-top: 0.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .badge-spec, .badge-active, .badge-reserve {
-            font-size: 0.6rem;
-            padding: 0.15rem 0.7rem;
-            border-radius: 100px;
-            font-weight: 700;
-            display: inline-block;
-        }
-        .counter-badge {
-            font-size: 0.65rem;
-            padding: 0.3rem 0.9rem;
-            border-radius: 100px;
-            font-weight: 700;
-            display: inline-block;
-            border: 1px solid;
-            transition: all 0.3s ease;
-        }
-
-        /* Report Button - Global styles */
-        .report-btn {
-            border-radius: 1.2rem;
-            padding: 0.6rem 1.8rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            padding: 0.5rem 0.9rem; border-radius: 0.9rem; text-decoration: none;
+            font-weight: 700; font-size: 0.7rem; display: inline-flex; align-items: center;
+            gap: 5px; transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid;
         }
-        .report-btn:active {
-            transform: scale(0.97);
+        .roster-card .action-btn-sm.call { color: #2563eb; }
+        body.dark .roster-card .action-btn-sm.call { color: #60a5fa; }
+        .roster-card .action-btn-sm.wa { color: #059669; }
+        body.dark .roster-card .action-btn-sm.wa { color: #34d399; }
+        .roster-card .action-btn-sm.opacity-40 { opacity: 0.25; cursor: default; pointer-events: none; }
+        .btn-gradient {
+            border: none; font-weight: 700; padding: 0.9rem 2rem; border-radius: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
         }
-
+        .btn-gradient:hover { transform: translateY(-2px) scale(1.01); }
+        .input-field {
+            border-radius: 1rem; padding: 0.9rem 1.4rem; font-weight: 500;
+            transition: all 0.3s ease; width: 100%; border: 2px solid; outline: none;
+        }
         .modal-overlay {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s ease;
-            padding: 1.5rem;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(16px);
+            position: fixed; inset: 0; z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 0.4s ease; padding: 1.5rem;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-card {
-            max-width: 480px;
-            width: 100%;
-            border-radius: 2rem;
-            padding: 2rem 2rem;
-            transform: scale(0.95) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+            max-width: 600px; width: 100%; border-radius: 2rem; padding: 2rem;
+            transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            background: #ffffff; max-height: 90vh; overflow-y: auto;
         }
-        .modal-overlay.active .modal-card {
-            transform: scale(1) translateY(0);
-        }
-
-        .lock-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
+        body.dark .modal-card { background: #141c2a; border: 1px solid rgba(212,175,55,0.08); }
+        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
         .lock-card {
-            border-radius: 2.5rem;
-            padding: 2.5rem 2.2rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            border-radius: 2.5rem; padding: 2.5rem 2.2rem; width: 100%; max-width: 400px;
+            background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.5);
         }
-        .hidden-content {
-            display: none;
+        body.dark .lock-card { background: rgba(12,18,30,0.92); border: 1px solid rgba(212,175,55,0.12); }
+        .hidden-content { display: none; }
+        .header-3d {
+            font-family: 'Playfair Display', serif; font-weight: 900;
+            font-size: 2.2rem; text-align: center;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        .phone-ltr {
-            direction: ltr;
-            unicode-bidi: plaintext;
+        @media (min-width: 640px) { .header-3d { font-size: 2.8rem; } }
+        .trending-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a2332; padding: 0.15rem 0.7rem; border-radius: 100px;
+            font-size: 0.55rem; font-weight: 800;
+            border: 1px solid rgba(251,191,36,0.2);
+            box-shadow: 0 0 20px rgba(251,191,36,0.1);
         }
-
-        .btn-save {
-            transition: all 0.4s ease;
-            min-width: 120px;
+        body.dark .trending-badge { color: #0b0e12; }
+        .step-chart {
+            display: flex; align-items: flex-end; justify-content: center;
+            gap: 2rem; padding: 0.5rem 0.5rem 0.5rem;
+            height: 130px; width: 100%; margin-top: 0.5rem; margin-bottom: 0.5rem;
         }
-        .btn-save.loading {
-            background: #3b82f6 !important;
-            color: white !important;
-            cursor: wait;
+        .step-bar {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 0.3rem; flex: 1; max-width: 70px;
         }
-        .btn-save.success {
-            background: #10b981 !important;
-            color: white !important;
+        .step-bar .bar {
+            width: 100%; border-radius: 6px 6px 0 0; min-height: 6px;
+            transition: all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
         }
-        .btn-save.error {
-            background: #ef4444 !important;
-            color: white !important;
+        .step-bar .bar.gold { background: linear-gradient(180deg, #fbbf24, #f59e0b); }
+        .step-bar .bar.silver { background: linear-gradient(180deg, #94a3b8, #6b7280); }
+        .step-bar .bar.bronze { background: linear-gradient(180deg, #cd7f32, #a0522d); }
+        .step-chart .step-bar:nth-child(1) { order: 2; }
+        .step-chart .step-bar:nth-child(2) { order: 1; }
+        .step-chart .step-bar:nth-child(3) { order: 3; }
+        .step-bar .bar-label { font-size: 0.55rem; font-weight: 700; text-align: center; color: var(--text-secondary, #475569); white-space: nowrap; }
+        .step-bar .bar-value { font-size: 0.65rem; font-weight: 800; color: var(--text-primary, #1a2332); }
+        body.dark .step-bar .bar-value { color: #f0f3f8; }
+        body.dark .step-bar .bar-label { color: #a8b3c9; }
+        .filter-tabs {
+            display: flex; gap: 0.5rem; flex-wrap: wrap;
+            margin-bottom: 0.3rem; padding-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(212,175,55,0.04);
         }
-        body.dark .btn-save.loading {
-            background: #d4af37 !important;
-            color: #0b0e12 !important;
+        .filter-tab {
+            padding: 0.2rem 1rem; border-radius: 100px; font-size: 0.6rem;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            border: 1px solid rgba(212,175,55,0.06);
+            color: var(--text-secondary, #475569); background: transparent;
         }
-        body.dark .btn-save.success {
-            background: #10b981 !important;
-            color: white !important;
+        .filter-tab.active {
+            background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.15); color: #d4af37;
         }
-        body.dark .btn-save.error {
-            background: #ef4444 !important;
-            color: white !important;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-        body.dark ::-webkit-scrollbar-thumb { background: #4a5568; }
-
-        .lock-footer {
-            margin-top: 1.5rem;
-            font-size: 0.65rem;
-            opacity: 0.4;
-            text-align: center;
-        }
-        .footer-credit {
-            font-size: 0.7rem;
-            opacity: 0.5;
-            padding: 0.8rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(128, 128, 128, 0.1);
-            margin-top: 2rem;
-        }
-        body.dark .footer-credit {
-            border-top-color: rgba(212, 175, 55, 0.05);
-        }
-
-        .theme-toggle-wrap {
-            perspective: 200px;
-            display: inline-block;
-        }
+        body.dark .filter-tab.active { background: rgba(212,175,55,0.12); border-color: rgba(212,175,55,0.2); }
+        .lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; position: relative; z-index: 2; }
+        .footer-credit { font-size: 0.7rem; opacity: 0.5; padding: 0.8rem 0; text-align: center; border-top: 1px solid rgba(128,128,128,0.1); margin-top: 1.5rem; }
         .theme-toggle-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 2px solid;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(0, 0, 0, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; border-radius: 50%; border: 2px solid;
+            cursor: pointer; transition: all 0.3s ease;
+            background: rgba(255,255,255,0.3); border-color: rgba(0,0,0,0.1);
         }
-        body.dark .theme-toggle-btn {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.2);
-        }
-        .theme-toggle-btn .icon-wrap {
-            position: relative;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .theme-toggle-btn .icon-wrap i {
-            position: absolute;
-            font-size: 1.1rem;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backface-visibility: hidden;
-        }
-        .theme-toggle-btn .icon-wrap .icon-moon {
-            transform: rotateY(0deg);
-            opacity: 1;
-        }
-        .theme-toggle-btn .icon-wrap .icon-sun {
-            transform: rotateY(180deg);
-            opacity: 0;
-        }
-        body.dark .theme-toggle-btn .icon-wrap .icon-moon {
-            transform: rotateY(-180deg);
-            opacity: 0;
-        }
-        body.dark .theme-toggle-btn .icon-wrap .icon-sun {
-            transform: rotateY(0deg);
-            opacity: 1;
-        }
-        .theme-toggle-btn .icon-wrap i.fa-moon {
-            color: #1a2332;
-        }
-        body.dark .theme-toggle-btn .icon-wrap i.fa-moon {
-            color: #f0f3f8;
-        }
-        .theme-toggle-btn .icon-wrap i.fa-sun {
-            color: #fbbf24;
-        }
-        .theme-toggle-btn:hover {
-            transform: scale(1.05);
-        }
-        body.dark .theme-toggle-btn:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-        }
-
+        body.dark .theme-toggle-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.2); }
         #toast-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            pointer-events: none;
-            width: 90%;
-            max-width: 420px;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 9999; display: flex; flex-direction: column; align-items: center;
+            gap: 8px; pointer-events: none; width: 90%; max-width: 420px;
         }
         .toast {
-            padding: 14px 24px;
-            border-radius: 1rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            padding: 14px 24px; border-radius: 1rem; font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-20px);
+            opacity: 0; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: auto; display: flex; align-items: center; gap: 12px;
             width: 100%;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .toast.show { transform: translateY(0); opacity: 1; }
-        .toast.hide { transform: translateY(-20px); opacity: 0; }
-        .toast i { font-size: 1.1rem; flex-shrink: 0; }
-        .toast .toast-close {
-            margin-right: auto;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 1rem;
-            padding: 0 4px;
-        }
-        .toast .toast-close:hover { opacity: 1; }
-        .toast-success { background: rgba(16, 185, 129, 0.92); color: white; border-color: rgba(255, 255, 255, 0.15); }
-        .toast-error { background: rgba(239, 68, 68, 0.92); color: white; border-color: rgba(255, 255, 255, 0.15); }
-        .toast-info { background: rgba(59, 130, 246, 0.92); color: white; border-color: rgba(255, 255, 255, 0.15); }
-        body.dark .toast-success { background: rgba(16, 185, 129, 0.92); }
-        body.dark .toast-error { background: rgba(239, 68, 68, 0.92); }
-        body.dark .toast-info { background: rgba(59, 130, 246, 0.92); }
-
+        .toast-success { background: rgba(16,185,129,0.92); color: white; }
+        .toast-error { background: rgba(239,68,68,0.92); color: white; }
+        .toast-info { background: rgba(59,130,246,0.92); color: white; }
         #shield {
-            position: fixed;
-            inset: 0;
-            background: #0b0e12;
-            z-index: 100;
-            transition: opacity 0.6s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
+            position: fixed; inset: 0; background: #0b0e12; z-index: 100;
+            transition: opacity 0.6s ease; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 1.5rem;
         }
-        #shield .shield-spinner {
-            width: 2.8rem;
-            height: 2.8rem;
-            border: 2px solid rgba(212, 175, 55, 0.03);
-            border-top-color: #d4af37;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        body.light #shield { background: #d1d9e6; }
+        .shield-spinner {
+            width: 2.8rem; height: 2.8rem;
+            border: 2px solid rgba(212,175,55,0.03); border-top-color: #d4af37;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        #shield .shield-text {
-            color: rgba(212, 175, 55, 0.06);
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
+        .counter-badge {
+            font-size: 0.65rem; padding: 0.3rem 0.9rem; border-radius: 100px;
+            font-weight: 700; display: inline-block; border: 1px solid;
+            transition: all 0.3s ease;
         }
-        body.light #shield {
-            background: #f2f6fc;
+        body.light .counter-badge { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        body.dark .counter-badge { background: rgba(212,175,55,0.12); color: #d4af37; border-color: rgba(212,175,55,0.15); }
+        .report-btn, .trending-btn {
+            border-radius: 1.2rem; padding: 0.6rem 1.8rem; font-size: 0.7rem;
+            font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem;
+            cursor: pointer; transition: all 0.3s ease; border: 1px solid;
         }
-        body.light #shield .shield-text {
-            color: rgba(37, 99, 235, 0.06);
-        }
-        body.light #shield .shield-spinner {
-            border-color: rgba(37, 99, 235, 0.03);
-            border-top-color: #2563eb;
-        }
+        .top-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0.25rem 0; flex-wrap: wrap; }
+        .top-bar .spacer { flex: 1; }
+        .medal-item { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 0.8rem; border-radius: 1rem; transition: all 0.3s ease; }
+        .medal-item:hover { background: rgba(212,175,55,0.04); }
+        .roster-card .resident-name { font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 0.3rem; }
+        .roster-card .resident-spec { font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.6rem; border-radius: 100px; display: inline-block; border: 1px solid; }
+        body.light .roster-card .resident-spec { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        body.dark .roster-card .resident-spec { color: #d4af37 !important; }
+        .roster-card .resident-phone { font-size: 0.8rem; font-weight: 600; font-family: monospace; direction: ltr; unicode-bidi: isolate; margin-top: 0.1rem; }
 
-        /* ============================================================
-           SPECIALTY ICON STYLING
-        ============================================================ */
-        .spec-icon {
-            font-size: 1.1rem;
-            margin-left: 0.2rem;
+        /* TRENDING CARD FIRE BORDER */
+        .trending-fire-border {
+            position: relative;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24);
+            animation: spin-border 3s linear infinite;
+            box-shadow: 0 0 30px rgba(251,191,36,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .roster-card .resident-name .spec-icon {
-            font-size: 1.2rem;
+        .trending-fire-border:hover {
+            box-shadow: 0 0 60px rgba(251,191,36,0.5);
+            transform: scale(1.01);
         }
-
-        /* Card 3D embossed text effect */
-        .text-embossed {
-            text-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 2px 0 rgba(0,0,0,0.02);
+        @keyframes spin-border {
+            0% { background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
+            100% { background: conic-gradient(from 360deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
         }
-        body.dark .text-embossed {
-            text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 2px 0 rgba(0,0,0,0.3);
+        .trending-inner {
+            background: inherit;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
+        body.light .trending-inner { background: rgba(255,255,255,0.92); }
+        body.dark .trending-inner { background: rgba(14,20,32,0.9); }
+        .trending-fire-icon {
+            font-size: 2.5rem;
+            animation: flicker 1.2s infinite alternate;
+            display: inline-block;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); text-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b; }
+            100% { transform: scale(1.1) rotate(2deg); text-shadow: 0 0 20px #f59e0b, 0 0 40px #dc2626; }
+        }
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        .admin-reset-btn {
+            background: #dc2626; color: white; border: 1px solid #b91c1c;
+            padding: 0.4rem 1.2rem; border-radius: 1.2rem; font-size: 0.65rem;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .admin-reset-btn:hover { background: #b91c1c; transform: scale(1.02); }
+        body.dark .admin-reset-btn { background: #dc2626; color: white; border-color: #991b1b; }
     </style>
 </head>
 <body class="light" id="app-body">
 
     <div id="shield">
         <div class="shield-spinner"></div>
-        <span class="shield-text">Basra Teaching Hospital</span>
+        <span class="shield-text" style="color:rgba(212,175,55,0.06);font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;">Basra Teaching Hospital</span>
     </div>
 
-    <!-- TOAST CONTAINER -->
     <div id="toast-container"></div>
 
     <!-- LOCK SCREEN -->
@@ -847,54 +286,75 @@
                     <input type="checkbox" id="remember-me" checked class="w-4 h-4 accent-blue-500" /> تذكرني
                 </label>
             </div>
-            <div class="lock-footer text-secondary">
-                All rights reserved for Dr. Mohammed Riyadh
-            </div>
+            <div class="lock-footer text-secondary mt-2 text-xs">All rights reserved for Dr. Mohammed Riyadh</div>
         </div>
     </div>
 
     <!-- MAIN APP -->
     <div id="main-content" class="hidden-content max-w-3xl mx-auto px-4 py-6 relative z-10">
 
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
-            <div>
-                <h1 class="text-2xl font-black text-primary tracking-tight flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                        <i class="fas fa-hospital-user text-white text-sm"></i>
-                    </span>
-                    Basra Teaching Hospital · Duty Roster
-                </h1>
-                <p id="count-tag" class="counter-badge mt-2">
-                    <i class="fas fa-users mr-1"></i> جاري التحميل...
-                </p>
-            </div>
+        <div class="top-bar">
             <div class="flex items-center gap-3">
                 <div class="theme-toggle-wrap">
                     <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
-                        <span class="icon-wrap">
-                            <i class="fas fa-moon icon-moon"></i>
-                            <i class="fas fa-sun icon-sun"></i>
+                        <span class="icon-wrap relative w-6 h-6 flex items-center justify-center">
+                            <i class="fas fa-moon absolute text-lg transition-all" style="opacity:1;transform:rotateY(0);"></i>
+                            <i class="fas fa-sun absolute text-lg transition-all" style="opacity:0;transform:rotateY(180deg);"></i>
                         </span>
                     </button>
                 </div>
-                <button onclick="logout()" class="btn-ghost text-xs px-4 py-2">تسجيل الخروج</button>
+                <button onclick="logout()" class="btn-ghost text-xs px-4 py-2 border rounded-xl font-semibold">تسجيل الخروج</button>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex items-center gap-2">
+                <button onclick="showTrendingModal()" class="trending-btn text-xs px-4 py-2">
+                    <i class="fas fa-trophy"></i> Leaderboard
+                </button>
+                <button onclick="generateAndCopyReport()" class="report-btn text-xs px-4 py-2">
+                    <i class="fas fa-file-alt"></i> Report
+                </button>
+                <button id="admin-reset-btn" onclick="adminReset()" class="admin-reset-btn hidden">
+                    <i class="fas fa-sync-alt"></i> Reset
+                </button>
             </div>
         </div>
 
-        <!-- Roster List -->
+        <h1 class="header-3d">Basra Teaching Hospital</h1>
+        <p class="text-center text-sm font-bold text-secondary/50 mb-4 tracking-wider">On-Call Residents · Duty Roster</p>
+
+        <p id="count-tag" class="counter-badge mt-2 mb-4 inline-block">
+            <i class="fas fa-users mr-1"></i> جاري التحميل...
+        </p>
+
+        <!-- TRENDING CARD with fire border + confetti -->
+        <div id="trending-container" class="mb-4" onclick="triggerConfetti()"></div>
+
         <div id="roster-container" class="space-y-1"></div>
 
-        <!-- Report Button & Footer -->
-        <div class="flex flex-col items-center gap-3 mt-5">
-            <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn">
-                <i class="fas fa-file-alt"></i> Generate & Copy Report
-            </button>
-            <div class="footer-credit text-secondary">
-                All rights reserved for Dr. Mohammed Riyadh
+        <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
+    </div>
+
+    <!-- LEADERBOARD MODAL -->
+    <div id="trending-modal" class="modal-overlay" onclick="if(event.target===this) closeTrendingModal()">
+        <div class="modal-card glass-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xl font-black text-primary flex items-center gap-2">
+                    <i class="fas fa-trophy text-amber-500"></i> Leaderboard
+                </h3>
+                <button onclick="closeTrendingModal()" class="text-secondary/30 hover:text-secondary/60 text-xl transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <div class="filter-tabs" id="leaderboard-tabs">
+                <button class="filter-tab active" data-filter="today" onclick="switchLeaderboardFilter('today')">Today</button>
+                <button class="filter-tab" data-filter="month" onclick="switchLeaderboardFilter('month')">This Month</button>
+                <button class="filter-tab" data-filter="all" onclick="switchLeaderboardFilter('all')">All Time</button>
+            </div>
+            <div id="trending-content" class="space-y-2 mt-1"></div>
         </div>
     </div>
+
+    <div id="confetti-container" class="confetti-container"></div>
 
     <script>
         // ========== CONFIG ==========
@@ -903,35 +363,31 @@
         const GH_TOKEN = _p.join('');
 
         const arabicSpecs = {
-            "MF": "جراحة الوجه و الفكين", "M": "الباطنية", "P": "النفسية", "G": "النسائية و التوليد",
-            "GS": "الجراحة العامة", "US": "جراحة المسالك البولية",
-            "ENT": "الأذن و الأنف و الحنجرة", "OR": "الكسور", "Pe": "الاطفال", "NM": "طب الجملة العصبية", "N": "طب امراض الكلى",
-            "ICU": "تخدير العناية المركزة", "OP": "تخدير العمليات",
-            "R": "الأشعة و السونار","O": "العيون", "D": "الوفيات"
+            "MF":"جراحة الوجه و الفكين","M":"الباطنية","P":"النفسية","G":"النسائية و التوليد",
+            "GS":"الجراحة العامة","US":"جراحة المسالك البولية",
+            "ENT":"الأذن و الأنف و الحنجرة","OR":"الكسور","Pe":"الاطفال","NM":"طب الجملة العصبية","N":"طب امراض الكلى",
+            "ICU":"تخدير العناية المركزة","OP":"تخدير العمليات",
+            "R":"الأشعة و السونار","O":"العيون","D":"الوفيات"
         };
-
         const specIcons = {
-            "GS": "🔪", "US": "🧬", "OR": "🦴", "ENT": "👂", "M": "💊", "Pe": "👶", "NM": "🧠", "N": "🧫",
-            "O": "👁️", "ICU": "💉", "OP": "💉", "MF": "🦷", "R": "🩻", "G": "🌸", "P": "🧠", "D": "📋"
+            "GS":"🔪","US":"🧬","OR":"🦴","ENT":"👂","M":"💊","Pe":"👶","NM":"🧠","N":"🧫",
+            "O":"👁️","ICU":"💉","OP":"💉","MF":"🦷","R":"🩻","G":"🌸","P":"🧠","D":"📋"
         };
 
-        let db = { names: [], schedule: [] };
+        let db = { names: [], schedule: [], passwords: {} };
         let fileSha = "";
         let dataLoaded = false;
-        let loadError = false;
-        let isSessionRestored = false;
-        let isLockScreenHidden = false;
-        let isAutoLoginAttempted = false;
-
+        let userRole = null;
+        let clickCooldown = {};
+        const COOLDOWN_TIME = 30000;
         const STORAGE_KEY = 'basra_roster_session';
-        const SESSION_PIN = '1234';
+        let isAutoLoginAttempted = false;
 
         // ========== THEME ==========
         function toggleTheme() {
             document.getElementById('app-body').classList.toggle('light');
             document.getElementById('app-body').classList.toggle('dark');
-            const isDark = document.getElementById('app-body').classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('theme', document.getElementById('app-body').classList.contains('dark') ? 'dark' : 'light');
         }
         if (localStorage.getItem('theme') === 'dark') {
             document.getElementById('app-body').classList.remove('light');
@@ -939,124 +395,83 @@
         }
 
         // ========== TOAST ==========
+        let toastTimeout = null;
         function showToast(message, type = 'info', duration = 3000) {
+            if (toastTimeout) { clearTimeout(toastTimeout); document.getElementById('toast-container').querySelectorAll('.toast').forEach(t=>t.remove()); }
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-circle',
-                info: 'fa-info-circle'
-            };
+            const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', info:'fa-info-circle' };
             toast.className = `toast toast-${type}`;
-            toast.innerHTML = `
-                <i class="fas ${icons[type] || icons.info}"></i>
-                <span>${message}</span>
-                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
-            `;
+            toast.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i><span>${message}</span><button class="toast-close mr-auto cursor-pointer opacity-60 hover:opacity-100 bg-none border-none text-inherit" onclick="this.parentElement.remove()">&times;</button>`;
             container.appendChild(toast);
             requestAnimationFrame(() => toast.classList.add('show'));
-            setTimeout(() => {
-                toast.classList.remove('show');
-                toast.classList.add('hide');
-                setTimeout(() => { if (toast.parentElement) toast.remove(); }, 500);
-            }, duration);
+            toastTimeout = setTimeout(() => { toast.classList.remove('show'); setTimeout(()=>toast.remove(),500); toastTimeout=null; }, duration);
         }
 
         // ========== SESSION ==========
         function saveSession() {
-            const remember = document.getElementById('remember-me');
-            if (remember && remember.checked) {
+            if (document.getElementById('remember-me').checked) {
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
-                localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
+                localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
                 localStorage.setItem('rememberMe', 'true');
             } else {
-                localStorage.removeItem(STORAGE_KEY);
-                localStorage.removeItem(STORAGE_KEY + '_timestamp');
-                localStorage.removeItem('rememberMe');
+                localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe');
             }
         }
-
         function checkSession() {
             const session = localStorage.getItem(STORAGE_KEY);
             if (!session) return false;
-            const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
-            if (timestamp) {
-                const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
-                if (days > 7) { clearSession(); return false; }
-            }
+            const ts = localStorage.getItem(STORAGE_KEY+'_timestamp');
+            if (ts) { if ((Date.now()-parseInt(ts))/(1000*60*60*24) > 7) { clearSession(); return false; } }
             return session === 'authenticated';
         }
-
-        function clearSession() {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(STORAGE_KEY + '_timestamp');
-            localStorage.removeItem('rememberMe');
-        }
-
-        function logout() {
-            clearSession();
-            isSessionRestored = false;
-            document.getElementById('lock-screen').style.display = 'flex';
-            document.getElementById('main-content').classList.add('hidden-content');
-            document.getElementById('password-input').value = '';
-            document.getElementById('password-input').focus();
-            showToast('تم تسجيل الخروج', 'info');
-        }
+        function clearSession() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe'); localStorage.removeItem('rememberToken'); }
+        function logout() { clearSession(); userRole=null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('main-content').classList.add('hidden-content'); document.getElementById('password-input').value=''; document.getElementById('password-input').focus(); showToast('تم تسجيل الخروج','info'); }
 
         // ========== LOGIN ==========
         async function handleLogin() {
             const input = document.getElementById('password-input');
             const err = document.getElementById('lock-error');
-            const pwd = input.value;
-
-            if (!pwd) {
-                err.innerText = '❌ الرجاء إدخال كلمة المرور';
-                input.focus();
-                setTimeout(() => err.innerText = '', 2500);
-                return;
-            }
-
-            err.innerText = '⏳ جاري التحقق...';
-
+            const pwd = input.value.trim();
+            if (!pwd) { err.innerText='❌ الرجاء إدخال كلمة المرور'; input.focus(); setTimeout(()=>err.innerText='',2500); return; }
+            err.innerText='⏳ جاري التحقق...';
             try {
                 const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
                     headers: { "Authorization": `token ${GH_TOKEN}` }
                 });
-
                 if (res.ok) {
                     const data = await res.json();
                     fileSha = data.sha;
-                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                     db = content;
                     dataLoaded = true;
-                    loginSuccess(content);
+                    const userPass = content.passwords?.user || "12345";
+                    const adminPass = content.passwords?.admin || "123";
+                    if (pwd === adminPass) { userRole = 'admin'; loginSuccess(content); }
+                    else if (pwd === userPass) { userRole = 'user'; loginSuccess(content); }
+                    else { err.innerText='❌ كلمة المرور غير صحيحة'; input.value=''; input.focus(); setTimeout(()=>err.innerText='',2500); }
                 } else {
-                    err.innerText = '❌ خطأ في الاتصال بقاعدة البيانات';
-                    setTimeout(() => err.innerText = '', 2500);
+                    err.innerText='❌ خطأ في الاتصال بقاعدة البيانات';
+                    setTimeout(()=>err.innerText='',2500);
                 }
-            } catch (error) {
-                console.error("Login error:", error);
-                err.innerText = '❌ خطأ في الاتصال بقاعدة البيانات';
-                setTimeout(() => err.innerText = '', 2500);
-            }
+            } catch(e) { console.error(e); err.innerText='❌ خطأ في الاتصال'; setTimeout(()=>err.innerText='',2500); }
         }
 
         function loginSuccess(content) {
             db = content;
-            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-content').classList.remove('hidden-content');
-            
-            const remember = document.getElementById('remember-me');
-            if (remember && remember.checked) {
-                const pwd = document.getElementById('password-input').value;
+            const resetBtn = document.getElementById('admin-reset-btn');
+            if (userRole === 'admin') resetBtn.classList.remove('hidden');
+            else resetBtn.classList.add('hidden');
+            if (document.getElementById('remember-me').checked) {
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
-                localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
+                localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
                 localStorage.setItem('rememberMe', 'true');
-                localStorage.setItem('rememberToken', btoa(pwd));
+                localStorage.setItem('rememberToken', btoa(document.getElementById('password-input').value));
             }
-            
             renderRoster();
-            showToast('تم تسجيل الدخول بنجاح', 'success');
+            showToast('تم تسجيل الدخول بنجاح','success');
         }
 
         // ========== AUTO LOGIN ==========
@@ -1065,10 +480,7 @@
             const rememberMe = localStorage.getItem('rememberMe');
             if (token && rememberMe === 'true' && !isAutoLoginAttempted) {
                 isAutoLoginAttempted = true;
-                try {
-                    const pwd = atob(token);
-                    performAutoLogin(pwd);
-                } catch (e) { console.error("Auto-login error:", e); }
+                try { const pwd = atob(token); performAutoLogin(pwd); } catch(e) {}
             }
         })();
 
@@ -1080,91 +492,175 @@
                 if (res.ok) {
                     const data = await res.json();
                     fileSha = data.sha;
-                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
-                    db = content;
-                    dataLoaded = true;
-                    document.getElementById('lock-screen').style.display = 'none';
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
+                    db = content; dataLoaded = true;
+                    const userPass = content.passwords?.user || "12345";
+                    const adminPass = content.passwords?.admin || "123";
+                    if (pwd === adminPass) userRole = 'admin';
+                    else if (pwd === userPass) userRole = 'user';
+                    else { userRole = null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('password-input').focus(); return; }
+                    document.getElementById('lock-screen').style.display='none';
                     document.getElementById('main-content').classList.remove('hidden-content');
+                    const resetBtn = document.getElementById('admin-reset-btn');
+                    if (userRole === 'admin') resetBtn.classList.remove('hidden');
+                    else resetBtn.classList.add('hidden');
                     renderRoster();
-                    showToast('تم تسجيل الدخول تلقائياً', 'success');
+                    showToast('تم تسجيل الدخول تلقائياً','success');
                     return;
                 }
-            } catch (e) { console.error("Auto-login load error:", e); }
-            document.getElementById('lock-screen').style.display = 'flex';
+            } catch(e) {}
+            document.getElementById('lock-screen').style.display='flex';
             document.getElementById('password-input').focus();
+        }
+
+        // ========== ADMIN RESET ==========
+        function adminReset() {
+            if (userRole !== 'admin') { showToast('غير مصرح لك بهذا الإجراء','error'); return; }
+            if (!confirm('⚠️ هل أنت متأكد من إعادة ضبط جميع الإحصائيات؟')) return;
+            db.schedule.forEach(s => { s.VisitCount = 0; });
+            saveToGithub().then(() => { renderRoster(); showToast('✅ تم إعادة ضبط جميع الإحصائيات','success'); });
+        }
+
+        // ========== TRACKING (unified cooldown per resident) ==========
+        function trackContact(entryDate, residentName) {
+            const now = Date.now();
+            const key = `contact_${residentName}`;
+            if (clickCooldown[key] && (now - clickCooldown[key]) < COOLDOWN_TIME) {
+                showToast('⏳ تم تسجيل تفاعل مؤخراً، يرجى الانتظار','info');
+                return false;
+            }
+            const scheduleIndex = db.schedule.findIndex(s => s.date === entryDate && s.name === residentName);
+            if (scheduleIndex === -1) { showToast('❌ لم يتم العثور على المقيم في الجدول','error'); return false; }
+            if (!db.schedule[scheduleIndex].VisitCount) db.schedule[scheduleIndex].VisitCount = 0;
+            db.schedule[scheduleIndex].VisitCount += 1;
+            clickCooldown[key] = now;
+            showToast(`✅ تم تسجيل تفاعل مع ${residentName}`,'success');
+            saveToGithub();
+            renderRoster();
+            return true;
+        }
+
+        // ========== SAVE TO GITHUB ==========
+        async function saveToGithub() {
+            try {
+                const body = {
+                    message: "Update visit counts",
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))))
+                };
+                if (fileSha) body.sha = fileSha;
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${GH_TOKEN}` },
+                    body: JSON.stringify(body)
+                });
+                if (res.ok) { const data = await res.json(); fileSha = data.content.sha; localStorage.setItem('duty_db_cache', JSON.stringify(db)); }
+            } catch(e) { console.error("Save error:", e); }
+        }
+
+        // ========== GET TRENDING ==========
+        function getTrendingResident() {
+            const targetDate = getMedicalDate();
+            const todayEntries = db.schedule.filter(s => s.date === targetDate);
+            if (todayEntries.length === 0) return null;
+            const sorted = [...todayEntries].sort((a,b) => (b.VisitCount||0) - (a.VisitCount||0));
+            const top = sorted[0];
+            if (!top.VisitCount || top.VisitCount === 0) return null;
+            const resident = db.names.find(n => n.name === top.name);
+            return { ...top, phone: resident?.phone || "رقم غير متوفر", specName: arabicSpecs[top.specCode] || top.specCode, icon: specIcons[top.specCode] || "🏥" };
+        }
+
+        // ========== LEADERBOARD ==========
+        function getLeaderboardData(filter='today') {
+            let entries = db.schedule.filter(s => s.VisitCount && s.VisitCount > 0);
+            const now = new Date();
+            const todayStr = getMedicalDate();
+            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+            if (filter === 'today') entries = entries.filter(s => s.date === todayStr);
+            else if (filter === 'month') entries = entries.filter(s => { const parts=s.date.split('/'); return parts.length===3 && `${parts[1]}/${parts[2]}`===monthStr; });
+            const leaderboard = {};
+            entries.forEach(entry => {
+                if (!leaderboard[entry.name]) leaderboard[entry.name] = { name: entry.name, specCode: entry.specCode, totalVisits: 0, dates: [] };
+                leaderboard[entry.name].totalVisits += entry.VisitCount || 0;
+                leaderboard[entry.name].dates.push({ date: entry.date, visits: entry.VisitCount || 0 });
+            });
+            return Object.values(leaderboard).sort((a,b) => b.totalVisits - a.totalVisits);
         }
 
         // ========== RENDER ==========
         function renderRoster() {
             const container = document.getElementById('roster-container');
             const targetDate = getMedicalDate();
-            const now = new Date();
-            const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${now.toLocaleString('en-GB', {month:'short'})}-${now.getFullYear()}`;
-            
             const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            
-            // Update count
             const totalResidents = db.names.length;
             const activeCount = db.names.filter(n => n.spec !== "RESERVE").length;
-            const onCallCount = todayEntries.length;
-            document.getElementById('count-tag').innerHTML = 
-                `<i class="fas fa-users mr-1"></i> ${totalResidents} مسجل · ${activeCount} نشط · ${onCallCount} في الخدمة`;
+            document.getElementById('count-tag').innerHTML = `<i class="fas fa-users mr-1"></i> ${totalResidents} مسجل · ${activeCount} نشط · ${todayEntries.length} في الخدمة`;
 
-            if (todayEntries.length === 0) {
-                container.innerHTML = `
-                    <div class="glass-card p-8 text-center">
-                        <div class="text-4xl mb-3 opacity-20">📭</div>
-                        <div class="text-secondary/30 font-bold">لا يوجد مقيمين في الخدمة اليوم</div>
+            // Trending card with fire border
+            const trending = getTrendingResident();
+            const tc = document.getElementById('trending-container');
+            if (trending) {
+                tc.innerHTML = `
+                    <div class="trending-fire-border">
+                        <div class="trending-inner">
+                            <div class="flex items-center gap-3">
+                                <span class="trending-fire-icon">🔥</span>
+                                <span class="text-sm font-bold text-primary">Trending Today:</span>
+                                <span class="trending-badge text-sm px-3 py-1">
+                                    <i class="fas fa-star"></i> ${trending.name}
+                                </span>
+                                <span class="text-xs text-secondary">${trending.specName}</span>
+                            </div>
+                            <span class="text-sm font-bold text-amber-500">${trending.VisitCount || 0} interactions</span>
+                        </div>
                     </div>
                 `;
+            } else {
+                tc.innerHTML = `
+                    <div class="glass-card p-4 text-center text-secondary/40 text-sm">
+                        <i class="fas fa-chart-line mr-1"></i> No trending resident yet. Interactions will appear here.
+                    </div>
+                `;
+            }
+
+            if (todayEntries.length === 0) {
+                container.innerHTML = `<div class="glass-card p-8 text-center"><div class="text-4xl mb-3 opacity-20">📭</div><div class="text-secondary/30 font-bold">لا يوجد مقيمين في الخدمة اليوم</div></div>`;
                 return;
             }
 
-            // Detect iOS for WhatsApp link
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-            const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
-            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const sortedEntries = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
+            const trendingRes = getTrendingResident();
             container.innerHTML = sortedEntries.map(entry => {
                 const resident = db.names.find(n => n.name === entry.name);
                 const phone = resident?.phone || "رقم غير متوفر";
                 const specName = arabicSpecs[entry.specCode] || entry.specCode;
                 const icon = specIcons[entry.specCode] || "🏥";
                 const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
-                
-                // Generate WhatsApp link based on device - opens normal WhatsApp directly
-                let waHref = '#';
-                if (isPhoneValid) {
-                    const phoneClean = phone.replace(/[^0-9]/g, '');
-                    if (isIOS) {
-                        // iOS: use whatsapp:// scheme
-                        waHref = `whatsapp://send?phone=${phoneClean}`;
-                    } else {
-                        // Android: use intent:// targeting normal WhatsApp package
-                        waHref = `intent://send/${phoneClean}#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end`;
-                    }
-                }
-                
+                const visitCount = entry.VisitCount || 0;
+                const isTrending = visitCount > 0 && trendingRes && trendingRes.name === entry.name;
+                const phoneClean = isPhoneValid ? phone.replace(/[^0-9]/g,'') : '';
+                const today = getMedicalDate();
+                const waHref = isPhoneValid ? (isIOS ? `whatsapp://send?phone=${phoneClean}` : `intent://send/${phoneClean}#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end`) : '#';
                 return `
                     <div class="roster-card">
-                        <div class="card-info">
+                        <div class="card-info flex-1 min-w-[140px]">
                             <div class="flex items-center gap-2 flex-wrap">
-                                <span class="resident-name text-embossed"><span class="spec-icon">${icon}</span> ${entry.name}</span>
+                                <span class="resident-name"><span class="spec-icon">${icon}</span> ${entry.name}</span>
                                 <span class="resident-spec">${specName}</span>
+                                ${isTrending ? '<span class="trending-badge text-[0.5rem]"><i class="fas fa-fire"></i> Trending</span>' : ''}
+                                ${visitCount > 0 ? `<span class="text-xs text-amber-500/60 font-bold">${visitCount} 👁️</span>` : ''}
                             </div>
                             <div class="resident-phone">${phone}</div>
                         </div>
-                        <div class="card-actions">
-                            <a href="${isPhoneValid ? 'tel:' + phone : '#'}" 
+                        <div class="card-actions flex gap-2 flex-wrap">
+                            <a href="${isPhoneValid ? 'tel:'+phoneClean : '#'}" 
                                class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
-                               style="${!isPhoneValid ? 'cursor:default;' : ''}">
+                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}');` : 'event.preventDefault();'}">
                                 <i class="fas fa-phone"></i> Call
                             </a>
                             <a href="${waHref}" 
                                class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
-                               style="${!isPhoneValid ? 'cursor:default;' : ''}"
-                               onclick="${isPhoneValid ? 'event.preventDefault(); window.location.href=this.href;' : 'event.preventDefault();'}">
+                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}'); event.preventDefault(); window.location.href=this.href;` : 'event.preventDefault();'}">
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -1176,96 +672,107 @@
         function getMedicalDate() {
             const now = new Date();
             if (now.getHours() < 8) now.setDate(now.getDate() - 1);
-            const d = String(now.getDate()).padStart(2, '0');
-            const m = String(now.getMonth() + 1).padStart(2, '0');
-            return `${d}/${m}/${now.getFullYear()}`;
+            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
         }
-
         function getFormattedDate() {
             const now = new Date();
-            const d = String(now.getDate()).padStart(2, '0');
-            const m = String(now.getMonth() + 1).padStart(2, '0');
-            const y = now.getFullYear();
-            return `${d}/${m}/${y}`;
+            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
         }
 
-        // ========== REPORT GENERATOR ==========
+        // ========== REPORT ==========
         function generateAndCopyReport() {
             const targetDate = getMedicalDate();
             const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            
-            if (todayEntries.length === 0) {
-                showToast('لا يوجد مقيمين في الخدمة اليوم لتوليد تقرير', 'error');
-                return;
-            }
-
-            const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
-            let report = '';
-            let counter = 1;
-            
-            sortedEntries.forEach(entry => {
+            if (todayEntries.length === 0) { showToast('لا يوجد مقيمين في الخدمة اليوم','error'); return; }
+            const sorted = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
+            let report = ''; let counter = 1;
+            sorted.forEach(entry => {
                 const resident = db.names.find(n => n.name === entry.name);
                 const phone = resident?.phone || "رقم غير متوفر";
                 const specName = arabicSpecs[entry.specCode] || entry.specCode;
-                report += `${counter}. ${specName}\n`;
-                report += `   ${entry.name}\n`;
-                report += `   ${phone}\n`;
-                report += `   ${getFormattedDate()}\n\n`;
-                counter++;
+                report += `${counter}. ${specName}\n   ${entry.name}\n   ${phone}\n   ${getFormattedDate()}\n`;
+                if (entry.VisitCount) report += `   Interactions: ${entry.VisitCount}\n`;
+                report += `\n`; counter++;
             });
-
-            navigator.clipboard.writeText(report).then(() => {
-                const btn = document.getElementById('report-btn');
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
-                btn.style.borderColor = '#10b981';
-                btn.style.color = '#10b981';
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-file-alt"></i> Generate & Copy Report';
-                    btn.style.borderColor = '';
-                    btn.style.color = '';
-                }, 3000);
-                showToast('تم نسخ التقرير إلى الحافظة', 'success');
-            }).catch(() => {
-                const textArea = document.createElement('textarea');
-                textArea.value = report;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    const btn = document.getElementById('report-btn');
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
-                    btn.style.borderColor = '#10b981';
-                    btn.style.color = '#10b981';
-                    setTimeout(() => {
-                        btn.innerHTML = '<i class="fas fa-file-alt"></i> Generate & Copy Report';
-                        btn.style.borderColor = '';
-                        btn.style.color = '';
-                    }, 3000);
-                    showToast('تم نسخ التقرير إلى الحافظة', 'success');
-                } catch (err) {
-                    showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
-                }
-                document.body.removeChild(textArea);
-            });
+            navigator.clipboard.writeText(report).then(() => { showToast('تم نسخ التقرير إلى الحافظة','success'); })
+                .catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = report; document.body.appendChild(ta); ta.select();
+                    try { document.execCommand('copy'); showToast('تم نسخ التقرير','success'); } catch(e) { showToast('فشل النسخ','error'); }
+                    document.body.removeChild(ta);
+                });
         }
 
-        // ========== LOADING ==========
-        window.onload = async function() {
-            const hasSession = checkSession();
-            if (hasSession) {
-                const token = localStorage.getItem('rememberToken');
-                if (token) {
-                    try {
-                        const pwd = atob(token);
-                        await performAutoLogin(pwd);
-                    } catch (e) { /* fall through */ }
-                }
+        // ========== LEADERBOARD MODAL ==========
+        let currentFilter = 'today';
+        function showTrendingModal() {
+            document.getElementById('trending-modal').classList.add('active');
+            switchLeaderboardFilter(currentFilter);
+        }
+        function closeTrendingModal() { document.getElementById('trending-modal').classList.remove('active'); }
+        function switchLeaderboardFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => { tab.classList.toggle('active', tab.dataset.filter === filter); });
+            const content = document.getElementById('trending-content');
+            const leaderboard = getLeaderboardData(filter);
+            const topThree = leaderboard.slice(0,3);
+            const others = leaderboard.slice(3);
+            if (leaderboard.length === 0) {
+                content.innerHTML = `<div class="text-center py-6 text-secondary/30"><div class="text-4xl mb-2">🏆</div><div>No interactions recorded yet.</div></div>`;
+                return;
             }
+            let html = '';
+            if (topThree.length > 0) {
+                const maxVisits = topThree[0]?.totalVisits || 1;
+                const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
+                const medals = ['silver','gold','bronze'];
+                const medalIcons = ['🥈','🥇','🥉'];
+                html += `<div class="step-chart">`;
+                ordered.forEach((item, index) => {
+                    const height = Math.max((item.totalVisits / maxVisits) * 100, 10);
+                    const specName = arabicSpecs[item.specCode] || item.specCode;
+                    const icon = specIcons[item.specCode] || "🏥";
+                    html += `<div class="step-bar"><div class="bar-value">${item.totalVisits}</div><div class="bar ${medals[index]}" style="height:${height}px;"></div><div class="bar-label">${icon} ${item.name}</div><div style="font-size:1.3rem;">${medalIcons[index]}</div></div>`;
+                });
+                html += `</div>`;
+            }
+            if (others.length > 0) {
+                html += `<div class="mt-2 space-y-1">`;
+                others.forEach((item, index) => {
+                    const specName = arabicSpecs[item.specCode] || item.specCode;
+                    const icon = specIcons[item.specCode] || "🏥";
+                    html += `<div class="medal-item"><span class="text-lg w-6">#${index+4}</span><div class="flex-1"><div class="font-bold text-primary text-sm">${icon} ${item.name}</div><div class="text-xs text-secondary">${specName}</div></div><div class="text-right"><div class="font-bold text-amber-500 text-sm">${item.totalVisits}</div></div></div>`;
+                });
+                html += `</div>`;
+            }
+            const filterLabels = { 'today':'Today', 'month':'This Month', 'all':'All Time' };
+            html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
+            content.innerHTML = html;
+        }
 
+        // ========== CONFETTI ==========
+        function triggerConfetti() {
+            const count = 150;
+            const defaults = { origin: { y: 0.6 } };
+            function fire(particleRatio, opts) {
+                confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
+            }
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // ========== INIT ==========
+        window.onload = async function() {
+            if (checkSession()) {
+                const token = localStorage.getItem('rememberToken');
+                if (token) { try { const pwd = atob(token); await performAutoLogin(pwd); } catch(e) {} }
+            }
             if (document.getElementById('lock-screen').style.display !== 'none') {
                 document.getElementById('password-input').focus();
             }
-
             if (!dataLoaded) {
                 try {
                     const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
@@ -1274,51 +781,41 @@
                     if (res.ok) {
                         const data = await res.json();
                         fileSha = data.sha;
-                        const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
-                        db = content;
-                        dataLoaded = true;
+                        const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
+                        db = content; dataLoaded = true;
                         localStorage.setItem('duty_db_cache', JSON.stringify(db));
                     }
-                } catch (e) {
-                    console.warn('Data fetch failed:', e);
+                } catch(e) {
                     const cached = localStorage.getItem('duty_db_cache');
-                    if (cached) {
-                        try { db = JSON.parse(cached); dataLoaded = true; } catch (e2) {}
-                    }
+                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; } catch(e2) {}
                 }
             }
-
-            setTimeout(() => {
-                const s = document.getElementById('shield');
-                if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 500); }
-            }, 800);
-
-            if (dataLoaded && document.getElementById('lock-screen').style.display === 'none') {
-                renderRoster();
-            }
+            setTimeout(() => { const s=document.getElementById('shield'); if(s){s.style.opacity='0'; setTimeout(()=>s.remove(),500);} }, 800);
+            if (dataLoaded && document.getElementById('lock-screen').style.display === 'none') { renderRoster(); }
         };
 
-        // ========== EVENT LISTENERS ==========
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const lockScreen = document.getElementById('lock-screen');
-                if (lockScreen && lockScreen.style.display !== 'none') {
-                    e.preventDefault();
-                    handleLogin();
-                }
+                if (lockScreen && lockScreen.style.display !== 'none') { e.preventDefault(); handleLogin(); }
             }
+            if (e.key === 'Escape') closeTrendingModal();
         });
 
         document.getElementById('remember-me').addEventListener('change', function() {
-            if (!this.checked) {
-                localStorage.removeItem('rememberToken');
-                localStorage.removeItem('rememberMe');
-            }
+            if (!this.checked) { localStorage.removeItem('rememberToken'); localStorage.removeItem('rememberMe'); }
         });
 
         window.logout = logout;
         window.generateAndCopyReport = generateAndCopyReport;
         window.toggleTheme = toggleTheme;
+        window.showTrendingModal = showTrendingModal;
+        window.closeTrendingModal = closeTrendingModal;
+        window.switchLeaderboardFilter = switchLeaderboardFilter;
+        window.trackContact = trackContact;
+        window.adminReset = adminReset;
+        window.triggerConfetti = triggerConfetti;
+        window.handleLogin = handleLogin;
     </script>
 </body>
 </html>
