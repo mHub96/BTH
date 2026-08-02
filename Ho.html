@@ -51,27 +51,6 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         }
-        body.light .roster-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        body.light .roster-card:hover {
-            border-color: #2563eb;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
-        }
-        body.light .input-field {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #e2e8f0;
-            color: #1a2332;
-        }
-        body.light .btn-ghost {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(0, 0, 0, 0.08);
-            color: #1a2332;
-        }
-        body.light .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
         body.light .lock-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px);
@@ -111,6 +90,55 @@
         }
         body.light .resident-phone {
             color: #475569 !important;
+        }
+        /* Light theme card - less greyish, more 3D extrusion */
+        body.light .roster-card {
+            background: rgba(248, 250, 252, 0.95);
+            border-color: rgba(200, 210, 220, 0.4);
+            box-shadow: 
+                10px 10px 20px rgba(0, 0, 0, 0.06),
+                -8px -8px 18px rgba(255, 255, 255, 0.8),
+                0 4px 0 rgba(0, 0, 0, 0.03),
+                0 8px 24px rgba(0, 0, 0, 0.02),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+        body.light .roster-card:hover {
+            border-color: #2563eb;
+            box-shadow: 
+                14px 14px 28px rgba(0, 0, 0, 0.08),
+                -10px -10px 22px rgba(255, 255, 255, 0.9),
+                0 6px 0 rgba(0, 0, 0, 0.03),
+                0 12px 32px rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            transform: translateY(-4px) scale(1.005);
+        }
+        body.light .roster-card:active {
+            transform: translateY(4px) scale(0.97);
+            box-shadow: 
+                4px 4px 10px rgba(0, 0, 0, 0.04),
+                -3px -3px 10px rgba(255, 255, 255, 0.5),
+                0 1px 0 rgba(0, 0, 0, 0.01);
+        }
+        body.light .roster-card .resident-spec {
+            background: #dbeafe;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+        body.light .roster-card .action-btn-sm {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.04), -3px -3px 8px rgba(255, 255, 255, 0.7), 0 1px 0 rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* Light theme report button - better contrast */
+        body.light .report-btn {
+            background: #2563eb;
+            border-color: #1d4ed8;
+            color: white;
+        }
+        body.light .report-btn:hover {
+            background: #1d4ed8;
+            border-color: #1a4a8a;
+            color: white;
         }
 
         /* ============================================================
@@ -164,35 +192,6 @@
         body.dark .counter-badge i {
             color: #d4af37;
         }
-        body.dark .roster-card {
-            background: rgba(14, 20, 32, 0.7);
-            border-color: rgba(212, 175, 55, 0.06);
-        }
-        body.dark .roster-card:hover {
-            border-color: #d4af37;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-        }
-        body.dark .input-field {
-            background: rgba(10, 14, 24, 0.9);
-            border-color: #2a3346;
-            color: #f0f3f8;
-        }
-        body.dark .input-field:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
-        }
-        body.dark .input-field::placeholder {
-            color: #6a7a94;
-        }
-        body.dark .btn-ghost {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(212, 175, 55, 0.12);
-            color: #f0f3f8;
-        }
-        body.dark .btn-ghost:hover {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.25);
-        }
         body.dark .lock-card {
             background: rgba(12, 18, 30, 0.92);
             backdrop-filter: blur(20px);
@@ -240,6 +239,55 @@
         body.dark .toast-error { background: #ef4444; color: white; }
         body.dark .toast-info { background: #3b82f6; color: white; }
         
+        /* Dark theme card embossing - dramatic 3D extrusion */
+        body.dark .roster-card {
+            background: rgba(14, 20, 32, 0.8);
+            border-color: rgba(212, 175, 55, 0.06);
+            box-shadow: 
+                12px 12px 28px rgba(0, 0, 0, 0.7),
+                -10px -10px 24px rgba(255, 255, 255, 0.02),
+                0 5px 0 rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(212, 175, 55, 0.01),
+                inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        body.dark .roster-card:hover {
+            border-color: rgba(212, 175, 55, 0.15);
+            box-shadow: 
+                16px 16px 36px rgba(0, 0, 0, 0.8),
+                -12px -12px 28px rgba(255, 255, 255, 0.03),
+                0 7px 0 rgba(0, 0, 0, 0.5),
+                0 0 70px rgba(212, 175, 55, 0.04),
+                0 0 100px rgba(212, 175, 55, 0.01),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            transform: translateY(-5px) scale(1.01);
+        }
+        body.dark .roster-card:active {
+            transform: translateY(5px) scale(0.97);
+            box-shadow: 
+                5px 5px 14px rgba(0, 0, 0, 0.4),
+                -4px -4px 12px rgba(255, 255, 255, 0.01),
+                0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        body.dark .roster-card .resident-spec {
+            color: #d4af37 !important;
+        }
+        body.dark .roster-card .action-btn-sm {
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.02), 0 1px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        /* Dark theme report button */
+        body.dark .report-btn {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.12);
+            color: #d4af37;
+        }
+        body.dark .report-btn:hover {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+        }
+
         /* FIXED: High contrast for resident names in dark mode */
         body.dark .resident-name {
             color: #f0f3f8 !important;
@@ -247,9 +295,6 @@
         }
         body.dark .resident-phone {
             color: #a8b3c9 !important;
-        }
-        body.dark .roster-card .resident-spec {
-            color: #d4af37 !important;
         }
 
         /* ============================================================
@@ -306,77 +351,136 @@
             border: 1px solid;
         }
 
+        /* ============================================================
+           ROSTER CARDS — CUBIC 3D EMBOSSED
+        ============================================================ */
         .roster-card {
-            border-radius: 1.2rem;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 0.6rem;
+            border-radius: 1.4rem;
+            padding: 1.3rem 1.6rem;
+            margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid;
             flex-wrap: wrap;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
         }
+        /* 3D edge highlight - top */
+        .roster-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            pointer-events: none;
+            opacity: 0.6;
+            border-radius: 50%;
+        }
+        body.light .roster-card::before {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            opacity: 0.8;
+            height: 2px;
+        }
+        /* 3D edge shadow - bottom */
+        .roster-card::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+            pointer-events: none;
+            filter: blur(3px);
+        }
+        body.light .roster-card::after {
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12), transparent);
+        }
+
         .roster-card .card-info {
             flex: 1;
             min-width: 140px;
         }
         .roster-card .card-actions {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
+
+        /* 3D cubic buttons */
         .roster-card .action-btn-sm {
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.8rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 0.9rem;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.7rem;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            transition: all 0.3s ease;
+            gap: 5px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            transform: translateY(0);
+        }
+        body.light .roster-card .action-btn-sm:active {
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04), -1px -1px 4px rgba(255, 255, 255, 0.5);
+        }
+        body.dark .roster-card .action-btn-sm:active {
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3), -1px -1px 3px rgba(255, 255, 255, 0.01);
+        }
+        .roster-card .action-btn-sm:active {
+            transform: translateY(3px) scale(0.95);
         }
         .roster-card .action-btn-sm.call {
             color: #2563eb;
-            background: rgba(37, 99, 235, 0.06);
-            border: 1px solid rgba(37, 99, 235, 0.08);
+        }
+        body.dark .roster-card .action-btn-sm.call {
+            color: #60a5fa;
         }
         .roster-card .action-btn-sm.call:hover {
-            background: rgba(37, 99, 235, 0.12);
+            background: rgba(37, 99, 235, 0.08);
+        }
+        body.dark .roster-card .action-btn-sm.call:hover {
+            background: rgba(96, 165, 250, 0.08);
         }
         .roster-card .action-btn-sm.wa {
             color: #059669;
-            background: rgba(5, 150, 105, 0.06);
-            border: 1px solid rgba(5, 150, 105, 0.08);
+        }
+        body.dark .roster-card .action-btn-sm.wa {
+            color: #34d399;
         }
         .roster-card .action-btn-sm.wa:hover {
-            background: rgba(5, 150, 105, 0.12);
+            background: rgba(5, 150, 105, 0.08);
+        }
+        body.dark .roster-card .action-btn-sm.wa:hover {
+            background: rgba(52, 211, 153, 0.08);
         }
         .roster-card .action-btn-sm.opacity-40 {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: default;
             pointer-events: none;
         }
+
         .roster-card .resident-name {
             font-weight: 800;
             font-size: 1.1rem;
             transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
         .roster-card .resident-spec {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             padding: 0.1rem 0.6rem;
             border-radius: 100px;
             display: inline-block;
-            background: rgba(212, 175, 55, 0.06);
-            border: 1px solid rgba(212, 175, 55, 0.06);
-        }
-        body.light .roster-card .resident-spec {
-            background: #dbeafe;
-            color: #1e40af;
-            border-color: #bfdbfe;
+            border: 1px solid;
         }
         .roster-card .resident-phone {
             font-size: 0.8rem;
@@ -403,6 +507,23 @@
             display: inline-block;
             border: 1px solid;
             transition: all 0.3s ease;
+        }
+
+        /* Report Button - Global styles */
+        .report-btn {
+            border-radius: 1.2rem;
+            padding: 0.6rem 1.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid;
+        }
+        .report-btn:active {
+            transform: scale(0.97);
         }
 
         .modal-overlay {
@@ -680,10 +801,18 @@
         ============================================================ */
         .spec-icon {
             font-size: 1.1rem;
-            margin-left: 0.3rem;
+            margin-left: 0.2rem;
         }
         .roster-card .resident-name .spec-icon {
             font-size: 1.2rem;
+        }
+
+        /* Card 3D embossed text effect */
+        .text-embossed {
+            text-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 2px 0 rgba(0,0,0,0.02);
+        }
+        body.dark .text-embossed {
+            text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 2px 0 rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -758,7 +887,7 @@
 
         <!-- Report Button & Footer -->
         <div class="flex flex-col items-center gap-3 mt-5">
-            <button onclick="generateAndCopyReport()" id="report-btn" class="btn-ghost text-xs px-6 py-2 flex items-center gap-2 border-amber-200 dark:border-amber-800/30 bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400">
+            <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn">
                 <i class="fas fa-file-alt"></i> Generate & Copy Report
             </button>
             <div class="footer-credit text-secondary">
@@ -1004,7 +1133,7 @@
                     <div class="roster-card">
                         <div class="card-info">
                             <div class="flex items-center gap-2 flex-wrap">
-                                <span class="resident-name"><span class="spec-icon">${icon}</span> ${entry.name}</span>
+                                <span class="resident-name text-embossed"><span class="spec-icon">${icon}</span> ${entry.name}</span>
                                 <span class="resident-spec">${specName}</span>
                             </div>
                             <div class="resident-phone">${phone}</div>
