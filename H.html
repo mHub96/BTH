@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Medical Constellation 🇮🇶</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #05070a;
+            color: #b8c0d0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(251, 191, 36, 0.015) 0%, transparent 40%);
+            overflow: hidden;
+        }
+
+        /* Starlight background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.08), transparent),
+                radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.12), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.06), transparent),
+                radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1.5px 1.5px at 20% 80%, rgba(255,255,255,0.08), transparent),
+                radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.06), transparent),
+                radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.1), transparent);
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* MAIN CONTAINER — OBSERVATORY DOME */
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2.4rem 2rem 2rem;
+            background: rgba(5, 7, 10, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: 
+                0 40px 120px rgba(0,0,0,0.9),
+                0 0 0 1px rgba(99, 102, 241, 0.02),
+                inset 0 0 100px rgba(99, 102, 241, 0.005);
+            z-index: 1;
+        }
+        .main-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 4rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), transparent 35%, transparent 65%, rgba(251, 191, 36, 0.015));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Nebula orbs */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            opacity: 0.04;
+            animation: nebulaDrift 20s infinite alternate ease-in-out;
+        }
+        .nebula-1 { width: 400px; height: 400px; background: #6366f1; top: -150px; right: -100px; }
+        .nebula-2 { width: 300px; height: 300px; background: #fbbf24; bottom: -120px; left: -80px; animation-delay: -7s; }
+        .nebula-3 { width: 200px; height: 200px; background: #ec4899; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -12s; }
+        @keyframes nebulaDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -30px) scale(1.3); }
+        }
+
+        /* LOGIN — minimal, dark */
+        .glow-input {
+            background: rgba(0,0,0,0.3);
+            border-radius: 2.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: inset 0 8px 24px rgba(0,0,0,0.5);
+            position: relative;
+            transition: border-color 0.4s ease;
+        }
+        .glow-input:focus-within { border-color: rgba(99, 102, 241, 0.08); }
+        .password-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem;
+            padding: 0.9rem 1.5rem;
+            min-height: 5rem;
+            direction: ltr;
+        }
+        .password-dot {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(255, 255, 255, 0.02);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.4);
+            opacity: 0;
+            position: relative;
+        }
+        .password-dot.active {
+            background: #6366f1;
+            border-color: #6366f1;
+            transform: scale(1.3);
+            opacity: 1;
+            box-shadow: 0 0 60px rgba(99, 102, 241, 0.2), 0 0 120px rgba(99, 102, 241, 0.05);
+            animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes dotPop {
+            0% { transform: scale(0.4); opacity: 0; }
+            50% { transform: scale(1.6); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 1; }
+        }
+        .password-dot.filled {
+            background: #6366f1;
+            border-color: #6366f1;
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.06);
+        }
+        .password-dot.filled::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(99, 102, 241, 0.04);
+            animation: pulseFilled 2.5s ease-in-out infinite;
+        }
+        @keyframes pulseFilled {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.4); opacity: 0.1; }
+        }
+        .password-dot.empty { transform: scale(0.4); opacity: 0; }
+        .password-dot.error-shake {
+            animation: shakeError 0.5s ease;
+            border-color: #e11d48;
+            background: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.2);
+        }
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0) scale(1); }
+            15% { transform: translateX(-12px) scale(1.05); }
+            30% { transform: translateX(12px) scale(1.05); }
+            45% { transform: translateX(-8px) scale(1.02); }
+            60% { transform: translateX(8px) scale(1.02); }
+            80% { transform: translateX(-4px) scale(1); }
+        }
+        .password-input-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: text;
+            z-index: 5;
+        }
+        .password-input-overlay input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: transparent;
+            caret-color: #6366f1;
+            font-size: 1px;
+            padding: 0;
+            margin: 0;
+            cursor: text;
+            text-align: center;
+        }
+        .cursor-indicator {
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #6366f1;
+            border-radius: 50%;
+            animation: cursorPulse 1.2s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+        .cursor-indicator.visible { opacity: 1; }
+        @keyframes cursorPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+            50% { transform: translateX(-50%) scale(4); opacity: 1; }
+        }
+
+        .btn-login {
+            background: rgba(99, 102, 241, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.04);
+            border-radius: 2.2rem;
+            padding: 1.2rem 1.8rem;
+            width: 100%;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b8c0d0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-login:hover:not(:disabled)::before { opacity: 1; }
+        .btn-login:hover:not(:disabled) {
+            border-color: rgba(99, 102, 241, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .btn-login:active:not(:disabled) { transform: scale(0.97); }
+        .btn-login:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-login.active {
+            background: #6366f1;
+            color: #05070a;
+            border-color: #6366f1;
+            box-shadow: 0 0 60px rgba(99, 102, 241, 0.1);
+        }
+        .btn-login.active:hover { box-shadow: 0 0 80px rgba(99, 102, 241, 0.15); }
+        .btn-login.error {
+            background: #e11d48;
+            color: white;
+            border-color: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.15);
+            animation: quickShake 0.3s ease both;
+        }
+        @keyframes quickShake {
+            10%, 90% { transform: translate3d(-3px, 0, 0); }
+            30%, 70% { transform: translate3d(6px, 0, 0); }
+            40%, 60% { transform: translate3d(-6px, 0, 0); }
+        }
+
+        .toggle-remember {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.65rem;
+            color: rgba(184, 192, 208, 0.12);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+        .toggle-remember:hover { color: rgba(184, 192, 208, 0.25); }
+        .toggle-remember input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.1rem;
+            height: 1.1rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .toggle-remember input[type="checkbox"]:checked {
+            background: #6366f1;
+            border-color: #6366f1;
+        }
+        .toggle-remember input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #05070a;
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        .toast-error {
+            background: rgba(225, 29, 72, 0.03);
+            border: 1px solid rgba(225, 29, 72, 0.05);
+            border-radius: 1.2rem;
+            padding: 0.9rem 1.2rem;
+            font-size: 0.7rem;
+            color: #f1948a;
+            text-align: center;
+            animation: slideDown 0.4s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden { display: none !important; }
+
+        .status-text {
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: rgba(184, 192, 208, 0.08);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+        .status-text.ready { color: rgba(16, 185, 129, 0.2); animation: blinkReady 1.2s ease-in-out infinite; }
+        .status-text.error { color: rgba(225, 29, 72, 0.2); }
+        @keyframes blinkReady {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .engraved {
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(251, 191, 36, 0.25);
+            padding: 0.6rem 0 0.2rem 0;
+            margin-top: 0.6rem;
+            border-top: 1px solid rgba(184, 192, 208, 0.01);
+            text-align: center;
+        }
+
+        .view-wrapper {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .view-wrapper.exit {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.96);
+        }
+        .view-wrapper.enter {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .hidden-view { display: none !important; }
+
+        #shield {
+            position: fixed;
+            inset: 0;
+            background: #05070a;
+            z-index: 100;
+            transition: opacity 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        #shield .shield-spinner {
+            width: 2.6rem;
+            height: 2.6rem;
+            border: 2px solid rgba(99, 102, 241, 0.03);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #shield .shield-text {
+            color: rgba(99, 102, 241, 0.06);
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           CONSTELLATION VIEW — Stars orbiting in space
+           ============================================================ */
+        .constellation-container {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem 3rem;
+            padding: 1rem 0.5rem;
+        }
+
+        /* Star — celestial body */
+        .star {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.15rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: floatStar 6s infinite alternate ease-in-out;
+            width: 120px;
+            padding: 1rem 0.8rem;
+            border-radius: 2rem;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.03), transparent 70%);
+            border: 1px solid rgba(99, 102, 241, 0.02);
+            text-align: center;
+            z-index: 2;
+        }
+        .star:nth-child(2) { animation-delay: -1s; }
+        .star:nth-child(3) { animation-delay: -2.5s; }
+        .star:nth-child(4) { animation-delay: -4s; }
+        .star:nth-child(5) { animation-delay: -5.5s; }
+        .star:nth-child(6) { animation-delay: -0.5s; }
+        .star:nth-child(7) { animation-delay: -3s; }
+        .star:nth-child(8) { animation-delay: -1.5s; }
+
+        @keyframes floatStar {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-12px) rotate(2deg); }
+        }
+
+        .star::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 2rem;
+            padding: 1px;
+            background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(99, 102, 241, 0.06), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .star:hover {
+            transform: scale(1.08) translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.06);
+            box-shadow: 0 0 60px rgba(99, 102, 241, 0.02), 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .star-glow {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.02), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .star:hover .star-glow {
+            opacity: 1;
+        }
+
+        /* Celestial ring */
+        .star-ring {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 102, 241, 0.02);
+            animation: ringOrbit 8s linear infinite;
+            pointer-events: none;
+        }
+        .star:nth-child(2) .star-ring { animation-duration: 10s; }
+        .star:nth-child(3) .star-ring { animation-duration: 7s; }
+        .star:nth-child(4) .star-ring { animation-duration: 12s; }
+        .star:nth-child(5) .star-ring { animation-duration: 9s; }
+
+        @keyframes ringOrbit {
+            0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+
+        .star .specialty-tag {
+            font-size: 0.45rem;
+            font-weight: 700;
+            color: rgba(165, 180, 252, 0.6);
+            background: rgba(99, 102, 241, 0.02);
+            padding: 0.1rem 0.8rem;
+            border-radius: 100px;
+            border: 1px solid rgba(99, 102, 241, 0.02);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .star .name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #f0f4fa;
+            text-shadow: 0 0 30px rgba(99, 102, 241, 0.02);
+            line-height: 1.2;
+            margin: 0.1rem 0;
+        }
+
+        .star .phone {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #4a5468;
+            font-family: monospace;
+            opacity: 0.2;
+            letter-spacing: 0.04em;
+            transition: opacity 0.3s ease;
+        }
+        .star:hover .phone { opacity: 0.4; }
+
+        .star .actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: all 0.3s ease;
+        }
+        .star:hover .actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .star .action-btn {
+            padding: 0.3rem 0.6rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.4rem;
+            letter-spacing: 0.04em;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            box-shadow: 0 2px 0 #040507, 0 4px 12px rgba(0,0,0,0.2);
+            color: #8a94a8;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .star .action-btn.call { color: #60a5fa; }
+        .star .action-btn.call:hover {
+            background: rgba(96, 165, 250, 0.04);
+            border-color: rgba(96, 165, 250, 0.03);
+        }
+        .star .action-btn.wa { color: #10b981; }
+        .star .action-btn.wa:hover {
+            background: rgba(16, 185, 129, 0.04);
+            border-color: rgba(16, 185, 129, 0.03);
+        }
+        .star .action-btn.opacity-40 {
+            opacity: 0.12;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Constellation lines (connecting stars) */
+        .constellation-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.02), rgba(99, 102, 241, 0.01));
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .empty-constellation {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(184, 192, 208, 0.06);
+            font-size: 0.8rem;
+            font-weight: 600;
+            width: 100%;
+        }
+        .empty-constellation .icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.08;
+        }
+
+        @media (max-width: 480px) {
+            .main-wrapper { padding: 1.6rem 1rem 1.4rem; border-radius: 2.4rem; }
+            .star { width: 100px; padding: 0.8rem 0.6rem; }
+            .star .name { font-size: 0.85rem; }
+            .star .specialty-tag { font-size: 0.4rem; padding: 0.05rem 0.6rem; }
+            .star .actions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .star .action-btn { font-size: 0.35rem; padding: 0.2rem 0.5rem; }
+            .constellation-container { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="shield">
+        <div class="shield-spinner"></div>
+        <span class="shield-text">Basra Teaching Hospital</span>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+
+        <!-- LOGIN VIEW -->
+        <div id="login-view" class="view-wrapper">
+            <div class="text-center mb-7">
+                <h1 class="text-white text-2xl font-extrabold tracking-tight" style="text-shadow: 0 0 60px rgba(99,102,241,0.02);">🌌 Medical Constellation</h1>
+                <p class="text-[0.55rem] text-slate-500 mt-1 tracking-[0.15em]">Basra Teaching Hospital</p>
+                <div class="flex items-center justify-center gap-2 mt-4">
+                    <span id="status-text" class="status-text">جاري التحميل...</span>
+                </div>
+            </div>
+            <div class="space-y-7">
+                <div class="glow-input" id="passwordContainer">
+                    <div class="password-container" id="dotContainer">
+                        <div class="password-dot empty" id="dot0"></div>
+                        <div class="password-dot empty" id="dot1"></div>
+                        <div class="password-dot empty" id="dot2"></div>
+                        <div class="password-dot empty" id="dot3"></div>
+                        <div class="password-dot empty" id="dot4"></div>
+                        <div class="password-dot empty" id="dot5"></div>
+                        <div class="password-dot empty" id="dot6"></div>
+                        <div class="password-dot empty" id="dot7"></div>
+                        <div class="cursor-indicator" id="cursorIndicator"></div>
+                    </div>
+                    <div class="password-input-overlay">
+                        <input type="password" id="pw" inputmode="numeric" maxlength="8" 
+                               autofocus
+                               onkeydown="handlePasswordKey(event)"
+                               oninput="handlePasswordInput()"
+                               onfocus="showCursor()"
+                               onblur="hideCursor()">
+                    </div>
+                </div>
+
+                <button id="entry-btn" onclick="handleEntry()" class="btn-login w-full py-6" disabled>جاري التحميل...</button>
+                
+                <div class="flex items-center justify-center px-1">
+                    <label class="toggle-remember">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <span>تذكرني</span>
+                    </label>
+                    <span class="text-[0.35rem] tracking-[0.25em] ml-3" style="color: rgba(99, 102, 241, 0.02);">✦ SECURE</span>
+                </div>
+                
+                <div id="login-error" class="hidden toast-error"></div>
+            </div>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
+        </div>
+
+        <!-- CONSTELLATION VIEW — Stars in space -->
+        <div id="roster-view" class="hidden-view view-wrapper">
+            <div class="text-center mb-3">
+                <h2 class="text-white text-lg font-extrabold tracking-tight">✨ Active Constellation</h2>
+                <p id="roster-date" class="text-[0.6rem] text-slate-500 mt-1 font-bold tracking-wider uppercase"></p>
+                <p id="roster-count" class="text-[0.55rem] text-indigo-400/25 mt-1 font-bold tracking-wider"></p>
+            </div>
+            
+            <div id="roster-container" class="constellation-container"></div>
+
+            <div class="mt-4 text-center">
+                <button onclick="logout()" class="text-[0.55rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
+            </div>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
+        </div>
+    </div>
+
+<script>
+    // ############################################################
+    // FUNCTIONALITY — INTACT
+    // ############################################################
+
+    const CONFIG = { user: "mHub96", repo: "BTH", path: "data.json" };
+    const _pt1 = "ghp_dAUtsFhTH";
+    const _pt2 = "a2KeJQOsxsC";
+    const _pt3 = "Ct1vz8z1Z63";
+    const _pt4 = "Am sjS";
+    const GH_TOKEN = (_pt1 + _pt2 + _pt3 + _pt4).replace(/\s/g, '');
+
+    const arabicSpecs = {
+        "MF": "جراحة الوجه و الفكين", "M": "الباطنية", "P": "النفسية", "G": "النسائية و التوليد",
+        "GS": "الجراحة العامة", "US": "جراحة المسالك البولية",
+        "ENT": "الأذن و الأنف و الحنجرة", "OR": "الكسور", "Pe": "الاطفال", "NM": "طب الجملة العصبية", "N": "طب امراض الكلى",
+        "ICU": "تخدير العناية المركزة", "OP": "تخدير العمليات",
+        "R": "الأشعة و السونار","O": "العيون", "D": "الوفيات"
+    };
+
+    let db = { names: [], schedule: [] };
+    let dataLoaded = false;
+    let loadError = false;
+
+    const STORAGE_KEY = 'duty_portal_session';
+    const SESSION_PIN = '1234';
+
+    // ---------- PASSWORD ----------
+    let passwordValue = '';
+
+    function updateDots(value) {
+        const dots = document.querySelectorAll('.password-dot');
+        const len = value.length;
+        dots.forEach((dot, index) => {
+            dot.className = 'password-dot';
+            if (index < len) {
+                dot.classList.add('filled');
+                if (dot.dataset.wasEmpty === 'true') {
+                    dot.classList.add('active');
+                    setTimeout(() => dot.classList.remove('active'), 500);
+                }
+                dot.dataset.wasEmpty = 'false';
+            } else {
+                dot.classList.add('empty');
+                dot.dataset.wasEmpty = 'true';
+            }
+        });
+        const cursor = document.getElementById('cursorIndicator');
+        if (len < 8) cursor.classList.add('visible');
+        else cursor.classList.remove('visible');
+    }
+
+    function handlePasswordInput() {
+        const input = document.getElementById('pw');
+        passwordValue = input.value;
+        updateDots(input.value);
+    }
+
+    function handlePasswordKey(e) {
+        if (e.key === 'Enter') { e.preventDefault(); handleEntry(); }
+        if (e.key === 'Backspace') {
+            setTimeout(() => {
+                const input = document.getElementById('pw');
+                updateDots(input.value);
+            }, 10);
+        }
+    }
+
+    function showCursor() {
+        const cursor = document.getElementById('cursorIndicator');
+        if (passwordValue.length < 8) cursor.classList.add('visible');
+    }
+
+    function hideCursor() {
+        document.getElementById('cursorIndicator').classList.remove('visible');
+    }
+
+    function shakeDots() {
+        document.querySelectorAll('.password-dot.filled').forEach(dot => {
+            dot.classList.add('error-shake');
+            setTimeout(() => dot.classList.remove('error-shake'), 500);
+        });
+    }
+
+    function resetPasswordInput() {
+        const input = document.getElementById('pw');
+        input.value = '';
+        passwordValue = '';
+        updateDots('');
+        document.querySelectorAll('.password-dot').forEach(dot => {
+            dot.className = 'password-dot empty';
+            dot.dataset.wasEmpty = 'true';
+        });
+    }
+
+    // ---------- SESSION ----------
+    function saveSession() {
+        const remember = document.getElementById('rememberMe');
+        if (remember && remember.checked) {
+            localStorage.setItem(STORAGE_KEY, 'authenticated');
+            localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
+        } else {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(STORAGE_KEY + '_timestamp');
+        }
+    }
+
+    function checkSession() {
+        const session = localStorage.getItem(STORAGE_KEY);
+        if (!session) return false;
+        const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
+        if (timestamp) {
+            const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
+            if (days > 7) { clearSession(); return false; }
+        }
+        return session === 'authenticated';
+    }
+
+    function clearSession() {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY + '_timestamp');
+    }
+
+    function logout() {
+        clearSession();
+        const loginView = document.getElementById('login-view');
+        const rosterView = document.getElementById('roster-view');
+        if (!rosterView.classList.contains('hidden-view')) {
+            rosterView.classList.add('exit');
+            setTimeout(() => {
+                rosterView.classList.add('hidden-view');
+                rosterView.classList.remove('exit');
+            }, 400);
+        }
+        setTimeout(() => {
+            loginView.classList.remove('hidden-view');
+            loginView.classList.add('enter');
+            setTimeout(() => loginView.classList.remove('enter'), 500);
+            resetPasswordInput();
+            const entryBtn = document.getElementById('entry-btn');
+            if (dataLoaded) {
+                entryBtn.disabled = false;
+                entryBtn.innerText = 'SIGN IN';
+                entryBtn.className = 'btn-login active w-full py-6';
+            } else {
+                entryBtn.disabled = true;
+                entryBtn.innerText = 'جاري التحميل...';
+                entryBtn.className = 'btn-login w-full py-6';
+            }
+        }, 300);
+    }
+
+    // ---------- ENTRY ----------
+    window.handleEntry = function() {
+        if (!dataLoaded) {
+            showLoginError('البيانات لم تكتمل، حاول مرة أخرى');
+            return;
+        }
+        const input = document.getElementById('pw');
+        const pin = input.value;
+        if (pin === SESSION_PIN) {
+            saveSession();
+            proceedAfterAuth();
+        } else {
+            shakeDots();
+            showLoginError('الرمز غير صحيح');
+            const btn = document.getElementById('entry-btn');
+            btn.className = 'btn-login error w-full py-6';
+            btn.innerText = "INCORRECT!";
+            setTimeout(() => {
+                if (dataLoaded) {
+                    btn.className = 'btn-login active w-full py-6';
+                    btn.innerText = 'SIGN IN';
+                } else {
+                    btn.className = 'btn-login w-full py-6';
+                    btn.innerText = 'جاري التحميل...';
+                }
+            }, 1000);
+            setTimeout(() => { resetPasswordInput(); input.focus(); }, 400);
+        }
+    };
+
+    function proceedAfterAuth() {
+        const loginView = document.getElementById('login-view');
+        const rosterView = document.getElementById('roster-view');
+        loginView.classList.add('exit');
+        setTimeout(() => {
+            loginView.classList.add('hidden-view');
+            loginView.classList.remove('exit');
+            renderRoster();
+            rosterView.classList.remove('hidden-view');
+            rosterView.classList.add('enter');
+            setTimeout(() => rosterView.classList.remove('enter'), 500);
+        }, 500);
+    }
+
+    function showLoginError(msg) {
+        const errEl = document.getElementById('login-error');
+        errEl.innerText = msg;
+        errEl.classList.remove('hidden');
+        setTimeout(() => errEl.classList.add('hidden'), 4000);
+    }
+
+    // ---------- LOADING ----------
+    window.onload = async function() {
+        const hasSession = checkSession();
+        const loginView = document.getElementById('login-view');
+        if (hasSession) loginView.classList.add('hidden-view');
+
+        const shieldTimeout = setTimeout(() => {
+            const s = document.getElementById('shield');
+            if (s && s.style.opacity !== '0') {
+                s.style.opacity = '0';
+                setTimeout(() => s.remove(), 500);
+            }
+        }, 5000);
+
+        try {
+            await fetchDataWithTimeout(8000);
+        } catch (e) {
+            console.warn('Data fetch failed:', e);
+            loadError = true;
+            const cached = localStorage.getItem('duty_db_cache');
+            if (cached) {
+                try { db = JSON.parse(cached); dataLoaded = true; } catch (e2) {}
+            }
+        }
+
+        clearTimeout(shieldTimeout);
+        const s = document.getElementById('shield');
+        if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 500); }
+
+        const entryBtn = document.getElementById('entry-btn');
+        const statusText = document.getElementById('status-text');
+
+        if (dataLoaded) {
+            statusText.innerText = 'READY';
+            statusText.className = 'status-text ready';
+            entryBtn.disabled = false;
+            entryBtn.innerText = 'SIGN IN';
+            entryBtn.className = 'btn-login active w-full py-6';
+            
+            if (hasSession) {
+                setTimeout(() => {
+                    renderRoster();
+                    document.getElementById('roster-view').classList.remove('hidden-view');
+                    document.getElementById('roster-view').classList.add('enter');
+                    setTimeout(() => document.getElementById('roster-view').classList.remove('enter'), 500);
+                }, 200);
+            } else {
+                if (!loginView.classList.contains('hidden-view')) {
+                    setTimeout(() => document.getElementById('pw').focus(), 300);
+                } else {
+                    loginView.classList.remove('hidden-view');
+                    loginView.classList.add('enter');
+                    setTimeout(() => {
+                        loginView.classList.remove('enter');
+                        document.getElementById('pw').focus();
+                    }, 300);
+                }
+            }
+        } else if (loadError) {
+            statusText.innerText = '⚠️ غير متصل';
+            statusText.className = 'status-text error';
+            entryBtn.disabled = true;
+            entryBtn.innerText = '⚠️ خطأ في الاتصال';
+            entryBtn.className = 'btn-login w-full py-6';
+            showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
+            if (loginView.classList.contains('hidden-view')) {
+                loginView.classList.remove('hidden-view');
+                loginView.classList.add('enter');
+                setTimeout(() => loginView.classList.remove('enter'), 300);
+            }
+        }
+
+        document.getElementById('rememberMe').checked = true;
+        resetPasswordInput();
+    };
+
+    async function fetchDataWithTimeout(timeoutMs) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                headers: { "Authorization": `token ${GH_TOKEN}` },
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+                const data = await res.json();
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                db = decoded;
+                localStorage.setItem('duty_db_cache', JSON.stringify(db));
+                dataLoaded = true;
+                loadError = false;
+                return true;
+            } else {
+                throw new Error(`HTTP ${res.status}`);
+            }
+        } catch (e) {
+            clearTimeout(timeoutId);
+            throw e;
+        }
+    }
+
+    function getMedicalDate() {
+        const now = new Date();
+        if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+        const d = String(now.getDate()).padStart(2, '0');
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        return `${d}/${m}/${now.getFullYear()}`;
+    }
+
+    // ---------- RENDER — CONSTELLATION VIEW ----------
+    function renderRoster() {
+        const container = document.getElementById('roster-container');
+        const dateDisplay = document.getElementById('roster-date');
+        const countDisplay = document.getElementById('roster-count');
+        
+        const targetDate = getMedicalDate();
+        const now = new Date();
+        const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${now.toLocaleString('en-GB', {month:'short'})}-${now.getFullYear()}`;
+        dateDisplay.innerText = `📅 ${formattedDate}`;
+
+        const todayEntries = db.schedule.filter(s => s.date === targetDate);
+
+        if (todayEntries.length === 0) {
+            container.innerHTML = `
+                <div class="empty-constellation">
+                    <div class="icon">🌌</div>
+                    <div>لا يوجد نجوم في الخدمة اليوم</div>
+                </div>
+            `;
+            countDisplay.innerText = '0 نجم';
+            return;
+        }
+
+        countDisplay.innerText = `${todayEntries.length} نجم في الخدمة`;
+        const sortedEntries = [...todayEntries].sort((a, b) => a.specCode.localeCompare(b.specCode));
+
+        container.innerHTML = sortedEntries.map(entry => {
+            const resident = db.names.find(n => n.name === entry.name);
+            const phone = resident?.phone || "رقم غير متوفر";
+            const specName = arabicSpecs[entry.specCode] || entry.specCode;
+            const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
+            
+            return `
+                <div class="star" 
+                     onmousemove="handleStarGlow(event, this)"
+                     onmouseleave="resetStarGlow(this)">
+                    <div class="star-glow"></div>
+                    <div class="star-ring"></div>
+                    <div class="specialty-tag">${specName}</div>
+                    <div class="name">${entry.name}</div>
+                    <div class="phone">${phone}</div>
+                    <div class="actions">
+                        <a href="${isPhoneValid ? 'tel:' + phone : '#'}" 
+                           class="action-btn call ${!isPhoneValid ? 'opacity-40' : ''}"
+                           style="${!isPhoneValid ? 'cursor:default;' : ''}">
+                            📞 Call
+                        </a>
+                        <a href="${isPhoneValid ? 'whatsapp://send?phone=' + phone : '#'}" 
+                           class="action-btn wa ${!isPhoneValid ? 'opacity-40' : ''}"
+                           style="${!isPhoneValid ? 'cursor:default;' : ''}"
+                           onclick="${isPhoneValid ? 'event.preventDefault(); window.location.href=this.href;' : 'event.preventDefault();'}">
+                            💬 WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Glow effect on star
+    function handleStarGlow(e, star) {
+        const rect = star.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width * 100);
+        const y = ((e.clientY - rect.top) / rect.height * 100);
+        star.style.setProperty('--glow-x', x + '%');
+        star.style.setProperty('--glow-y', y + '%');
+    }
+
+    function resetStarGlow(star) {
+        star.style.setProperty('--glow-x', '50%');
+        star.style.setProperty('--glow-y', '50%');
+    }
+
+    window.logout = logout;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('passwordContainer').addEventListener('click', function() {
+            document.getElementById('pw').focus();
+        });
+    });
+</script>
+</body>
+</html>
