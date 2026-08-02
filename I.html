@@ -472,6 +472,30 @@
         }
         body.light .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.5)); }
         body.dark .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.4)); }
+
+        /* ============================================================
+           RESET MODAL — OPTIONS
+           ============================================================ */
+        .reset-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .reset-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(212,175,55,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reset-option:hover { background: rgba(212,175,55,0.05); border-color: rgba(212,175,55,0.2); }
+        .reset-option input[type="radio"] { accent-color: #dc2626; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+        .reset-option label { cursor: pointer; flex: 1; font-weight: 600; font-size: 0.9rem; }
+        .reset-option .desc { font-size: 0.65rem; opacity: 0.6; font-weight: 400; }
     </style>
 </head>
 <body class="light" id="app-body">
@@ -531,7 +555,7 @@
                 <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn text-xs px-4 py-2">
                     <i class="fas fa-file-alt"></i> Report
                 </button>
-                <button id="admin-reset-btn" onclick="adminReset()" class="admin-reset-btn hidden">
+                <button id="admin-reset-btn" onclick="showResetModal()" class="admin-reset-btn hidden">
                     <i class="fas fa-sync-alt"></i> Reset
                 </button>
             </div>
@@ -570,6 +594,38 @@
                 <button class="filter-tab" data-filter="all" onclick="switchLeaderboardFilter('all')">All Time</button>
             </div>
             <div id="trending-content" class="space-y-2 mt-1"></div>
+        </div>
+    </div>
+
+    <!-- RESET MODAL -->
+    <div id="reset-modal" class="modal-overlay" onclick="if(event.target===this) closeResetModal()">
+        <div class="modal-card glass-card" style="max-width:420px;">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xl font-black text-primary flex items-center gap-2">
+                    <i class="fas fa-sync-alt text-red-500"></i> Reset Statistics
+                </h3>
+                <button onclick="closeResetModal()" class="text-secondary/30 hover:text-secondary/60 text-xl transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-secondary/60 mb-3">اختر النطاق الزمني لإعادة الضبط:</p>
+            <div class="reset-options">
+                <div class="reset-option" onclick="document.getElementById('reset-today').checked=true;">
+                    <input type="radio" id="reset-today" name="reset-range" value="today" checked />
+                    <label for="reset-today">Today <span class="desc">(يفسد اليوم فقط)</span></label>
+                </div>
+                <div class="reset-option" onclick="document.getElementById('reset-month').checked=true;">
+                    <input type="radio" id="reset-month" name="reset-range" value="month" />
+                    <label for="reset-month">This Month <span class="desc">(يفسد الشهر الحالي)</span></label>
+                </div>
+                <div class="reset-option" onclick="document.getElementById('reset-all').checked=true;">
+                    <input type="radio" id="reset-all" name="reset-range" value="all" />
+                    <label for="reset-all">All Time <span class="desc">(يفسد كل الإحصائيات)</span></label>
+                </div>
+            </div>
+            <button onclick="executeReset()" class="btn-gradient w-full mt-2" style="background:linear-gradient(135deg,#dc2626,#b91c1c);box-shadow:0 8px 24px rgba(220,38,38,0.3);">
+                <i class="fas fa-trash-alt"></i> Confirm Reset
+            </button>
         </div>
     </div>
 
@@ -733,12 +789,44 @@
             document.getElementById('password-input').focus();
         }
 
-        // ========== ADMIN RESET ==========
-        function adminReset() {
+        // ========== RESET MODAL ==========
+        function showResetModal() {
             if (userRole !== 'admin') { showToast('غير مصرح لك بهذا الإجراء','error'); return; }
-            if (!confirm('⚠️ هل أنت متأكد من إعادة ضبط جميع الإحصائيات؟')) return;
-            db.schedule.forEach(s => { s.VisitCount = 0; });
-            saveToGithub().then(() => { renderRoster(); showToast('✅ تم إعادة ضبط جميع الإحصائيات','success'); });
+            document.getElementById('reset-modal').classList.add('active');
+        }
+        function closeResetModal() {
+            document.getElementById('reset-modal').classList.remove('active');
+        }
+        function executeReset() {
+            const selected = document.querySelector('input[name="reset-range"]:checked');
+            if (!selected) { showToast('يرجى اختيار نطاق لإعادة الضبط','error'); return; }
+            const range = selected.value;
+            if (!confirm(`⚠️ هل أنت متأكد من إعادة ضبط إحصائيات ${range === 'today' ? 'اليوم' : range === 'month' ? 'الشهر الحالي' : 'جميع الإحصائيات'}؟`)) return;
+
+            const now = new Date();
+            const todayStr = getMedicalDate();
+            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+
+            let resetCount = 0;
+            db.schedule.forEach(entry => {
+                let shouldReset = false;
+                if (range === 'today' && entry.date === todayStr) shouldReset = true;
+                else if (range === 'month') {
+                    const parts = entry.date.split('/');
+                    if (parts.length === 3 && `${parts[1]}/${parts[2]}` === monthStr) shouldReset = true;
+                } else if (range === 'all') shouldReset = true;
+
+                if (shouldReset && entry.VisitCount && entry.VisitCount > 0) {
+                    entry.VisitCount = 0;
+                    resetCount++;
+                }
+            });
+
+            saveToGithub().then(() => {
+                renderRoster();
+                closeResetModal();
+                showToast(`✅ تم إعادة ضبط ${resetCount} إدخال${resetCount > 1 ? 'ات' : ''} بنجاح`, 'success');
+            });
         }
 
         // ========== TRACKING (unified cooldown per resident) ==========
@@ -926,7 +1014,7 @@
             return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
         }
 
-        // ========== REPORT GENERATOR — WITHOUT NUMBERING ==========
+        // ========== REPORT GENERATOR — WITHOUT EXTRA "د. " ==========
         function generateAndCopyReport() {
             const targetDate = getMedicalDate();
             const todayEntries = db.schedule.filter(s => s.date === targetDate);
@@ -939,8 +1027,9 @@
             const formattedDate = getFormattedDate();
             
             let report = `🏥 *تبليغ خفراء اليوم*\n`;
-            report += `🗓️ *${formattedDate}*\n`;
+            report += `📅 *${formattedDate}*\n`;
             report += `📍 مستشفى البصرة التعليمي — البصرة\n\n`;
+	    report += `https://mhub96.github.io/BTH/I\n\n`;
             
             sortedEntries.forEach((entry) => {
                 const resident = db.names.find(n => n.name === entry.name);
@@ -948,7 +1037,8 @@
                 const specName = arabicSpecs[entry.specCode] || entry.specCode;
                 
                 report += `*${specName}*\n`;
-                report += `👨‍⚕️ *د. ${entry.name}*\n`;
+                // Use the name as-is from the database (already includes "د. " if present)
+                report += `👨‍⚕️ *${entry.name}*\n`;
                 report += `☎️ _${phone}_\n`;
                 report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
             });
@@ -1119,7 +1209,7 @@
                 const lockScreen = document.getElementById('lock-screen');
                 if (lockScreen && lockScreen.style.display !== 'none') { e.preventDefault(); handleLogin(); }
             }
-            if (e.key === 'Escape') closeTrendingModal();
+            if (e.key === 'Escape') { closeTrendingModal(); closeResetModal(); }
         });
 
         document.getElementById('remember-me').addEventListener('change', function() {
@@ -1133,7 +1223,9 @@
         window.closeTrendingModal = closeTrendingModal;
         window.switchLeaderboardFilter = switchLeaderboardFilter;
         window.trackContact = trackContact;
-        window.adminReset = adminReset;
+        window.showResetModal = showResetModal;
+        window.closeResetModal = closeResetModal;
+        window.executeReset = executeReset;
         window.triggerConfetti = triggerConfetti;
         window.handleLogin = handleLogin;
         window.handleCardTilt = handleCardTilt;
