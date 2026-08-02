@@ -33,13 +33,68 @@
         body.dark .trending-btn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.2); color: #fbbf24; }
         body.dark .btn-gradient { background: linear-gradient(135deg, #d4af37, #b8942e); box-shadow: 0 8px 24px rgba(212,175,55,0.2); color: #0b0e12; }
         .glass-card { border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 1; }
-        .roster-card {
-            border-radius: 1.4rem; padding: 1.3rem 1.6rem; margin-bottom: 1rem;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-            border: 1px solid; flex-wrap: wrap; gap: 0.5rem;
-            position: relative; overflow: hidden; cursor: default;
+        
+        /* ============================================================
+           ROSTER CARDS — UNIFORM SPACING + ANIMATIONS
+           ============================================================ */
+        .roster-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Reduced and consistent gap between cards */
+            padding: 0.2rem 0;
         }
+        .roster-card {
+            border-radius: 1.4rem; 
+            padding: 1.3rem 1.6rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid; 
+            flex-wrap: wrap; 
+            gap: 0.5rem;
+            position: relative; 
+            overflow: hidden; 
+            cursor: default;
+            transform: translateY(0) scale(1);
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+        body.dark .roster-card {
+            box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+        /* Hover animation */
+        .roster-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(212,175,55,0.15);
+            box-shadow: 14px 14px 28px rgba(0,0,0,0.08), -10px -10px 22px rgba(255,255,255,0.9), 0 6px 0 rgba(0,0,0,0.02), 0 12px 32px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.95);
+        }
+        body.dark .roster-card:hover {
+            border-color: rgba(212,175,55,0.15);
+            box-shadow: 16px 16px 36px rgba(0,0,0,0.8), -12px -12px 28px rgba(255,255,255,0.03), 0 7px 0 rgba(0,0,0,0.5), 0 0 70px rgba(212,175,55,0.04), 0 0 100px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.03);
+            transform: translateY(-4px) scale(1.01);
+        }
+        /* Click (active) animation */
+        .roster-card:active {
+            transform: translateY(4px) scale(0.97) !important;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.04), -3px -3px 10px rgba(255,255,255,0.5), 0 1px 0 rgba(0,0,0,0.01) !important;
+        }
+        body.dark .roster-card:active {
+            transform: translateY(5px) scale(0.97) !important;
+            box-shadow: 5px 5px 14px rgba(0,0,0,0.4), -4px -4px 12px rgba(255,255,255,0.01), 0 1px 0 rgba(0,0,0,0.2) !important;
+        }
+        /* Glow effect on hover */
+        .roster-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.4rem;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.04), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .roster-card:hover::after { opacity: 1; }
+        
         .roster-card .action-btn-sm {
             padding: 0.5rem 0.9rem; border-radius: 0.9rem; text-decoration: none;
             font-weight: 700; font-size: 0.7rem; display: inline-flex; align-items: center;
@@ -196,7 +251,9 @@
         body.dark .roster-card .resident-spec { color: #d4af37 !important; }
         .roster-card .resident-phone { font-size: 0.8rem; font-weight: 600; font-family: monospace; direction: ltr; unicode-bidi: isolate; margin-top: 0.1rem; }
 
-        /* TRENDING CARD FIRE BORDER */
+        /* ============================================================
+           TRENDING CARD — OPPOSITE THEME (DARK in LIGHT mode, LIGHT in DARK mode)
+           ============================================================ */
         .trending-fire-border {
             position: relative;
             border-radius: 1.5rem;
@@ -206,6 +263,7 @@
             box-shadow: 0 0 30px rgba(251,191,36,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 1.5rem; /* Increased gap below trending card */
         }
         .trending-fire-border:hover {
             box-shadow: 0 0 60px rgba(251,191,36,0.5);
@@ -216,7 +274,6 @@
             100% { background: conic-gradient(from 360deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
         }
         .trending-inner {
-            background: inherit;
             border-radius: 1.5rem;
             padding: 1.2rem 1.5rem;
             backdrop-filter: blur(4px);
@@ -226,8 +283,24 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
-        body.light .trending-inner { background: rgba(255,255,255,0.92); }
-        body.dark .trending-inner { background: rgba(14,20,32,0.9); }
+        /* Light mode → Dark inner card */
+        body.light .trending-inner {
+            background: rgba(14,20,32,0.92);
+            color: #e8edf5;
+        }
+        body.light .trending-inner .text-primary { color: #f0f3f8; }
+        body.light .trending-inner .text-secondary { color: #a8b3c9; }
+        body.light .trending-inner .text-amber-500 { color: #fbbf24; }
+        /* Dark mode → Light inner card */
+        body.dark .trending-inner {
+            background: rgba(255,255,255,0.92);
+            color: #1a2332;
+        }
+        body.dark .trending-inner .text-primary { color: #1a2332; }
+        body.dark .trending-inner .text-secondary { color: #475569; }
+        body.dark .trending-inner .text-amber-500 { color: #d97706; }
+        body.dark .trending-inner .trending-badge { color: #0b0e12; }
+
         .trending-fire-icon {
             font-size: 2.5rem;
             animation: flicker 1.2s infinite alternate;
@@ -329,7 +402,8 @@
         <!-- TRENDING CARD with fire border + confetti -->
         <div id="trending-container" class="mb-4" onclick="triggerConfetti()"></div>
 
-        <div id="roster-container" class="space-y-1"></div>
+        <!-- ROSTER GRID with uniform spacing -->
+        <div id="roster-container" class="roster-grid"></div>
 
         <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
     </div>
@@ -642,7 +716,9 @@
                 const today = getMedicalDate();
                 const waHref = isPhoneValid ? (isIOS ? `whatsapp://send?phone=${phoneClean}` : `intent://send/${phoneClean}#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end`) : '#';
                 return `
-                    <div class="roster-card">
+                    <div class="roster-card" 
+                         onmousemove="handleCardTilt(event, this)"
+                         onmouseleave="resetCardTilt(this)">
                         <div class="card-info flex-1 min-w-[140px]">
                             <div class="flex items-center gap-2 flex-wrap">
                                 <span class="resident-name"><span class="spec-icon">${icon}</span> ${entry.name}</span>
@@ -667,6 +743,24 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // ========== 3D TILT EFFECT ==========
+        function handleCardTilt(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 12;
+            const rotateY = (centerX - x) / 12;
+            card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+            card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
+            card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
+        }
+
+        function resetCardTilt(card) {
+            card.style.transform = '';
         }
 
         function getMedicalDate() {
@@ -816,6 +910,8 @@
         window.adminReset = adminReset;
         window.triggerConfetti = triggerConfetti;
         window.handleLogin = handleLogin;
+        window.handleCardTilt = handleCardTilt;
+        window.resetCardTilt = resetCardTilt;
     </script>
 </body>
 </html>
