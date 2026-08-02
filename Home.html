@@ -3,178 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Basra Teaching Hosp. Duties</title>
+    <title>Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #14171c;
-            --light: #23272e;
-            --glow: #fbbf24;
-            --shadow: #0b0d10;
-            --accent: #fbbf24;
-            --crimson: #e11d48;
-            --emerald: #10b981;
-            --card-bg: #1e2229;
-        }
-        * { box-sizing: border-box; }
+        /* ---------- RESET & BASE ---------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: #a0aec0;
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #080a0e;
+            color: #b0b8c8;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, rgba(251, 191, 36, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(251, 191, 36, 0.015) 0%, transparent 40%);
         }
 
-        /* --- MAIN CONTAINER — elevated, spacious, glass-morph --- */
-        .embossed-card {
+        /* ---------- MAIN WRAPPER — RADICAL, SPACIOUS ---------- */
+        .main-wrapper {
             position: relative;
-            background: rgba(20, 23, 28, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 3.5rem;
-            padding: 3rem 2.5rem;
-            box-shadow: 
-                0 30px 80px rgba(0,0,0,0.8),
-                0 0 0 1px rgba(251, 191, 36, 0.04),
-                inset 0 0 80px rgba(251, 191, 36, 0.01);
-            z-index: 10;
             width: 100%;
-            max-width: 540px;
+            max-width: 600px;
             margin: 0 auto;
+            padding: 2.8rem 2.4rem 2.4rem;
+            background: rgba(10, 12, 17, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 4rem;
             border: 1px solid rgba(251, 191, 36, 0.04);
+            box-shadow: 
+                0 50px 120px rgba(0,0,0,0.9),
+                0 0 0 1px rgba(251, 191, 36, 0.02),
+                inset 0 0 100px rgba(251, 191, 36, 0.005);
         }
-        .embossed-card::before {
+        .main-wrapper::before {
             content: '';
             position: absolute;
             inset: -2px;
-            border-radius: 3.5rem;
-            border: 1px solid rgba(251, 191, 36, 0.03);
+            border-radius: 4rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.06), transparent 30%, transparent 70%, rgba(251, 191, 36, 0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             pointer-events: none;
-            z-index: 5;
-        }
-        .breathing {
-            animation: framePulse 5s infinite ease-in-out;
-        }
-        @keyframes framePulse {
-            0%, 100% { box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(251, 191, 36, 0.04); }
-            50% { box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(251, 191, 36, 0.03), 0 0 0 1px rgba(251, 191, 36, 0.08); }
         }
 
-        .tube-container {
+        /* floating particles */
+        .particle {
             position: absolute;
-            inset: 0;
+            border-radius: 50%;
+            filter: blur(80px);
             pointer-events: none;
-            z-index: 20;
-            width: 100%;
-            height: 100%;
+            opacity: 0.08;
+            animation: floatParticle 8s infinite alternate ease-in-out;
         }
-        #tube-bg {
-            fill: none;
-            stroke: rgba(251, 191, 36, 0.02);
-            stroke-width: 4;
-        }
-        #tube-fluid {
-            fill: none;
-            stroke: var(--accent);
-            stroke-width: 5;
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 12px var(--accent));
-            stroke-dasharray: 500 1200;
-            stroke-dashoffset: 1700;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .loading-active #tube-fluid {
-            opacity: 1;
-            animation: seamlessFlow 2s linear infinite;
-        }
-        @keyframes seamlessFlow {
-            from { stroke-dashoffset: 1700; }
-            to { stroke-dashoffset: 0; }
+        .particle-1 { width: 300px; height: 300px; background: rgba(251, 191, 36, 0.04); top: -100px; right: -80px; }
+        .particle-2 { width: 200px; height: 200px; background: rgba(251, 191, 36, 0.03); bottom: -80px; left: -60px; animation-delay: -3s; }
+        .particle-3 { width: 150px; height: 150px; background: rgba(251, 191, 36, 0.02); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -5s; }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -30px) scale(1.2); }
         }
 
-        /* --- LOGIN --- */
-        .recessed-input {
-            background: var(--bg);
-            border-radius: 2.2rem;
-            box-shadow: inset 10px 10px 24px var(--shadow), inset -6px -6px 18px var(--light);
+        /* ---------- LOGIN (minimal, elegant) ---------- */
+        .glow-input {
+            background: rgba(0,0,0,0.3);
+            border-radius: 2.4rem;
+            border: 1px solid rgba(251, 191, 36, 0.03);
+            box-shadow: inset 0 8px 24px rgba(0,0,0,0.5);
             position: relative;
+            transition: border-color 0.4s ease;
+        }
+        .glow-input:focus-within {
+            border-color: rgba(251, 191, 36, 0.08);
         }
         .password-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1.5rem;
-            min-height: 4.5rem;
+            gap: 0.9rem;
+            padding: 0.9rem 1.5rem;
+            min-height: 5rem;
             direction: ltr;
         }
         .password-dot {
-            width: 1.4rem;
-            height: 1.4rem;
+            width: 1.5rem;
+            height: 1.5rem;
             border-radius: 50%;
-            background: rgba(251, 191, 36, 0.06);
-            border: 2px solid rgba(251, 191, 36, 0.04);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform: scale(0.5);
+            background: rgba(251, 191, 36, 0.03);
+            border: 2px solid rgba(251, 191, 36, 0.02);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.4);
             opacity: 0;
             position: relative;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
         }
         .password-dot.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.2);
+            background: #fbbf24;
+            border-color: #fbbf24;
+            transform: scale(1.3);
             opacity: 1;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.2), 0 0 120px rgba(251, 191, 36, 0.05);
             animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         @keyframes dotPop {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.4); opacity: 1; }
-            100% { transform: scale(1.2); opacity: 1; }
+            0% { transform: scale(0.4); opacity: 0; }
+            50% { transform: scale(1.6); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 1; }
         }
         .password-dot.filled {
-            background: var(--accent);
-            border-color: var(--accent);
+            background: #fbbf24;
+            border-color: #fbbf24;
             transform: scale(1);
             opacity: 1;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1), inset 0 2px 4px rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.06);
         }
         .password-dot.filled::after {
             content: '';
             position: absolute;
-            inset: -3px;
+            inset: -4px;
             border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.05);
-            animation: pulseFilled 2s ease-in-out infinite;
+            border: 2px solid rgba(251, 191, 36, 0.04);
+            animation: pulseFilled 2.5s ease-in-out infinite;
         }
         @keyframes pulseFilled {
             0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 0.2; }
+            50% { transform: scale(1.4); opacity: 0.1; }
         }
-        .password-dot.empty {
-            transform: scale(0.5);
-            opacity: 0;
-        }
+        .password-dot.empty { transform: scale(0.4); opacity: 0; }
         .password-dot.error-shake {
             animation: shakeError 0.5s ease;
-            border-color: var(--crimson);
-            background: var(--crimson);
-            box-shadow: 0 0 40px rgba(225, 29, 72, 0.3);
+            border-color: #e11d48;
+            background: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.2);
         }
         @keyframes shakeError {
             0%, 100% { transform: translateX(0) scale(1); }
-            15% { transform: translateX(-10px) scale(1.05); }
-            30% { transform: translateX(10px) scale(1.05); }
-            45% { transform: translateX(-6px) scale(1.02); }
-            60% { transform: translateX(6px) scale(1.02); }
-            80% { transform: translateX(-3px) scale(1); }
+            15% { transform: translateX(-12px) scale(1.05); }
+            30% { transform: translateX(12px) scale(1.05); }
+            45% { transform: translateX(-8px) scale(1.02); }
+            60% { transform: translateX(8px) scale(1.02); }
+            80% { transform: translateX(-4px) scale(1); }
         }
         .password-input-overlay {
             position: absolute;
@@ -190,9 +164,8 @@
             border: none;
             outline: none;
             color: transparent;
-            caret-color: var(--accent);
+            caret-color: #fbbf24;
             font-size: 1px;
-            letter-spacing: 1px;
             padding: 0;
             margin: 0;
             cursor: text;
@@ -200,105 +173,120 @@
         }
         .cursor-indicator {
             position: absolute;
-            bottom: -2px;
+            bottom: -3px;
             left: 50%;
             transform: translateX(-50%);
-            width: 3px;
-            height: 3px;
-            background: var(--accent);
+            width: 4px;
+            height: 4px;
+            background: #fbbf24;
             border-radius: 50%;
             animation: cursorPulse 1.2s ease-in-out infinite;
             opacity: 0;
             transition: opacity 0.3s ease;
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
         }
         .cursor-indicator.visible { opacity: 1; }
         @keyframes cursorPulse {
             0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
-            50% { transform: translateX(-50%) scale(3); opacity: 1; }
+            50% { transform: translateX(-50%) scale(4); opacity: 1; }
         }
 
-        .embossed-btn {
-            background: #23272e;
-            border-radius: 2.2rem;
-            box-shadow: 0 10px 0 #0b0d10, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.3);
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #a0aec0;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            padding: 1.2rem 1.8rem;
+        .btn-login {
+            background: rgba(251, 191, 36, 0.03);
+            border: 1px solid rgba(251, 191, 36, 0.04);
+            border-radius: 2.4rem;
+            padding: 1.3rem 1.8rem;
             width: 100%;
             text-align: center;
+            font-weight: 800;
             font-size: 0.8rem;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b0b8c8;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            transform: translateY(0);
+            overflow: hidden;
         }
-        .embossed-btn:active {
-            box-shadow: 0 3px 0 #0b0d10, 8px 8px 16px rgba(0,0,0,0.6), -4px -4px 12px rgba(40,45,55,0.2);
-            transform: translateY(7px);
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        .embossed-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 8px 0 #0b0d10, 12px 12px 24px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2);
+        .btn-login:hover:not(:disabled)::before { opacity: 1; }
+        .btn-login:hover:not(:disabled) {
+            border-color: rgba(251, 191, 36, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
-        .fetched-active {
-            background: var(--accent) !important;
-            color: #14171c !important;
-            box-shadow: 0 10px 0 #b08830, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2), 0 0 50px rgba(251, 191, 36, 0.3) !important;
+        .btn-login:active:not(:disabled) { transform: scale(0.97); }
+        .btn-login:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-login.active {
+            background: #fbbf24;
+            color: #080a0e;
+            border-color: #fbbf24;
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.1);
         }
-        .fetched-active:active {
-            box-shadow: 0 3px 0 #b08830, 8px 8px 16px rgba(0,0,0,0.6), -4px -4px 12px rgba(40,45,55,0.1), 0 0 40px rgba(251, 191, 36, 0.2) !important;
-            transform: translateY(7px);
-        }
-        .crimson-warning {
-            background: var(--crimson) !important;
-            color: white !important;
-            box-shadow: 0 10px 0 #8a1428, 14px 14px 32px rgba(0,0,0,0.6), -8px -8px 20px rgba(40,45,55,0.2), 0 0 50px rgba(225, 29, 72, 0.3) !important;
-            animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+        .btn-login.active:hover { box-shadow: 0 0 80px rgba(251, 191, 36, 0.15); }
+        .btn-login.error {
+            background: #e11d48;
+            color: white;
+            border-color: #e11d48;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.15);
+            animation: quickShake 0.3s ease both;
         }
         @keyframes quickShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            30%, 70% { transform: translate3d(4px, 0, 0); }
-            40%, 60% { transform: translate3d(-4px, 0, 0); }
+            10%, 90% { transform: translate3d(-3px, 0, 0); }
+            30%, 70% { transform: translate3d(6px, 0, 0); }
+            40%, 60% { transform: translate3d(-6px, 0, 0); }
         }
 
-        #shield {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 100;
-            transition: opacity 0.5s;
+        .toggle-remember {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 0.6rem;
+            font-size: 0.7rem;
+            color: rgba(176, 184, 200, 0.15);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
         }
-        #shield .shield-spinner {
-            width: 3rem;
-            height: 3rem;
-            border: 3px solid rgba(251, 191, 36, 0.06);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        .toggle-remember:hover { color: rgba(176, 184, 200, 0.3); }
+        .toggle-remember input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(251, 191, 36, 0.03);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        #shield .shield-text {
-            color: rgba(251, 191, 36, 0.2);
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        .toggle-remember input[type="checkbox"]:checked {
+            background: #fbbf24;
+            border-color: #fbbf24;
+        }
+        .toggle-remember input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #080a0e;
+            font-size: 0.8rem;
+            font-weight: 900;
         }
 
-        .hidden { display: none !important; }
         .toast-error {
-            background: rgba(225, 29, 72, 0.06);
-            border: 1px solid rgba(225, 29, 72, 0.08);
+            background: rgba(225, 29, 72, 0.03);
+            border: 1px solid rgba(225, 29, 72, 0.05);
             border-radius: 1.2rem;
             padding: 0.9rem 1.2rem;
             font-size: 0.75rem;
@@ -307,49 +295,36 @@
             animation: slideDown 0.4s ease;
         }
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-8px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .hidden { display: none !important; }
 
-        .toggle-remember {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(160, 174, 192, 0.3);
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.3s ease;
-            margin-top: 6px;
+        .status-text {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: rgba(176, 184, 200, 0.1);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
         }
-        .toggle-remember:hover { color: rgba(160, 174, 192, 0.5); }
-        .toggle-remember input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 1.3rem;
-            height: 1.3rem;
-            background: #23272e;
-            border-radius: 6px;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid rgba(160, 174, 192, 0.06);
-            transition: all 0.2s ease;
-            flex-shrink: 0;
+        .status-text.ready { color: rgba(16, 185, 129, 0.25); animation: blinkReady 1.2s ease-in-out infinite; }
+        .status-text.error { color: rgba(225, 29, 72, 0.25); }
+        @keyframes blinkReady {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
-        .toggle-remember input[type="checkbox"]:checked {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-        .toggle-remember input[type="checkbox"]:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #14171c;
-            font-size: 0.9rem;
-            font-weight: 900;
+
+        .engraved {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(251, 191, 36, 0.4);
+            padding: 0.6rem 0 0.2rem 0;
+            margin-top: 0.6rem;
+            border-top: 1px solid rgba(176, 184, 200, 0.01);
+            text-align: center;
         }
 
         .view-wrapper {
@@ -359,7 +334,7 @@
         }
         .view-wrapper.exit {
             opacity: 0;
-            transform: translateY(-20px) scale(0.97);
+            transform: translateY(-30px) scale(0.96);
         }
         .view-wrapper.enter {
             opacity: 1;
@@ -367,47 +342,46 @@
         }
         .hidden-view { display: none !important; }
 
-        .status-text {
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            color: rgba(160, 174, 192, 0.2);
-            transition: all 0.4s ease;
-            text-transform: uppercase;
+        #shield {
+            position: fixed;
+            inset: 0;
+            background: #080a0e;
+            z-index: 100;
+            transition: opacity 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
         }
-        .status-text.ready {
-            color: rgba(16, 185, 129, 0.4);
-            animation: blinkReady 1.2s ease-in-out infinite;
+        #shield .shield-spinner {
+            width: 2.8rem;
+            height: 2.8rem;
+            border: 2px solid rgba(251, 191, 36, 0.03);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
-        .status-text.error { color: rgba(225, 29, 72, 0.4); }
-        @keyframes blinkReady {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .engraved-text {
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #shield .shield-text {
+            color: rgba(251, 191, 36, 0.06);
             font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
+            font-weight: 600;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: rgba(190, 200, 220, 0.15);
-            text-shadow: 0 1px 0 rgba(255,255,255,0.02);
-            padding: 0.6rem 0 0.3rem 0;
-            margin-top: 0.7rem;
-            border-top: 1px solid rgba(160, 174, 192, 0.03);
-            text-align: center;
         }
 
         /* ============================================================
-           ROSTER CARDS — FRESH, MODERN, SPACIOUS
+           ROSTER — RADICAL GRID WITH PREMIUM ANIMATIONS
            ============================================================ */
         .roster-grid {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            max-height: 56vh;
+            gap: 1.4rem;
+            max-height: 58vh;
             overflow-y: auto;
-            padding: 0.25rem 0.1rem 0.25rem 0.1rem;
+            padding: 0.2rem 0.1rem 0.3rem 0.1rem;
+            perspective: 800px;
         }
         .roster-grid::-webkit-scrollbar {
             width: 3px;
@@ -416,99 +390,152 @@
             background: transparent;
         }
         .roster-grid::-webkit-scrollbar-thumb {
-            background: rgba(251, 191, 36, 0.15);
+            background: rgba(251, 191, 36, 0.08);
             border-radius: 4px;
         }
 
-        /* CARD — glassmorphism + 3D depth, spacious padding */
+        /* CARD — radical 3D flip-tilt with glass */
         .roster-card {
-            background: rgba(30, 34, 41, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 2.2rem;
+            position: relative;
+            background: rgba(16, 19, 26, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2.4rem;
             padding: 1.6rem 1.8rem 1.4rem;
+            border: 1px solid rgba(251, 191, 36, 0.02);
             box-shadow: 
-                0 8px 0 #0a0c0e,
-                0 16px 40px rgba(0,0,0,0.7),
-                0 0 0 1px rgba(251, 191, 36, 0.03),
-                inset 0 1px 0 rgba(255,255,255,0.02);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(251, 191, 36, 0.04);
+                0 12px 0 #050608,
+                0 20px 50px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(251, 191, 36, 0.02);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotateX(0) rotateY(0) translateY(0);
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            transform: translateY(0);
+            gap: 0.3rem;
+            cursor: default;
+            animation: cardEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
-        .roster-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(251, 191, 36, 0.08);
-            box-shadow: 
-                0 10px 0 #0a0c0e,
-                0 24px 50px rgba(0,0,0,0.8),
-                0 0 0 1px rgba(251, 191, 36, 0.06),
-                inset 0 1px 0 rgba(255,255,255,0.03);
-        }
-        .roster-card:active {
-            transform: translateY(4px) scale(0.99);
-            box-shadow: 
-                0 4px 0 #0a0c0e,
-                0 12px 28px rgba(0,0,0,0.6);
+        .roster-card:nth-child(1) { animation-delay: 0.05s; }
+        .roster-card:nth-child(2) { animation-delay: 0.12s; }
+        .roster-card:nth-child(3) { animation-delay: 0.19s; }
+        .roster-card:nth-child(4) { animation-delay: 0.26s; }
+        .roster-card:nth-child(5) { animation-delay: 0.33s; }
+        .roster-card:nth-child(6) { animation-delay: 0.40s; }
+        .roster-card:nth-child(7) { animation-delay: 0.47s; }
+        .roster-card:nth-child(8) { animation-delay: 0.54s; }
+
+        @keyframes cardEnter {
+            0% { opacity: 0; transform: translateY(40px) rotateX(8deg) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
         }
 
-        /* Specialty — medium, glowing, centered */
+        .roster-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 2.4rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.02), transparent 40%, transparent 60%, rgba(251, 191, 36, 0.01));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .roster-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(251, 191, 36, 0.06);
+            box-shadow: 
+                0 16px 0 #050608,
+                0 30px 60px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(251, 191, 36, 0.04),
+                0 0 50px rgba(251, 191, 36, 0.01);
+        }
+        .roster-card:active {
+            transform: translateY(4px) scale(0.98);
+            box-shadow: 0 6px 0 #050608, 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        /* 3D tilt glow effect on hover */
+        .roster-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 2.4rem;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 191, 36, 0.02), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .roster-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Specialty — elegant pill */
         .roster-card .card-header {
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .roster-card .resident-spec {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 800;
-            color: var(--accent);
-            background: rgba(251, 191, 36, 0.04);
-            padding: 0.2rem 1.4rem;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.03);
+            padding: 0.2rem 1.6rem;
             border-radius: 100px;
-            border: 1px solid rgba(251, 191, 36, 0.06);
-            letter-spacing: 0.06em;
-            text-shadow: 0 0 30px rgba(251, 191, 36, 0.15), 0 0 60px rgba(251, 191, 36, 0.05);
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.02), inset 0 0 40px rgba(251, 191, 36, 0.01);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.04);
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.04);
+            transition: all 0.4s ease;
         }
         .roster-card:hover .resident-spec {
-            text-shadow: 0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.1);
-            box-shadow: 0 0 50px rgba(251, 191, 36, 0.04), inset 0 0 50px rgba(251, 191, 36, 0.02);
+            text-shadow: 0 0 60px rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.06);
+            background: rgba(251, 191, 36, 0.04);
         }
 
-        /* Name — large, bold, 3D embossed */
+        /* Name — large, dramatic, with depth */
         .roster-card .resident-name {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            color: #edf2f7;
-            letter-spacing: 0.01em;
+            color: #f0f4fa;
             text-align: center;
             padding: 0.2rem 0;
+            letter-spacing: -0.02em;
             text-shadow: 
-                0 4px 0 #0a0c0e,
-                0 8px 24px rgba(0,0,0,0.6),
-                0 2px 4px rgba(0,0,0,0.3);
-            line-height: 1.2;
+                0 4px 0 #050608,
+                0 10px 30px rgba(0,0,0,0.5);
+            line-height: 1.15;
             word-break: break-word;
+            transition: text-shadow 0.3s ease;
+        }
+        .roster-card:hover .resident-name {
+            text-shadow: 
+                0 4px 0 #050608,
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 60px rgba(251, 191, 36, 0.02);
         }
 
-        /* Phone — subtle, monospace */
+        /* Phone — minimal */
         .roster-card .resident-phone {
             font-size: 0.8rem;
             font-weight: 700;
-            color: #718096;
+            color: #4a5468;
             font-family: monospace;
             direction: ltr;
             unicode-bidi: isolate;
             text-align: center;
+            opacity: 0.3;
+            letter-spacing: 0.06em;
+            transition: opacity 0.3s ease;
+        }
+        .roster-card:hover .resident-phone {
             opacity: 0.5;
-            letter-spacing: 0.04em;
         }
 
-        /* Actions — sleek, pill-shaped */
+        /* Actions — premium, animated */
         .roster-card .card-actions {
             display: flex;
             gap: 0.6rem;
@@ -520,74 +547,81 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 0.65rem 0.8rem;
-            border-radius: 1.4rem;
+            padding: 0.7rem 0.8rem;
+            border-radius: 1.6rem;
             text-decoration: none;
             font-weight: 800;
             font-size: 0.6rem;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
             white-space: nowrap;
-            background: rgba(20, 23, 28, 0.6);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.3);
             box-shadow: 
-                0 5px 0 #0a0c0e,
-                0 8px 20px rgba(0,0,0,0.5);
-            color: #a0aec0;
-            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                0 6px 0 #050608,
+                0 10px 24px rgba(0,0,0,0.4);
+            color: #8a94a8;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(0);
-            border: 1px solid rgba(160, 174, 192, 0.04);
+            border: 1px solid rgba(160, 174, 192, 0.02);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+        .roster-card .action-btn-sm::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .roster-card .action-btn-sm:hover::before { opacity: 1; }
         .roster-card .action-btn-sm:active {
             transform: translateY(4px);
-            box-shadow: 0 1px 0 #0a0c0e, 0 4px 14px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 0 #050608, 0 6px 16px rgba(0,0,0,0.3);
         }
         .roster-card .action-btn-sm.call {
             color: #60a5fa;
-            border-color: rgba(96, 165, 250, 0.06);
-        }
-        .roster-card .action-btn-sm.wa {
-            color: var(--emerald);
-            border-color: rgba(16, 185, 129, 0.06);
+            border-color: rgba(96, 165, 250, 0.02);
         }
         .roster-card .action-btn-sm.call:hover {
             background: rgba(96, 165, 250, 0.04);
+            border-color: rgba(96, 165, 250, 0.04);
+            box-shadow: 0 6px 0 #050608, 0 10px 24px rgba(0,0,0,0.4), 0 0 30px rgba(96, 165, 250, 0.02);
+        }
+        .roster-card .action-btn-sm.wa {
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.02);
         }
         .roster-card .action-btn-sm.wa:hover {
             background: rgba(16, 185, 129, 0.04);
+            border-color: rgba(16, 185, 129, 0.04);
+            box-shadow: 0 6px 0 #050608, 0 10px 24px rgba(0,0,0,0.4), 0 0 30px rgba(16, 185, 129, 0.02);
+        }
+        .roster-card .action-btn-sm.opacity-40 {
+            opacity: 0.15;
+            cursor: default;
+            pointer-events: none;
         }
 
         .empty-state {
             text-align: center;
-            padding: 2.5rem 1rem;
-            color: rgba(160, 174, 192, 0.15);
+            padding: 3rem 1rem;
+            color: rgba(176, 184, 200, 0.08);
             font-size: 0.9rem;
             font-weight: 600;
         }
         .empty-state .icon {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 0.75rem;
-            opacity: 0.2;
+            opacity: 0.1;
         }
 
         @media (max-width: 480px) {
-            .embossed-card {
-                padding: 2rem 1.2rem;
-                border-radius: 2.5rem;
-                max-width: 100%;
-            }
-            .roster-card {
-                padding: 1.2rem 1.2rem 1rem;
-                border-radius: 1.6rem;
-            }
-            .roster-card .resident-name {
-                font-size: 1.3rem;
-            }
-            .roster-card .resident-spec {
-                font-size: 0.75rem;
-                padding: 0.15rem 1rem;
-            }
+            .main-wrapper { padding: 1.8rem 1.2rem 1.6rem; border-radius: 2.8rem; }
+            .roster-card { padding: 1.2rem 1.2rem 1rem; border-radius: 1.8rem; }
+            .roster-card .resident-name { font-size: 1.4rem; }
+            .roster-card .resident-spec { font-size: 0.7rem; padding: 0.1rem 1.2rem; }
+            .roster-card .action-btn-sm { font-size: 0.5rem; padding: 0.5rem 0.6rem; }
         }
     </style>
 </head>
@@ -598,22 +632,21 @@
         <span class="shield-text">Iraqi Hosp. Duty Portal</span>
     </div>
 
-    <div id="main-card" class="embossed-card breathing">
-        <svg class="tube-container" viewBox="0 0 384 512" preserveAspectRatio="none">
-            <rect id="tube-bg" x="2" y="2" width="380" height="508" rx="48" />
-            <rect id="tube-fluid" x="2" y="2" width="380" height="508" rx="48" />
-        </svg>
+    <div class="main-wrapper">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
 
         <!-- LOGIN VIEW -->
         <div id="login-view" class="view-wrapper">
             <div class="text-center mb-8">
-                <h1 class="text-white text-3xl font-extrabold tracking-tight">Duty Roster</h1>
+                <h1 class="text-white text-3xl font-extrabold tracking-tight" style="text-shadow: 0 0 80px rgba(251,191,36,0.01);">Basra Teaching Hosp. Duties</h1>
                 <div class="flex items-center justify-center gap-2 mt-4">
                     <span id="status-text" class="status-text">جاري التحميل...</span>
                 </div>
             </div>
             <div class="space-y-8">
-                <div class="recessed-input p-3" id="passwordContainer">
+                <div class="glow-input" id="passwordContainer">
                     <div class="password-container" id="dotContainer">
                         <div class="password-dot empty" id="dot0"></div>
                         <div class="password-dot empty" id="dot1"></div>
@@ -635,37 +668,35 @@
                     </div>
                 </div>
 
-                <button id="entry-btn" onclick="handleEntry()" class="embossed-btn w-full py-7 tracking-widest uppercase" disabled>جاري التحميل...</button>
+                <button id="entry-btn" onclick="handleEntry()" class="btn-login w-full py-7" disabled>جاري التحميل...</button>
                 
                 <div class="flex items-center justify-center px-1">
                     <label class="toggle-remember">
                         <input type="checkbox" id="rememberMe" checked>
                         <span>تذكرني</span>
                     </label>
-                    <span class="text-[0.5rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.06);">✦ SECURE</span>
+                    <span class="text-[0.4rem] tracking-[0.25em] ml-3" style="color: rgba(251, 191, 36, 0.02);">✦ SECURE</span>
                 </div>
                 
                 <div id="login-error" class="hidden toast-error"></div>
             </div>
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
         </div>
 
         <!-- ROSTER VIEW -->
         <div id="roster-view" class="hidden-view view-wrapper">
             <div class="text-center mb-5">
                 <h2 class="text-white text-xl font-extrabold tracking-tight">📋 Basra Teaching Hosp. Today's Duties</h2>
-                <p id="roster-date" class="text-[0.7rem] text-slate-500 mt-1 font-bold tracking-wider uppercase"></p>
-                <p id="roster-count" class="text-[0.65rem] text-amber-500/50 mt-1 font-bold tracking-wider"></p>
+                <p id="roster-date" class="text-[0.65rem] text-slate-500 mt-1 font-bold tracking-wider uppercase"></p>
+                <p id="roster-count" class="text-[0.6rem] text-amber-500/30 mt-1 font-bold tracking-wider"></p>
             </div>
             
-            <div id="roster-container" class="roster-grid">
-                <!-- Roster cards rendered here -->
-            </div>
+            <div id="roster-container" class="roster-grid"></div>
 
             <div class="mt-5 text-center">
-                <button onclick="logout()" class="text-[0.65rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
+                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
             </div>
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
+            <p class="engraved">By Dr. MOHAMMED RIYADH</p>
         </div>
     </div>
 
@@ -812,11 +843,11 @@
             if (dataLoaded) {
                 entryBtn.disabled = false;
                 entryBtn.innerText = 'SIGN IN';
-                entryBtn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
+                entryBtn.className = 'btn-login active w-full py-7';
             } else {
                 entryBtn.disabled = true;
                 entryBtn.innerText = 'جاري التحميل...';
-                entryBtn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
+                entryBtn.className = 'btn-login w-full py-7';
             }
         }, 300);
     }
@@ -836,14 +867,14 @@
             shakeDots();
             showLoginError('الرمز غير صحيح');
             const btn = document.getElementById('entry-btn');
-            btn.className = 'embossed-btn crimson-warning w-full py-7 tracking-widest uppercase';
+            btn.className = 'btn-login error w-full py-7';
             btn.innerText = "INCORRECT!";
             setTimeout(() => {
                 if (dataLoaded) {
-                    btn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
+                    btn.className = 'btn-login active w-full py-7';
                     btn.innerText = 'SIGN IN';
                 } else {
-                    btn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
+                    btn.className = 'btn-login w-full py-7';
                     btn.innerText = 'جاري التحميل...';
                 }
             }, 1000);
@@ -909,7 +940,7 @@
             statusText.className = 'status-text ready';
             entryBtn.disabled = false;
             entryBtn.innerText = 'SIGN IN';
-            entryBtn.className = 'embossed-btn fetched-active w-full py-7 tracking-widest uppercase';
+            entryBtn.className = 'btn-login active w-full py-7';
             
             if (hasSession) {
                 setTimeout(() => {
@@ -935,7 +966,7 @@
             statusText.className = 'status-text error';
             entryBtn.disabled = true;
             entryBtn.innerText = '⚠️ خطأ في الاتصال';
-            entryBtn.className = 'embossed-btn w-full py-7 tracking-widest uppercase';
+            entryBtn.className = 'btn-login w-full py-7';
             showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
             if (loginView.classList.contains('hidden-view')) {
                 loginView.classList.remove('hidden-view');
@@ -1016,7 +1047,9 @@
             const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
             
             return `
-                <div class="roster-card">
+                <div class="roster-card" 
+                     onmousemove="handleCardTilt(event, this)"
+                     onmouseleave="resetCardTilt(this)">
                     <div class="card-header">
                         <span class="resident-spec">${specName}</span>
                     </div>
@@ -1024,12 +1057,12 @@
                     <div class="resident-phone">${phone}</div>
                     <div class="card-actions">
                         <a href="${isPhoneValid ? 'tel:' + phone : '#'}" 
-                           class="action-btn-sm call ${!isPhoneValid ? 'opacity-40 pointer-events-none' : ''}"
+                           class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
                            style="${!isPhoneValid ? 'cursor:default;' : ''}">
                             <span>📞</span> <span>Call</span>
                         </a>
                         <a href="${isPhoneValid ? 'whatsapp://send?phone=' + phone : '#'}" 
-                           class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40 pointer-events-none' : ''}"
+                           class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
                            style="${!isPhoneValid ? 'cursor:default;' : ''}"
                            onclick="${isPhoneValid ? 'event.preventDefault(); window.location.href=this.href;' : 'event.preventDefault();'}">
                             <span>💬</span> <span>WhatsApp</span>
@@ -1038,6 +1071,24 @@
                 </div>
             `;
         }).join('');
+    }
+
+    // 3D TILT EFFECT
+    function handleCardTilt(e, card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 12;
+        const rotateY = (centerX - x) / 12;
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale(1.01)`;
+        card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
+        card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
+    }
+
+    function resetCardTilt(card) {
+        card.style.transform = '';
     }
 
     window.logout = logout;
