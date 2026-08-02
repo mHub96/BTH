@@ -35,12 +35,12 @@
         .glass-card { border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 1; }
         
         /* ============================================================
-           ROSTER CARDS — UNIFORM SPACING + ANIMATIONS
+           ROSTER CARDS — 3D POP & PRESS ANIMATION
            ============================================================ */
         .roster-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem; /* Reduced and consistent gap between cards */
+            gap: 0.75rem;
             padding: 0.2rem 0;
         }
         .roster-card {
@@ -49,37 +49,39 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid; 
             flex-wrap: wrap; 
             gap: 0.5rem;
             position: relative; 
             overflow: hidden; 
             cursor: default;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1) perspective(600px) rotateX(0) rotateY(0);
             box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9);
+            will-change: transform;
         }
         body.dark .roster-card {
             box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02);
         }
-        /* Hover animation */
+        /* Hover: 3D pop-up effect */
         .roster-card:hover {
-            transform: translateY(-4px) scale(1.01);
+            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
             border-color: rgba(212,175,55,0.15);
             box-shadow: 14px 14px 28px rgba(0,0,0,0.08), -10px -10px 22px rgba(255,255,255,0.9), 0 6px 0 rgba(0,0,0,0.02), 0 12px 32px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.95);
         }
         body.dark .roster-card:hover {
             border-color: rgba(212,175,55,0.15);
             box-shadow: 16px 16px 36px rgba(0,0,0,0.8), -12px -12px 28px rgba(255,255,255,0.03), 0 7px 0 rgba(0,0,0,0.5), 0 0 70px rgba(212,175,55,0.04), 0 0 100px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.03);
-            transform: translateY(-4px) scale(1.01);
+            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
         }
-        /* Click (active) animation */
+        /* Press: depressed effect */
         .roster-card:active {
-            transform: translateY(4px) scale(0.97) !important;
+            transform: perspective(600px) translateY(4px) scale(0.97) rotateX(0) rotateY(0) !important;
             box-shadow: 4px 4px 10px rgba(0,0,0,0.04), -3px -3px 10px rgba(255,255,255,0.5), 0 1px 0 rgba(0,0,0,0.01) !important;
+            transition-duration: 0.08s;
         }
         body.dark .roster-card:active {
-            transform: translateY(5px) scale(0.97) !important;
+            transform: perspective(600px) translateY(5px) scale(0.97) rotateX(0) rotateY(0) !important;
             box-shadow: 5px 5px 14px rgba(0,0,0,0.4), -4px -4px 12px rgba(255,255,255,0.01), 0 1px 0 rgba(0,0,0,0.2) !important;
         }
         /* Glow effect on hover */
@@ -154,18 +156,47 @@
             box-shadow: 0 0 20px rgba(251,191,36,0.1);
         }
         body.dark .trending-badge { color: #0b0e12; }
+        
+        /* ============================================================
+           STEP CHART — PREMIUM SEGMENT WITH CONTRASTING THEME (LARGER)
+           ============================================================ */
+        .step-chart-wrapper {
+            background: rgba(0,0,0,0.04);
+            border-radius: 1.5rem;
+            padding: 1.2rem 0.8rem 1rem;
+            margin: 0.5rem 0 0.2rem;
+            border: 1px solid rgba(212,175,55,0.06);
+            transition: all 0.3s ease;
+        }
+        body.dark .step-chart-wrapper {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(212,175,55,0.08);
+        }
         .step-chart {
-            display: flex; align-items: flex-end; justify-content: center;
-            gap: 2rem; padding: 0.5rem 0.5rem 0.5rem;
-            height: 130px; width: 100%; margin-top: 0.5rem; margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 0.2rem 0.5rem 0.2rem;
+            height: 150px;
+            width: 100%;
         }
         .step-bar {
-            display: flex; flex-direction: column; align-items: center;
-            gap: 0.3rem; flex: 1; max-width: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 1;
+            max-width: 80px;
+            min-width: 60px;
         }
         .step-bar .bar {
-            width: 100%; border-radius: 6px 6px 0 0; min-height: 6px;
+            width: 100%;
+            max-width: 50px;
+            border-radius: 6px 6px 0 0;
+            min-height: 8px;
             transition: all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+            position: relative;
         }
         .step-bar .bar.gold { background: linear-gradient(180deg, #fbbf24, #f59e0b); }
         .step-bar .bar.silver { background: linear-gradient(180deg, #94a3b8, #6b7280); }
@@ -173,10 +204,41 @@
         .step-chart .step-bar:nth-child(1) { order: 2; }
         .step-chart .step-bar:nth-child(2) { order: 1; }
         .step-chart .step-bar:nth-child(3) { order: 3; }
-        .step-bar .bar-label { font-size: 0.55rem; font-weight: 700; text-align: center; color: var(--text-secondary, #475569); white-space: nowrap; }
-        .step-bar .bar-value { font-size: 0.65rem; font-weight: 800; color: var(--text-primary, #1a2332); }
+        .step-bar .bar-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-secondary, #475569);
+            white-space: nowrap;
+            max-width: 80px;
+            overflow: visible;
+            text-overflow: clip;
+            padding: 0 2px;
+        }
+        .step-bar .bar-value {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--text-primary, #1a2332);
+        }
         body.dark .step-bar .bar-value { color: #f0f3f8; }
         body.dark .step-bar .bar-label { color: #a8b3c9; }
+        .step-chart-title {
+            text-align: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary, #475569);
+            opacity: 0.5;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(212,175,55,0.06);
+            margin-bottom: 0.6rem;
+        }
+        body.dark .step-chart-title { color: #a8b3c9; opacity: 0.6; }
+        .step-medal-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
         .filter-tabs {
             display: flex; gap: 0.5rem; flex-wrap: wrap;
             margin-bottom: 0.3rem; padding-bottom: 0.3rem;
@@ -251,9 +313,7 @@
         body.dark .roster-card .resident-spec { color: #d4af37 !important; }
         .roster-card .resident-phone { font-size: 0.8rem; font-weight: 600; font-family: monospace; direction: ltr; unicode-bidi: isolate; margin-top: 0.1rem; }
 
-        /* ============================================================
-           TRENDING CARD — OPPOSITE THEME (DARK in LIGHT mode, LIGHT in DARK mode)
-           ============================================================ */
+        /* TRENDING CARD FIRE BORDER */
         .trending-fire-border {
             position: relative;
             border-radius: 1.5rem;
@@ -263,7 +323,7 @@
             box-shadow: 0 0 30px rgba(251,191,36,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 1.5rem; /* Increased gap below trending card */
+            margin-bottom: 1.5rem;
         }
         .trending-fire-border:hover {
             box-shadow: 0 0 60px rgba(251,191,36,0.5);
@@ -283,7 +343,6 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
-        /* Light mode → Dark inner card */
         body.light .trending-inner {
             background: rgba(14,20,32,0.92);
             color: #e8edf5;
@@ -291,7 +350,6 @@
         body.light .trending-inner .text-primary { color: #f0f3f8; }
         body.light .trending-inner .text-secondary { color: #a8b3c9; }
         body.light .trending-inner .text-amber-500 { color: #fbbf24; }
-        /* Dark mode → Light inner card */
         body.dark .trending-inner {
             background: rgba(255,255,255,0.92);
             color: #1a2332;
@@ -383,7 +441,7 @@
                 <button onclick="showTrendingModal()" class="trending-btn text-xs px-4 py-2">
                     <i class="fas fa-trophy"></i> Leaderboard
                 </button>
-                <button onclick="generateAndCopyReport()" class="report-btn text-xs px-4 py-2">
+                <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn text-xs px-4 py-2">
                     <i class="fas fa-file-alt"></i> Report
                 </button>
                 <button id="admin-reset-btn" onclick="adminReset()" class="admin-reset-btn hidden">
@@ -752,9 +810,9 @@
             const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 12;
-            const rotateY = (centerX - x) / 12;
-            card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+            const rotateX = (y - centerY) / 16;
+            const rotateY = (centerX - x) / 16;
+            card.style.transform = `perspective(600px) translateY(-6px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
             card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
         }
@@ -773,28 +831,90 @@
             return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
         }
 
-        // ========== REPORT ==========
+        // ========== REPORT GENERATOR — PREMIUM FORMAT ==========
         function generateAndCopyReport() {
             const targetDate = getMedicalDate();
             const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            if (todayEntries.length === 0) { showToast('لا يوجد مقيمين في الخدمة اليوم','error'); return; }
-            const sorted = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
-            let report = ''; let counter = 1;
-            sorted.forEach(entry => {
+            if (todayEntries.length === 0) { 
+                showToast('لا يوجد مقيمين في الخدمة اليوم', 'error'); 
+                return; 
+            }
+            
+            const sortedEntries = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
+            const formattedDate = getFormattedDate();
+            
+            let report = `🏥 *تبليغ خفراء اليوم*\n`;
+            report += `🗓️ *${formattedDate}*\n`;
+            report += `📍 مستشفى البصرة التعليمي — البصرة\n\n`;
+            
+            const numberEmojis = ['⓵', '⓶', '⓷', '⓸', '⓹', '⓺', '⓻', '⓼', '⓽', '⓾'];
+            
+            sortedEntries.forEach((entry, index) => {
                 const resident = db.names.find(n => n.name === entry.name);
                 const phone = resident?.phone || "رقم غير متوفر";
                 const specName = arabicSpecs[entry.specCode] || entry.specCode;
-                report += `${counter}. ${specName}\n   ${entry.name}\n   ${phone}\n   ${getFormattedDate()}\n`;
-                if (entry.VisitCount) report += `   Interactions: ${entry.VisitCount}\n`;
-                report += `\n`; counter++;
+                const numEmoji = numberEmojis[index] || `*${index + 1}*`;
+                
+                report += `*${numEmoji} ${specName}*\n`;
+                report += `👨‍⚕️ *د. ${entry.name}*\n`;
+                report += `☎️ _${phone}_\n`;
+                report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
             });
-            navigator.clipboard.writeText(report).then(() => { showToast('تم نسخ التقرير إلى الحافظة','success'); })
-                .catch(() => {
-                    const ta = document.createElement('textarea');
-                    ta.value = report; document.body.appendChild(ta); ta.select();
-                    try { document.execCommand('copy'); showToast('تم نسخ التقرير','success'); } catch(e) { showToast('فشل النسخ','error'); }
-                    document.body.removeChild(ta);
+
+            // Try clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(report).then(() => {
+                    const btn = document.getElementById('report-btn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#10b981';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }, 3000);
+                    showToast('تم نسخ التقرير إلى الحافظة', 'success');
+                }).catch(() => {
+                    // Fallback to execCommand
+                    fallbackCopy(report);
                 });
+            } else {
+                // Fallback for older browsers
+                fallbackCopy(report);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const btn = document.getElementById('report-btn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#10b981';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }, 3000);
+                    showToast('تم نسخ التقرير إلى الحافظة', 'success');
+                } else {
+                    showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
+                }
+            } catch (err) {
+                showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
+            }
+            document.body.removeChild(textArea);
         }
 
         // ========== LEADERBOARD MODAL ==========
@@ -811,25 +931,43 @@
             const leaderboard = getLeaderboardData(filter);
             const topThree = leaderboard.slice(0,3);
             const others = leaderboard.slice(3);
+            
             if (leaderboard.length === 0) {
                 content.innerHTML = `<div class="text-center py-6 text-secondary/30"><div class="text-4xl mb-2">🏆</div><div>No interactions recorded yet.</div></div>`;
                 return;
             }
+            
             let html = '';
+            
+            // Premium Step Chart Section — LARGER
             if (topThree.length > 0) {
                 const maxVisits = topThree[0]?.totalVisits || 1;
                 const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
                 const medals = ['silver','gold','bronze'];
-                const medalIcons = ['🥈','🥇','🥉'];
-                html += `<div class="step-chart">`;
+                const medalIcons = ['🥈', '🥇', '🥉'];
+                
+                html += `
+                    <div class="step-chart-wrapper">
+                        <div class="step-chart-title">✦ TOP PERFORMERS ✦</div>
+                        <div class="step-chart">
+                `;
                 ordered.forEach((item, index) => {
-                    const height = Math.max((item.totalVisits / maxVisits) * 100, 10);
+                    const height = Math.max((item.totalVisits / maxVisits) * 130, 12);
                     const specName = arabicSpecs[item.specCode] || item.specCode;
                     const icon = specIcons[item.specCode] || "🏥";
-                    html += `<div class="step-bar"><div class="bar-value">${item.totalVisits}</div><div class="bar ${medals[index]}" style="height:${height}px;"></div><div class="bar-label">${icon} ${item.name}</div><div style="font-size:1.3rem;">${medalIcons[index]}</div></div>`;
+                    html += `
+                        <div class="step-bar">
+                            <div class="bar-value">${item.totalVisits}</div>
+                            <div class="bar ${medals[index]}" style="height:${height}px;"></div>
+                            <div class="bar-label">${icon} ${item.name}</div>
+                            <div class="step-medal-icon">${medalIcons[index]}</div>
+                        </div>
+                    `;
                 });
-                html += `</div>`;
+                html += `</div></div>`;
             }
+            
+            // Rest of the list
             if (others.length > 0) {
                 html += `<div class="mt-2 space-y-1">`;
                 others.forEach((item, index) => {
@@ -839,6 +977,7 @@
                 });
                 html += `</div>`;
             }
+            
             const filterLabels = { 'today':'Today', 'month':'This Month', 'all':'All Time' };
             html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
             content.innerHTML = html;
