@@ -3870,12 +3870,6 @@
     },
     {
       "date": "03/08/2026",
-      "specCode": "OR",
-      "name": "د هارون ",
-      "timestamp": "10:49"
-    },
-    {
-      "date": "03/08/2026",
       "specCode": "O",
       "name": "د. الزهراء حسام",
       "timestamp": "11:23"
@@ -3885,6 +3879,12 @@
       "specCode": "NM",
       "name": "د عيسى وليد",
       "timestamp": "11:28"
+    },
+    {
+      "date": "03/08/2026",
+      "specCode": "OR",
+      "name": "د. هارون عاشور",
+      "timestamp": "12:20"
     }
   ],
   "passwords": {
