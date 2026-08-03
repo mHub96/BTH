@@ -3877,16 +3877,16 @@
     },
     {
       "date": "03/08/2026",
-      "specCode": "NM",
-      "name": "د عيسى وليد",
-      "timestamp": "11:28"
-    },
-    {
-      "date": "03/08/2026",
       "specCode": "OR",
       "name": "د. هارون عاشور",
       "timestamp": "12:20",
       "VisitCount": 1
+    },
+    {
+      "date": "03/08/2026",
+      "specCode": "NM",
+      "name": "د عيسى وليد",
+      "timestamp": "14:05"
     }
   ],
   "passwords": {
