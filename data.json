@@ -1602,13 +1602,6 @@
       "tag": "AO",
       "phone": "987654321",
       "active": true
-    },
-    {
-      "name": "د. EM TEST 01",
-      "spec": "E",
-      "tag": "E",
-      "phone": "321654987",
-      "active": true
     }
   ],
   "schedule": [
