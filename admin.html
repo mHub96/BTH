@@ -864,24 +864,25 @@
                 <div class="grid grid-cols-2 gap-3">
                     <input type="tel" id="new-phone" placeholder="0770..." class="input-field phone-ltr">
                     <select id="new-spec" class="input-field appearance-none">
-                            <option value="MF">🦷 MaxilloFacial Surgery</option>
-                            <option value="GS">🔪 General Surgery</option>
-                            <option value="US">🧬 Urosurgery</option>
-                            <option value="ENT">👂 ENT</option>
-                            <option value="M">💊 Internal Medicine</option>
-                            <option value="A">💉 Anesthesia (All)</option>
-                            <option value="R">🩻 Radiology</option>
-                            <option value="OR">🦴 Orthopaedics</option>
-                            <option value="N">🧫 Nephrology</option>
-                            <option value="NM">🧠 Neuromedicine</option>
-                            <option value="Pe">👶 Paediatrics</option>
-                            <option value="O">👁️ Ophthalmology</option>
-                            <option value="G">🌸 Gynecology</option>
-                            <option value="P">🧠 Psychiatry</option>
-                            <option value="F">👨‍⚕️ Family Medicine</option>
-                            <option value="E">🚑 Emergency Medicine</option>
-                            <option value="AO">👔 Administrative Officer</option>            
-                            <option value="RESERVE">📋 RESERVE</option>
+                        <option value="">-- اختر التخصص --</option>
+                        <option value="MF">🦷 MaxilloFacial Surgery</option>
+                        <option value="GS">🔪 General Surgery</option>
+                        <option value="US">🧬 Urosurgery</option>
+                        <option value="ENT">👂 ENT</option>
+                        <option value="M">💊 Internal Medicine</option>
+                        <option value="A">💉 Anesthesia (All)</option>
+                        <option value="R">🩻 Radiology</option>
+                        <option value="OR">🦴 Orthopaedics</option>
+                        <option value="N">🧫 Nephrology</option>
+                        <option value="NM">🧠 Neuromedicine</option>
+                        <option value="Pe">👶 Paediatrics</option>
+                        <option value="O">👁️ Ophthalmology</option>
+                        <option value="G">🌸 Gynecology</option>
+                        <option value="P">🧠 Psychiatry</option>
+                        <option value="F">👨‍⚕️ Family Medicine</option>
+                        <option value="E">🚑 Emergency Medicine</option>
+                        <option value="AO">👔 Administrative Officer</option>            
+                        <option value="RESERVE">📋 RESERVE</option>
                     </select>
                 </div>
                 <div class="flex items-center gap-4 mt-1">
@@ -921,24 +922,25 @@
                 <input type="text" id="edit-name" class="input-field" placeholder="الاسم">
                 <input type="tel" id="edit-phone" class="input-field phone-ltr" placeholder="0770...">
                 <select id="edit-spec" class="input-field appearance-none">
-                            <option value="MF">🦷 MaxilloFacial Surgery</option>
-                            <option value="GS">🔪 General Surgery</option>
-                            <option value="US">🧬 Urosurgery</option>
-                            <option value="ENT">👂 ENT</option>
-                            <option value="M">💊 Internal Medicine</option>
-                            <option value="A">💉 Anesthesia (All)</option>
-                            <option value="R">🩻 Radiology</option>
-                            <option value="OR">🦴 Orthopaedics</option>
-                            <option value="N">🧫 Nephrology</option>
-                            <option value="NM">🧠 Neuromedicine</option>
-                            <option value="Pe">👶 Paediatrics</option>
-                            <option value="O">👁️ Ophthalmology</option>
-                            <option value="G">🌸 Gynecology</option>
-                            <option value="P">🧠 Psychiatry</option>
-                            <option value="F">👨‍⚕️ Family Medicine</option>
-                            <option value="E">🚑 Emergency Medicine</option>
-                            <option value="AO">👔 Administrative Officer</option>                     
-                            <option value="RESERVE">📋 RESERVE</option>
+                    <option value="">-- اختر التخصص --</option>
+                    <option value="MF">🦷 MaxilloFacial Surgery</option>
+                    <option value="GS">🔪 General Surgery</option>
+                    <option value="US">🧬 Urosurgery</option>
+                    <option value="ENT">👂 ENT</option>
+                    <option value="M">💊 Internal Medicine</option>
+                    <option value="A">💉 Anesthesia (All)</option>
+                    <option value="R">🩻 Radiology</option>
+                    <option value="OR">🦴 Orthopaedics</option>
+                    <option value="N">🧫 Nephrology</option>
+                    <option value="NM">🧠 Neuromedicine</option>
+                    <option value="Pe">👶 Paediatrics</option>
+                    <option value="O">👁️ Ophthalmology</option>
+                    <option value="G">🌸 Gynecology</option>
+                    <option value="P">🧠 Psychiatry</option>
+                    <option value="F">👨‍⚕️ Family Medicine</option>
+                    <option value="E">🚑 Emergency Medicine</option>
+                    <option value="AO">👔 Administrative Officer</option>                     
+                    <option value="RESERVE">📋 RESERVE</option>
                 </select>
                 <div class="flex items-center gap-3">
                     <label class="flex items-center gap-2 text-sm font-medium text-primary cursor-pointer">
@@ -1213,13 +1215,13 @@
             }
 
             db.passwords = { user: u, admin: a };
-            showToast('تم تحديث كلمات المرور بنجاح', 'success');
-
+            
             if (document.getElementById('remember-me').checked) {
                 localStorage.setItem('rememberToken', btoa(u));
                 localStorage.setItem('rememberMe', 'true');
             }
-            saveToGithub();
+            saveToGithub(false);
+            showToast('تم تحديث كلمات المرور بنجاح', 'success');
         }
 
         // ========== RENDER ==========
@@ -1310,18 +1312,43 @@
         }
 
         // ========== HELPERS ==========
-        function formatIraqiPhone(num) {
-            let clean = num.replace(/\D/g, '').trim();
-            if (!clean) return "";
-            if (clean.startsWith('07')) return '+964' + clean.substring(1);
-            if (clean.startsWith('964')) return '+' + clean;
-            if (clean.length === 10 && clean.startsWith('7')) return '+964' + clean;
-            return num.trim();
+        function validatePhoneNumber(num) {
+            let clean = num.replace(/\s/g, '').trim();
+            if (!clean) return { valid: false, message: 'الرجاء إدخال رقم الهاتف' };
+            
+            // Check if it starts with +964
+            if (clean.startsWith('+964')) {
+                // Must be exactly 14 characters including +964
+                if (clean.length === 14) {
+                    const digits = clean.substring(4);
+                    if (/^\d{10}$/.test(digits)) {
+                        return { valid: true, formatted: clean };
+                    }
+                }
+                return { valid: false, message: 'رقم الهاتف يجب أن يكون 14 حرفاً مع +964 (مثال: +9647701234567)' };
+            } else {
+                // Without +964, must be exactly 11 digits
+                if (/^\d{11}$/.test(clean)) {
+                    return { valid: true, formatted: '+964' + clean.substring(1) };
+                }
+                return { valid: false, message: 'رقم الهاتف يجب أن يكون 11 رقم (مثال: 07701234567)' };
+            }
         }
 
-        function ensureDoctorTitle(name) {
+        function formatIraqiPhone(num) {
+            let clean = num.replace(/\s/g, '').trim();
+            if (!clean) return "";
+            if (clean.startsWith('+964')) return clean;
+            if (/^\d{11}$/.test(clean)) return '+964' + clean.substring(1);
+            return clean;
+        }
+
+        // ========== UPDATED: ensureDoctorTitle - Skip AO specialty ==========
+        function ensureDoctorTitle(name, specialtyId) {
             let n = name.trim();
             if (!n) return "";
+            // Skip adding "د. " for Administrative Officer (AO)
+            if (specialtyId === "AO") return n;
             return (n.startsWith("د.") || n.startsWith("د ")) ? n : "د. " + n;
         }
 
@@ -1346,16 +1373,33 @@
             const specVal = document.getElementById('edit-spec').value;
             const isActive = document.getElementById('edit-active').checked;
 
+            if (!nameVal.trim()) {
+                showToast('الرجاء إدخال اسم المقيم', 'error');
+                return;
+            }
+            
+            // Validate phone number
+            const phoneValidation = validatePhoneNumber(phoneVal);
+            if (!phoneValidation.valid) {
+                showToast(phoneValidation.message, 'error');
+                return;
+            }
+
+            if (!specVal) {
+                showToast('الرجاء اختيار التخصص', 'error');
+                return;
+            }
+
             db.names[currentEditIdx] = {
-                name: ensureDoctorTitle(nameVal),
-                phone: formatIraqiPhone(phoneVal),
+                name: ensureDoctorTitle(nameVal, specVal),
+                phone: phoneValidation.formatted,
                 spec: isActive ? specVal : "RESERVE",
                 tag: specVal,
                 active: isActive
             };
             closeModal();
             renderResidents();
-            await saveToGithub();
+            await saveToGithub(false);
             showToast('تم تعديل بيانات المقيم بنجاح', 'success');
         }
 
@@ -1363,7 +1407,7 @@
             if (!confirm("هل أنت متأكد من حذف هذا المقيم؟")) return;
             db.names.splice(idx, 1);
             renderResidents();
-            await saveToGithub();
+            await saveToGithub(false);
             showToast('تم حذف المقيم بنجاح', 'success');
         }
 
@@ -1372,28 +1416,50 @@
             const phoneEl = document.getElementById('new-phone');
             const specEl = document.getElementById('new-spec');
             const activeEl = document.getElementById('new-active');
-            if (!nameEl.value.trim()) {
+            
+            const nameVal = nameEl.value.trim();
+            const phoneVal = phoneEl.value.trim();
+            const specVal = specEl.value;
+
+            // Validation - all fields required
+            if (!nameVal) {
                 showToast('الرجاء إدخال اسم المقيم', 'error');
+                nameEl.focus();
+                return;
+            }
+            
+            // Validate phone number
+            const phoneValidation = validatePhoneNumber(phoneVal);
+            if (!phoneValidation.valid) {
+                showToast(phoneValidation.message, 'error');
+                phoneEl.focus();
+                return;
+            }
+
+            if (!specVal) {
+                showToast('الرجاء اختيار التخصص', 'error');
+                specEl.focus();
                 return;
             }
 
             const isActive = activeEl.checked;
             db.names.push({
-                name: ensureDoctorTitle(nameEl.value),
-                spec: isActive ? specEl.value : "RESERVE",
-                tag: specEl.value,
-                phone: formatIraqiPhone(phoneEl.value),
+                name: ensureDoctorTitle(nameVal, specVal),
+                spec: isActive ? specVal : "RESERVE",
+                tag: specVal,
+                phone: phoneValidation.formatted,
                 active: isActive
             });
             nameEl.value = "";
             phoneEl.value = "";
+            specEl.value = "";
             renderResidents();
-            await saveToGithub();
+            await saveToGithub(false);
             showToast('تم إضافة المقيم بنجاح', 'success');
         }
 
         // ========== SAVE ==========
-        async function saveToGithub() {
+        async function saveToGithub(showToastMessage = true) {
             const btn = document.getElementById('main-save-btn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> جاري';
@@ -1422,7 +1488,10 @@
                     fileSha = updated.content.sha;
                     btn.innerHTML = '<i class="fas fa-check-circle"></i> تم';
                     btn.classList.replace('loading', 'success');
-                    showToast('تم حفظ البيانات بنجاح', 'success');
+                    // Only show toast if requested
+                    if (showToastMessage) {
+                        showToast('تم حفظ البيانات بنجاح', 'success');
+                    }
                 } else {
                     throw new Error(await res.text());
                 }
@@ -1430,7 +1499,9 @@
                 console.error("Save error:", e);
                 btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> فشل';
                 btn.classList.replace('loading', 'error');
-                showToast('فشل حفظ البيانات', 'error');
+                if (showToastMessage) {
+                    showToast('فشل حفظ البيانات', 'error');
+                }
             }
             setTimeout(() => {
                 btn.disabled = false;
