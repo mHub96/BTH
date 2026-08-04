@@ -12,7 +12,9 @@
       "id": "US",
       "name_ar": "جراحة المسالك البولية",
       "name_en": "Urosurgery",
-      "icon": "🧬"
+      "icon": "🧬",
+      "color": "#478eff",
+      "acceptPool": []
     },
     {
       "id": "OR",
