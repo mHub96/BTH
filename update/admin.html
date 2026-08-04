@@ -399,6 +399,30 @@
         .spec-header.hidden-spec .spec-count {
             opacity: 0.5;
         }
+
+        /* Name + Toggle row in modal */
+        .name-toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .name-toggle-row .input-field {
+            flex: 1;
+        }
+        .name-toggle-row .toggle-switch {
+            flex-shrink: 0;
+        }
+        @media (max-width: 480px) {
+            .name-toggle-row {
+                flex-wrap: wrap;
+            }
+            .name-toggle-row .input-field {
+                flex: 1 1 100%;
+            }
+            .name-toggle-row .toggle-switch {
+                margin-right: auto;
+            }
+        }
     </style>
 </head>
 <body class="light" id="app-body">
@@ -573,11 +597,11 @@
             </h3>
             <input type="hidden" id="specialty-edit-id">
             <div class="flex flex-col gap-3">
-                <!-- Specialty name with toggle switch -->
-                <div class="flex items-center gap-3">
-                    <input type="text" id="spec-name-ar" class="input-field flex-1" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
+                <!-- Specialty name with toggle switch beside it -->
+                <div class="name-toggle-row">
+                    <input type="text" id="spec-name-ar" class="input-field" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
                     <label class="toggle-switch">
-                        <span class="toggle-label">ظهور للجمهور</span>
+                        <span class="toggle-label">ظهور</span>
                         <input type="checkbox" id="spec-enabled" checked />
                         <span class="toggle-slider"></span>
                         <span class="toggle-status off" id="spec-status-label">مخفي</span>
