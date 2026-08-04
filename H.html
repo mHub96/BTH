@@ -982,7 +982,8 @@
                 const isTrending = visitCount > 0 && trendingRes && trendingRes.name === entry.name;
                 const phoneClean = isPhoneValid ? phone.replace(/[^0-9]/g,'') : '';
                 const today = getMedicalDate();
-                const waHref = isPhoneValid ? (isIOS ? `whatsapp://send?phone=${phoneClean}` : `intent://send/${phoneClean}#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end`) : '#';
+                // OLD WhatsApp link mechanism - simple and works
+                const waHref = isPhoneValid ? `whatsapp://send?phone=${phoneClean}` : '#';
                 return `
                     <div class="roster-card" 
                          onmousemove="handleCardTilt(event, this)"
