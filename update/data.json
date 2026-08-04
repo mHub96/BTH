@@ -133,6 +133,7 @@
       "name_ar": "الوفيات",
       "name_en": "Death Certificatess",
       "icon": "📋",
+      "color": "#bababa",
       "acceptPool": [
         "GS",
         "US",
