@@ -58,6 +58,53 @@
             margin: 0 auto;
         }
 
+        /* ===== TOAST - TOP OF SCREEN ===== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 90%;
+            max-width: 420px;
+        }
+        .toast {
+            padding: 14px 24px;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.hide { transform: translateY(-20px); opacity: 0; }
+        .toast-success { background: rgba(16,185,129,0.95); color: white; }
+        .toast-error { background: rgba(239,68,68,0.95); color: white; }
+        .toast-info { background: rgba(59,130,246,0.95); color: white; }
+        .toast .toast-close {
+            margin-right: auto;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.6;
+            padding: 0 4px;
+        }
+        .toast .toast-close:hover { opacity: 1; }
+
         /* ===== LOCK SCREEN ===== */
         .lock-screen {
             display: flex;
@@ -358,6 +405,8 @@
             font-weight: 500;
             font-size: 1rem;
             font-family: inherit;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .input-wrapper .ghost-text .ghost-offset {
             color: transparent;
@@ -371,13 +420,13 @@
             color: rgba(255, 255, 255, 0.5);
         }
         body:not(.dark) .input-wrapper .ghost-text {
-            color: rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.2);
         }
         body:not(.dark) .input-wrapper .ghost-text .ghost-suggestion {
-            color: rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.2);
         }
         body:not(.dark) .input-wrapper .ghost-text .ghost-suggestion-bright {
-            color: rgba(0, 0, 0, 0.4);
+            color: rgba(0, 0, 0, 0.35);
         }
 
         .input-wrapper input {
@@ -489,24 +538,6 @@
             color: var(--text-primary);
         }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.2rem 0.8rem;
-            border-radius: 100px;
-            font-size: 0.65rem;
-            font-weight: 700;
-        }
-        .status-badge.success {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-        }
-        .status-badge.warning {
-            background: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-        }
-
         .footer-credit {
             text-align: center;
             font-size: 0.65rem;
@@ -516,41 +547,6 @@
             border-top: 1px solid var(--border-color);
             opacity: 0.6;
         }
-
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            pointer-events: none;
-            width: 90%;
-            max-width: 420px;
-        }
-        .toast {
-            padding: 14px 24px;
-            border-radius: 1rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
-            pointer-events: auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        .toast.hide { transform: translateY(-20px); opacity: 0; }
-        .toast-success { background: rgba(16,185,129,0.92); color: white; }
-        .toast-error { background: rgba(239,68,68,0.92); color: white; }
-        .toast-info { background: rgba(59,130,246,0.92); color: white; }
 
         @media (max-width: 480px) {
             body { padding: 0.75rem; }
@@ -697,7 +693,7 @@
             toast.innerHTML = `
                 <i class="fas ${icons[type] || icons.info}"></i>
                 <span>${message}</span>
-                <button class="toast-close" style="margin-right:auto; background:none; border:none; color:inherit; font-size:1.2rem; cursor:pointer; opacity:0.6;" onclick="this.parentElement.remove()">&times;</button>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
             `;
             container.appendChild(toast);
             requestAnimationFrame(() => toast.classList.add('show'));
@@ -901,54 +897,132 @@
             nameInput.focus();
         }
 
-        // ===== NAME INPUT HANDLING =====
+        // ===== NAME INPUT HANDLING WITH GHOST TEXT =====
         function handleNameInput() {
             const input = document.getElementById('name-input');
             const ghost = document.getElementById('ghost-text');
-            const val = input.value.trim();
+            const val = input.value;
             const updateBtn = document.getElementById('update-btn');
             
             ghost.innerHTML = '';
             ghost.removeAttribute('data-full');
             updateBtn.disabled = true;
 
-            if (!val) {
+            if (!val.trim()) {
                 document.getElementById('status-message').textContent = '';
                 return;
             }
 
-            // Filter residents
             const valClean = val.toLowerCase().replace(/^د\.?\s*/, '');
+            
+            // Find matching residents
             const matches = currentResidents.filter(n => {
                 const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
-                return n.name.toLowerCase().startsWith(val.toLowerCase()) || nClean.startsWith(valClean);
+                return nClean.startsWith(valClean) || n.name.toLowerCase().startsWith(val.toLowerCase());
             });
 
-            if (matches.length > 0) {
-                const match = matches[0];
+            // Also find partial matches for the dropdown
+            const partialMatches = currentResidents.filter(n => {
+                const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
+                return nClean.includes(valClean) && !nClean.startsWith(valClean);
+            });
+
+            const allMatches = [...matches, ...partialMatches];
+
+            if (allMatches.length > 0) {
+                const match = allMatches[0];
                 ghost.setAttribute('data-full', match.name);
-                let display = val.startsWith("د.") ? match.name : match.name.replace(/^د\.?\s*/, '');
+                
+                // Show ghost text suggestion
+                let display = match.name;
+                // If user typed without "د.", show without it
+                if (!val.startsWith('د.') && !val.startsWith('د ')) {
+                    display = display.replace(/^د\.?\s*/, '');
+                }
+                
+                const typedPart = val;
                 if (display.toLowerCase().startsWith(val.toLowerCase())) {
-                    ghost.innerHTML = `<span class="ghost-offset">${val}</span><span class="ghost-suggestion-bright">${display.substring(val.length)}</span>`;
+                    // The suggestion extends what the user typed
+                    ghost.innerHTML = `<span class="ghost-offset">${typedPart}</span><span class="ghost-suggestion-bright">${display.substring(typedPart.length)}</span>`;
+                } else if (display.toLowerCase().includes(valClean)) {
+                    // The suggestion contains what the user typed (partial match)
+                    const idx = display.toLowerCase().indexOf(valClean);
+                    ghost.innerHTML = `<span class="ghost-suggestion">${display.substring(0, idx)}</span><span class="ghost-suggestion-bright">${display.substring(idx, idx + valClean.length)}</span><span class="ghost-suggestion">${display.substring(idx + valClean.length)}</span>`;
                 } else {
                     ghost.innerHTML = `<span class="ghost-suggestion">${display}</span>`;
                 }
+                
                 updateBtn.disabled = false;
             } else {
                 updateBtn.disabled = true;
+            }
+
+            // Update dropdown menu with matches
+            const menu = document.getElementById('name-menu');
+            if (allMatches.length > 0 && document.activeElement === input) {
+                menu.innerHTML = allMatches.map(n => 
+                    `<div onclick="selectName('${n.name.replace(/'/g, "\\'")}')">${n.name}</div>`
+                ).join('');
+                menu.style.display = 'block';
+            } else if (allMatches.length === 0) {
+                menu.style.display = 'none';
             }
         }
 
         function handleNameKeys(e) {
             const ghost = document.getElementById('ghost-text');
             const full = ghost.getAttribute('data-full');
-            if (e.key === "Enter") {
+            
+            if (e.key === "Tab" && full) {
                 e.preventDefault();
+                document.getElementById('name-input').value = full;
+                ghost.innerHTML = '';
+                ghost.removeAttribute('data-full');
+                document.getElementById('update-btn').disabled = false;
+                document.getElementById('name-menu').style.display = 'none';
+            }
+            
+            if (e.key === "Enter") {
                 if (full) {
+                    e.preventDefault();
                     document.getElementById('name-input').value = full;
                     ghost.innerHTML = '';
                     ghost.removeAttribute('data-full');
+                    document.getElementById('name-menu').style.display = 'none';
                     updateDuty();
+                } else {
+                    // Check if there's a selected item in the dropdown
+                    const selected = document.querySelector('#name-menu div.selected');
+                    if (selected) {
+                        e.preventDefault();
+                        selectName(selected.textContent);
+                    }
+                }
+            }
+            
+            // Arrow keys for dropdown navigation
+            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                const items = document.querySelectorAll('#name-menu div');
+                if (items.length > 0) {
+                    e.preventDefault();
+                    let currentIdx = -1;
+                    items.forEach((item, idx) => {
+                        if (item.classList.contains('selected')) {
+                            currentIdx = idx;
+                            item.classList.remove('selected');
+                        }
+                    });
+                    
+                    if (e.key === "ArrowDown") {
+                        currentIdx = Math.min(currentIdx + 1, items.length - 1);
+                    } else {
+                        currentIdx = Math.max(currentIdx - 1, 0);
+                    }
+                    
+                    if (currentIdx >= 0) {
+                        items[currentIdx].classList.add('selected');
+                        items[currentIdx].scrollIntoView({ block: 'nearest' });
+                    }
                 }
             }
         }
@@ -957,26 +1031,30 @@
             e.stopPropagation();
             const menu = document.getElementById('name-menu');
             const isOpen = menu.style.display === 'block';
-            closeAllMenus();
-            if (!isOpen) {
-                const input = document.getElementById('name-input');
-                const val = input.value.trim().toLowerCase().replace(/^د\.?\s*/, '');
-                let matches = currentResidents;
-                if (val) {
-                    matches = currentResidents.filter(n => {
-                        const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
-                        return n.name.toLowerCase().includes(val) || nClean.includes(val);
-                    });
-                }
-                if (matches.length === 0) {
-                    menu.innerHTML = '<div style="color:var(--text-muted); font-size:0.8rem; text-align:center; padding:0.8rem;">لا يوجد مقيمين</div>';
-                } else {
-                    menu.innerHTML = matches.map(n => 
-                        `<div onclick="selectName('${n.name.replace(/'/g, "\\'")}')">${n.name}</div>`
-                    ).join('');
-                }
-                menu.style.display = 'block';
+            if (isOpen) {
+                menu.style.display = 'none';
+                return;
             }
+            
+            const input = document.getElementById('name-input');
+            const val = input.value.trim().toLowerCase().replace(/^د\.?\s*/, '');
+            
+            let matches = currentResidents;
+            if (val) {
+                matches = currentResidents.filter(n => {
+                    const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
+                    return nClean.includes(val) || n.name.toLowerCase().includes(val);
+                });
+            }
+            
+            if (matches.length === 0) {
+                menu.innerHTML = '<div style="color:var(--text-muted); font-size:0.8rem; text-align:center; padding:0.8rem;">لا يوجد مقيمين</div>';
+            } else {
+                menu.innerHTML = matches.map(n => 
+                    `<div onclick="selectName('${n.name.replace(/'/g, "\\'")}')">${n.name}</div>`
+                ).join('');
+            }
+            menu.style.display = 'block';
         }
 
         function selectName(name) {
@@ -986,6 +1064,8 @@
             closeAllMenus();
             document.getElementById('update-btn').disabled = false;
             document.getElementById('name-input').focus();
+            // Trigger the input event to update ghost text
+            handleNameInput();
         }
 
         function closeAllMenus() {
