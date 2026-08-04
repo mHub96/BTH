@@ -7,7 +7,7 @@
       "icon": "🔪",
       "color": "#2ac200",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "US",
@@ -16,7 +16,7 @@
       "icon": "🧬",
       "color": "#e66551",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "OR",
@@ -25,7 +25,7 @@
       "icon": "🦴",
       "color": "#ff0000",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "M",
@@ -70,7 +70,7 @@
       "icon": "💉",
       "color": "#b4cc00",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "GA",
