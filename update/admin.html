@@ -205,6 +205,55 @@
         .pool-option input[type="checkbox"] { width: 0.8rem; height: 0.8rem; accent-color: #d4af37; cursor: pointer; }
         .pool-option .spec-label { font-weight: 500; }
         .pool-option .spec-icon-small { font-size: 0.8rem; margin-left: 0.1rem; }
+
+        /* Color picker styling */
+        .color-picker-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255,255,255,0.03);
+            padding: 0.4rem 0.8rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(212,175,55,0.06);
+        }
+        .color-picker-wrap input[type="color"] {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(212,175,55,0.15);
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+        .color-picker-wrap input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        .color-picker-wrap input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+        }
+        .color-picker-wrap .color-hex {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-secondary, #475569);
+            font-family: monospace;
+        }
+        .color-picker-wrap .color-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary, #475569);
+            opacity: 0.6;
+        }
+        .spec-color-preview {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid rgba(212,175,55,0.1);
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body class="light" id="app-body">
@@ -384,6 +433,14 @@
                 <input type="text" id="spec-name-en" class="input-field" placeholder="الاسم بالإنجليزية (مثال: General Surgery)">
                 <input type="text" id="spec-icon" class="input-field" placeholder="الأيقونة (مثال: 🔪)" maxlength="2">
                 
+                <!-- Color Picker -->
+                <div class="color-picker-wrap">
+                    <span class="color-label">لون التخصص</span>
+                    <input type="color" id="spec-color" value="#3b82f6" />
+                    <span class="color-hex" id="spec-color-hex">#3b82f6</span>
+                    <span class="spec-color-preview" id="spec-color-preview" style="background-color:#3b82f6;"></span>
+                </div>
+
                 <div>
                     <label class="text-xs text-secondary">التخصصات التي تقبل الأسماء منها (اختياري)</label>
                     <div id="spec-pool-select" class="pool-selection"></div>
@@ -625,11 +682,13 @@
             }
             container.innerHTML = specialties.map(spec => {
                 const poolCount = (spec.acceptPool || []).length;
+                const color = spec.color || '#3b82f6';
                 return `
                     <div class="specialty-item">
                         <span class="spec-icon">${spec.icon || '🏥'}</span>
                         <span class="spec-id">${spec.id}</span>
                         <span class="spec-name">${spec.name_ar}</span>
+                        <span class="spec-color-preview" style="background-color:${color};"></span>
                         <span class="text-[0.5rem] text-secondary/40">${spec.name_en || ''}</span>
                         ${poolCount > 0 ? `<span class="text-[0.5rem] text-blue-500 dark:text-amber-400">+${poolCount}</span>` : ''}
                         <div class="spec-actions">
@@ -649,6 +708,9 @@
             document.getElementById('spec-name-ar').value = '';
             document.getElementById('spec-name-en').value = '';
             document.getElementById('spec-icon').value = '';
+            document.getElementById('spec-color').value = '#3b82f6';
+            document.getElementById('spec-color-hex').textContent = '#3b82f6';
+            document.getElementById('spec-color-preview').style.backgroundColor = '#3b82f6';
             document.getElementById('specialty-edit-id').value = '';
             renderPoolSelection([]);
             document.getElementById('specialty-modal').classList.add('active');
@@ -664,10 +726,26 @@
             document.getElementById('spec-name-ar').value = spec.name_ar || '';
             document.getElementById('spec-name-en').value = spec.name_en || '';
             document.getElementById('spec-icon').value = spec.icon || '';
+            const color = spec.color || '#3b82f6';
+            document.getElementById('spec-color').value = color;
+            document.getElementById('spec-color-hex').textContent = color;
+            document.getElementById('spec-color-preview').style.backgroundColor = color;
             document.getElementById('specialty-edit-id').value = id;
             renderPoolSelection(spec.acceptPool || []);
             document.getElementById('specialty-modal').classList.add('active');
         }
+
+        // Color picker live update
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorInput = document.getElementById('spec-color');
+            if (colorInput) {
+                colorInput.addEventListener('input', function() {
+                    const val = this.value;
+                    document.getElementById('spec-color-hex').textContent = val;
+                    document.getElementById('spec-color-preview').style.backgroundColor = val;
+                });
+            }
+        });
 
         function renderPoolSelection(selected) {
             const container = document.getElementById('spec-pool-select');
@@ -711,6 +789,7 @@
             const nameAr = document.getElementById('spec-name-ar').value.trim();
             const nameEn = document.getElementById('spec-name-en').value.trim();
             const icon = document.getElementById('spec-icon').value.trim() || '🏥';
+            const color = document.getElementById('spec-color').value || '#3b82f6';
             const editId = document.getElementById('specialty-edit-id').value;
             const acceptPool = getPoolSelection();
 
@@ -721,7 +800,7 @@
             const exists = db.specialties.some(s => s.id === id && s.id !== editId);
             if (exists) { showToast('هذا المعرف مستخدم بالفعل', 'error'); return; }
 
-            const specialty = { id, name_ar: nameAr, name_en: nameEn || nameAr, icon, acceptPool };
+            const specialty = { id, name_ar: nameAr, name_en: nameEn || nameAr, icon, color, acceptPool };
 
             if (editId) {
                 const idx = db.specialties.findIndex(s => s.id === editId);
@@ -818,16 +897,17 @@
                 const isExpanded = query.length > 0 ? "active" : "";
                 const section = document.createElement('div');
                 section.className = "mb-2";
+                const color = spec.color || '#3b82f6';
                 section.innerHTML = `
-                    <div class="spec-header" onclick="toggleSection('${spec.id}')">
+                    <div class="spec-header" onclick="toggleSection('${spec.id}')" style="border-right: 4px solid ${color};">
                         <span><i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> ${spec.icon || '🏥'} ${spec.name_ar}</span>
-                        <span class="spec-count px-3 py-0.5 rounded-full text-[11px]">${residents.length}</span>
+                        <span class="spec-count px-3 py-0.5 rounded-full text-[11px]" style="background:${color}20; color:${color};">${residents.length}</span>
                     </div>
                     <div id="content-${spec.id}" class="spec-content ${isExpanded}">
                         ${residents.map((r) => {
                             const idx = db.names.indexOf(r);
                             return `
-                            <div class="resident-card">
+                            <div class="resident-card" style="border-right: 3px solid ${color};">
                                 <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
                                     <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
                                         ${r.name}
@@ -851,7 +931,7 @@
                 const reserveSection = document.createElement('div');
                 reserveSection.className = "mb-2";
                 reserveSection.innerHTML = `
-                    <div class="spec-header" onclick="toggleSection('reserve')">
+                    <div class="spec-header" onclick="toggleSection('reserve')" style="border-right: 4px solid #94a3b8;">
                         <span><i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> 📋 الاحتياط (Reserve)</span>
                         <span class="spec-count-reserve px-3 py-0.5 rounded-full text-[11px]">${reserveRes.length}</span>
                     </div>
@@ -860,7 +940,7 @@
                             const idx = db.names.indexOf(r);
                             const specObj = db.specialties.find(s => s.id === r.tag);
                             return `
-                            <div class="resident-card">
+                            <div class="resident-card" style="border-right: 3px solid #94a3b8;">
                                 <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
                                     <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
                                         ${r.name}
