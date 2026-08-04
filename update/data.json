@@ -116,7 +116,9 @@
       "id": "P",
       "name_ar": "النفسية",
       "name_en": "Psychiatry",
-      "icon": "🧠"
+      "icon": "🧠",
+      "color": "#fef606",
+      "acceptPool": []
     },
     {
       "id": "R",
