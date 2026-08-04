@@ -97,7 +97,7 @@
       "icon": "🧠",
       "color": "#e100ff",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "N",
