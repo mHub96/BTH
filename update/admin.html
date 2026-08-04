@@ -210,20 +210,22 @@
         .color-picker-wrap {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
             background: rgba(255,255,255,0.03);
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.6rem;
             border-radius: 1rem;
             border: 1px solid rgba(212,175,55,0.06);
+            flex-wrap: wrap;
         }
         .color-picker-wrap input[type="color"] {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid rgba(212,175,55,0.15);
             cursor: pointer;
             background: none;
             padding: 0;
+            flex-shrink: 0;
         }
         .color-picker-wrap input[type="color"]::-webkit-color-swatch-wrapper {
             padding: 0;
@@ -237,6 +239,7 @@
             font-weight: 600;
             color: var(--text-secondary, #475569);
             font-family: monospace;
+            min-width: 60px;
         }
         .color-picker-wrap .color-label {
             font-size: 0.6rem;
@@ -253,6 +256,128 @@
             display: inline-block;
             border: 1px solid rgba(212,175,55,0.1);
             flex-shrink: 0;
+        }
+        .color-gen-btn {
+            background: rgba(212,175,55,0.12);
+            border: 1px solid rgba(212,175,55,0.15);
+            color: var(--text-secondary, #475569);
+            padding: 0.2rem 0.7rem;
+            border-radius: 2rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+        .color-gen-btn:hover {
+            background: rgba(212,175,55,0.2);
+            border-color: rgba(212,175,55,0.3);
+            transform: scale(1.02);
+        }
+        .color-gen-btn:active {
+            transform: scale(0.96);
+        }
+        body.dark .color-gen-btn {
+            color: #d4af37;
+        }
+
+        /* ===== IPHONE-STYLE TOGGLE SWITCH ===== */
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+        .toggle-slider {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 26px;
+            border-radius: 26px;
+            background: #ef4444; /* Red for OFF */
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: #22c55e; /* Green for ON */
+        }
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(18px);
+        }
+        .toggle-switch input:focus + .toggle-slider {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+        }
+        .toggle-switch .toggle-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 0.6rem;
+            color: var(--text-secondary, #475569);
+            white-space: nowrap;
+        }
+        .toggle-switch .toggle-status {
+            font-size: 0.55rem;
+            font-weight: 700;
+            margin-right: 0.4rem;
+            letter-spacing: 0.02em;
+            min-width: 32px;
+            transition: color 0.3s ease;
+        }
+        .toggle-switch .toggle-status.off {
+            color: #ef4444;
+        }
+        .toggle-switch .toggle-status.on {
+            color: #22c55e;
+        }
+        body.dark .toggle-switch .toggle-label {
+            color: #a8b3c9;
+        }
+
+        /* Specialty list status indicator */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .status-dot.on {
+            background: #22c55e;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+        }
+        .status-dot.off {
+            background: #ef4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+        }
+        .specialty-item.disabled-spec {
+            opacity: 0.5;
+        }
+        .specialty-item.disabled-spec .spec-name {
+            text-decoration: line-through;
         }
     </style>
 </head>
@@ -428,17 +553,30 @@
             </h3>
             <input type="hidden" id="specialty-edit-id">
             <div class="flex flex-col gap-3">
+                <!-- Specialty name with toggle switch -->
+                <div class="flex items-center gap-3">
+                    <input type="text" id="spec-name-ar" class="input-field flex-1" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
+                    <label class="toggle-switch">
+                        <span class="toggle-label">مفعل</span>
+                        <input type="checkbox" id="spec-enabled" checked />
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-status off" id="spec-status-label">إيقاف</span>
+                    </label>
+                </div>
+                
                 <input type="text" id="spec-id" class="input-field" placeholder="المعرف (مثال: GS)" maxlength="10">
-                <input type="text" id="spec-name-ar" class="input-field" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
                 <input type="text" id="spec-name-en" class="input-field" placeholder="الاسم بالإنجليزية (مثال: General Surgery)">
                 <input type="text" id="spec-icon" class="input-field" placeholder="الأيقونة (مثال: 🔪)" maxlength="2">
                 
-                <!-- Color Picker -->
+                <!-- Color Picker with Generate Button -->
                 <div class="color-picker-wrap">
                     <span class="color-label">لون التخصص</span>
                     <input type="color" id="spec-color" value="#3b82f6" />
                     <span class="color-hex" id="spec-color-hex">#3b82f6</span>
                     <span class="spec-color-preview" id="spec-color-preview" style="background-color:#3b82f6;"></span>
+                    <button onclick="generateUniqueColor()" class="color-gen-btn" title="توليد لون فريد مختلف عن التخصصات الموجودة">
+                        <i class="fas fa-dice"></i> توليد
+                    </button>
                 </div>
 
                 <div>
@@ -580,7 +718,10 @@
             }));
             db.schedule = content.schedule || [];
             db.passwords = content.passwords || {};
-            db.specialties = content.specialties || [];
+            db.specialties = (content.specialties || []).map(s => ({
+                ...s,
+                enabled: s.enabled !== undefined ? s.enabled : true // Default to enabled
+            }));
 
             document.getElementById('lock-screen').style.display = 'none';
             document.getElementById('main-content').classList.remove('hidden-content');
@@ -644,7 +785,7 @@
             document.getElementById('password-input').focus();
         }
 
-        // ========== POPULATE SPECIALTY SELECTS ==========
+        // ========== POPULATE SPECIALTY SELECTS (filter out disabled) ==========
         function populateSpecialtySelects() {
             const selects = ['new-spec', 'edit-spec'];
             selects.forEach(id => {
@@ -652,15 +793,144 @@
                 if (!sel) return;
                 const currentVal = sel.value;
                 sel.innerHTML = '<option value="">-- اختر التخصص --</option>';
-                (db.specialties || []).forEach(spec => {
-                    const opt = document.createElement('option');
-                    opt.value = spec.id;
-                    opt.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
-                    sel.appendChild(opt);
-                });
+                (db.specialties || [])
+                    .filter(s => s.enabled !== false) // Only show enabled specialties
+                    .forEach(spec => {
+                        const opt = document.createElement('option');
+                        opt.value = spec.id;
+                        opt.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
+                        sel.appendChild(opt);
+                    });
                 if (currentVal) sel.value = currentVal;
             });
         }
+
+        // ========== COLOR GENERATOR ==========
+        function generateUniqueColor() {
+            const existingColors = (db.specialties || [])
+                .filter(s => s.id !== document.getElementById('specialty-edit-id').value)
+                .map(s => s.color || '#3b82f6');
+            
+            if (existingColors.length === 0) {
+                const color = '#3b82f6';
+                updateColorPicker(color);
+                return;
+            }
+
+            for (let attempt = 0; attempt < 100; attempt++) {
+                const hue = Math.floor(Math.random() * 360);
+                const saturation = 70 + Math.floor(Math.random() * 25);
+                const lightness = 45 + Math.floor(Math.random() * 30);
+                const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                const hexColor = hslToHex(hue, saturation, lightness);
+                
+                let isTooSimilar = false;
+                for (const existing of existingColors) {
+                    const distance = colorDistance(hexColor, existing);
+                    if (distance < 50) {
+                        isTooSimilar = true;
+                        break;
+                    }
+                }
+                
+                if (!isTooSimilar) {
+                    updateColorPicker(hexColor);
+                    showToast('تم توليد لون فريد!', 'success', 1500);
+                    return;
+                }
+            }
+            
+            for (let attempt = 0; attempt < 50; attempt++) {
+                const hue = Math.floor(Math.random() * 360);
+                const saturation = 60 + Math.floor(Math.random() * 35);
+                const lightness = 30 + Math.floor(Math.random() * 40);
+                const hexColor = hslToHex(hue, saturation, lightness);
+                
+                let isTooSimilar = false;
+                for (const existing of existingColors) {
+                    const distance = colorDistance(hexColor, existing);
+                    if (distance < 30) {
+                        isTooSimilar = true;
+                        break;
+                    }
+                }
+                
+                if (!isTooSimilar) {
+                    updateColorPicker(hexColor);
+                    showToast('تم توليد لون فريد!', 'success', 1500);
+                    return;
+                }
+            }
+            
+            const fallbackColors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#e84393'];
+            const randomIndex = Math.floor(Math.random() * fallbackColors.length);
+            updateColorPicker(fallbackColors[randomIndex]);
+            showToast('تم توليد لون', 'info', 1500);
+        }
+
+        function hslToHex(h, s, l) {
+            s /= 100;
+            l /= 100;
+            const c = (1 - Math.abs(2 * l - 1)) * s;
+            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            const m = l - c / 2;
+            let r, g, b;
+            if (h < 60) { r = c; g = x; b = 0; }
+            else if (h < 120) { r = x; g = c; b = 0; }
+            else if (h < 180) { r = 0; g = c; b = x; }
+            else if (h < 240) { r = 0; g = x; b = c; }
+            else if (h < 300) { r = x; g = 0; b = c; }
+            else { r = c; g = 0; b = x; }
+            const rgb = [r, g, b].map(val => Math.round((val + m) * 255));
+            return '#' + rgb.map(val => val.toString(16).padStart(2, '0')).join('');
+        }
+
+        function colorDistance(hex1, hex2) {
+            const rgb1 = hexToRgb(hex1);
+            const rgb2 = hexToRgb(hex2);
+            if (!rgb1 || !rgb2) return 999;
+            return Math.sqrt(
+                Math.pow(rgb1.r - rgb2.r, 2) +
+                Math.pow(rgb1.g - rgb2.g, 2) +
+                Math.pow(rgb1.b - rgb2.b, 2)
+            );
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function updateColorPicker(color) {
+            const colorInput = document.getElementById('spec-color');
+            const hexDisplay = document.getElementById('spec-color-hex');
+            const preview = document.getElementById('spec-color-preview');
+            if (colorInput) colorInput.value = color;
+            if (hexDisplay) hexDisplay.textContent = color;
+            if (preview) preview.style.backgroundColor = color;
+        }
+
+        // ========== TOGGLE SWITCH HANDLING ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleInput = document.getElementById('spec-enabled');
+            const statusLabel = document.getElementById('spec-status-label');
+            
+            if (toggleInput && statusLabel) {
+                toggleInput.addEventListener('change', function() {
+                    if (this.checked) {
+                        statusLabel.textContent = 'تشغيل';
+                        statusLabel.className = 'toggle-status on';
+                    } else {
+                        statusLabel.textContent = 'إيقاف';
+                        statusLabel.className = 'toggle-status off';
+                    }
+                });
+            }
+        });
 
         // ========== SPECIALTY MANAGEMENT ==========
         function toggleSpecialtiesPanel() {
@@ -683,8 +953,10 @@
             container.innerHTML = specialties.map(spec => {
                 const poolCount = (spec.acceptPool || []).length;
                 const color = spec.color || '#3b82f6';
+                const isEnabled = spec.enabled !== false;
                 return `
-                    <div class="specialty-item">
+                    <div class="specialty-item ${!isEnabled ? 'disabled-spec' : ''}">
+                        <span class="status-dot ${isEnabled ? 'on' : 'off'}"></span>
                         <span class="spec-icon">${spec.icon || '🏥'}</span>
                         <span class="spec-id">${spec.id}</span>
                         <span class="spec-name">${spec.name_ar}</span>
@@ -712,6 +984,18 @@
             document.getElementById('spec-color-hex').textContent = '#3b82f6';
             document.getElementById('spec-color-preview').style.backgroundColor = '#3b82f6';
             document.getElementById('specialty-edit-id').value = '';
+            
+            // Set toggle to ON by default
+            const toggle = document.getElementById('spec-enabled');
+            const statusLabel = document.getElementById('spec-status-label');
+            if (toggle) {
+                toggle.checked = true;
+                if (statusLabel) {
+                    statusLabel.textContent = 'تشغيل';
+                    statusLabel.className = 'toggle-status on';
+                }
+            }
+            
             renderPoolSelection([]);
             document.getElementById('specialty-modal').classList.add('active');
         }
@@ -731,6 +1015,23 @@
             document.getElementById('spec-color-hex').textContent = color;
             document.getElementById('spec-color-preview').style.backgroundColor = color;
             document.getElementById('specialty-edit-id').value = id;
+            
+            // Set toggle based on enabled status
+            const toggle = document.getElementById('spec-enabled');
+            const statusLabel = document.getElementById('spec-status-label');
+            if (toggle) {
+                toggle.checked = spec.enabled !== false;
+                if (statusLabel) {
+                    if (toggle.checked) {
+                        statusLabel.textContent = 'تشغيل';
+                        statusLabel.className = 'toggle-status on';
+                    } else {
+                        statusLabel.textContent = 'إيقاف';
+                        statusLabel.className = 'toggle-status off';
+                    }
+                }
+            }
+            
             renderPoolSelection(spec.acceptPool || []);
             document.getElementById('specialty-modal').classList.add('active');
         }
@@ -755,7 +1056,6 @@
                 container.innerHTML = '<div class="text-xs text-secondary/40">أضف تخصصات أولاً لتحديد المصادر</div>';
                 return;
             }
-            // Exclude the current specialty from its own pool
             const currentEditId = document.getElementById('specialty-edit-id').value;
             const filteredSpecs = allSpecs.filter(s => s.id !== currentEditId);
             
@@ -792,27 +1092,25 @@
             const color = document.getElementById('spec-color').value || '#3b82f6';
             const editId = document.getElementById('specialty-edit-id').value;
             const acceptPool = getPoolSelection();
+            const enabled = document.getElementById('spec-enabled').checked;
 
             if (!id) { showToast('الرجاء إدخال المعرف', 'error'); return; }
             if (!nameAr) { showToast('الرجاء إدخال الاسم بالعربية', 'error'); return; }
 
-            // Check for duplicate ID
             const exists = db.specialties.some(s => s.id === id && s.id !== editId);
             if (exists) { showToast('هذا المعرف مستخدم بالفعل', 'error'); return; }
 
-            const specialty = { id, name_ar: nameAr, name_en: nameEn || nameAr, icon, color, acceptPool };
+            const specialty = { id, name_ar: nameAr, name_en: nameEn || nameAr, icon, color, acceptPool, enabled };
 
             if (editId) {
                 const idx = db.specialties.findIndex(s => s.id === editId);
                 if (idx !== -1) db.specialties[idx] = specialty;
-                // Update names in residents that use this specialty
                 db.names.forEach(r => {
                     if (r.tag === editId || r.spec === editId) {
                         r.tag = id;
                         r.spec = id;
                     }
                 });
-                // Update schedule
                 db.schedule.forEach(s => {
                     if (s.specCode === editId) s.specCode = id;
                 });
@@ -833,7 +1131,6 @@
             if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
             const spec = db.specialties.find(s => s.id === id);
             if (!spec) return;
-            // Check if specialty is in use
             const inUse = db.names.some(r => r.spec === id || r.tag === id);
             if (inUse) {
                 showToast('لا يمكن حذف تخصص مستخدم من قبل مقيمين', 'error');
@@ -878,53 +1175,67 @@
             showToast('تم تحديث كلمات المرور بنجاح', 'success');
         }
 
-        // ========== RENDER RESIDENTS ==========
+        // ========== RENDER RESIDENTS (filter out disabled specialties) ==========
         function renderResidents() {
             const list = document.getElementById('resident-list');
             const query = document.getElementById('search-db').value.toLowerCase();
             list.innerHTML = "";
 
-            const activeRes = db.names.filter(r => r.spec !== "RESERVE" && r.name.toLowerCase().includes(query));
-            const reserveRes = db.names.filter(r => r.spec === "RESERVE" && r.name.toLowerCase().includes(query));
+            // Get enabled specialty IDs
+            const enabledSpecIds = (db.specialties || [])
+                .filter(s => s.enabled !== false)
+                .map(s => s.id);
+
+            const activeRes = db.names.filter(r => 
+                r.spec !== "RESERVE" && 
+                enabledSpecIds.includes(r.spec) &&
+                r.name.toLowerCase().includes(query)
+            );
+            const reserveRes = db.names.filter(r => 
+                r.spec === "RESERVE" && 
+                r.name.toLowerCase().includes(query)
+            );
 
             const specMap = {};
             (db.specialties || []).forEach(s => specMap[s.id] = s);
 
-            (db.specialties || []).forEach(spec => {
-                const residents = activeRes.filter(r => r.spec === spec.id || r.tag === spec.id);
-                if (residents.length === 0) return;
+            (db.specialties || [])
+                .filter(s => s.enabled !== false)
+                .forEach(spec => {
+                    const residents = activeRes.filter(r => r.spec === spec.id || r.tag === spec.id);
+                    if (residents.length === 0) return;
 
-                const isExpanded = query.length > 0 ? "active" : "";
-                const section = document.createElement('div');
-                section.className = "mb-2";
-                const color = spec.color || '#3b82f6';
-                section.innerHTML = `
-                    <div class="spec-header" onclick="toggleSection('${spec.id}')" style="border-right: 4px solid ${color};">
-                        <span><i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> ${spec.icon || '🏥'} ${spec.name_ar}</span>
-                        <span class="spec-count px-3 py-0.5 rounded-full text-[11px]" style="background:${color}20; color:${color};">${residents.length}</span>
-                    </div>
-                    <div id="content-${spec.id}" class="spec-content ${isExpanded}">
-                        ${residents.map((r) => {
-                            const idx = db.names.indexOf(r);
-                            return `
-                            <div class="resident-card" style="border-right: 3px solid ${color};">
-                                <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
-                                    <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
-                                        ${r.name}
-                                        <span class="badge-spec">${spec.id}</span>
-                                        <span class="badge-active"><i class="fas fa-check-circle mr-1"></i> نشط</span>
+                    const isExpanded = query.length > 0 ? "active" : "";
+                    const section = document.createElement('div');
+                    section.className = "mb-2";
+                    const color = spec.color || '#3b82f6';
+                    section.innerHTML = `
+                        <div class="spec-header" onclick="toggleSection('${spec.id}')" style="border-right: 4px solid ${color};">
+                            <span><i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> ${spec.icon || '🏥'} ${spec.name_ar}</span>
+                            <span class="spec-count px-3 py-0.5 rounded-full text-[11px]" style="background:${color}20; color:${color};">${residents.length}</span>
+                        </div>
+                        <div id="content-${spec.id}" class="spec-content ${isExpanded}">
+                            ${residents.map((r) => {
+                                const idx = db.names.indexOf(r);
+                                return `
+                                <div class="resident-card" style="border-right: 3px solid ${color};">
+                                    <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
+                                        <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
+                                            ${r.name}
+                                            <span class="badge-spec">${spec.id}</span>
+                                            <span class="badge-active"><i class="fas fa-check-circle mr-1"></i> نشط</span>
+                                        </div>
+                                        <div class="text-[11px] text-secondary phone-ltr font-mono">${r.phone || ''}</div>
                                     </div>
-                                    <div class="text-[11px] text-secondary phone-ltr font-mono">${r.phone || ''}</div>
-                                </div>
-                                <button onclick="deleteResident(${idx})" class="text-secondary/30 hover:text-red-500 text-xs px-2 py-1 transition">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </div>`;
-                        }).join('')}
-                    </div>
-                `;
-                list.appendChild(section);
-            });
+                                    <button onclick="deleteResident(${idx})" class="text-secondary/30 hover:text-red-500 text-xs px-2 py-1 transition">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    `;
+                    list.appendChild(section);
+                });
 
             if (reserveRes.length > 0) {
                 const isExpanded = query.length > 0 ? "active" : "";
@@ -960,8 +1271,9 @@
             }
 
             const activeCount = db.names.filter(r => r.spec !== "RESERVE").length;
+            const enabledCount = (db.specialties || []).filter(s => s.enabled !== false).length;
             document.getElementById('count-tag').innerHTML =
-                `<i class="fas fa-users mr-1"></i> ${db.names.length} مسجل · ${activeCount} نشط`;
+                `<i class="fas fa-users mr-1"></i> ${db.names.length} مسجل · ${activeCount} نشط · ${enabledCount} تخصص مفعل`;
         }
 
         function toggleSection(id) {
@@ -1186,6 +1498,7 @@
         window.showToast = showToast;
         window.validatePhoneNumber = validatePhoneNumber;
         window.ensureDoctorTitle = ensureDoctorTitle;
+        window.generateUniqueColor = generateUniqueColor;
 
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
