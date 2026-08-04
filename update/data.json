@@ -7,7 +7,7 @@
       "icon": "🔪",
       "color": "#2ac200",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "US",
