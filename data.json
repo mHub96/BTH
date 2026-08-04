@@ -3054,8 +3054,7 @@
     {
       "date": "04/08/2026",
       "specCode": "M",
-      "name": "د. ايمان رشيد",
-      "VisitCount": 2
+      "name": "د. ايمان رشيد"
     },
     {
       "date": "05/08/2026",
@@ -4011,12 +4010,6 @@
       "date": "31/08/2026",
       "specCode": "R",
       "name": "د. رهام سليم"
-    },
-    {
-      "date": "04/08/2026",
-      "specCode": "AO",
-      "name": "TEST 01",
-      "VisitCount": 1
     }
   ],
   "passwords": {
