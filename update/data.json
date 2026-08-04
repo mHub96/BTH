@@ -60,7 +60,9 @@
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
-      "icon": "💉"
+      "icon": "💉",
+      "color": "#b4cc00",
+      "acceptPool": []
     },
     {
       "id": "GA",
