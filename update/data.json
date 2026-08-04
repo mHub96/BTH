@@ -92,7 +92,9 @@
       "id": "N",
       "name_ar": "طب امراض الكلى",
       "name_en": "Nephrology",
-      "icon": "🧫"
+      "icon": "🧫",
+      "color": "#ff5ccb",
+      "acceptPool": []
     },
     {
       "id": "O",
