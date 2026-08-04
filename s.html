@@ -512,7 +512,7 @@
         nameData = {};
         const residents = db.names || [];
         specialties.forEach(s => {
-            if (s.id === "OP" || s.id === "ICU") {
+            if (s.id === "OP" || s.id === "ICU" || s.id === "GA") {
                 nameData[s.id] = residents.filter(x => x.spec === "A").map(x => x.name);
             } else if (s.id === "D") {
                 nameData[s.id] = residents.map(x => x.name);
