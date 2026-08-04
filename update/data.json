@@ -44,7 +44,9 @@
       "id": "MF",
       "name_ar": "جراحة الوجه و الفكين",
       "name_en": "MaxilloFacial Surgery",
-      "icon": "🦷"
+      "icon": "🦷",
+      "color": "#d600af",
+      "acceptPool": []
     },
     {
       "id": "ICU",
