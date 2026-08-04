@@ -1724,6 +1724,13 @@
       "phone": "+9648898789878",
       "tag": "AO",
       "active": true
+    },
+    {
+      "name": "د. TEST",
+      "spec": "ZZ",
+      "tag": "ZZ",
+      "phone": "+9648856549856",
+      "active": true
     }
   ],
   "schedule": [
