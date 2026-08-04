@@ -125,6 +125,7 @@
       "name_ar": "الجراحة الخارقة للطبيعة",
       "name_en": "SUPERNATURAL SURGERY",
       "icon": "😎",
+      "color": "#fbbf24",
       "acceptPool": []
     }
   ],
@@ -1728,8 +1729,8 @@
     {
       "name": "د. TEST",
       "spec": "ZZ",
-      "tag": "ZZ",
       "phone": "+9648856549856",
+      "tag": "ZZ",
       "active": true
     }
   ],
