@@ -178,12 +178,13 @@
             border: 1px solid rgba(212,175,55,0.06);
             transition: all 0.3s ease;
             cursor: pointer;
+            flex-wrap: wrap;
         }
         .specialty-item:hover { background: rgba(212,175,55,0.04); border-color: rgba(212,175,55,0.12); }
-        .specialty-item .spec-icon { font-size: 1.2rem; width: 2rem; text-align: center; }
-        .specialty-item .spec-id { font-weight: 700; font-size: 0.65rem; color: var(--text-secondary, #475569); min-width: 2rem; }
-        .specialty-item .spec-name { flex: 1; font-weight: 600; font-size: 0.8rem; }
-        .specialty-item .spec-actions { display: flex; gap: 0.3rem; }
+        .specialty-item .spec-icon { font-size: 1.2rem; width: 2rem; text-align: center; flex-shrink: 0; }
+        .specialty-item .spec-id { font-weight: 700; font-size: 0.65rem; color: var(--text-secondary, #475569); min-width: 2rem; flex-shrink: 0; }
+        .specialty-item .spec-name { flex: 1; font-weight: 600; font-size: 0.8rem; min-width: 60px; }
+        .specialty-item .spec-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
         .specialty-item .spec-actions button { padding: 0.1rem 0.4rem; border-radius: 0.4rem; font-size: 0.6rem; cursor: pointer; border: none; transition: all 0.2s ease; }
         .spec-edit-btn { background: rgba(59,130,246,0.1); color: #3b82f6; }
         .spec-edit-btn:hover { background: rgba(59,130,246,0.2); }
@@ -194,17 +195,83 @@
         body.dark .spec-delete-btn { background: rgba(239,68,68,0.1); color: #ef4444; }
         body.dark .spec-delete-btn:hover { background: rgba(239,68,68,0.2); }
 
-        .spec-accept-pool { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem; }
-        .spec-accept-pool .pool-tag { font-size: 0.5rem; padding: 0.1rem 0.4rem; border-radius: 100px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.06); }
-        .spec-accept-pool .pool-tag.active { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.1); }
+        /* ===== IPHONE-STYLE TOGGLE SWITCH (Compact) ===== */
+        .toggle-switch-compact {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            flex-shrink: 0;
+        }
+        .toggle-switch-compact input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+        .toggle-slider-compact {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+            border-radius: 20px;
+            background: #ef4444;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .toggle-slider-compact::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch-compact input:checked + .toggle-slider-compact {
+            background: #22c55e;
+        }
+        .toggle-switch-compact input:checked + .toggle-slider-compact::before {
+            transform: translateX(16px);
+        }
+        .toggle-switch-compact input:focus + .toggle-slider-compact {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+        }
+        .toggle-switch-compact .toggle-label-compact {
+            font-size: 0.55rem;
+            font-weight: 600;
+            margin-left: 0.4rem;
+            color: var(--text-secondary, #475569);
+            white-space: nowrap;
+            min-width: 28px;
+        }
+        .toggle-switch-compact .toggle-label-compact.on {
+            color: #22c55e;
+        }
+        .toggle-switch-compact .toggle-label-compact.off {
+            color: #ef4444;
+        }
+        body.dark .toggle-switch-compact .toggle-label-compact {
+            color: #a8b3c9;
+        }
+        body.dark .toggle-switch-compact .toggle-label-compact.on {
+            color: #4ade80;
+        }
+        body.dark .toggle-switch-compact .toggle-label-compact.off {
+            color: #f87171;
+        }
 
-        .pool-selection { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; max-height: 120px; overflow-y: auto; padding: 0.3rem; background: rgba(0,0,0,0.02); border-radius: 0.8rem; }
-        .pool-option { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; border: 1px solid rgba(212,175,55,0.06); cursor: pointer; transition: all 0.2s ease; background: rgba(255,255,255,0.03); }
-        .pool-option:hover { background: rgba(212,175,55,0.04); }
-        .pool-option.selected { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.15); }
-        .pool-option input[type="checkbox"] { width: 0.8rem; height: 0.8rem; accent-color: #d4af37; cursor: pointer; }
-        .pool-option .spec-label { font-weight: 500; }
-        .pool-option .spec-icon-small { font-size: 0.8rem; margin-left: 0.1rem; }
+        .specialty-item.disabled-spec {
+            opacity: 0.6;
+        }
+        .specialty-item.disabled-spec .spec-name {
+            text-decoration: line-through;
+        }
 
         /* Color picker styling */
         .color-picker-wrap {
@@ -284,143 +351,39 @@
             color: #d4af37;
         }
 
-        /* ===== IPHONE-STYLE TOGGLE SWITCH ===== */
-        .toggle-switch {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            flex-shrink: 0;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-        }
-        .toggle-slider {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 26px;
-            border-radius: 26px;
-            background: #ef4444; /* Red for OFF */
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-            flex-shrink: 0;
-        }
-        .toggle-slider::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: white;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .toggle-switch input:checked + .toggle-slider {
-            background: #22c55e; /* Green for ON */
-        }
-        .toggle-switch input:checked + .toggle-slider::before {
-            transform: translateX(18px);
-        }
-        .toggle-switch input:focus + .toggle-slider {
-            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
-        }
-        .toggle-switch .toggle-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.6rem;
-            color: var(--text-secondary, #475569);
-            white-space: nowrap;
-        }
-        .toggle-switch .toggle-status {
-            font-size: 0.55rem;
-            font-weight: 700;
-            margin-right: 0.4rem;
-            letter-spacing: 0.02em;
-            min-width: 32px;
-            transition: color 0.3s ease;
-        }
-        .toggle-switch .toggle-status.off {
-            color: #ef4444;
-        }
-        .toggle-switch .toggle-status.on {
-            color: #22c55e;
-        }
-        body.dark .toggle-switch .toggle-label {
-            color: #a8b3c9;
-        }
+        .pool-selection { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; max-height: 120px; overflow-y: auto; padding: 0.3rem; background: rgba(0,0,0,0.02); border-radius: 0.8rem; }
+        .pool-option { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; border: 1px solid rgba(212,175,55,0.06); cursor: pointer; transition: all 0.2s ease; background: rgba(255,255,255,0.03); }
+        .pool-option:hover { background: rgba(212,175,55,0.04); }
+        .pool-option.selected { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.15); }
+        .pool-option input[type="checkbox"] { width: 0.8rem; height: 0.8rem; accent-color: #d4af37; cursor: pointer; }
+        .pool-option .spec-label { font-weight: 500; }
+        .pool-option .spec-icon-small { font-size: 0.8rem; margin-left: 0.1rem; }
 
-        /* Specialty list status indicator */
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-        .status-dot.on {
-            background: #22c55e;
-            box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
-        }
-        .status-dot.off {
-            background: #ef4444;
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
-        }
-        .specialty-item.disabled-spec {
-            opacity: 0.6;
-        }
-        .specialty-item.disabled-spec .spec-name {
-            text-decoration: line-through;
-        }
-
-        /* Badge for hidden-from-public specialties */
-        .hidden-badge {
-            font-size: 0.5rem;
-            background: #ef4444;
-            color: white;
-            padding: 0.05rem 0.4rem;
-            border-radius: 100px;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-        body.dark .hidden-badge {
-            background: #dc2626;
-        }
-        .spec-header.hidden-spec {
-            opacity: 0.6;
-        }
-        .spec-header.hidden-spec .spec-count {
-            opacity: 0.5;
-        }
-
-        /* Name + Toggle row in modal */
-        .name-toggle-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .name-toggle-row .input-field {
-            flex: 1;
-        }
-        .name-toggle-row .toggle-switch {
-            flex-shrink: 0;
-        }
         @media (max-width: 480px) {
-            .name-toggle-row {
-                flex-wrap: wrap;
+            .specialty-item {
+                gap: 0.3rem;
+                padding: 0.3rem 0.4rem;
             }
-            .name-toggle-row .input-field {
-                flex: 1 1 100%;
+            .specialty-item .spec-name {
+                font-size: 0.7rem;
+                min-width: 40px;
             }
-            .name-toggle-row .toggle-switch {
-                margin-right: auto;
+            .toggle-slider-compact {
+                width: 30px;
+                height: 18px;
+            }
+            .toggle-slider-compact::before {
+                width: 14px;
+                height: 14px;
+                top: 2px;
+                left: 2px;
+            }
+            .toggle-switch-compact input:checked + .toggle-slider-compact::before {
+                transform: translateX(12px);
+            }
+            .toggle-switch-compact .toggle-label-compact {
+                font-size: 0.45rem;
+                min-width: 20px;
             }
         }
     </style>
@@ -589,7 +552,7 @@
         </div>
     </div>
 
-    <!-- ADD/EDIT SPECIALTY MODAL -->
+    <!-- ADD/EDIT SPECIALTY MODAL (only for name/color/pool - toggle is in the list) -->
     <div id="specialty-modal" class="modal-overlay">
         <div class="modal-card">
             <h3 class="text-xl font-black text-primary mb-4 text-center flex items-center justify-center gap-2">
@@ -597,17 +560,7 @@
             </h3>
             <input type="hidden" id="specialty-edit-id">
             <div class="flex flex-col gap-3">
-                <!-- Specialty name with toggle switch beside it -->
-                <div class="name-toggle-row">
-                    <input type="text" id="spec-name-ar" class="input-field" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
-                    <label class="toggle-switch">
-                        <span class="toggle-label">ظهور</span>
-                        <input type="checkbox" id="spec-enabled" checked />
-                        <span class="toggle-slider"></span>
-                        <span class="toggle-status off" id="spec-status-label">مخفي</span>
-                    </label>
-                </div>
-                
+                <input type="text" id="spec-name-ar" class="input-field" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
                 <input type="text" id="spec-id" class="input-field" placeholder="المعرف (مثال: GS)" maxlength="10">
                 <input type="text" id="spec-name-en" class="input-field" placeholder="الاسم بالإنجليزية (مثال: General Surgery)">
                 <input type="text" id="spec-icon" class="input-field" placeholder="الأيقونة (مثال: 🔪)" maxlength="2">
@@ -764,7 +717,7 @@
             db.passwords = content.passwords || {};
             db.specialties = (content.specialties || []).map(s => ({
                 ...s,
-                enabled: s.enabled !== undefined ? s.enabled : true // Default to enabled
+                enabled: s.enabled !== undefined ? s.enabled : true
             }));
 
             document.getElementById('lock-screen').style.display = 'none';
@@ -829,7 +782,7 @@
             document.getElementById('password-input').focus();
         }
 
-        // ========== POPULATE SPECIALTY SELECTS (show ALL specialties for admin) ==========
+        // ========== POPULATE SPECIALTY SELECTS ==========
         function populateSpecialtySelects() {
             const selects = ['new-spec', 'edit-spec'];
             selects.forEach(id => {
@@ -837,7 +790,6 @@
                 if (!sel) return;
                 const currentVal = sel.value;
                 sel.innerHTML = '<option value="">-- اختر التخصص --</option>';
-                // Show ALL specialties in admin panel (including disabled ones)
                 (db.specialties || []).forEach(spec => {
                     const opt = document.createElement('option');
                     opt.value = spec.id;
@@ -958,23 +910,23 @@
             if (preview) preview.style.backgroundColor = color;
         }
 
-        // ========== TOGGLE SWITCH HANDLING ==========
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleInput = document.getElementById('spec-enabled');
-            const statusLabel = document.getElementById('spec-status-label');
+        // ========== TOGGLE SPECIALTY ENABLED ==========
+        async function toggleSpecialtyEnabled(specId, checked) {
+            const spec = db.specialties.find(s => s.id === specId);
+            if (!spec) return;
             
-            if (toggleInput && statusLabel) {
-                toggleInput.addEventListener('change', function() {
-                    if (this.checked) {
-                        statusLabel.textContent = 'ظاهر';
-                        statusLabel.className = 'toggle-status on';
-                    } else {
-                        statusLabel.textContent = 'مخفي';
-                        statusLabel.className = 'toggle-status off';
-                    }
-                });
-            }
-        });
+            spec.enabled = checked;
+            
+            // Update the UI immediately
+            renderSpecialties();
+            renderResidents();
+            populateSpecialtySelects();
+            
+            // Save to GitHub
+            await saveToGithub(false);
+            
+            showToast(checked ? 'تم تفعيل التخصص' : 'تم إخفاء التخصص', 'success', 1500);
+        }
 
         // ========== SPECIALTY MANAGEMENT ==========
         function toggleSpecialtiesPanel() {
@@ -1000,14 +952,21 @@
                 const isEnabled = spec.enabled !== false;
                 return `
                     <div class="specialty-item ${!isEnabled ? 'disabled-spec' : ''}">
-                        <span class="status-dot ${isEnabled ? 'on' : 'off'}"></span>
                         <span class="spec-icon">${spec.icon || '🏥'}</span>
                         <span class="spec-id">${spec.id}</span>
                         <span class="spec-name">${spec.name_ar}</span>
-                        ${!isEnabled ? '<span class="hidden-badge">مخفي</span>' : ''}
                         <span class="spec-color-preview" style="background-color:${color};"></span>
                         <span class="text-[0.5rem] text-secondary/40">${spec.name_en || ''}</span>
                         ${poolCount > 0 ? `<span class="text-[0.5rem] text-blue-500 dark:text-amber-400">+${poolCount}</span>` : ''}
+                        
+                        <!-- Toggle Switch -->
+                        <label class="toggle-switch-compact" title="${isEnabled ? 'إخفاء التخصص عن الجمهور' : 'إظهار التخصص للجمهور'}">
+                            <input type="checkbox" ${isEnabled ? 'checked' : ''} 
+                                   onchange="toggleSpecialtyEnabled('${spec.id}', this.checked)" />
+                            <span class="toggle-slider-compact"></span>
+                            <span class="toggle-label-compact ${isEnabled ? 'on' : 'off'}">${isEnabled ? 'ظاهر' : 'مخفي'}</span>
+                        </label>
+                        
                         <div class="spec-actions">
                             <button class="spec-edit-btn" onclick="openEditSpecialty('${spec.id}')"><i class="fas fa-edit"></i></button>
                             <button class="spec-delete-btn" onclick="deleteSpecialty('${spec.id}')"><i class="fas fa-trash"></i></button>
@@ -1029,18 +988,6 @@
             document.getElementById('spec-color-hex').textContent = '#3b82f6';
             document.getElementById('spec-color-preview').style.backgroundColor = '#3b82f6';
             document.getElementById('specialty-edit-id').value = '';
-            
-            // Set toggle to ON by default
-            const toggle = document.getElementById('spec-enabled');
-            const statusLabel = document.getElementById('spec-status-label');
-            if (toggle) {
-                toggle.checked = true;
-                if (statusLabel) {
-                    statusLabel.textContent = 'ظاهر';
-                    statusLabel.className = 'toggle-status on';
-                }
-            }
-            
             renderPoolSelection([]);
             document.getElementById('specialty-modal').classList.add('active');
         }
@@ -1060,23 +1007,6 @@
             document.getElementById('spec-color-hex').textContent = color;
             document.getElementById('spec-color-preview').style.backgroundColor = color;
             document.getElementById('specialty-edit-id').value = id;
-            
-            // Set toggle based on enabled status
-            const toggle = document.getElementById('spec-enabled');
-            const statusLabel = document.getElementById('spec-status-label');
-            if (toggle) {
-                toggle.checked = spec.enabled !== false;
-                if (statusLabel) {
-                    if (toggle.checked) {
-                        statusLabel.textContent = 'ظاهر';
-                        statusLabel.className = 'toggle-status on';
-                    } else {
-                        statusLabel.textContent = 'مخفي';
-                        statusLabel.className = 'toggle-status off';
-                    }
-                }
-            }
-            
             renderPoolSelection(spec.acceptPool || []);
             document.getElementById('specialty-modal').classList.add('active');
         }
@@ -1138,13 +1068,19 @@
             const color = document.getElementById('spec-color').value || '#3b82f6';
             const editId = document.getElementById('specialty-edit-id').value;
             const acceptPool = getPoolSelection();
-            const enabled = document.getElementById('spec-enabled').checked;
 
             if (!id) { showToast('الرجاء إدخال المعرف', 'error'); return; }
             if (!nameAr) { showToast('الرجاء إدخال الاسم بالعربية', 'error'); return; }
 
             const exists = db.specialties.some(s => s.id === id && s.id !== editId);
             if (exists) { showToast('هذا المعرف مستخدم بالفعل', 'error'); return; }
+
+            // Preserve enabled status if editing
+            let enabled = true;
+            if (editId) {
+                const existing = db.specialties.find(s => s.id === editId);
+                if (existing) enabled = existing.enabled !== false;
+            }
 
             const specialty = { id, name_ar: nameAr, name_en: nameEn || nameAr, icon, color, acceptPool, enabled };
 
@@ -1221,13 +1157,12 @@
             showToast('تم تحديث كلمات المرور بنجاح', 'success');
         }
 
-        // ========== RENDER RESIDENTS (show ALL specialties in admin panel) ==========
+        // ========== RENDER RESIDENTS ==========
         function renderResidents() {
             const list = document.getElementById('resident-list');
             const query = document.getElementById('search-db').value.toLowerCase();
             list.innerHTML = "";
 
-            // Show ALL residents in admin panel, regardless of specialty enabled status
             const activeRes = db.names.filter(r => 
                 r.spec !== "RESERVE" && 
                 r.name.toLowerCase().includes(query)
@@ -1237,10 +1172,6 @@
                 r.name.toLowerCase().includes(query)
             );
 
-            const specMap = {};
-            (db.specialties || []).forEach(s => specMap[s.id] = s);
-
-            // Show ALL specialties in admin panel (including disabled ones)
             (db.specialties || []).forEach(spec => {
                 const residents = activeRes.filter(r => r.spec === spec.id || r.tag === spec.id);
                 if (residents.length === 0) return;
@@ -1548,6 +1479,7 @@
         window.validatePhoneNumber = validatePhoneNumber;
         window.ensureDoctorTitle = ensureDoctorTitle;
         window.generateUniqueColor = generateUniqueColor;
+        window.toggleSpecialtyEnabled = toggleSpecialtyEnabled;
 
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
