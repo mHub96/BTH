@@ -88,7 +88,7 @@
       "icon": "👶",
       "color": "#3dff6e",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "NM",
@@ -97,7 +97,7 @@
       "icon": "🧠",
       "color": "#e100ff",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "N",
@@ -106,7 +106,7 @@
       "icon": "🧫",
       "color": "#ff5ccb",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "O",
@@ -115,7 +115,7 @@
       "icon": "👁️",
       "color": "#38ffe8",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "G",
