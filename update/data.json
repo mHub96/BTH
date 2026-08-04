@@ -142,7 +142,7 @@
       "icon": "🩻",
       "color": "#6700e6",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "D",
