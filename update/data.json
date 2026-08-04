@@ -119,6 +119,13 @@
         "P",
         "R"
       ]
+    },
+    {
+      "id": "ZZ",
+      "name_ar": "الجراحة الخارقة للطبيعة",
+      "name_en": "SUPERNATURAL SURGERY",
+      "icon": "😎",
+      "acceptPool": []
     }
   ],
   "names": [
