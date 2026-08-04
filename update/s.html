@@ -500,58 +500,31 @@
         if (wrapper) wrapper.classList.remove('loading-active');
     }
 
-    // ========== BUILD SPECIALTY LIST WITH COLORS ==========
+    // ========== BUILD SPECIALTY LIST WITH COLORS - FILTER ENABLED ONLY ==========
     function buildSpecialtyList() {
         // Build color map from db.specialties
         specialtyColorMap = {};
-        if (db.specialties && db.specialties.length > 0) {
-            db.specialties.forEach(spec => {
+        
+        // Filter: ONLY include specialties that are enabled (enabled !== false)
+        const enabledSpecialties = (db.specialties || []).filter(spec => spec.enabled !== false);
+        
+        if (enabledSpecialties.length > 0) {
+            enabledSpecialties.forEach(spec => {
                 specialtyColorMap[spec.id] = spec.color || '#60a5fa';
             });
-        }
-
-        if (!db.specialties || db.specialties.length === 0) {
-            // Fallback to hardcoded list with fallback colors
-            const fallbackSpecs = [
-                { id: "MF", name: "MaxilloFacial Surgery" }, { id: "GS", name: "General Surg" }, 
-                { id: "OR", name: "Orthopaedics" }, { id: "US", name: "Urosurgery" }, 
-                { id: "ENT", name: "ENT" }, { id: "O", name: "Ophthalmology" }, 
-                { id: "Pe", name: "Paediatrics" }, { id: "NM", name: "Neuromedicine" }, 
-                { id: "N", name: "Nephrology" }, { id: "M", name: "Internal Medicine" }, 
-                { id: "G", name: "Gynecology" }, { id: "P", name: "Psychiatry" }, 
-                { id: "ICU", name: "ICU Anaesthesia" }, { id: "OP", name: "OT Anaesthesia" }, 
-                { id: "GA", name: "GYN Anaesthesia" }, { id: "D", name: "Death Certs" }, 
-                { id: "R", name: "Radiology" }, { id: "AO", name: "Administrative Officer" } 
-            ];
-            specialtyList = fallbackSpecs.map(spec => ({
+            
+            // Build specialty list from enabled specialties
+            specialtyList = enabledSpecialties.map(spec => ({
                 id: spec.id,
-                name: spec.name
+                name: spec.name_en || spec.name_ar || spec.id,
+                color: spec.color || '#60a5fa'
             }));
-            // Set fallback colors
-            const fallbackColors = {
-                OR: '#fbbf24', MF: '#f87171', GS: '#34d399', US: '#60a5fa',
-                ENT: '#a78bfa', M: '#fb7185', D: '#94a3b8', OP: '#fb923c',
-                ICU: '#2dd4bf', R: '#818cf8', O: '#f472b6', G: '#22c55e',
-                P: '#06b6d4', Pe: '#eab308', NM: '#9333ea', N: '#2563eb',
-                GA: '#ec4899', AO: '#64748b'
-            };
-            Object.keys(fallbackColors).forEach(key => {
-                specialtyColorMap[key] = fallbackColors[key];
-            });
             return;
         }
-        
-        // Build from db.specialties with their colors
-        specialtyList = db.specialties.map(spec => ({
-            id: spec.id,
-            name: spec.name_en || spec.name_ar || spec.id,
-            color: spec.color || '#60a5fa'
-        }));
-        
-        // Update color map
-        db.specialties.forEach(spec => {
-            specialtyColorMap[spec.id] = spec.color || '#60a5fa';
-        });
+
+        // Fallback: If no specialties in db or all are disabled, show nothing
+        specialtyList = [];
+        specialtyColorMap = {};
     }
 
     function updateNameLookup() {
@@ -598,7 +571,21 @@
         const board = document.getElementById('board');
         board.innerHTML = "";
 
-        // Use dynamic specialty list
+        // If no specialties enabled, show a message
+        if (specialtyList.length === 0) {
+            board.innerHTML = `
+                <div style="width:100%; display:flex; justify-content:center; align-items:center; height:80%;">
+                    <div style="text-align:center; color: #5d6f83; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+                        <div style="font-weight: 700; font-size: 1.2rem; color: #9aa8b9;">لا توجد تخصصات مفعلة</div>
+                        <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.6;">يرجى التواصل مع المسؤول لتفعيل التخصصات</div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        // Use filtered specialty list (only enabled ones)
         specialtyList.forEach(spec => {
             const specColor = getSpecColor(spec.id);
             const track = document.createElement('div');
