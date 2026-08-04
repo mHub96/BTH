@@ -84,7 +84,9 @@
       "id": "NM",
       "name_ar": "طب الجملة العصبية",
       "name_en": "Neuromedicine",
-      "icon": "🧠"
+      "icon": "🧠",
+      "color": "#e100ff",
+      "acceptPool": []
     },
     {
       "id": "N",
