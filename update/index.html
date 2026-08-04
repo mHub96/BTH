@@ -509,6 +509,10 @@
             background: var(--accent);
             color: white;
         }
+        .custom-menu div.selected {
+            background: var(--accent);
+            color: white;
+        }
         .custom-menu::-webkit-scrollbar {
             width: 4px;
         }
@@ -620,6 +624,7 @@
                                oninput="handleNameInput()"
                                onkeydown="handleNameKeys(event)"
                                onfocus="closeAllMenus()"
+                               onblur="setTimeout(closeAllMenus, 300)"
                                autocomplete="off" />
                         <span class="dropdown-arrow" onclick="toggleMenu(event)">▼</span>
                         <div class="custom-menu" id="name-menu"></div>
@@ -862,6 +867,7 @@
             ghostText.removeAttribute('data-full');
             updateBtn.disabled = true;
             statusMsg.textContent = '';
+            closeAllMenus();
 
             // Get residents for this specialty
             const specObj = db.specialties?.find(s => s.id === specId);
@@ -903,6 +909,7 @@
             const ghost = document.getElementById('ghost-text');
             const val = input.value;
             const updateBtn = document.getElementById('update-btn');
+            const menu = document.getElementById('name-menu');
             
             ghost.innerHTML = '';
             ghost.removeAttribute('data-full');
@@ -910,6 +917,7 @@
 
             if (!val.trim()) {
                 document.getElementById('status-message').textContent = '';
+                menu.style.display = 'none';
                 return;
             }
 
@@ -958,7 +966,6 @@
             }
 
             // Update dropdown menu with matches
-            const menu = document.getElementById('name-menu');
             if (allMatches.length > 0 && document.activeElement === input) {
                 menu.innerHTML = allMatches.map(n => 
                     `<div onclick="selectName('${n.name.replace(/'/g, "\\'")}')">${n.name}</div>`
@@ -972,37 +979,28 @@
         function handleNameKeys(e) {
             const ghost = document.getElementById('ghost-text');
             const full = ghost.getAttribute('data-full');
+            const menu = document.getElementById('name-menu');
+            const items = menu.querySelectorAll('div');
             
             if (e.key === "Tab" && full) {
                 e.preventDefault();
-                document.getElementById('name-input').value = full;
-                ghost.innerHTML = '';
-                ghost.removeAttribute('data-full');
-                document.getElementById('update-btn').disabled = false;
-                document.getElementById('name-menu').style.display = 'none';
+                selectName(full);
             }
             
             if (e.key === "Enter") {
-                if (full) {
+                // Check if there's a selected item in the dropdown
+                const selected = menu.querySelector('div.selected');
+                if (selected) {
                     e.preventDefault();
-                    document.getElementById('name-input').value = full;
-                    ghost.innerHTML = '';
-                    ghost.removeAttribute('data-full');
-                    document.getElementById('name-menu').style.display = 'none';
-                    updateDuty();
-                } else {
-                    // Check if there's a selected item in the dropdown
-                    const selected = document.querySelector('#name-menu div.selected');
-                    if (selected) {
-                        e.preventDefault();
-                        selectName(selected.textContent);
-                    }
+                    selectName(selected.textContent);
+                } else if (full) {
+                    e.preventDefault();
+                    selectName(full);
                 }
             }
             
             // Arrow keys for dropdown navigation
             if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-                const items = document.querySelectorAll('#name-menu div');
                 if (items.length > 0) {
                     e.preventDefault();
                     let currentIdx = -1;
@@ -1061,15 +1059,19 @@
             document.getElementById('name-input').value = name;
             document.getElementById('ghost-text').innerHTML = '';
             document.getElementById('ghost-text').removeAttribute('data-full');
-            closeAllMenus();
             document.getElementById('update-btn').disabled = false;
+            document.getElementById('name-menu').style.display = 'none';
             document.getElementById('name-input').focus();
+            // Remove selected class from all items
+            document.querySelectorAll('#name-menu div').forEach(item => item.classList.remove('selected'));
             // Trigger the input event to update ghost text
             handleNameInput();
         }
 
         function closeAllMenus() {
             document.querySelectorAll('.custom-menu').forEach(m => m.style.display = 'none');
+            // Remove selected class from all items
+            document.querySelectorAll('#name-menu div').forEach(item => item.classList.remove('selected'));
         }
 
         // ===== UPDATE DUTY =====
@@ -1148,6 +1150,7 @@
                     document.getElementById('ghost-text').innerHTML = '';
                     document.getElementById('ghost-text').removeAttribute('data-full');
                     updateBtn.disabled = true;
+                    closeAllMenus();
                 } else {
                     throw new Error('Failed to save');
                 }
