@@ -1,1314 +1,1358 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Duty Portal 🇮🇶</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Basra Teaching Hospital · Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
-        :root {
-            --bg: #1a1c20;
-            --light: #2a2d34;
-            --shadow: #0d0e11;
-            --accent: #fbbf24;
-            --crimson: #e11d48;
-            --emerald: #10b981;
-            --btn-grey: #33373e;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: #94a3b8;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .embossed-card {
-            position: relative;
-            background: var(--bg);
-            border-radius: 3rem;
-            box-shadow: 20px 20px 60px var(--shadow), -10px -10px 40px var(--light);
-            z-index: 10;
-            transition: all 0.7s ease;
-            outline: 1px solid rgba(148, 163, 184, 0.06);
-            outline-offset: 0px;
-        }
-        .embossed-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 3rem;
-            border: 1px solid rgba(148, 163, 184, 0.04);
-            pointer-events: none;
-            z-index: 5;
-        }
-        .breathing {
-            animation: frameBreath 3s infinite ease-in-out;
-        }
-        @keyframes frameBreath {
-            0%, 100% { box-shadow: 20px 20px 60px var(--shadow), -10px -10px 40px var(--light); }
-            50% { box-shadow: 15px 15px 45px var(--shadow), -8px -8px 30px var(--light), 0 0 50px rgba(251, 191, 36, 0.2); }
-        }
-
-        .tube-container {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 20;
-            width: 100%;
-            height: 100%;
-        }
-        #tube-bg {
-            fill: none;
-            stroke: rgba(251, 191, 36, 0.03);
-            stroke-width: 4;
-        }
-        #tube-fluid {
-            fill: none;
-            stroke: var(--accent);
-            stroke-width: 5;
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 12px var(--accent));
-            stroke-dasharray: 500 1200;
-            stroke-dashoffset: 1700;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .loading-active #tube-fluid {
-            opacity: 1;
-            animation: seamlessFlow 2s linear infinite;
-        }
-        @keyframes seamlessFlow {
-            from { stroke-dashoffset: 1700; }
-            to { stroke-dashoffset: 0; }
-        }
-
-        .recessed-input {
-            background: var(--bg);
-            border-radius: 1.5rem;
-            box-shadow: inset 8px 8px 16px var(--shadow), inset -4px -4px 12px var(--light);
-            position: relative;
-        }
-
-        /* Password dot animation container */
-        .password-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.5rem 1.25rem;
-            min-height: 4rem;
-            direction: ltr;
-        }
-
-        .password-dot {
-            width: 1.2rem;
-            height: 1.2rem;
-            border-radius: 50%;
-            background: rgba(251, 191, 36, 0.08);
-            border: 2px solid rgba(251, 191, 36, 0.06);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform: scale(0.5);
-            opacity: 0;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .password-dot.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.2);
-            opacity: 1;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3), 0 0 60px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
-            animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes dotPop {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.4); opacity: 1; }
-            100% { transform: scale(1.2); opacity: 1; }
-        }
-
-        .password-dot.active::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.15);
-            animation: rippleDot 0.6s ease-out;
-        }
-
-        @keyframes rippleDot {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
-        }
-
-        .password-dot.filled {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1);
-            opacity: 1;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.12), inset 0 2px 4px rgba(255,255,255,0.1);
-        }
-
-        .password-dot.filled::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.06);
-            animation: pulseFilled 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseFilled {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 0.2; }
-        }
-
-        .password-dot.empty {
-            transform: scale(0.5);
-            opacity: 0;
-        }
-
-        .password-dot.error-shake {
-            animation: shakeError 0.5s ease;
-            border-color: var(--crimson);
-            background: var(--crimson);
-            box-shadow: 0 0 30px rgba(225, 29, 72, 0.3);
-        }
-
-        @keyframes shakeError {
-            0%, 100% { transform: translateX(0) scale(1); }
-            15% { transform: translateX(-10px) scale(1.05); }
-            30% { transform: translateX(10px) scale(1.05); }
-            45% { transform: translateX(-6px) scale(1.02); }
-            60% { transform: translateX(6px) scale(1.02); }
-            80% { transform: translateX(-3px) scale(1); }
-        }
-
-        .password-input-overlay {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: text;
-            z-index: 5;
-        }
-        .password-input-overlay input {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: transparent;
-            caret-color: var(--accent);
-            font-size: 1px;
-            letter-spacing: 1px;
-            padding: 0;
-            margin: 0;
-            cursor: text;
-            text-align: center;
-        }
-        .password-input-overlay input::selection {
-            background: transparent;
-        }
-
-        .cursor-indicator {
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: cursorPulse 1.2s ease-in-out infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-        }
-        .cursor-indicator.visible {
-            opacity: 1;
-        }
-        @keyframes cursorPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
-            50% { transform: translateX(-50%) scale(3); opacity: 1; }
-        }
-
-        /* ============================================================
-           3D BLOCK BUTTON - Stronger extrusion effect
-           ============================================================ */
-        .embossed-btn {
-            background: #2a2d34;
-            border-radius: 1.5rem;
-            box-shadow: 
-                0 8px 0 #0d0e11,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light);
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #94a3b8;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            text-align: center;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            position: relative;
-            transform: translateY(0);
-        }
-        .embossed-btn:active {
-            box-shadow: 
-                0 2px 0 #0d0e11,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light);
-            transform: translateY(6px);
-        }
-        .embossed-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 
-                0 6px 0 #0d0e11,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light);
-        }
-
-        .fetched-active {
-            background: var(--accent) !important;
-            color: #1a1c20 !important;
-            box-shadow: 
-                0 8px 0 #b08830,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(251, 191, 36, 0.4) !important;
-        }
-        .fetched-active:active {
-            box-shadow: 
-                0 2px 0 #b08830,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(251, 191, 36, 0.3) !important;
-            transform: translateY(6px);
-        }
-        .success-state {
-            background: var(--emerald) !important;
-            color: white !important;
-            box-shadow: 
-                0 8px 0 #0a7a4a,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(16, 185, 129, 0.4) !important;
-        }
-        .success-state:active {
-            box-shadow: 
-                0 2px 0 #0a7a4a,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(16, 185, 129, 0.3) !important;
-            transform: translateY(6px);
-        }
-
-        /* CRIMSON WARNING - Fixed: Preserves 3D shadow */
-        .crimson-warning {
-            background: var(--crimson) !important;
-            color: white !important;
-            box-shadow: 
-                0 8px 0 #8a1428,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(225, 29, 72, 0.4) !important;
-            animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        .crimson-warning:active {
-            box-shadow: 
-                0 2px 0 #8a1428,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(225, 29, 72, 0.3) !important;
-            transform: translateY(6px);
-        }
-        @keyframes quickShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            30%, 70% { transform: translate3d(4px, 0, 0); }
-            40%, 60% { transform: translate3d(-4px, 0, 0); }
-        }
-
-        .wa-glow {
-            background: rgba(16, 185, 129, 0.1) !important;
-            border: 1px solid var(--emerald);
-            color: var(--emerald) !important;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .suggestions-box {
-            max-height: 180px;
-            overflow-y: auto;
-            border-radius: 1.5rem;
-            margin-top: 0.5rem;
-            background: var(--bg);
-            box-shadow: 10px 10px 20px var(--shadow);
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
             direction: rtl;
-        }
-        .suggestion-item {
-            padding: 14px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--light);
             text-align: right;
-            color: #94a3b8;
+            min-height: 100vh;
+            padding: 0;
+            transition: background 0.6s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
-        .suggestion-item:hover,
-        .suggestion-item.selected {
-            background: var(--light);
-            color: var(--accent);
-        }
-
-        #shield {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 100;
-            transition: opacity 0.5s;
+        body.light { background: #d1d9e6; color: #1a2332; }
+        body.light .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+        body.light .roster-card { background: rgba(255,255,255,0.92); border-color: rgba(200,210,220,0.3); box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9); }
+        body.light .roster-card .action-btn-sm { background: rgba(255,255,255,0.7); box-shadow: 3px 3px 8px rgba(0,0,0,0.04), -3px -3px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(0,0,0,0.02); border: 1px solid rgba(255,255,255,0.3); }
+        body.light .report-btn { background: #2563eb; border-color: #1d4ed8; color: white; }
+        body.light .trending-btn { background: #f59e0b; border-color: #d97706; color: white; }
+        body.dark { background: #0b0e12; color: #e8edf5; }
+        body.dark .glass-card { background: rgba(16,22,34,0.82); backdrop-filter: blur(14px); border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+        body.dark .roster-card { background: rgba(14,20,32,0.8); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
+        body.dark .roster-card .action-btn-sm { background: rgba(0,0,0,0.35); box-shadow: 4px 4px 10px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.02), 0 1px 0 rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.02); }
+        body.dark .report-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.12); color: #d4af37; }
+        body.dark .trending-btn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.2); color: #fbbf24; }
+        body.dark .btn-gradient { background: linear-gradient(135deg, #d4af37, #b8942e); box-shadow: 0 8px 24px rgba(212,175,55,0.2); color: #0b0e12; }
+        .glass-card { border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 1; }
+        
+        /* ============================================================
+           ROSTER CARDS — 3D POP & PRESS ANIMATION
+           ============================================================ */
+        .roster-grid {
             display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 0.2rem 0;
+        }
+        .roster-card {
+            border-radius: 1.4rem; 
+            padding: 1.3rem 1.6rem; 
+            display: flex; 
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid; 
+            gap: 0.3rem;
+            position: relative; 
+            overflow: hidden; 
+            cursor: default;
+            transform: translateY(0) scale(1) perspective(600px) rotateX(0) rotateY(0);
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9);
+            will-change: transform;
         }
-        #shield .shield-spinner {
-            width: 3rem;
-            height: 3rem;
-            border: 3px solid rgba(251, 191, 36, 0.06);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        body.dark .roster-card {
+            box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02);
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        #shield .shield-text {
-            color: rgba(251, 191, 36, 0.3);
+        .roster-card:hover {
+            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
+            border-color: rgba(212,175,55,0.15);
+            box-shadow: 14px 14px 28px rgba(0,0,0,0.08), -10px -10px 22px rgba(255,255,255,0.9), 0 6px 0 rgba(0,0,0,0.02), 0 12px 32px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.95);
+        }
+        body.dark .roster-card:hover {
+            border-color: rgba(212,175,55,0.15);
+            box-shadow: 16px 16px 36px rgba(0,0,0,0.8), -12px -12px 28px rgba(255,255,255,0.03), 0 7px 0 rgba(0,0,0,0.5), 0 0 70px rgba(212,175,55,0.04), 0 0 100px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.03);
+            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
+        }
+        .roster-card:active {
+            transform: perspective(600px) translateY(4px) scale(0.97) rotateX(0) rotateY(0) !important;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.04), -3px -3px 10px rgba(255,255,255,0.5), 0 1px 0 rgba(0,0,0,0.01) !important;
+            transition-duration: 0.08s;
+        }
+        body.dark .roster-card:active {
+            transform: perspective(600px) translateY(5px) scale(0.97) rotateX(0) rotateY(0) !important;
+            box-shadow: 5px 5px 14px rgba(0,0,0,0.4), -4px -4px 12px rgba(255,255,255,0.01), 0 1px 0 rgba(0,0,0,0.2) !important;
+        }
+        .roster-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.4rem;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.04), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .roster-card:hover::after { opacity: 1; }
+        
+        .roster-card .resident-spec {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.1rem 0.8rem;
+            border-radius: 100px;
+            display: inline-block;
+            border: 1px solid;
+            margin-bottom: 0.1rem;
+        }
+        body.light .roster-card .resident-spec { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        body.dark .roster-card .resident-spec { color: #d4af37 !important; border-color: rgba(212,175,55,0.15); background: rgba(212,175,55,0.04); }
+        
+        /* Golden style for multiple specialties */
+        .roster-card .resident-spec.multiple {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            color: #1a2332 !important;
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 20px rgba(251,191,36,0.15);
+            font-weight: 800;
+        }
+        body.dark .roster-card .resident-spec.multiple {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            color: #1a2332 !important;
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 20px rgba(251,191,36,0.2);
+        }
+        
+        .roster-card .resident-name {
+            font-weight: 800;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 0.1rem 0;
+        }
+        body.light .roster-card .resident-name { color: #1a2332; }
+        body.dark .roster-card .resident-name { color: #f0f3f8; }
+        
+        .roster-card .resident-phone {
             font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            font-family: monospace;
+            direction: ltr;
+            unicode-bidi: isolate;
+            opacity: 0.5;
+            margin-bottom: 0.1rem;
         }
-
-        .hidden { display: none !important; }
-        .rtl-text { direction: rtl; text-align: center; }
-        .rtl-input { direction: rtl; text-align: right; }
-        .phone-display { direction: ltr; unicode-bidi: isolate; display: inline-block; }
-
-        .toast-error {
-            background: rgba(225, 29, 72, 0.06);
-            border: 1px solid rgba(225, 29, 72, 0.1);
-            border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.7rem;
-            color: #f1948a;
-            text-align: center;
-            animation: slideDown 0.4s ease;
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ============================================================
-           REMEMBER ME CHECKBOX - Dark grey, distinguishable from box
-           ============================================================ */
-        .toggle-remember {
+        
+        .roster-card .card-actions {
             display: flex;
-            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.1rem;
             justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.7rem;
-            color: rgba(148, 163, 184, 0.4);
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.3s ease;
-            margin-top: 4px;
+            width: 100%;
         }
-        .toggle-remember:hover {
-            color: rgba(148, 163, 184, 0.6);
-        }
-        .toggle-remember input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 1.2rem;
-            height: 1.2rem;
-            background: #2a2d34;
-            border-radius: 4px;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-        .toggle-remember input[type="checkbox"]:checked {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-        .toggle-remember input[type="checkbox"]:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #1a1c20;
-            font-size: 0.8rem;
-            font-weight: 900;
-        }
-        .toggle-remember input[type="checkbox"]:hover {
-            border-color: rgba(148, 163, 184, 0.2);
-        }
-
-        .view-wrapper {
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .view-wrapper.exit {
-            opacity: 0;
-            transform: translateY(-20px) scale(0.97);
-        }
-        .view-wrapper.enter {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .hidden-view { display: none !important; }
-
-        /* Status dot - hidden, only text blinks */
-        .status-dot {
-            display: none;
-        }
-
-        .status-text {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            color: rgba(148, 163, 184, 0.3);
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-        }
-        .status-text.ready {
-            color: rgba(16, 185, 129, 0.5);
-            animation: blinkReady 1.2s ease-in-out infinite;
-        }
-        .status-text.error {
-            color: rgba(225, 29, 72, 0.5);
-        }
-        @keyframes blinkReady {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* ============================================================
-           ACTION BUTTONS - Full label in one line with 3D effect
-           ============================================================ */
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 0.75rem 0.5rem;
-            border-radius: 1.5rem;
+        .roster-card .action-btn-sm {
+            padding: 0.5rem 1rem;
+            border-radius: 0.9rem;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.65rem;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            min-width: 0;
-            flex: 1;
-            background: #2a2d34;
-            box-shadow: 
-                0 6px 0 #0d0e11,
-                8px 8px 16px var(--shadow), 
-                -6px -6px 14px var(--light);
-            color: #94a3b8;
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateY(0);
-            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
             cursor: pointer;
+            flex: 1;
+            max-width: 140px;
+            justify-content: center;
         }
-        .action-btn:active {
-            box-shadow: 
-                0 2px 0 #0d0e11,
-                4px 4px 8px var(--shadow), 
-                -3px -3px 8px var(--light);
-            transform: translateY(4px);
+        .roster-card .action-btn-sm.call { color: #2563eb; }
+        body.dark .roster-card .action-btn-sm.call { color: #60a5fa; }
+        .roster-card .action-btn-sm.call:hover { background: rgba(37,99,235,0.08); }
+        body.dark .roster-card .action-btn-sm.call:hover { background: rgba(96,165,250,0.08); }
+        .roster-card .action-btn-sm.wa { color: #059669; }
+        body.dark .roster-card .action-btn-sm.wa { color: #34d399; }
+        .roster-card .action-btn-sm.wa:hover { background: rgba(5,150,105,0.08); }
+        body.dark .roster-card .action-btn-sm.wa:hover { background: rgba(52,211,153,0.08); }
+        .roster-card .action-btn-sm.opacity-40 { opacity: 0.25; cursor: default; pointer-events: none; }
+        .btn-gradient {
+            border: none; font-weight: 700; padding: 0.9rem 2rem; border-radius: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
         }
-        .action-btn.wa {
-            color: var(--emerald);
-            border: 1px solid rgba(16, 185, 129, 0.15);
+        .btn-gradient:hover { transform: translateY(-2px) scale(1.01); }
+        .input-field {
+            border-radius: 1rem; padding: 0.9rem 1.4rem; font-weight: 500;
+            transition: all 0.3s ease; width: 100%; border: 2px solid; outline: none;
         }
-        .action-btn.call {
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.15);
+        .modal-overlay {
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(16px);
+            position: fixed; inset: 0; z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 0.4s ease; padding: 1.5rem;
         }
-        .action-btn.wa:hover {
-            background: rgba(16, 185, 129, 0.05);
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-card {
+            max-width: 600px; width: 100%; border-radius: 2rem; padding: 1.5rem;
+            transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            background: #ffffff; max-height: 90vh; overflow-y: auto;
         }
-        .action-btn.call:hover {
-            background: rgba(96, 165, 250, 0.05);
+        body.dark .modal-card { background: #141c2a; border: 1px solid rgba(212,175,55,0.08); }
+        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
+        .lock-card {
+            border-radius: 2.5rem; padding: 2.5rem 2.2rem; width: 100%; max-width: 400px;
+            background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.5);
         }
-        .action-btn .icon {
-            font-size: 1rem;
+        body.dark .lock-card { background: rgba(12,18,30,0.92); border: 1px solid rgba(212,175,55,0.12); }
+        .hidden-content { display: none; }
+        .header-3d {
+            font-family: 'Playfair Display', serif; font-weight: 900;
+            font-size: 2.2rem; text-align: center;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        @media (min-width: 640px) { .header-3d { font-size: 2.8rem; } }
+        .trending-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a2332; padding: 0.15rem 0.7rem; border-radius: 100px;
+            font-size: 0.55rem; font-weight: 800;
+            border: 1px solid rgba(251,191,36,0.2);
+            box-shadow: 0 0 20px rgba(251,191,36,0.1);
+        }
+        body.dark .trending-badge { color: #0b0e12; }
+        
+        /* ============================================================
+           STEP CHART — FIXED CONTAINER, PROPORTIONAL SCALING
+           ============================================================ */
+        .step-chart-wrapper {
+            border-radius: 1.2rem;
+            padding: 0.5rem 0.5rem 0.6rem;
+            margin: 0.2rem 0 0.2rem;
+            border: 1px solid rgba(212,175,55,0.06);
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+        body.dark .step-chart-wrapper {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(212,175,55,0.08);
+        }
+        .step-chart-title {
+            text-align: center;
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary, #475569);
+            opacity: 0.35;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(212,175,55,0.04);
+            margin-bottom: 0.3rem;
+        }
+        body.dark .step-chart-title { color: #a8b3c9; opacity: 0.4; }
+        .step-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.1rem 0.1rem 0.1rem;
+            height: 130px;
+            width: 100%;
+            position: relative;
+        }
+        .step-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.1rem;
+            flex: 1;
+            max-width: 60px;
+            min-width: 35px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+        .step-bar .bar-wrap {
+            width: 100%;
+            max-width: 60px;
+            height: 65px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            position: relative;
             flex-shrink: 0;
         }
-        .action-btn .label {
-            font-size: 0.65rem;
+        .step-bar .bar {
+            width: 100%;
+            max-width: 50px;
+            border-radius: 3px 3px 0 0;
+            min-height: 3px;
+            transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            will-change: height;
+        }
+        .step-bar .bar.gold { 
+            background: linear-gradient(180deg, #fbbf24, #f59e0b); 
+            box-shadow: 0 0 15px rgba(251,191,36,0.15); 
+        }
+        .step-bar .bar.silver { 
+            background: linear-gradient(180deg, #94a3b8, #6b7280); 
+            box-shadow: 0 0 10px rgba(148,163,184,0.1); 
+        }
+        .step-bar .bar.bronze { 
+            background: linear-gradient(180deg, #cd7f32, #a0522d); 
+            box-shadow: 0 0 10px rgba(205,127,50,0.1); 
+        }
+        .step-chart .step-bar:nth-child(1) { order: 1; }
+        .step-chart .step-bar:nth-child(2) { order: 2; }
+        .step-chart .step-bar:nth-child(3) { order: 3; }
+        .step-bar .bar-value {
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: var(--text-primary, #1a2332);
+            line-height: 1;
+        }
+        body.dark .step-bar .bar-value { color: #f0f3f8; }
+        .step-bar .bar-label {
+            font-size: 0.45rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            text-align: center;
+            color: var(--text-secondary, #475569);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 60px;
+            line-height: 1.2;
+            padding: 0 2px;
+            min-height: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        @media (max-width: 380px) {
-            .action-btn .label {
-                font-size: 0.55rem;
-            }
-            .action-btn .icon {
-                font-size: 0.85rem;
-            }
+        body.dark .step-bar .bar-label { color: #a8b3c9; }
+        .step-medal-icon {
+            font-size: 1rem;
+            line-height: 1;
         }
-        @media (min-width: 640px) {
-            .action-btn .label {
-                font-size: 0.75rem;
-            }
+        
+        .filter-tabs {
+            display: flex; gap: 0.3rem; flex-wrap: wrap;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(212,175,55,0.04);
         }
+        .filter-tab {
+            padding: 0.15rem 0.8rem; border-radius: 100px; font-size: 0.55rem;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            border: 1px solid rgba(212,175,55,0.06);
+            color: var(--text-secondary, #475569); background: transparent;
+        }
+        .filter-tab.active {
+            background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.15); color: #d4af37;
+        }
+        body.dark .filter-tab.active { background: rgba(212,175,55,0.12); border-color: rgba(212,175,55,0.2); }
+        .lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; position: relative; z-index: 2; }
+        .footer-credit { font-size: 0.7rem; opacity: 0.5; padding: 0.8rem 0; text-align: center; border-top: 1px solid rgba(128,128,128,0.1); margin-top: 1.5rem; }
+        .theme-toggle-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; border-radius: 50%; border: 2px solid;
+            cursor: pointer; transition: all 0.3s ease;
+            background: rgba(255,255,255,0.3); border-color: rgba(0,0,0,0.1);
+        }
+        body.dark .theme-toggle-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.2); }
+        #toast-container {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 9999; display: flex; flex-direction: column; align-items: center;
+            gap: 8px; pointer-events: none; width: 90%; max-width: 420px;
+        }
+        .toast {
+            padding: 14px 24px; border-radius: 1rem; font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-20px);
+            opacity: 0; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: auto; display: flex; align-items: center; gap: 12px;
+            width: 100%;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast-success { background: rgba(16,185,129,0.92); color: white; }
+        .toast-error { background: rgba(239,68,68,0.92); color: white; }
+        .toast-info { background: rgba(59,130,246,0.92); color: white; }
+        #shield {
+            position: fixed; inset: 0; background: #0b0e12; z-index: 100;
+            transition: opacity 0.6s ease; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 1.5rem;
+        }
+        body.light #shield { background: #d1d9e6; }
+        .shield-spinner {
+            width: 2.8rem; height: 2.8rem;
+            border: 2px solid rgba(212,175,55,0.03); border-top-color: #d4af37;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .counter-badge {
+            font-size: 0.65rem; padding: 0.3rem 0.9rem; border-radius: 100px;
+            font-weight: 700; display: inline-block; border: 1px solid;
+            transition: all 0.3s ease;
+        }
+        body.light .counter-badge { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        body.dark .counter-badge { background: rgba(212,175,55,0.12); color: #d4af37; border-color: rgba(212,175,55,0.15); }
+        .report-btn, .trending-btn {
+            border-radius: 1.2rem; padding: 0.6rem 1.8rem; font-size: 0.7rem;
+            font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem;
+            cursor: pointer; transition: all 0.3s ease; border: 1px solid;
+        }
+        .top-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0.25rem 0; flex-wrap: wrap; }
+        .top-bar .spacer { flex: 1; }
+        .medal-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.4rem 0.6rem; border-radius: 0.8rem; transition: all 0.3s ease; }
+        .medal-item:hover { background: rgba(212,175,55,0.04); }
+
+        /* TRENDING CARD FIRE BORDER */
+        .trending-fire-border {
+            position: relative;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24);
+            animation: spin-border 3s linear infinite;
+            box-shadow: 0 0 30px rgba(251,191,36,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        .trending-fire-border:hover {
+            box-shadow: 0 0 60px rgba(251,191,36,0.5);
+            transform: scale(1.01);
+        }
+        @keyframes spin-border {
+            0% { background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
+            100% { background: conic-gradient(from 360deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
+        }
+        .trending-inner {
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            position: relative;
+        }
+        body.light .trending-inner {
+            background: rgba(14,20,32,0.92);
+            color: #e8edf5;
+        }
+        body.light .trending-inner .text-primary { color: #f0f3f8; }
+        body.light .trending-inner .text-secondary { color: #a8b3c9; }
+        body.light .trending-inner .text-amber-500 { color: #fbbf24; }
+        body.dark .trending-inner {
+            background: rgba(255,255,255,0.92);
+            color: #1a2332;
+        }
+        body.dark .trending-inner .text-primary { color: #1a2332; }
+        body.dark .trending-inner .text-secondary { color: #475569; }
+        body.dark .trending-inner .text-amber-500 { color: #d97706; }
+        body.dark .trending-inner .trending-badge { color: #0b0e12; }
+
+        .trending-fire-icon {
+            font-size: 2.5rem;
+            animation: flicker 1.2s infinite alternate;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .trending-fire-icon:hover {
+            transform: scale(1.15);
+        }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); text-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b; }
+            100% { transform: scale(1.1) rotate(2deg); text-shadow: 0 0 20px #f59e0b, 0 0 40px #dc2626; }
+        }
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        .admin-reset-btn {
+            background: #dc2626; color: white; border: 1px solid #b91c1c;
+            padding: 0.4rem 1.2rem; border-radius: 1.2rem; font-size: 0.65rem;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .admin-reset-btn:hover { background: #b91c1c; transform: scale(1.02); }
+        body.dark .admin-reset-btn { background: #dc2626; color: white; border-color: #991b1b; }
 
         /* ============================================================
-           ENGRAVED TEXT - 3D engraved effect into the card (BRIGHTER)
+           HAND ANIMATION — reaches for trending card
            ============================================================ */
-        .engraved-text {
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(201, 184, 154, 0.35);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.04),
-                0 -1px 0 rgba(0, 0, 0, 0.25);
-            background: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0 0.25rem 0;
-            margin-top: 0.5rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.04);
-            text-align: center;
+        .trending-hand {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.8rem;
+            opacity: 0.8;
+            animation: handReach 2.5s ease-in-out infinite;
+            pointer-events: none;
+            filter: drop-shadow(0 0 20px rgba(251,191,36,0.3));
+            transition: opacity 0.5s ease;
+            z-index: 2;
         }
-        .engraved-text:hover {
-            color: rgba(201, 184, 154, 0.5);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.06),
-                0 -1px 0 rgba(0, 0, 0, 0.3);
+        .trending-hand.hidden {
+            opacity: 0;
+            animation: none;
         }
+        @keyframes handReach {
+            0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
+            30% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
+            50% { transform: translateY(-50%) translateX(-30px) scale(1.15) rotate(-8deg); }
+            70% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
+            90% { transform: translateY(-50%) translateX(0) scale(1); }
+        }
+        .trending-fire-border .trending-inner {
+            position: relative;
+            overflow: visible;
+        }
+        body.light .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.5)); }
+        body.dark .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.4)); }
+
+        /* ============================================================
+           RESET MODAL — OPTIONS
+           ============================================================ */
+        .reset-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .reset-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(212,175,55,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reset-option:hover { background: rgba(212,175,55,0.05); border-color: rgba(212,175,55,0.2); }
+        .reset-option input[type="radio"] { accent-color: #dc2626; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+        .reset-option label { cursor: pointer; flex: 1; font-weight: 600; font-size: 0.9rem; }
+        .reset-option .desc { font-size: 0.65rem; opacity: 0.6; font-weight: 400; }
     </style>
 </head>
-<body class="p-4">
+<body class="light" id="app-body">
 
     <div id="shield">
         <div class="shield-spinner"></div>
-        <span class="shield-text">Iraqi Hosp. Duty Portal</span>
+        <span class="shield-text" style="color:rgba(212,175,55,0.06);font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;">Basra Teaching Hospital</span>
     </div>
 
-    <div id="main-card" class="w-full max-w-sm embossed-card breathing p-10 mx-auto">
-        <svg class="tube-container" viewBox="0 0 384 512" preserveAspectRatio="none">
-            <rect id="tube-bg" x="2" y="2" width="380" height="508" rx="48" />
-            <rect id="tube-fluid" x="2" y="2" width="380" height="508" rx="48" />
-        </svg>
+    <div id="toast-container"></div>
 
-        <!-- LOGIN VIEW -->
-        <div id="login-view" class="view-wrapper">
-            <div class="text-center mb-10">
-                <h1 class="text-white text-2xl font-extrabold tracking-tight">On-Call Portal</h1>
-                <div class="flex items-center justify-center gap-2 mt-3">
-                    <span id="statusDot" class="status-dot"></span>
-                    <span id="status-text" class="status-text">جاري التحميل...</span>
-                </div>
+    <!-- LOCK SCREEN -->
+    <div id="lock-screen" class="lock-screen">
+        <div class="lock-card text-center">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <i class="fas fa-user-md text-3xl text-white"></i>
             </div>
-            <div class="space-y-8">
-                <div class="recessed-input p-2" id="passwordContainer">
-                    <div class="password-container" id="dotContainer">
-                        <div class="password-dot empty" id="dot0"></div>
-                        <div class="password-dot empty" id="dot1"></div>
-                        <div class="password-dot empty" id="dot2"></div>
-                        <div class="password-dot empty" id="dot3"></div>
-                        <div class="password-dot empty" id="dot4"></div>
-                        <div class="password-dot empty" id="dot5"></div>
-                        <div class="password-dot empty" id="dot6"></div>
-                        <div class="password-dot empty" id="dot7"></div>
-                        <div class="cursor-indicator" id="cursorIndicator"></div>
-                    </div>
-                    <div class="password-input-overlay">
-                        <input type="password" id="pw" inputmode="numeric" maxlength="8" 
-                               autofocus
-                               onkeydown="handlePasswordKey(event)"
-                               oninput="handlePasswordInput()"
-                               onfocus="showCursor()"
-                               onblur="hideCursor()">
-                    </div>
-                </div>
-
-                <!-- SIGN IN BUTTON -->
-                <button id="entry-btn" onclick="handleEntry()" class="embossed-btn w-full py-6 tracking-widest uppercase" disabled>جاري التحميل...</button>
-                
-                <!-- REMEMBER ME - BELOW THE SIGN IN BUTTON (checked by default) -->
-                <div class="flex items-center justify-center px-1">
-                    <label class="toggle-remember">
-                        <input type="checkbox" id="rememberMe" checked>
-                        <span>تذكرني</span>
-                    </label>
-                    <span class="text-[0.5rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.12);">✦ SECURE</span>
-                </div>
-                
-                <div id="login-error" class="hidden toast-error"></div>
+            <h2 class="text-2xl font-black text-primary mb-1">🔐 Basra Teaching Hospital</h2>
+            <p class="text-sm text-secondary mb-6">أدخل كلمة المرور للدخول</p>
+            <div class="relative">
+                <input type="password" id="password-input" placeholder="•••••"
+                       class="input-field text-center text-xl tracking-[0.5rem] font-mono" maxlength="20">
+                <button id="login-btn" onclick="handleLogin()" class="btn-gradient w-full mt-4">
+                    <i class="fas fa-arrow-left ml-2"></i> Login
+                </button>
+                <p id="lock-error" class="text-red-500 text-sm mt-2 h-5"></p>
             </div>
-            
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
-        </div>
-
-        <!-- LOOKUP VIEW -->
-        <div id="lookup-view" class="hidden-view view-wrapper text-center">
-            <div class="recessed-input inline-block px-6 py-4 mb-6">
-                <span id="service-display" class="text-amber-500 text-xl font-black uppercase">...</span>
+            <div class="mt-4 flex items-center justify-center gap-3">
+                <label class="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                    <input type="checkbox" id="remember-me" checked class="w-4 h-4 accent-blue-500" /> تذكرني
+                </label>
             </div>
-            <h2 id="name-display" class="text-white text-3xl font-extrabold mb-1 rtl-text">...</h2>
-            <p id="phone-display" class="text-slate-500 font-bold text-lg mb-8 phone-display">-</p>
-            <div class="flex flex-row gap-2 w-full">
-                <a href="#" id="call-link" class="action-btn call">
-                    <span class="icon">📞</span>
-                    <span class="label">SIM Call</span>
-                </a>
-                <a href="#" id="wa-link" onclick="openWhatsApp(event)" class="action-btn wa hidden">
-                    <span class="icon">💬</span>
-                    <span class="label">WhatsApp</span>
-                </a>
-            </div>
-            <p id="time-stamp" class="text-[0.65rem] text-slate-500 mt-10 font-bold tracking-wider uppercase"></p>
-            <div class="mt-4">
-                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
-            </div>
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
-        </div>
-
-        <!-- REGISTER VIEW -->
-        <div id="register-view" class="hidden-view view-wrapper space-y-6">
-            <h2 class="text-white text-xl font-extrabold text-center mb-2">Duty Update 🇮🇶</h2>
-            <div class="recessed-input p-2">
-                <select id="spec-select" onchange="prepNameInput()" class="w-full bg-transparent p-4 text-slate-300 font-bold outline-none appearance-none text-center">
-                    <!-- Options will be populated dynamically -->
-                </select>
-            </div>
-            <div id="name-section" class="hidden space-y-4">
-                <div class="relative">
-                    <div class="recessed-input p-2">
-                        <input type="text" id="name-input" autocomplete="off" placeholder="اسم المقيم..." 
-                            oninput="filterNames()" onkeydown="handleNameKey(event)"
-                            onblur="setTimeout(() => document.getElementById('suggestions').classList.add('hidden'), 200)"
-                            class="w-full bg-transparent p-4 text-slate-300 font-bold outline-none rtl-input">
-                    </div>
-                    <div id="suggestions" class="suggestions-box hidden absolute w-full z-50"></div>
-                </div>
-                <button id="submit-btn" onclick="submitRegistration()" class="embossed-btn fetched-active w-full py-6 uppercase tracking-widest">UPDATE</button>
-            </div>
-            <div class="text-center pt-2">
-                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
-            </div>
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
+            <div class="lock-footer text-secondary mt-2 text-xs">All rights reserved for Dr. Mohammed Riyadh</div>
         </div>
     </div>
 
-<script>
-    // ############################################################
-    // ALL LATEST FUNCTIONALITY - Password animation, Remember Me, 8-digit PIN
-    // ############################################################
+    <!-- MAIN APP -->
+    <div id="main-content" class="hidden-content max-w-3xl mx-auto px-4 py-6 relative z-10">
 
-    const CONFIG = { user: "mHub96", repo: "BTH", path: "update/data.json" };
-    const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
-    const GH_TOKEN = (_pt1 + _pt2 + _pt3 + _pt4).replace(/\s/g, '');
+        <div class="top-bar">
+            <div class="flex items-center gap-3">
+                <div class="theme-toggle-wrap">
+                    <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <span class="icon-wrap relative w-6 h-6 flex items-center justify-center">
+                            <i class="fas fa-moon absolute text-lg transition-all" style="opacity:1;transform:rotateY(0);"></i>
+                            <i class="fas fa-sun absolute text-lg transition-all" style="opacity:0;transform:rotateY(180deg);"></i>
+                        </span>
+                    </button>
+                </div>
+                <button onclick="logout()" class="btn-ghost text-xs px-4 py-2 border rounded-xl font-semibold">تسجيل الخروج</button>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex items-center gap-2">
+                <button onclick="showTrendingModal()" class="trending-btn text-xs px-4 py-2">
+                    <i class="fas fa-trophy"></i> لوحة المتصدرين
+                </button>
+                <button onclick="generateAndCopyReport()" id="report-btn" class="report-btn text-xs px-4 py-2">
+                    <i class="fas fa-file-alt"></i> Report
+                </button>
+                <button id="admin-reset-btn" onclick="showResetModal()" class="admin-reset-btn hidden">
+                    <i class="fas fa-sync-alt"></i> Reset
+                </button>
+            </div>
+        </div>
 
-    let db = { passwords: {}, names: [], schedule: [], specialties: [] };
-    let fileSha = "";
-    let todayResident = null;
-    let currentPool = [];
-    let selectedIndex = -1;
-    let dataLoaded = false;
-    let loadError = false;
-    let isSessionRestored = false;
+        <h1 class="header-3d">Basra Teaching Hospital</h1>
+        <p class="text-center text-sm font-bold text-secondary/50 mb-4 tracking-wider">On-Call Residents · Duty Roster</p>
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    const service = urlParams.get('service');
+        <p id="count-tag" class="counter-badge mt-2 mb-4 inline-block">
+            <i class="fas fa-users mr-1"></i> جاري التحميل...
+        </p>
 
-    const STORAGE_KEY = 'duty_portal_session';
-    const SESSION_PIN = '1234';
+        <!-- TRENDING CARD with fire border + hand animation -->
+        <div id="trending-container" class="mb-4"></div>
 
-    // ---------- PASSWORD ANIMATION ----------
-    let passwordValue = '';
+        <!-- ROSTER GRID with uniform spacing -->
+        <div id="roster-container" class="roster-grid"></div>
 
-    function updateDots(value) {
-        const dots = document.querySelectorAll('.password-dot');
-        const len = value.length;
-        
-        dots.forEach((dot, index) => {
-            dot.className = 'password-dot';
-            
-            if (index < len) {
-                dot.classList.add('filled');
-                if (dot.dataset.wasEmpty === 'true') {
-                    dot.classList.add('active');
-                    setTimeout(() => dot.classList.remove('active'), 500);
-                }
-                dot.dataset.wasEmpty = 'false';
+        <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
+    </div>
+
+    <!-- LEADERBOARD MODAL — UPDATED STYLE -->
+    <div id="trending-modal" class="modal-overlay" onclick="if(event.target===this) closeTrendingModal()">
+        <div class="modal-card glass-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xl font-black text-primary flex items-center gap-2">
+                    <i class="fas fa-trophy text-amber-500"></i> لوحة المتصدرين
+                </h3>
+                <button onclick="closeTrendingModal()" class="text-secondary/30 hover:text-secondary/60 text-xl transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="filter-tabs" id="leaderboard-tabs">
+                <button class="filter-tab active" data-filter="today" onclick="switchLeaderboardFilter('today')">اليوم</button>
+                <button class="filter-tab" data-filter="month" onclick="switchLeaderboardFilter('month')">هذا الشهر</button>
+                <button class="filter-tab" data-filter="all" onclick="switchLeaderboardFilter('all')">الكل</button>
+            </div>
+            <div id="trending-content" class="space-y-2 mt-1"></div>
+        </div>
+    </div>
+
+    <!-- RESET MODAL -->
+    <div id="reset-modal" class="modal-overlay" onclick="if(event.target===this) closeResetModal()">
+        <div class="modal-card glass-card" style="max-width:420px;">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xl font-black text-primary flex items-center gap-2">
+                    <i class="fas fa-sync-alt text-red-500"></i> Reset Statistics
+                </h3>
+                <button onclick="closeResetModal()" class="text-secondary/30 hover:text-secondary/60 text-xl transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-secondary/60 mb-3">اختر النطاق الزمني لإعادة الضبط:</p>
+            <div class="reset-options">
+                <div class="reset-option" onclick="document.getElementById('reset-today').checked=true;">
+                    <input type="radio" id="reset-today" name="reset-range" value="today" checked />
+                    <label for="reset-today">Today <span class="desc">(يفسد اليوم فقط)</span></label>
+                </div>
+                <div class="reset-option" onclick="document.getElementById('reset-month').checked=true;">
+                    <input type="radio" id="reset-month" name="reset-range" value="month" />
+                    <label for="reset-month">This Month <span class="desc">(يفسد الشهر الحالي)</span></label>
+                </div>
+                <div class="reset-option" onclick="document.getElementById('reset-all').checked=true;">
+                    <input type="radio" id="reset-all" name="reset-range" value="all" />
+                    <label for="reset-all">All Time <span class="desc">(يفسد كل الإحصائيات)</span></label>
+                </div>
+            </div>
+            <button onclick="executeReset()" class="btn-gradient w-full mt-2" style="background:linear-gradient(135deg,#dc2626,#b91c1c);box-shadow:0 8px 24px rgba(220,38,38,0.3);">
+                <i class="fas fa-trash-alt"></i> Confirm Reset
+            </button>
+        </div>
+    </div>
+
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <script>
+        // ========== CONFIG ==========
+        const CONFIG = { user: "mHub96", repo: "BTH", path: "update/data.json" };
+        const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
+        const GH_TOKEN = _p.join('');
+
+        // ========== DYNAMIC SPECIALTY MAPS ==========
+        let specNames = {};
+        let specIcons = {};
+
+        function buildSpecialtyMaps(specialties) {
+            specNames = {};
+            specIcons = {};
+            if (!specialties || !Array.isArray(specialties)) return;
+            specialties.forEach(spec => {
+                specNames[spec.id] = spec.name_ar;
+                specIcons[spec.id] = spec.icon || "🏥";
+            });
+        }
+
+        function getSpecName(code) {
+            return specNames[code] || code;
+        }
+
+        function getSpecIcon(code) {
+            return specIcons[code] || "🏥";
+        }
+
+        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+        let fileSha = "";
+        let dataLoaded = false;
+        let userRole = null;
+        let clickCooldown = {};
+        const COOLDOWN_TIME = 30000;
+        const STORAGE_KEY = 'basra_roster_session';
+        let isAutoLoginAttempted = false;
+        let trendingHandVisible = true;
+
+        // ========== THEME ==========
+        function toggleTheme() {
+            document.getElementById('app-body').classList.toggle('light');
+            document.getElementById('app-body').classList.toggle('dark');
+            localStorage.setItem('theme', document.getElementById('app-body').classList.contains('dark') ? 'dark' : 'light');
+        }
+        if (localStorage.getItem('theme') === 'dark') {
+            document.getElementById('app-body').classList.remove('light');
+            document.getElementById('app-body').classList.add('dark');
+        }
+
+        // ========== TOAST ==========
+        let toastTimeout = null;
+        function showToast(message, type = 'info', duration = 3000) {
+            if (toastTimeout) { clearTimeout(toastTimeout); document.getElementById('toast-container').querySelectorAll('.toast').forEach(t=>t.remove()); }
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', info:'fa-info-circle' };
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i><span>${message}</span><button class="toast-close mr-auto cursor-pointer opacity-60 hover:opacity-100 bg-none border-none text-inherit" onclick="this.parentElement.remove()">&times;</button>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            toastTimeout = setTimeout(() => { toast.classList.remove('show'); setTimeout(()=>toast.remove(),500); toastTimeout=null; }, duration);
+        }
+
+        // ========== SESSION ==========
+        function saveSession() {
+            if (document.getElementById('remember-me').checked) {
+                localStorage.setItem(STORAGE_KEY, 'authenticated');
+                localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
+                localStorage.setItem('rememberMe', 'true');
             } else {
-                dot.classList.add('empty');
-                dot.dataset.wasEmpty = 'true';
+                localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe');
             }
-        });
-
-        const cursor = document.getElementById('cursorIndicator');
-        if (len < 8) {
-            cursor.classList.add('visible');
-        } else {
-            cursor.classList.remove('visible');
         }
-    }
-
-    function handlePasswordInput() {
-        const input = document.getElementById('pw');
-        const value = input.value;
-        passwordValue = value;
-        updateDots(value);
-    }
-
-    function handlePasswordKey(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            handleEntry();
+        function checkSession() {
+            const session = localStorage.getItem(STORAGE_KEY);
+            if (!session) return false;
+            const ts = localStorage.getItem(STORAGE_KEY+'_timestamp');
+            if (ts) { if ((Date.now()-parseInt(ts))/(1000*60*60*24) > 7) { clearSession(); return false; } }
+            return session === 'authenticated';
         }
-        if (e.key === 'Backspace') {
-            setTimeout(() => {
-                const input = document.getElementById('pw');
-                updateDots(input.value);
-            }, 10);
+        function clearSession() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe'); localStorage.removeItem('rememberToken'); }
+        function logout() { clearSession(); userRole=null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('main-content').classList.add('hidden-content'); document.getElementById('password-input').value=''; document.getElementById('password-input').focus(); showToast('تم تسجيل الخروج','info'); }
+
+        // ========== LOGIN ==========
+        async function handleLogin() {
+            const input = document.getElementById('password-input');
+            const err = document.getElementById('lock-error');
+            const pwd = input.value.trim();
+            if (!pwd) { err.innerText='❌ الرجاء إدخال كلمة المرور'; input.focus(); setTimeout(()=>err.innerText='',2500); return; }
+            err.innerText='⏳ جاري التحقق...';
+            try {
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                    headers: { "Authorization": `token ${GH_TOKEN}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    fileSha = data.sha;
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
+                    db = content;
+                    dataLoaded = true;
+                    // Build specialty maps from data
+                    buildSpecialtyMaps(db.specialties);
+                    const userPass = content.passwords?.user || "12345";
+                    const adminPass = content.passwords?.admin || "123";
+                    if (pwd === adminPass) { userRole = 'admin'; loginSuccess(content); }
+                    else if (pwd === userPass) { userRole = 'user'; loginSuccess(content); }
+                    else { err.innerText='❌ كلمة المرور غير صحيحة'; input.value=''; input.focus(); setTimeout(()=>err.innerText='',2500); }
+                } else {
+                    err.innerText='❌ خطأ في الاتصال بقاعدة البيانات';
+                    setTimeout(()=>err.innerText='',2500);
+                }
+            } catch(e) { console.error(e); err.innerText='❌ خطأ في الاتصال'; setTimeout(()=>err.innerText='',2500); }
         }
-    }
 
-    function showCursor() {
-        const cursor = document.getElementById('cursorIndicator');
-        if (passwordValue.length < 8) {
-            cursor.classList.add('visible');
-        }
-    }
-
-    function hideCursor() {
-        const cursor = document.getElementById('cursorIndicator');
-        cursor.classList.remove('visible');
-    }
-
-    function shakeDots() {
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
-            if (dot.classList.contains('filled')) {
-                dot.classList.add('error-shake');
-                setTimeout(() => dot.classList.remove('error-shake'), 500);
+        function loginSuccess(content) {
+            db = content;
+            buildSpecialtyMaps(db.specialties);
+            document.getElementById('lock-screen').style.display='none';
+            document.getElementById('main-content').classList.remove('hidden-content');
+            const resetBtn = document.getElementById('admin-reset-btn');
+            if (userRole === 'admin') resetBtn.classList.remove('hidden');
+            else resetBtn.classList.add('hidden');
+            if (document.getElementById('remember-me').checked) {
+                localStorage.setItem(STORAGE_KEY, 'authenticated');
+                localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
+                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem('rememberToken', btoa(document.getElementById('password-input').value));
             }
-        });
-    }
-
-    function resetPasswordInput() {
-        const input = document.getElementById('pw');
-        input.value = '';
-        passwordValue = '';
-        updateDots('');
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
-            dot.className = 'password-dot empty';
-            dot.dataset.wasEmpty = 'true';
-        });
-    }
-
-    // ---------- REMEMBER ME ----------
-    function saveSession() {
-        const remember = document.getElementById('rememberMe');
-        if (remember && remember.checked) {
-            localStorage.setItem(STORAGE_KEY, 'authenticated');
-            localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
-        } else {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(STORAGE_KEY + '_timestamp');
+            renderRoster();
+            showToast('تم تسجيل الدخول بنجاح','success');
         }
-    }
 
-    function checkSession() {
-        const session = localStorage.getItem(STORAGE_KEY);
-        if (!session) return false;
-        const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
-        if (timestamp) {
-            const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
-            if (days > 7) {
-                clearSession();
+        // ========== AUTO LOGIN ==========
+        (function() {
+            const token = localStorage.getItem('rememberToken');
+            const rememberMe = localStorage.getItem('rememberMe');
+            if (token && rememberMe === 'true' && !isAutoLoginAttempted) {
+                isAutoLoginAttempted = true;
+                try { const pwd = atob(token); performAutoLogin(pwd); } catch(e) {}
+            }
+        })();
+
+        async function performAutoLogin(pwd) {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                    headers: { "Authorization": `token ${GH_TOKEN}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    fileSha = data.sha;
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
+                    db = content; dataLoaded = true;
+                    buildSpecialtyMaps(db.specialties);
+                    const userPass = content.passwords?.user || "12345";
+                    const adminPass = content.passwords?.admin || "123";
+                    if (pwd === adminPass) userRole = 'admin';
+                    else if (pwd === userPass) userRole = 'user';
+                    else { userRole = null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('password-input').focus(); return; }
+                    document.getElementById('lock-screen').style.display='none';
+                    document.getElementById('main-content').classList.remove('hidden-content');
+                    const resetBtn = document.getElementById('admin-reset-btn');
+                    if (userRole === 'admin') resetBtn.classList.remove('hidden');
+                    else resetBtn.classList.add('hidden');
+                    renderRoster();
+                    showToast('تم تسجيل الدخول تلقائياً','success');
+                    return;
+                }
+            } catch(e) {}
+            document.getElementById('lock-screen').style.display='flex';
+            document.getElementById('password-input').focus();
+        }
+
+        // ========== RESET MODAL ==========
+        function showResetModal() {
+            if (userRole !== 'admin') { showToast('غير مصرح لك بهذا الإجراء','error'); return; }
+            document.getElementById('reset-modal').classList.add('active');
+        }
+        function closeResetModal() {
+            document.getElementById('reset-modal').classList.remove('active');
+        }
+        function executeReset() {
+            const selected = document.querySelector('input[name="reset-range"]:checked');
+            if (!selected) { showToast('يرجى اختيار نطاق لإعادة الضبط','error'); return; }
+            const range = selected.value;
+            if (!confirm(`⚠️ هل أنت متأكد من إعادة ضبط إحصائيات ${range === 'today' ? 'اليوم' : range === 'month' ? 'الشهر الحالي' : 'جميع الإحصائيات'}؟`)) return;
+
+            const now = new Date();
+            const todayStr = getMedicalDate();
+            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+
+            let resetCount = 0;
+            db.schedule.forEach(entry => {
+                let shouldReset = false;
+                if (range === 'today' && entry.date === todayStr) shouldReset = true;
+                else if (range === 'month') {
+                    const parts = entry.date.split('/');
+                    if (parts.length === 3 && `${parts[1]}/${parts[2]}` === monthStr) shouldReset = true;
+                } else if (range === 'all') shouldReset = true;
+
+                if (shouldReset && entry.VisitCount && entry.VisitCount > 0) {
+                    entry.VisitCount = 0;
+                    resetCount++;
+                }
+            });
+
+            saveToGithub().then(() => {
+                renderRoster();
+                closeResetModal();
+                showToast(`✅ تم إعادة ضبط ${resetCount} إدخال${resetCount > 1 ? 'ات' : ''} بنجاح`, 'success');
+            });
+        }
+
+        // ========== TRACKING (unified cooldown per resident) ==========
+        function trackContact(entryDate, residentName) {
+            const now = Date.now();
+            const key = `contact_${residentName}`;
+            if (clickCooldown[key] && (now - clickCooldown[key]) < COOLDOWN_TIME) {
+                showToast('⏳ تم تسجيل تفاعل مؤخراً، يرجى الانتظار','info');
                 return false;
             }
-        }
-        return session === 'authenticated';
-    }
-
-    function clearSession() {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(STORAGE_KEY + '_timestamp');
-    }
-
-    function logout() {
-        clearSession();
-        isSessionRestored = false;
-        const loginView = document.getElementById('login-view');
-        const registerView = document.getElementById('register-view');
-        const lookupView = document.getElementById('lookup-view');
-        
-        if (!registerView.classList.contains('hidden-view')) {
-            registerView.classList.add('exit');
-            setTimeout(() => {
-                registerView.classList.add('hidden-view');
-                registerView.classList.remove('exit');
-            }, 400);
-        }
-        if (!lookupView.classList.contains('hidden-view')) {
-            lookupView.classList.add('exit');
-            setTimeout(() => {
-                lookupView.classList.add('hidden-view');
-                lookupView.classList.remove('exit');
-            }, 400);
-        }
-        
-        setTimeout(() => {
-            loginView.classList.remove('hidden-view');
-            loginView.classList.add('enter');
-            setTimeout(() => loginView.classList.remove('enter'), 500);
-            resetPasswordInput();
-            const entryBtn = document.getElementById('entry-btn');
-            if (dataLoaded) {
-                entryBtn.disabled = false;
-                entryBtn.innerText = 'SIGN IN';
-                entryBtn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-            } else {
-                entryBtn.disabled = true;
-                entryBtn.innerText = 'جاري التحميل...';
-                entryBtn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-            }
-        }, 300);
-    }
-
-    // ---------- ENTRY HANDLER ----------
-    window.handleEntry = function() {
-        if (!dataLoaded) {
-            showLoginError('البيانات لم تكتمل، حاول مرة أخرى');
-            return;
-        }
-        const input = document.getElementById('pw');
-        const pin = input.value;
-        
-        if (pin === SESSION_PIN) {
-            saveSession();
-            proceedAfterAuth();
-        } else {
-            shakeDots();
-            showLoginError('الرمز غير صحيح');
-            const btn = document.getElementById('entry-btn');
-            btn.className = 'embossed-btn crimson-warning w-full py-6 tracking-widest uppercase';
-            const original = btn.innerText;
-            btn.innerText = "INCORRECT!";
-            setTimeout(() => {
-                if (dataLoaded) {
-                    btn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-                    btn.innerText = 'SIGN IN';
-                } else {
-                    btn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-                    btn.innerText = 'جاري التحميل...';
-                }
-            }, 1000);
-            setTimeout(() => {
-                resetPasswordInput();
-                input.focus();
-            }, 400);
-        }
-    };
-
-    function proceedAfterAuth() {
-        const loginView = document.getElementById('login-view');
-        const registerView = document.getElementById('register-view');
-        const lookupView = document.getElementById('lookup-view');
-        
-        loginView.classList.add('exit');
-        setTimeout(() => {
-            loginView.classList.add('hidden-view');
-            loginView.classList.remove('exit');
-            
-            if (mode === 'register') {
-                registerView.classList.remove('hidden-view');
-                registerView.classList.add('enter');
-                setTimeout(() => registerView.classList.remove('enter'), 500);
-            } else {
-                showLookupUI();
-                lookupView.classList.remove('hidden-view');
-                lookupView.classList.add('enter');
-                setTimeout(() => lookupView.classList.remove('enter'), 500);
-            }
-        }, 500);
-    }
-
-    function showLoginError(msg) {
-        const errEl = document.getElementById('login-error');
-        errEl.innerText = msg;
-        errEl.classList.remove('hidden');
-        setTimeout(() => errEl.classList.add('hidden'), 4000);
-    }
-
-    // ---------- LOADING & INIT ----------
-    window.onload = async function() {
-        const hasSession = checkSession();
-        const loginView = document.getElementById('login-view');
-        
-        if (hasSession) {
-            loginView.classList.add('hidden-view');
-            isSessionRestored = true;
+            const scheduleIndex = db.schedule.findIndex(s => s.date === entryDate && s.name === residentName);
+            if (scheduleIndex === -1) { showToast('❌ لم يتم العثور على المقيم في الجدول','error'); return false; }
+            if (!db.schedule[scheduleIndex].VisitCount) db.schedule[scheduleIndex].VisitCount = 0;
+            db.schedule[scheduleIndex].VisitCount += 1;
+            clickCooldown[key] = now;
+            showToast(`✅ تم تسجيل تفاعل مع ${residentName}`,'success');
+            saveToGithub();
+            renderRoster();
+            return true;
         }
 
-        const shieldTimeout = setTimeout(() => {
-            const s = document.getElementById('shield');
-            if (s && s.style.opacity !== '0') {
-                s.style.opacity = '0';
-                setTimeout(() => s.remove(), 500);
-            }
-        }, 5000);
-
-        try {
-            await fetchDataWithTimeout(8000);
-        } catch (e) {
-            console.warn('Data fetch failed:', e);
-            loadError = true;
-            const cached = localStorage.getItem('duty_db_cache');
-            if (cached) {
-                try {
-                    db = JSON.parse(cached);
-                    dataLoaded = true;
-                } catch (e2) { /* ignore */ }
-            }
+        // ========== SAVE TO GITHUB ==========
+        async function saveToGithub() {
+            try {
+                const body = {
+                    message: "Update visit counts",
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))))
+                };
+                if (fileSha) body.sha = fileSha;
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${GH_TOKEN}` },
+                    body: JSON.stringify(body)
+                });
+                if (res.ok) { const data = await res.json(); fileSha = data.content.sha; localStorage.setItem('duty_db_cache', JSON.stringify(db)); }
+            } catch(e) { console.error("Save error:", e); }
         }
 
-        clearTimeout(shieldTimeout);
-        const s = document.getElementById('shield');
-        if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 500); }
-
-        const entryBtn = document.getElementById('entry-btn');
-        const statusText = document.getElementById('status-text');
-        const statusDot = document.getElementById('statusDot');
-
-        if (dataLoaded) {
-            statusText.innerText = 'READY';
-            statusText.className = 'status-text ready';
-            statusDot.className = 'status-dot';
-            entryBtn.disabled = false;
-            entryBtn.innerText = 'SIGN IN';
-            entryBtn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-            
-            // Populate the specialty dropdown
-            populateSpecialties();
-
-            if (hasSession) {
-                setTimeout(() => {
-                    if (mode === 'register') {
-                        document.getElementById('register-view').classList.remove('hidden-view');
-                        document.getElementById('register-view').classList.add('enter');
-                        setTimeout(() => document.getElementById('register-view').classList.remove('enter'), 500);
-                    } else {
-                        showLookupUI();
-                        lookupView.classList.remove('hidden-view');
-                        lookupView.classList.add('enter');
-                        setTimeout(() => lookupView.classList.remove('enter'), 500);
-                    }
-                }, 200);
-            } else {
-                if (!loginView.classList.contains('hidden-view')) {
-                    setTimeout(() => {
-                        document.getElementById('pw').focus();
-                    }, 300);
-                } else {
-                    loginView.classList.remove('hidden-view');
-                    loginView.classList.add('enter');
-                    setTimeout(() => {
-                        loginView.classList.remove('enter');
-                        document.getElementById('pw').focus();
-                    }, 300);
-                }
-            }
-        } else if (loadError) {
-            statusText.innerText = '⚠️ غير متصل';
-            statusText.className = 'status-text error';
-            statusDot.className = 'status-dot';
-            entryBtn.disabled = true;
-            entryBtn.innerText = '⚠️ خطأ في الاتصال';
-            entryBtn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-            showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
-            
-            if (loginView.classList.contains('hidden-view')) {
-                loginView.classList.remove('hidden-view');
-                loginView.classList.add('enter');
-                setTimeout(() => loginView.classList.remove('enter'), 300);
-            }
+        // ========== GET TRENDING ==========
+        function getTrendingResident() {
+            const targetDate = getMedicalDate();
+            const todayEntries = db.schedule.filter(s => s.date === targetDate);
+            if (todayEntries.length === 0) return null;
+            const sorted = [...todayEntries].sort((a,b) => (b.VisitCount||0) - (a.VisitCount||0));
+            const top = sorted[0];
+            if (!top.VisitCount || top.VisitCount === 0) return null;
+            const resident = db.names.find(n => n.name === top.name);
+            return { ...top, phone: resident?.phone || "رقم غير متوفر", specName: getSpecName(top.specCode), icon: getSpecIcon(top.specCode) };
         }
 
-        const rememberCheck = document.getElementById('rememberMe');
-        if (rememberCheck) {
-            rememberCheck.checked = true;
-        }
-
-        resetPasswordInput();
-    };
-
-    // ========== POPULATE SPECIALTIES DYNAMICALLY ==========
-    function populateSpecialties() {
-        const select = document.getElementById('spec-select');
-        if (!select || !db.specialties || db.specialties.length === 0) return;
-        
-        // Keep the default option
-        select.innerHTML = '<option value="" class="bg-[#1a1c20]">SELECT SPECIALTY</option>';
-        
-        db.specialties.forEach(spec => {
-            const option = document.createElement('option');
-            option.value = spec.id;
-            option.className = 'bg-[#1a1c20]';
-            // Display icon and Arabic name
-            option.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
-            select.appendChild(option);
-        });
-    }
-
-    async function fetchDataWithTimeout(timeoutMs) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
-        try {
-            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
-                headers: { "Authorization": `token ${GH_TOKEN}` },
-                signal: controller.signal
+        // ========== LEADERBOARD ==========
+        function getLeaderboardData(filter='today') {
+            let entries = db.schedule.filter(s => s.VisitCount && s.VisitCount > 0);
+            const now = new Date();
+            const todayStr = getMedicalDate();
+            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+            if (filter === 'today') entries = entries.filter(s => s.date === todayStr);
+            else if (filter === 'month') entries = entries.filter(s => { const parts=s.date.split('/'); return parts.length===3 && `${parts[1]}/${parts[2]}`===monthStr; });
+            const leaderboard = {};
+            entries.forEach(entry => {
+                if (!leaderboard[entry.name]) leaderboard[entry.name] = { name: entry.name, specCode: entry.specCode, totalVisits: 0, dates: [] };
+                leaderboard[entry.name].totalVisits += entry.VisitCount || 0;
+                leaderboard[entry.name].dates.push({ date: entry.date, visits: entry.VisitCount || 0 });
             });
-            clearTimeout(timeoutId);
+            return Object.values(leaderboard).sort((a,b) => b.totalVisits - a.totalVisits);
+        }
 
-            if (res.ok) {
-                const data = await res.json();
-                fileSha = data.sha;
-                const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
-                db = decoded;
-                localStorage.setItem('duty_db_cache', JSON.stringify(db));
-                dataLoaded = true;
-                loadError = false;
+        // ========== RENDER ==========
+        function renderRoster() {
+            const container = document.getElementById('roster-container');
+            const targetDate = getMedicalDate();
+            const todayEntries = db.schedule.filter(s => s.date === targetDate);
+            const totalResidents = db.names.length;
+            const activeCount = db.names.filter(n => n.spec !== "RESERVE").length;
+            document.getElementById('count-tag').innerHTML = `<i class="fas fa-users mr-1"></i> ${totalResidents} مسجل · ${activeCount} نشط · ${todayEntries.length} في الخدمة`;
 
-                if (service) {
-                    const todayStr = getMedicalDate();
-                    todayResident = db.schedule.find(s => s.specCode === service && s.date === todayStr);
-                }
-                return true;
+            // Trending card with fire border + hand
+            const trending = getTrendingResident();
+            const tc = document.getElementById('trending-container');
+            const handHtml = `<span class="trending-hand ${!trendingHandVisible ? 'hidden' : ''}">👆</span>`;
+            
+            if (trending) {
+                tc.innerHTML = `
+                    <div class="trending-fire-border" onclick="handleTrendingClick()">
+                        <div class="trending-inner">
+                            ${handHtml}
+                            <div class="flex items-center gap-3">
+                                <span class="trending-fire-icon" onclick="event.stopPropagation(); showTrendingModal();">🔥</span>
+                                <span class="text-sm font-bold text-primary">Trending Today:</span>
+                                <span class="trending-badge text-sm px-3 py-1">
+                                    <i class="fas fa-star"></i> ${trending.name}
+                                </span>
+                                <span class="text-xs text-secondary">${trending.specName}</span>
+                            </div>
+                            <span class="text-sm font-bold text-amber-500">${trending.VisitCount || 0} interactions</span>
+                        </div>
+                    </div>
+                `;
             } else {
-                throw new Error(`HTTP ${res.status}`);
+                tc.innerHTML = `
+                    <div class="glass-card p-4 text-center text-secondary/40 text-sm">
+                        <i class="fas fa-chart-line mr-1"></i> No trending resident yet. Interactions will appear here.
+                    </div>
+                `;
             }
-        } catch (e) {
-            clearTimeout(timeoutId);
-            throw e;
-        }
-    }
 
-    function getMedicalDate() {
-        const now = new Date();
-        if (now.getHours() < 8) now.setDate(now.getDate() - 1);
-        const d = String(now.getDate()).padStart(2, '0');
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        return `${d}/${m}/${now.getFullYear()}`;
-    }
-
-    // ---------- BUILD SPECIALTY MAP FOR DISPLAY ----------
-    function getSpecialtyName(specId) {
-        const spec = db.specialties.find(s => s.id === specId);
-        return spec ? spec.name_ar : specId;
-    }
-
-    // ---------- ORIGINAL FUNCTIONS ----------
-    function showLookupUI() {
-        const targetDate = getMedicalDate();
-        const now = new Date();
-        const timestamp = `${String(now.getDate()).padStart(2, '0')}-${now.toLocaleString('en-GB', {month:'short'})}-${now.getFullYear()} | ${now.toLocaleString('en-GB', {hour:'2-digit', minute:'2-digit', hour12:true}).toUpperCase()}`;
-        
-        document.getElementById('service-display').innerText = getSpecialtyName(service) || service || "SERVICE";
-        document.getElementById('time-stamp').innerText = timestamp;
-
-        todayResident = db.schedule.find(s => s.specCode === service && s.date === targetDate);
-
-        if (todayResident) {
-            const info = db.names.find(n => n.name === todayResident.name);
-            document.getElementById('name-display').innerText = todayResident.name;
-            document.getElementById('phone-display').innerText = info ? info.phone : "No Number";
-            if (info?.phone) {
-                const callLink = document.getElementById('call-link');
-                callLink.href = "tel:" + info.phone;
-                callLink.classList.remove('hidden');
-                const waLink = document.getElementById('wa-link');
-                waLink.classList.remove('hidden');
-                waLink.href = "whatsapp://send?phone=" + info.phone;
+            if (todayEntries.length === 0) {
+                container.innerHTML = `<div class="glass-card p-8 text-center"><div class="text-4xl mb-3 opacity-20">📭</div><div class="text-secondary/30 font-bold">لا يوجد مقيمين في الخدمة اليوم</div></div>`;
+                return;
             }
-        } else {
-            document.getElementById('name-display').innerText = "No Duty Found";
-            document.getElementById('phone-display').innerText = "Date: " + targetDate;
-            document.getElementById('call-link').classList.add('hidden');
-            document.getElementById('wa-link').classList.add('hidden');
+
+            // ========== MERGE RESIDENTS WITH MULTIPLE SPECIALTIES ==========
+            const mergedMap = new Map();
+            
+            todayEntries.forEach(entry => {
+                if (mergedMap.has(entry.name)) {
+                    const existing = mergedMap.get(entry.name);
+                    existing.specCodes.push(entry.specCode);
+                    if ((entry.VisitCount || 0) > (existing.totalVisits || 0)) {
+                        existing.totalVisits = entry.VisitCount || 0;
+                    }
+                } else {
+                    mergedMap.set(entry.name, {
+                        name: entry.name,
+                        specCodes: [entry.specCode],
+                        totalVisits: entry.VisitCount || 0,
+                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
+                    });
+                }
+            });
+
+            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
+                a.specCodes[0].localeCompare(b.specCodes[0])
+            );
+
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const trendingRes = getTrendingResident();
+            
+            container.innerHTML = mergedEntries.map(entry => {
+                const phone = entry.phone;
+                const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
+                const visitCount = entry.totalVisits || 0;
+                const isTrending = visitCount > 0 && trendingRes && trendingRes.name === entry.name;
+                const phoneClean = isPhoneValid ? phone.replace(/[^0-9]/g,'') : '';
+                const today = getMedicalDate();
+                const waHref = isPhoneValid ? `whatsapp://send?phone=${phoneClean}` : '#';
+                const isMultiple = entry.specCodes.length > 1;
+                
+                // Build specialty tags - each as a separate bubble using dynamic maps
+                const specTags = entry.specCodes.map((code) => {
+                    const specName = getSpecName(code);
+                    const icon = getSpecIcon(code);
+                    return `<span class="resident-spec ${isMultiple ? 'multiple' : ''}">${icon} ${specName}</span>`;
+                }).join(' ');
+                
+                // Use first specialty icon as main icon
+                const mainIcon = getSpecIcon(entry.specCodes[0]);
+                
+                return `
+                    <div class="roster-card" 
+                         onmousemove="handleCardTilt(event, this)"
+                         onmouseleave="resetCardTilt(this)">
+                        <div style="display:flex; gap:0.3rem; flex-wrap:wrap; justify-content:center; margin-bottom:0.1rem;">
+                            ${specTags}
+                        </div>
+                        <div class="resident-name"><span class="spec-icon">${mainIcon}</span> ${entry.name}</div>
+                        <div class="resident-phone">${phone}</div>
+                        <div class="card-actions">
+                            <a href="${isPhoneValid ? 'tel:'+phoneClean : '#'}" 
+                               class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
+                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}');` : 'event.preventDefault();'}">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                            <a href="${waHref}" 
+                               class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
+                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}'); event.preventDefault(); window.location.href=this.href;` : 'event.preventDefault();'}">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                        ${isTrending ? `<span class="trending-badge" style="position:absolute;top:8px;left:12px;font-size:0.5rem;"><i class="fas fa-fire"></i> Trending</span>` : ''}
+                        ${visitCount > 0 ? `<span style="position:absolute;bottom:8px;left:12px;font-size:0.6rem;opacity:0.4;">${visitCount} 👁️</span>` : ''}
+                        ${isMultiple ? `<span style="position:absolute;top:8px;right:12px;font-size:0.5rem;opacity:0.7;background:rgba(251,191,36,0.15);padding:0.1rem 0.5rem;border-radius:100px;border:1px solid rgba(251,191,36,0.1);">${entry.specCodes.length} تخصصات</span>` : ''}
+                    </div>
+                `;
+            }).join('');
         }
-    }
 
-    function prepNameInput() {
-        if (!dataLoaded) return;
-        const spec = document.getElementById('spec-select').value;
-        const section = document.getElementById('name-section');
-        if (!spec) { section.classList.add('hidden'); return; }
-        document.getElementById('name-input').value = "";
-        section.classList.remove('hidden');
-        
-        // Find which residents belong to this specialty
-        if (spec === "ICU" || spec === "OP" || spec === "GA") {
-            currentPool = db.names.filter(n => n.spec === "A");
-        } else if (spec === "D") {
-            currentPool = db.names;
-        } else {
-            currentPool = db.names.filter(n => n.spec === spec);
+        // ========== HANDLE TRENDING CLICK ==========
+        function handleTrendingClick() {
+            trendingHandVisible = false;
+            const hand = document.querySelector('.trending-hand');
+            if (hand) hand.classList.add('hidden');
+            triggerConfetti();
         }
-    }
 
-    function filterNames() {
-        if (!dataLoaded) return;
-        const val = document.getElementById('name-input').value.trim().toLowerCase().replace(/^د\.?\s*/, '');
-        const box = document.getElementById('suggestions');
-        if (!val) { box.classList.add('hidden'); return; }
-        
-        const matches = currentPool.filter(n => n.name.toLowerCase().replace(/^د\.?\s*/, '').includes(val));
-        matches.sort((a, b) => {
-            const aClean = a.name.toLowerCase().replace(/^د\.?\s*/, '');
-            const bClean = b.name.toLowerCase().replace(/^د\.?\s*/, '');
-            const aStarts = aClean.startsWith(val);
-            const bStarts = bClean.startsWith(val);
-            if (aStarts && !bStarts) return -1;
-            if (!aStarts && bStarts) return 1;
-            return aClean.localeCompare(bClean);
-        });
-
-        if (matches.length > 0) {
-            box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="selectSuggestion('${m.name}')">${m.name}</div>`).join('');
-            box.classList.remove('hidden');
-            selectedIndex = -1;
-        } else box.classList.add('hidden');
-    }
-
-    function handleNameKey(e) {
-        const items = document.querySelectorAll('.suggestion-item');
-        if (e.key === "ArrowDown") selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-        else if (e.key === "ArrowUp") selectedIndex = Math.max(selectedIndex - 1, 0);
-        else if (e.key === "Enter") {
-            if (selectedIndex > -1) selectSuggestion(items[selectedIndex].innerText);
-            else submitRegistration();
+        // ========== 3D TILT EFFECT ==========
+        function handleCardTilt(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 16;
+            const rotateY = (centerX - x) / 16;
+            card.style.transform = `perspective(600px) translateY(-6px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
+            card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
         }
-        items.forEach((item, i) => item.classList.toggle('selected', i === selectedIndex));
-    }
 
-    function selectSuggestion(name) {
-        document.getElementById('name-input').value = name;
-        document.getElementById('suggestions').classList.add('hidden');
-    }
-
-    async function submitRegistration() {
-        if (!dataLoaded) {
-            alert('البيانات غير محملة، يرجى تحديث الصفحة');
-            return;
+        function resetCardTilt(card) {
+            card.style.transform = '';
         }
-        const btn = document.getElementById('submit-btn');
-        const name = document.getElementById('name-input').value;
-        const spec = document.getElementById('spec-select').value;
-        const card = document.getElementById('main-card');
-        
-        if (!name || !spec) return;
 
-        // ✅ PRESERVE PASSWORDS
-        const preservedPasswords = db.passwords || { user: "12345", admin: "123" };
+        function getMedicalDate() {
+            const now = new Date();
+            if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+        }
+        function getFormattedDate() {
+            const now = new Date();
+            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+        }
 
-        card.classList.add('loading-active');
-        const dutyDate = getMedicalDate();
-        const entry = {
-            date: dutyDate, specCode: spec, name: name,
-            timestamp: new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'})
+        // ========== REPORT GENERATOR — WITH MERGED SPECIALTIES ==========
+        function generateAndCopyReport() {
+            const targetDate = getMedicalDate();
+            const todayEntries = db.schedule.filter(s => s.date === targetDate);
+            if (todayEntries.length === 0) { 
+                showToast('لا يوجد مقيمين في الخدمة اليوم', 'error'); 
+                return; 
+            }
+            
+            const mergedMap = new Map();
+            todayEntries.forEach(entry => {
+                if (mergedMap.has(entry.name)) {
+                    const existing = mergedMap.get(entry.name);
+                    existing.specs.push(entry.specCode);
+                } else {
+                    mergedMap.set(entry.name, {
+                        name: entry.name,
+                        specs: [entry.specCode],
+                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
+                    });
+                }
+            });
+            
+            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
+                a.specs[0].localeCompare(b.specs[0])
+            );
+            
+            const formattedDate = getFormattedDate();
+            
+            let report = `🏥 *تبليغ خفراء اليوم*\n`;
+            report += `📅 *${formattedDate}*\n`;
+            report += `📍 مستشفى البصرة التعليمي — البصرة\n\n`;
+            report += `https://mhub96.github.io/BTH/Home\n\n`;
+            
+            mergedEntries.forEach((entry) => {
+                const phone = entry.phone;
+                const specNames = entry.specs.map(code => getSpecName(code)).join(' + ');
+                
+                report += `*${specNames}*\n`;
+                report += `👨‍⚕️ *${entry.name}*\n`;
+                report += `☎️ _${phone}_\n`;
+                report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
+            });
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(report).then(() => {
+                    const btn = document.getElementById('report-btn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#10b981';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }, 3000);
+                    showToast('تم نسخ التقرير إلى الحافظة', 'success');
+                }).catch(() => {
+                    fallbackCopy(report);
+                });
+            } else {
+                fallbackCopy(report);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const btn = document.getElementById('report-btn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#10b981';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }, 3000);
+                    showToast('تم نسخ التقرير إلى الحافظة', 'success');
+                } else {
+                    showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
+                }
+            } catch (err) {
+                showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // ========== LEADERBOARD MODAL ==========
+        let currentFilter = 'today';
+        function showTrendingModal() {
+            document.getElementById('trending-modal').classList.add('active');
+            switchLeaderboardFilter(currentFilter);
+        }
+        function closeTrendingModal() { document.getElementById('trending-modal').classList.remove('active'); }
+        function switchLeaderboardFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => { tab.classList.toggle('active', tab.dataset.filter === filter); });
+            const content = document.getElementById('trending-content');
+            const leaderboard = getLeaderboardData(filter);
+            const topThree = leaderboard.slice(0,3);
+            const others = leaderboard.slice(3);
+            
+            if (leaderboard.length === 0) {
+                content.innerHTML = `<div class="text-center py-6 text-secondary/30"><div class="text-4xl mb-2">🏆</div><div>No interactions recorded yet.</div></div>`;
+                return;
+            }
+            
+            let html = '';
+            
+            if (topThree.length > 0) {
+                const maxVisits = topThree[0]?.totalVisits || 1;
+                const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
+                const medals = ['silver','gold','bronze'];
+                const medalIcons = ['🥈', '🥇', '🥉'];
+                
+                html += `
+                    <div class="step-chart-wrapper">
+                        <div class="step-chart-title">✦ TOP PERFORMERS ✦</div>
+                        <div class="step-chart">
+                `;
+                ordered.forEach((item, index) => {
+                    const maxHeight = 60;
+                    const ratio = item.totalVisits / maxVisits;
+                    const heightPx = Math.max(ratio * maxHeight, 4);
+                    const specName = getSpecName(item.specCode);
+                    const icon = getSpecIcon(item.specCode);
+                    html += `
+                        <div class="step-bar">
+                            <div class="bar-value">${item.totalVisits}</div>
+                            <div class="bar-wrap">
+                                <div class="bar ${medals[index]}" style="height: ${heightPx}px;"></div>
+                            </div>
+                            <div class="bar-label">${icon} ${item.name}</div>
+                            <div class="step-medal-icon">${medalIcons[index]}</div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+            }
+            
+            if (others.length > 0) {
+                html += `<div class="mt-2 space-y-1">`;
+                others.forEach((item, index) => {
+                    const specName = getSpecName(item.specCode);
+                    const icon = getSpecIcon(item.specCode);
+                    html += `<div class="medal-item"><span class="text-lg w-6">#${index+4}</span><div class="flex-1"><div class="font-bold text-primary text-sm">${icon} ${item.name}</div><div class="text-xs text-secondary">${specName}</div></div><div class="text-right"><div class="font-bold text-amber-500 text-sm">${item.totalVisits}</div></div></div>`;
+                });
+                html += `</div>`;
+            }
+            
+            const filterLabels = { 'today':'Today', 'month':'This Month', 'all':'All Time' };
+            html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
+            content.innerHTML = html;
+            
+            setTimeout(() => {
+                document.querySelectorAll('.step-bar .bar').forEach(bar => {
+                    void bar.offsetHeight;
+                });
+            }, 50);
+        }
+
+        // ========== CONFETTI ==========
+        function triggerConfetti() {
+            const count = 150;
+            const defaults = { origin: { y: 0.6 } };
+            function fire(particleRatio, opts) {
+                confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
+            }
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // ========== INIT ==========
+        window.onload = async function() {
+            if (checkSession()) {
+                const token = localStorage.getItem('rememberToken');
+                if (token) { try { const pwd = atob(token); await performAutoLogin(pwd); } catch(e) {} }
+            }
+            if (document.getElementById('lock-screen').style.display !== 'none') {
+                document.getElementById('password-input').focus();
+            }
+            if (!dataLoaded) {
+                try {
+                    const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                        headers: { "Authorization": `token ${GH_TOKEN}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        fileSha = data.sha;
+                        const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
+                        db = content; dataLoaded = true;
+                        buildSpecialtyMaps(db.specialties);
+                        localStorage.setItem('duty_db_cache', JSON.stringify(db));
+                    }
+                } catch(e) {
+                    const cached = localStorage.getItem('duty_db_cache');
+                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; buildSpecialtyMaps(db.specialties); } catch(e2) {}
+                }
+            }
+            setTimeout(() => { const s=document.getElementById('shield'); if(s){s.style.opacity='0'; setTimeout(()=>s.remove(),500);} }, 800);
+            if (dataLoaded && document.getElementById('lock-screen').style.display === 'none') { renderRoster(); }
         };
 
-        db.schedule = db.schedule.filter(s => !(s.date === entry.date && s.specCode === entry.specCode));
-        db.schedule.push(entry);
-
-        try {
-            const dataToSave = {
-                names: db.names,
-                schedule: db.schedule,
-                passwords: preservedPasswords,
-                specialties: db.specialties
-            };
-
-            const body = {
-                message: `Update: ${name}`,
-                content: btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2)))),
-                sha: fileSha
-            };
-            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                method: "PUT", headers: { "Authorization": `token ${GH_TOKEN}` }, body: JSON.stringify(body)
-            });
-            
-            if (res.ok) {
-                const r = await res.json();
-                fileSha = r.content.sha;
-                db.passwords = preservedPasswords;
-                localStorage.setItem('duty_db_cache', JSON.stringify(db));
-                
-                card.classList.remove('loading-active');
-                btn.classList.replace('fetched-active', 'success-state');
-                const originalText = btn.innerText;
-                btn.innerText = "SUCCESS ✅";
-
-                setTimeout(() => {
-                    btn.classList.replace('success-state', 'fetched-active');
-                    btn.innerText = originalText;
-                    document.getElementById('name-input').value = "";
-                    document.getElementById('spec-select').value = "";
-                    document.getElementById('name-section').classList.add('hidden');
-                }, 1500);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const lockScreen = document.getElementById('lock-screen');
+                if (lockScreen && lockScreen.style.display !== 'none') { e.preventDefault(); handleLogin(); }
             }
-        } catch (e) {
-            card.classList.remove('loading-active');
-            btn.innerText = "RETRY ❌";
-            setTimeout(() => {
-                btn.innerText = "UPDATE";
-            }, 2000);
-        }
-    }
-
-    function openWhatsApp(e) {
-        e.preventDefault();
-        const info = db.names.find(n => n.name === todayResident.name);
-        if (info?.phone) window.location.href = "whatsapp://send?phone=" + info.phone;
-    }
-
-    window.logout = logout;
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('passwordContainer');
-        container.addEventListener('click', function() {
-            document.getElementById('pw').focus();
+            if (e.key === 'Escape') { closeTrendingModal(); closeResetModal(); }
         });
-    });
-</script>
+
+        document.getElementById('remember-me').addEventListener('change', function() {
+            if (!this.checked) { localStorage.removeItem('rememberToken'); localStorage.removeItem('rememberMe'); }
+        });
+
+        window.logout = logout;
+        window.generateAndCopyReport = generateAndCopyReport;
+        window.toggleTheme = toggleTheme;
+        window.showTrendingModal = showTrendingModal;
+        window.closeTrendingModal = closeTrendingModal;
+        window.switchLeaderboardFilter = switchLeaderboardFilter;
+        window.trackContact = trackContact;
+        window.showResetModal = showResetModal;
+        window.closeResetModal = closeResetModal;
+        window.executeReset = executeReset;
+        window.triggerConfetti = triggerConfetti;
+        window.handleLogin = handleLogin;
+        window.handleCardTilt = handleCardTilt;
+        window.resetCardTilt = resetCardTilt;
+        window.handleTrendingClick = handleTrendingClick;
+    </script>
 </body>
 </html>
