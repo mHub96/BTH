@@ -683,19 +683,29 @@
         const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
         const GH_TOKEN = _p.join('');
 
-        const arabicSpecs = {
-            "MF":"جراحة الوجه و الفكين","M":"الباطنية","P":"النفسية","G":"النسائية و التوليد",
-            "GS":"الجراحة العامة","US":"جراحة المسالك البولية",
-            "ENT":"الأذن و الأنف و الحنجرة","OR":"الكسور","Pe":"الاطفال","NM":"طب الجملة العصبية","N":"طب امراض الكلى",
-            "ICU":"تخدير العناية المركزة","OP":"تخدير العمليات", "GA":"تخدير صالة الولادة",
-            "R":"الأشعة و السونار","O":"العيون","D":"الوفيات","AO":"المعاون الاداري"
-        };
-        const specIcons = {
-            "GS":"🔪","US":"🧬","OR":"🦴","ENT":"👂","M":"💊","Pe":"👶","NM":"🧠","N":"🧫", "GA":"🤰",
-            "O":"👁️","ICU":"💉","OP":"💉","MF":"🦷","R":"🩻","G":"🌸","P":"🧠","D":"📋", "AO":"👔"
-        };
+        // ========== DYNAMIC SPECIALTY MAPS ==========
+        let specNames = {};
+        let specIcons = {};
 
-        let db = { names: [], schedule: [], passwords: {} };
+        function buildSpecialtyMaps(specialties) {
+            specNames = {};
+            specIcons = {};
+            if (!specialties || !Array.isArray(specialties)) return;
+            specialties.forEach(spec => {
+                specNames[spec.id] = spec.name_ar;
+                specIcons[spec.id] = spec.icon || "🏥";
+            });
+        }
+
+        function getSpecName(code) {
+            return specNames[code] || code;
+        }
+
+        function getSpecIcon(code) {
+            return specIcons[code] || "🏥";
+        }
+
+        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
         let fileSha = "";
         let dataLoaded = false;
         let userRole = null;
@@ -705,7 +715,7 @@
         let isAutoLoginAttempted = false;
         let trendingHandVisible = true;
 
-        // ========== THEME ==========v
+        // ========== THEME ==========
         function toggleTheme() {
             document.getElementById('app-body').classList.toggle('light');
             document.getElementById('app-body').classList.toggle('dark');
@@ -767,6 +777,8 @@
                     const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                     db = content;
                     dataLoaded = true;
+                    // Build specialty maps from data
+                    buildSpecialtyMaps(db.specialties);
                     const userPass = content.passwords?.user || "12345";
                     const adminPass = content.passwords?.admin || "123";
                     if (pwd === adminPass) { userRole = 'admin'; loginSuccess(content); }
@@ -781,6 +793,7 @@
 
         function loginSuccess(content) {
             db = content;
+            buildSpecialtyMaps(db.specialties);
             document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-content').classList.remove('hidden-content');
             const resetBtn = document.getElementById('admin-reset-btn');
@@ -816,6 +829,7 @@
                     fileSha = data.sha;
                     const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                     db = content; dataLoaded = true;
+                    buildSpecialtyMaps(db.specialties);
                     const userPass = content.passwords?.user || "12345";
                     const adminPass = content.passwords?.admin || "123";
                     if (pwd === adminPass) userRole = 'admin';
@@ -920,7 +934,7 @@
             const top = sorted[0];
             if (!top.VisitCount || top.VisitCount === 0) return null;
             const resident = db.names.find(n => n.name === top.name);
-            return { ...top, phone: resident?.phone || "رقم غير متوفر", specName: arabicSpecs[top.specCode] || top.specCode, icon: specIcons[top.specCode] || "🏥" };
+            return { ...top, phone: resident?.phone || "رقم غير متوفر", specName: getSpecName(top.specCode), icon: getSpecIcon(top.specCode) };
         }
 
         // ========== LEADERBOARD ==========
@@ -989,15 +1003,12 @@
             
             todayEntries.forEach(entry => {
                 if (mergedMap.has(entry.name)) {
-                    // Resident already exists, add this specialty
                     const existing = mergedMap.get(entry.name);
                     existing.specCodes.push(entry.specCode);
-                    // Keep the highest visit count
                     if ((entry.VisitCount || 0) > (existing.totalVisits || 0)) {
                         existing.totalVisits = entry.VisitCount || 0;
                     }
                 } else {
-                    // New resident
                     mergedMap.set(entry.name, {
                         name: entry.name,
                         specCodes: [entry.specCode],
@@ -1007,7 +1018,6 @@
                 }
             });
 
-            // Convert map to array and sort by first specialty code
             const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
                 a.specCodes[0].localeCompare(b.specCodes[0])
             );
@@ -1025,15 +1035,15 @@
                 const waHref = isPhoneValid ? `whatsapp://send?phone=${phoneClean}` : '#';
                 const isMultiple = entry.specCodes.length > 1;
                 
-                // Build specialty tags - each as a separate bubble
+                // Build specialty tags - each as a separate bubble using dynamic maps
                 const specTags = entry.specCodes.map((code) => {
-                    const specName = arabicSpecs[code] || code;
-                    const icon = specIcons[code] || "🏥";
+                    const specName = getSpecName(code);
+                    const icon = getSpecIcon(code);
                     return `<span class="resident-spec ${isMultiple ? 'multiple' : ''}">${icon} ${specName}</span>`;
                 }).join(' ');
                 
                 // Use first specialty icon as main icon
-                const mainIcon = specIcons[entry.specCodes[0]] || "🏥";
+                const mainIcon = getSpecIcon(entry.specCodes[0]);
                 
                 return `
                     <div class="roster-card" 
@@ -1109,7 +1119,6 @@
                 return; 
             }
             
-            // Merge specialties for report too
             const mergedMap = new Map();
             todayEntries.forEach(entry => {
                 if (mergedMap.has(entry.name)) {
@@ -1137,7 +1146,7 @@
             
             mergedEntries.forEach((entry) => {
                 const phone = entry.phone;
-                const specNames = entry.specs.map(code => arabicSpecs[code] || code).join(' + ');
+                const specNames = entry.specs.map(code => getSpecName(code)).join(' + ');
                 
                 report += `*${specNames}*\n`;
                 report += `👨‍⚕️ *${entry.name}*\n`;
@@ -1220,7 +1229,6 @@
             
             let html = '';
             
-            // Properly scaled step chart with fixed container
             if (topThree.length > 0) {
                 const maxVisits = topThree[0]?.totalVisits || 1;
                 const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
@@ -1233,12 +1241,11 @@
                         <div class="step-chart">
                 `;
                 ordered.forEach((item, index) => {
-                    // Fixed max height: 60px (with 65px wrap)
                     const maxHeight = 60;
                     const ratio = item.totalVisits / maxVisits;
                     const heightPx = Math.max(ratio * maxHeight, 4);
-                    const specName = arabicSpecs[item.specCode] || item.specCode;
-                    const icon = specIcons[item.specCode] || "🏥";
+                    const specName = getSpecName(item.specCode);
+                    const icon = getSpecIcon(item.specCode);
                     html += `
                         <div class="step-bar">
                             <div class="bar-value">${item.totalVisits}</div>
@@ -1256,8 +1263,8 @@
             if (others.length > 0) {
                 html += `<div class="mt-2 space-y-1">`;
                 others.forEach((item, index) => {
-                    const specName = arabicSpecs[item.specCode] || item.specCode;
-                    const icon = specIcons[item.specCode] || "🏥";
+                    const specName = getSpecName(item.specCode);
+                    const icon = getSpecIcon(item.specCode);
                     html += `<div class="medal-item"><span class="text-lg w-6">#${index+4}</span><div class="flex-1"><div class="font-bold text-primary text-sm">${icon} ${item.name}</div><div class="text-xs text-secondary">${specName}</div></div><div class="text-right"><div class="font-bold text-amber-500 text-sm">${item.totalVisits}</div></div></div>`;
                 });
                 html += `</div>`;
@@ -1267,7 +1274,6 @@
             html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
             content.innerHTML = html;
             
-            // Trigger animation after render
             setTimeout(() => {
                 document.querySelectorAll('.step-bar .bar').forEach(bar => {
                     void bar.offsetHeight;
@@ -1308,11 +1314,12 @@
                         fileSha = data.sha;
                         const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                         db = content; dataLoaded = true;
+                        buildSpecialtyMaps(db.specialties);
                         localStorage.setItem('duty_db_cache', JSON.stringify(db));
                     }
                 } catch(e) {
                     const cached = localStorage.getItem('duty_db_cache');
-                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; } catch(e2) {}
+                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; buildSpecialtyMaps(db.specialties); } catch(e2) {}
                 }
             }
             setTimeout(() => { const s=document.getElementById('shield'); if(s){s.style.opacity='0'; setTimeout(()=>s.remove(),500);} }, 800);
