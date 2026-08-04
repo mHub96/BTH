@@ -102,7 +102,22 @@
       "name_en": "Death Certificatess",
       "icon": "📋",
       "acceptPool": [
-        "GS"
+        "GS",
+        "US",
+        "OR",
+        "M",
+        "ENT",
+        "MF",
+        "ICU",
+        "OP",
+        "GA",
+        "Pe",
+        "NM",
+        "N",
+        "O",
+        "G",
+        "P",
+        "R"
       ]
     }
   ],
