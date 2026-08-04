@@ -108,7 +108,9 @@
       "id": "G",
       "name_ar": "النسائية و التوليد",
       "name_en": "Gynecology",
-      "icon": "🌸"
+      "icon": "🌸",
+      "color": "#e40de7",
+      "acceptPool": []
     },
     {
       "id": "P",
