@@ -4,7 +4,9 @@
       "id": "GS",
       "name_ar": "الجراحة العامة",
       "name_en": "General Surgery",
-      "icon": "🔪"
+      "icon": "🔪",
+      "color": "#2ac200",
+      "acceptPool": []
     },
     {
       "id": "US",
