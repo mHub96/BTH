@@ -210,11 +210,11 @@
         body.dark .trending-badge { color: #0b0e12; }
         
         /* ============================================================
-           STEP CHART — FIXED SPACING & WRAPPED NAMES
+           STEP CHART — CLEAN, COMPACT, WRAPPED NAMES (from reference)
            ============================================================ */
         .step-chart-wrapper {
             border-radius: 1.5rem;
-            padding: 0.6rem 1rem 1rem;
+            padding: 0.8rem 0.8rem 1rem;
             margin: 0.2rem 0 0.2rem;
             border: 1px solid rgba(212,175,55,0.06);
             transition: all 0.3s ease;
@@ -230,19 +230,19 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             color: var(--text-secondary, #475569);
-            opacity: 0.5;
+            opacity: 0.4;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid rgba(212,175,55,0.06);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
-        body.dark .step-chart-title { color: #a8b3c9; opacity: 0.6; }
+        body.dark .step-chart-title { color: #a8b3c9; opacity: 0.5; }
         .step-chart {
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             padding: 0.2rem 0.3rem 0.2rem;
-            height: 140px;
+            height: 130px;
             width: 100%;
         }
         .step-bar {
@@ -251,12 +251,12 @@
             align-items: center;
             gap: 0.2rem;
             flex: 1;
-            max-width: 80px;
-            min-width: 55px;
+            max-width: 75px;
+            min-width: 50px;
         }
         .step-bar .bar {
             width: 100%;
-            max-width: 48px;
+            max-width: 44px;
             border-radius: 6px 6px 0 0;
             min-height: 6px;
             transition: all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
@@ -276,10 +276,10 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
-            max-width: 80px;
+            max-width: 75px;
             line-height: 1.3;
             padding: 0 2px;
-            min-height: 2.2rem;
+            min-height: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -292,7 +292,7 @@
         body.dark .step-bar .bar-value { color: #f0f3f8; }
         body.dark .step-bar .bar-label { color: #a8b3c9; }
         .step-medal-icon {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             line-height: 1;
         }
         
@@ -582,7 +582,7 @@
         <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
     </div>
 
-    <!-- LEADERBOARD MODAL -->
+    <!-- LEADERBOARD MODAL — UPDATED STYLE -->
     <div id="trending-modal" class="modal-overlay" onclick="if(event.target===this) closeTrendingModal()">
         <div class="modal-card glass-card">
             <div class="flex justify-between items-center mb-2">
@@ -594,9 +594,9 @@
                 </button>
             </div>
             <div class="filter-tabs" id="leaderboard-tabs">
-                <button class="filter-tab active" data-filter="today" onclick="switchLeaderboardFilter('today')">Today</button>
-                <button class="filter-tab" data-filter="month" onclick="switchLeaderboardFilter('month')">This Month</button>
-                <button class="filter-tab" data-filter="all" onclick="switchLeaderboardFilter('all')">All Time</button>
+                <button class="filter-tab active" data-filter="today" onclick="switchLeaderboardFilter('today')">اليوم</button>
+                <button class="filter-tab" data-filter="month" onclick="switchLeaderboardFilter('month')">هذا الشهر</button>
+                <button class="filter-tab" data-filter="all" onclick="switchLeaderboardFilter('all')">الكل</button>
             </div>
             <div id="trending-content" class="space-y-2 mt-1"></div>
         </div>
@@ -1042,7 +1042,6 @@
                 const specName = arabicSpecs[entry.specCode] || entry.specCode;
                 
                 report += `*${specName}*\n`;
-                // Use the name as-is from the database (already includes "د. " if present)
                 report += `👨‍⚕️ *${entry.name}*\n`;
                 report += `☎️ _${phone}_\n`;
                 report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
@@ -1123,6 +1122,7 @@
             
             let html = '';
             
+            // Compact step chart with wrapped names
             if (topThree.length > 0) {
                 const maxVisits = topThree[0]?.totalVisits || 1;
                 const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
@@ -1135,7 +1135,7 @@
                         <div class="step-chart">
                 `;
                 ordered.forEach((item, index) => {
-                    const height = Math.max((item.totalVisits / maxVisits) * 120, 10);
+                    const height = Math.max((item.totalVisits / maxVisits) * 115, 8);
                     const specName = arabicSpecs[item.specCode] || item.specCode;
                     const icon = specIcons[item.specCode] || "🏥";
                     html += `
