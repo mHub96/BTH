@@ -334,7 +334,7 @@
         .toggle-switch .toggle-label {
             font-size: 0.7rem;
             font-weight: 600;
-            margin-right: 0.6rem;
+            margin-left: 0.6rem;
             color: var(--text-secondary, #475569);
             white-space: nowrap;
         }
@@ -374,10 +374,30 @@
             box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
         }
         .specialty-item.disabled-spec {
-            opacity: 0.5;
+            opacity: 0.6;
         }
         .specialty-item.disabled-spec .spec-name {
             text-decoration: line-through;
+        }
+
+        /* Badge for hidden-from-public specialties */
+        .hidden-badge {
+            font-size: 0.5rem;
+            background: #ef4444;
+            color: white;
+            padding: 0.05rem 0.4rem;
+            border-radius: 100px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        body.dark .hidden-badge {
+            background: #dc2626;
+        }
+        .spec-header.hidden-spec {
+            opacity: 0.6;
+        }
+        .spec-header.hidden-spec .spec-count {
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -557,10 +577,10 @@
                 <div class="flex items-center gap-3">
                     <input type="text" id="spec-name-ar" class="input-field flex-1" placeholder="الاسم بالعربية (مثال: الجراحة العامة)">
                     <label class="toggle-switch">
-                        <span class="toggle-label">مفعل</span>
+                        <span class="toggle-label">ظهور للجمهور</span>
                         <input type="checkbox" id="spec-enabled" checked />
                         <span class="toggle-slider"></span>
-                        <span class="toggle-status off" id="spec-status-label">إيقاف</span>
+                        <span class="toggle-status off" id="spec-status-label">مخفي</span>
                     </label>
                 </div>
                 
@@ -785,7 +805,7 @@
             document.getElementById('password-input').focus();
         }
 
-        // ========== POPULATE SPECIALTY SELECTS (filter out disabled) ==========
+        // ========== POPULATE SPECIALTY SELECTS (show ALL specialties for admin) ==========
         function populateSpecialtySelects() {
             const selects = ['new-spec', 'edit-spec'];
             selects.forEach(id => {
@@ -793,14 +813,14 @@
                 if (!sel) return;
                 const currentVal = sel.value;
                 sel.innerHTML = '<option value="">-- اختر التخصص --</option>';
-                (db.specialties || [])
-                    .filter(s => s.enabled !== false) // Only show enabled specialties
-                    .forEach(spec => {
-                        const opt = document.createElement('option');
-                        opt.value = spec.id;
-                        opt.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
-                        sel.appendChild(opt);
-                    });
+                // Show ALL specialties in admin panel (including disabled ones)
+                (db.specialties || []).forEach(spec => {
+                    const opt = document.createElement('option');
+                    opt.value = spec.id;
+                    const disabledLabel = spec.enabled === false ? ' 🔒' : '';
+                    opt.textContent = `${spec.icon || '🏥'} ${spec.name_ar}${disabledLabel}`;
+                    sel.appendChild(opt);
+                });
                 if (currentVal) sel.value = currentVal;
             });
         }
@@ -922,10 +942,10 @@
             if (toggleInput && statusLabel) {
                 toggleInput.addEventListener('change', function() {
                     if (this.checked) {
-                        statusLabel.textContent = 'تشغيل';
+                        statusLabel.textContent = 'ظاهر';
                         statusLabel.className = 'toggle-status on';
                     } else {
-                        statusLabel.textContent = 'إيقاف';
+                        statusLabel.textContent = 'مخفي';
                         statusLabel.className = 'toggle-status off';
                     }
                 });
@@ -960,6 +980,7 @@
                         <span class="spec-icon">${spec.icon || '🏥'}</span>
                         <span class="spec-id">${spec.id}</span>
                         <span class="spec-name">${spec.name_ar}</span>
+                        ${!isEnabled ? '<span class="hidden-badge">مخفي</span>' : ''}
                         <span class="spec-color-preview" style="background-color:${color};"></span>
                         <span class="text-[0.5rem] text-secondary/40">${spec.name_en || ''}</span>
                         ${poolCount > 0 ? `<span class="text-[0.5rem] text-blue-500 dark:text-amber-400">+${poolCount}</span>` : ''}
@@ -991,7 +1012,7 @@
             if (toggle) {
                 toggle.checked = true;
                 if (statusLabel) {
-                    statusLabel.textContent = 'تشغيل';
+                    statusLabel.textContent = 'ظاهر';
                     statusLabel.className = 'toggle-status on';
                 }
             }
@@ -1023,10 +1044,10 @@
                 toggle.checked = spec.enabled !== false;
                 if (statusLabel) {
                     if (toggle.checked) {
-                        statusLabel.textContent = 'تشغيل';
+                        statusLabel.textContent = 'ظاهر';
                         statusLabel.className = 'toggle-status on';
                     } else {
-                        statusLabel.textContent = 'إيقاف';
+                        statusLabel.textContent = 'مخفي';
                         statusLabel.className = 'toggle-status off';
                     }
                 }
@@ -1066,11 +1087,12 @@
 
             container.innerHTML = filteredSpecs.map(spec => {
                 const isChecked = selected.includes(spec.id);
+                const isEnabled = spec.enabled !== false;
                 return `
-                    <label class="pool-option ${isChecked ? 'selected' : ''}">
-                        <input type="checkbox" value="${spec.id}" ${isChecked ? 'checked' : ''} />
+                    <label class="pool-option ${isChecked ? 'selected' : ''}" style="${!isEnabled ? 'opacity:0.5;' : ''}">
+                        <input type="checkbox" value="${spec.id}" ${isChecked ? 'checked' : ''} ${!isEnabled ? 'disabled' : ''} />
                         <span class="spec-icon-small">${spec.icon || '🏥'}</span>
-                        <span class="spec-label">${spec.name_ar}</span>
+                        <span class="spec-label">${spec.name_ar}${!isEnabled ? ' 🔒' : ''}</span>
                     </label>
                 `;
             }).join('');
@@ -1175,20 +1197,15 @@
             showToast('تم تحديث كلمات المرور بنجاح', 'success');
         }
 
-        // ========== RENDER RESIDENTS (filter out disabled specialties) ==========
+        // ========== RENDER RESIDENTS (show ALL specialties in admin panel) ==========
         function renderResidents() {
             const list = document.getElementById('resident-list');
             const query = document.getElementById('search-db').value.toLowerCase();
             list.innerHTML = "";
 
-            // Get enabled specialty IDs
-            const enabledSpecIds = (db.specialties || [])
-                .filter(s => s.enabled !== false)
-                .map(s => s.id);
-
+            // Show ALL residents in admin panel, regardless of specialty enabled status
             const activeRes = db.names.filter(r => 
                 r.spec !== "RESERVE" && 
-                enabledSpecIds.includes(r.spec) &&
                 r.name.toLowerCase().includes(query)
             );
             const reserveRes = db.names.filter(r => 
@@ -1199,43 +1216,50 @@
             const specMap = {};
             (db.specialties || []).forEach(s => specMap[s.id] = s);
 
-            (db.specialties || [])
-                .filter(s => s.enabled !== false)
-                .forEach(spec => {
-                    const residents = activeRes.filter(r => r.spec === spec.id || r.tag === spec.id);
-                    if (residents.length === 0) return;
+            // Show ALL specialties in admin panel (including disabled ones)
+            (db.specialties || []).forEach(spec => {
+                const residents = activeRes.filter(r => r.spec === spec.id || r.tag === spec.id);
+                if (residents.length === 0) return;
 
-                    const isExpanded = query.length > 0 ? "active" : "";
-                    const section = document.createElement('div');
-                    section.className = "mb-2";
-                    const color = spec.color || '#3b82f6';
-                    section.innerHTML = `
-                        <div class="spec-header" onclick="toggleSection('${spec.id}')" style="border-right: 4px solid ${color};">
-                            <span><i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> ${spec.icon || '🏥'} ${spec.name_ar}</span>
-                            <span class="spec-count px-3 py-0.5 rounded-full text-[11px]" style="background:${color}20; color:${color};">${residents.length}</span>
-                        </div>
-                        <div id="content-${spec.id}" class="spec-content ${isExpanded}">
-                            ${residents.map((r) => {
-                                const idx = db.names.indexOf(r);
-                                return `
-                                <div class="resident-card" style="border-right: 3px solid ${color};">
-                                    <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
-                                        <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
-                                            ${r.name}
-                                            <span class="badge-spec">${spec.id}</span>
-                                            <span class="badge-active"><i class="fas fa-check-circle mr-1"></i> نشط</span>
-                                        </div>
-                                        <div class="text-[11px] text-secondary phone-ltr font-mono">${r.phone || ''}</div>
+                const isExpanded = query.length > 0 ? "active" : "";
+                const section = document.createElement('div');
+                section.className = "mb-2";
+                const color = spec.color || '#3b82f6';
+                const isEnabled = spec.enabled !== false;
+                const hiddenClass = !isEnabled ? 'hidden-spec' : '';
+                const hiddenBadge = !isEnabled ? '<span class="hidden-badge mr-2">مخفي</span>' : '';
+                
+                section.innerHTML = `
+                    <div class="spec-header ${hiddenClass}" onclick="toggleSection('${spec.id}')" style="border-right: 4px solid ${color};">
+                        <span>
+                            <i class="fas fa-chevron-down text-[10px] ml-2 opacity-40"></i> 
+                            ${spec.icon || '🏥'} ${spec.name_ar}
+                            ${hiddenBadge}
+                        </span>
+                        <span class="spec-count px-3 py-0.5 rounded-full text-[11px]" style="background:${color}20; color:${color};">${residents.length}</span>
+                    </div>
+                    <div id="content-${spec.id}" class="spec-content ${isExpanded}">
+                        ${residents.map((r) => {
+                            const idx = db.names.indexOf(r);
+                            return `
+                            <div class="resident-card" style="border-right: 3px solid ${color};">
+                                <div class="flex-1 cursor-pointer" onclick="openEdit(${idx})">
+                                    <div class="font-bold text-primary text-sm flex items-center gap-2 flex-wrap">
+                                        ${r.name}
+                                        <span class="badge-spec">${spec.id}</span>
+                                        <span class="badge-active"><i class="fas fa-check-circle mr-1"></i> نشط</span>
                                     </div>
-                                    <button onclick="deleteResident(${idx})" class="text-secondary/30 hover:text-red-500 text-xs px-2 py-1 transition">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </div>`;
-                            }).join('')}
-                        </div>
-                    `;
-                    list.appendChild(section);
-                });
+                                    <div class="text-[11px] text-secondary phone-ltr font-mono">${r.phone || ''}</div>
+                                </div>
+                                <button onclick="deleteResident(${idx})" class="text-secondary/30 hover:text-red-500 text-xs px-2 py-1 transition">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                `;
+                list.appendChild(section);
+            });
 
             if (reserveRes.length > 0) {
                 const isExpanded = query.length > 0 ? "active" : "";
@@ -1271,9 +1295,10 @@
             }
 
             const activeCount = db.names.filter(r => r.spec !== "RESERVE").length;
+            const totalSpecs = (db.specialties || []).length;
             const enabledCount = (db.specialties || []).filter(s => s.enabled !== false).length;
             document.getElementById('count-tag').innerHTML =
-                `<i class="fas fa-users mr-1"></i> ${db.names.length} مسجل · ${activeCount} نشط · ${enabledCount} تخصص مفعل`;
+                `<i class="fas fa-users mr-1"></i> ${db.names.length} مسجل · ${activeCount} نشط · ${enabledCount}/${totalSpecs} تخصص ظاهر`;
         }
 
         function toggleSection(id) {
