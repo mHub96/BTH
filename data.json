@@ -1590,13 +1590,6 @@
       "active": true
     },
     {
-      "name": "د. Administrative Officer TEST01",
-      "spec": "AO",
-      "phone": "321654987",
-      "tag": "AO",
-      "active": true
-    },
-    {
       "name": "AO TEST 02",
       "spec": "AO",
       "tag": "AO",
