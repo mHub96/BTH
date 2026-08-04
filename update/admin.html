@@ -198,11 +198,13 @@
         .spec-accept-pool .pool-tag { font-size: 0.5rem; padding: 0.1rem 0.4rem; border-radius: 100px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.06); }
         .spec-accept-pool .pool-tag.active { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.1); }
 
-        .pool-selection { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem; max-height: 100px; overflow-y: auto; padding: 0.2rem; }
-        .pool-option { display: flex; align-items: center; gap: 0.2rem; font-size: 0.6rem; padding: 0.1rem 0.4rem; border-radius: 100px; border: 1px solid rgba(212,175,55,0.06); cursor: pointer; transition: all 0.2s ease; }
+        .pool-selection { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; max-height: 120px; overflow-y: auto; padding: 0.3rem; background: rgba(0,0,0,0.02); border-radius: 0.8rem; }
+        .pool-option { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; border: 1px solid rgba(212,175,55,0.06); cursor: pointer; transition: all 0.2s ease; background: rgba(255,255,255,0.03); }
         .pool-option:hover { background: rgba(212,175,55,0.04); }
-        .pool-option.selected { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.1); }
-        .pool-option input[type="checkbox"] { width: 0.7rem; height: 0.7rem; accent-color: #d4af37; cursor: pointer; }
+        .pool-option.selected { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.15); }
+        .pool-option input[type="checkbox"] { width: 0.8rem; height: 0.8rem; accent-color: #d4af37; cursor: pointer; }
+        .pool-option .spec-label { font-weight: 500; }
+        .pool-option .spec-icon-small { font-size: 0.8rem; margin-left: 0.1rem; }
     </style>
 </head>
 <body class="light" id="app-body">
@@ -621,18 +623,22 @@
                 container.innerHTML = `<div class="text-center text-secondary/40 text-sm py-4">لا يوجد تخصصات. أضف تخصصاً جديداً.</div>`;
                 return;
             }
-            container.innerHTML = specialties.map(spec => `
-                <div class="specialty-item">
-                    <span class="spec-icon">${spec.icon || '🏥'}</span>
-                    <span class="spec-id">${spec.id}</span>
-                    <span class="spec-name">${spec.name_ar}</span>
-                    <span class="text-[0.5rem] text-secondary/40">${spec.name_en || ''}</span>
-                    <div class="spec-actions">
-                        <button class="spec-edit-btn" onclick="openEditSpecialty('${spec.id}')"><i class="fas fa-edit"></i></button>
-                        <button class="spec-delete-btn" onclick="deleteSpecialty('${spec.id}')"><i class="fas fa-trash"></i></button>
+            container.innerHTML = specialties.map(spec => {
+                const poolCount = (spec.acceptPool || []).length;
+                return `
+                    <div class="specialty-item">
+                        <span class="spec-icon">${spec.icon || '🏥'}</span>
+                        <span class="spec-id">${spec.id}</span>
+                        <span class="spec-name">${spec.name_ar}</span>
+                        <span class="text-[0.5rem] text-secondary/40">${spec.name_en || ''}</span>
+                        ${poolCount > 0 ? `<span class="text-[0.5rem] text-blue-500 dark:text-amber-400">+${poolCount}</span>` : ''}
+                        <div class="spec-actions">
+                            <button class="spec-edit-btn" onclick="openEditSpecialty('${spec.id}')"><i class="fas fa-edit"></i></button>
+                            <button class="spec-delete-btn" onclick="deleteSpecialty('${spec.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function openAddSpecialty() {
@@ -671,12 +677,25 @@
                 container.innerHTML = '<div class="text-xs text-secondary/40">أضف تخصصات أولاً لتحديد المصادر</div>';
                 return;
             }
-            container.innerHTML = allSpecs.map(spec => `
-                <label class="pool-option ${selected.includes(spec.id) ? 'selected' : ''}">
-                    <input type="checkbox" value="${spec.id}" ${selected.includes(spec.id) ? 'checked' : ''} />
-                    ${spec.icon || '🏥'} ${spec.id}
-                </label>
-            `).join('');
+            // Exclude the current specialty from its own pool
+            const currentEditId = document.getElementById('specialty-edit-id').value;
+            const filteredSpecs = allSpecs.filter(s => s.id !== currentEditId);
+            
+            if (filteredSpecs.length === 0) {
+                container.innerHTML = '<div class="text-xs text-secondary/40">لا توجد تخصصات أخرى لإضافتها</div>';
+                return;
+            }
+
+            container.innerHTML = filteredSpecs.map(spec => {
+                const isChecked = selected.includes(spec.id);
+                return `
+                    <label class="pool-option ${isChecked ? 'selected' : ''}">
+                        <input type="checkbox" value="${spec.id}" ${isChecked ? 'checked' : ''} />
+                        <span class="spec-icon-small">${spec.icon || '🏥'}</span>
+                        <span class="spec-label">${spec.name_ar}</span>
+                    </label>
+                `;
+            }).join('');
         }
 
         function getPoolSelection() {
