@@ -70,7 +70,7 @@
       "icon": "💉",
       "color": "#b4cc00",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "GA",
