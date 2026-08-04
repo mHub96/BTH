@@ -28,7 +28,9 @@
       "id": "M",
       "name_ar": "الباطنية",
       "name_en": "Internal Medicine",
-      "icon": "💊"
+      "icon": "💊",
+      "color": "#003385",
+      "acceptPool": []
     },
     {
       "id": "ENT",
