@@ -107,6 +107,21 @@
         body.light .roster-card .resident-spec { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
         body.dark .roster-card .resident-spec { color: #d4af37 !important; border-color: rgba(212,175,55,0.15); background: rgba(212,175,55,0.04); }
         
+        /* Golden style for multiple specialties */
+        .roster-card .resident-spec.multiple {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            color: #1a2332 !important;
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 20px rgba(251,191,36,0.15);
+            font-weight: 800;
+        }
+        body.dark .roster-card .resident-spec.multiple {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            color: #1a2332 !important;
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 20px rgba(251,191,36,0.2);
+        }
+        
         .roster-card .resident-name {
             font-weight: 800;
             font-size: 1.3rem;
@@ -672,11 +687,11 @@
             "MF":"جراحة الوجه و الفكين","M":"الباطنية","P":"النفسية","G":"النسائية و التوليد",
             "GS":"الجراحة العامة","US":"جراحة المسالك البولية",
             "ENT":"الأذن و الأنف و الحنجرة","OR":"الكسور","Pe":"الاطفال","NM":"طب الجملة العصبية","N":"طب امراض الكلى",
-            "ICU":"تخدير العناية المركزة","OP":"تخدير العمليات","GA":"تخدير صالة الولادة",
+            "ICU":"تخدير العناية المركزة","OP":"تخدير العمليات", "GA":"تخدير صالة الولادة",
             "R":"الأشعة و السونار","O":"العيون","D":"الوفيات"
         };
         const specIcons = {
-            "GS":"🔪","US":"🧬","OR":"🦴","ENT":"👂","M":"💊","Pe":"👶","NM":"🧠","N":"🧫","GA":"🤰",
+            "GS":"🔪","US":"🧬","OR":"🦴","ENT":"👂","M":"💊","Pe":"👶","NM":"🧠","N":"🧫", "GA":"🤰",
             "O":"👁️","ICU":"💉","OP":"💉","MF":"🦷","R":"🩻","G":"🌸","P":"🧠","D":"📋"
         };
 
@@ -690,7 +705,7 @@
         let isAutoLoginAttempted = false;
         let trendingHandVisible = true;
 
-        // ========== THEME ==========
+        // ========== THEME ==========v
         function toggleTheme() {
             document.getElementById('app-body').classList.toggle('light');
             document.getElementById('app-body').classList.toggle('dark');
@@ -969,27 +984,65 @@
                 return;
             }
 
+            // ========== MERGE RESIDENTS WITH MULTIPLE SPECIALTIES ==========
+            const mergedMap = new Map();
+            
+            todayEntries.forEach(entry => {
+                if (mergedMap.has(entry.name)) {
+                    // Resident already exists, add this specialty
+                    const existing = mergedMap.get(entry.name);
+                    existing.specCodes.push(entry.specCode);
+                    // Keep the highest visit count
+                    if ((entry.VisitCount || 0) > (existing.totalVisits || 0)) {
+                        existing.totalVisits = entry.VisitCount || 0;
+                    }
+                } else {
+                    // New resident
+                    mergedMap.set(entry.name, {
+                        name: entry.name,
+                        specCodes: [entry.specCode],
+                        totalVisits: entry.VisitCount || 0,
+                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
+                    });
+                }
+            });
+
+            // Convert map to array and sort by first specialty code
+            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
+                a.specCodes[0].localeCompare(b.specCodes[0])
+            );
+
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            const sortedEntries = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
             const trendingRes = getTrendingResident();
-            container.innerHTML = sortedEntries.map(entry => {
-                const resident = db.names.find(n => n.name === entry.name);
-                const phone = resident?.phone || "رقم غير متوفر";
-                const specName = arabicSpecs[entry.specCode] || entry.specCode;
-                const icon = specIcons[entry.specCode] || "🏥";
+            
+            container.innerHTML = mergedEntries.map(entry => {
+                const phone = entry.phone;
                 const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
-                const visitCount = entry.VisitCount || 0;
+                const visitCount = entry.totalVisits || 0;
                 const isTrending = visitCount > 0 && trendingRes && trendingRes.name === entry.name;
                 const phoneClean = isPhoneValid ? phone.replace(/[^0-9]/g,'') : '';
                 const today = getMedicalDate();
-                // OLD WhatsApp link mechanism - simple and works
                 const waHref = isPhoneValid ? `whatsapp://send?phone=${phoneClean}` : '#';
+                const isMultiple = entry.specCodes.length > 1;
+                
+                // Build specialty tags - each as a separate bubble
+                const specTags = entry.specCodes.map((code) => {
+                    const specName = arabicSpecs[code] || code;
+                    const icon = specIcons[code] || "🏥";
+                    return `<span class="resident-spec ${isMultiple ? 'multiple' : ''}">${icon} ${specName}</span>`;
+                }).join(' ');
+                
+                // Use first specialty icon as main icon
+                const mainIcon = specIcons[entry.specCodes[0]] || "🏥";
+                
                 return `
                     <div class="roster-card" 
                          onmousemove="handleCardTilt(event, this)"
                          onmouseleave="resetCardTilt(this)">
-                        <div class="resident-spec">${specName}</div>
-                        <div class="resident-name"><span class="spec-icon">${icon}</span> ${entry.name}</div>
+                        <div style="display:flex; gap:0.3rem; flex-wrap:wrap; justify-content:center; margin-bottom:0.1rem;">
+                            ${specTags}
+                        </div>
+                        <div class="resident-name"><span class="spec-icon">${mainIcon}</span> ${entry.name}</div>
                         <div class="resident-phone">${phone}</div>
                         <div class="card-actions">
                             <a href="${isPhoneValid ? 'tel:'+phoneClean : '#'}" 
@@ -1005,6 +1058,7 @@
                         </div>
                         ${isTrending ? `<span class="trending-badge" style="position:absolute;top:8px;left:12px;font-size:0.5rem;"><i class="fas fa-fire"></i> Trending</span>` : ''}
                         ${visitCount > 0 ? `<span style="position:absolute;bottom:8px;left:12px;font-size:0.6rem;opacity:0.4;">${visitCount} 👁️</span>` : ''}
+                        ${isMultiple ? `<span style="position:absolute;top:8px;right:12px;font-size:0.5rem;opacity:0.7;background:rgba(251,191,36,0.15);padding:0.1rem 0.5rem;border-radius:100px;border:1px solid rgba(251,191,36,0.1);">${entry.specCodes.length} تخصصات</span>` : ''}
                     </div>
                 `;
             }).join('');
@@ -1046,7 +1100,7 @@
             return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
         }
 
-        // ========== REPORT GENERATOR — WITHOUT EXTRA "د. " ==========
+        // ========== REPORT GENERATOR — WITH MERGED SPECIALTIES ==========
         function generateAndCopyReport() {
             const targetDate = getMedicalDate();
             const todayEntries = db.schedule.filter(s => s.date === targetDate);
@@ -1055,7 +1109,25 @@
                 return; 
             }
             
-            const sortedEntries = [...todayEntries].sort((a,b) => a.specCode.localeCompare(b.specCode));
+            // Merge specialties for report too
+            const mergedMap = new Map();
+            todayEntries.forEach(entry => {
+                if (mergedMap.has(entry.name)) {
+                    const existing = mergedMap.get(entry.name);
+                    existing.specs.push(entry.specCode);
+                } else {
+                    mergedMap.set(entry.name, {
+                        name: entry.name,
+                        specs: [entry.specCode],
+                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
+                    });
+                }
+            });
+            
+            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
+                a.specs[0].localeCompare(b.specs[0])
+            );
+            
             const formattedDate = getFormattedDate();
             
             let report = `🏥 *تبليغ خفراء اليوم*\n`;
@@ -1063,12 +1135,11 @@
             report += `📍 مستشفى البصرة التعليمي — البصرة\n\n`;
             report += `https://mhub96.github.io/BTH/Home\n\n`;
             
-            sortedEntries.forEach((entry) => {
-                const resident = db.names.find(n => n.name === entry.name);
-                const phone = resident?.phone || "رقم غير متوفر";
-                const specName = arabicSpecs[entry.specCode] || entry.specCode;
+            mergedEntries.forEach((entry) => {
+                const phone = entry.phone;
+                const specNames = entry.specs.map(code => arabicSpecs[code] || code).join(' + ');
                 
-                report += `*${specName}*\n`;
+                report += `*${specNames}*\n`;
                 report += `👨‍⚕️ *${entry.name}*\n`;
                 report += `☎️ _${phone}_\n`;
                 report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
