@@ -20,7 +20,9 @@
       "id": "OR",
       "name_ar": "الكسور",
       "name_en": "Orthopaedics",
-      "icon": "🦴"
+      "icon": "🦴",
+      "color": "#ff0000",
+      "acceptPool": []
     },
     {
       "id": "M",
