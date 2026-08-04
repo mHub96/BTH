@@ -52,7 +52,9 @@
       "id": "ICU",
       "name_ar": "تخدير العناية المركزة",
       "name_en": "ICU Anaesthesia",
-      "icon": "💉"
+      "icon": "💉",
+      "color": "#ff8e24",
+      "acceptPool": []
     },
     {
       "id": "OP",
