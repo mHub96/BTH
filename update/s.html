@@ -23,17 +23,6 @@
             --radius-input: 1.2rem;
         }
 
-        /* track accent colors – kept but refined */
-        .track-OR { --spec-color: #fbbf24; }   .track-MF { --spec-color: #f87171; }
-        .track-GS { --spec-color: #34d399; }   .track-US { --spec-color: #60a5fa; }
-        .track-ENT { --spec-color: #a78bfa; }  .track-M { --spec-color: #fb7185; }
-        .track-D { --spec-color: #94a3b8; }    .track-OP { --spec-color: #fb923c; }
-        .track-ICU { --spec-color: #2dd4bf; }  .track-R { --spec-color: #818cf8; }
-        .track-O { --spec-color: #f472b6; }    .track-G { --spec-color: #22c55e; } 
-        .track-P { --spec-color: #06b6d4; }    .track-Pe { --spec-color: #eab308; } 
-        .track-NM { --spec-color: #9333ea; }   .track-N { --spec-color: #2563eb; }
-        .track-GA { --spec-color: #ec4899; }   .track-AO  { --spec-color: #64748b; }
-
         /* base */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -437,7 +426,7 @@
     const CONFIG = {
         user: "mHub96",
         repo: "BTH",
-        path: "update/data.json"  // Updated to point to the update folder
+        path: "update/data.json"
     };
 
     const t1 = "ghp_dAUtsFhTH";
@@ -450,6 +439,7 @@
     let fileSha = "";
     let nameData = {};
     let specialtyList = [];
+    let specialtyColorMap = {};
 
     // ----- INIT -----
     window.onload = async () => {
@@ -500,7 +490,7 @@
                     db.passwords = { user: "12345", admin: "123" };
                 }
 
-                // Build specialty list from db.specialties
+                // Build specialty list with colors from db.specialties
                 buildSpecialtyList();
             }
             updateNameLookup();
@@ -510,11 +500,19 @@
         if (wrapper) wrapper.classList.remove('loading-active');
     }
 
-    // ========== BUILD SPECIALTY LIST DYNAMICALLY ==========
+    // ========== BUILD SPECIALTY LIST WITH COLORS ==========
     function buildSpecialtyList() {
+        // Build color map from db.specialties
+        specialtyColorMap = {};
+        if (db.specialties && db.specialties.length > 0) {
+            db.specialties.forEach(spec => {
+                specialtyColorMap[spec.id] = spec.color || '#60a5fa';
+            });
+        }
+
         if (!db.specialties || db.specialties.length === 0) {
-            // Fallback to hardcoded list if specialties not found
-            specialtyList = [
+            // Fallback to hardcoded list with fallback colors
+            const fallbackSpecs = [
                 { id: "MF", name: "MaxilloFacial Surgery" }, { id: "GS", name: "General Surg" }, 
                 { id: "OR", name: "Orthopaedics" }, { id: "US", name: "Urosurgery" }, 
                 { id: "ENT", name: "ENT" }, { id: "O", name: "Ophthalmology" }, 
@@ -525,38 +523,54 @@
                 { id: "GA", name: "GYN Anaesthesia" }, { id: "D", name: "Death Certs" }, 
                 { id: "R", name: "Radiology" }, { id: "AO", name: "Administrative Officer" } 
             ];
+            specialtyList = fallbackSpecs.map(spec => ({
+                id: spec.id,
+                name: spec.name
+            }));
+            // Set fallback colors
+            const fallbackColors = {
+                OR: '#fbbf24', MF: '#f87171', GS: '#34d399', US: '#60a5fa',
+                ENT: '#a78bfa', M: '#fb7185', D: '#94a3b8', OP: '#fb923c',
+                ICU: '#2dd4bf', R: '#818cf8', O: '#f472b6', G: '#22c55e',
+                P: '#06b6d4', Pe: '#eab308', NM: '#9333ea', N: '#2563eb',
+                GA: '#ec4899', AO: '#64748b'
+            };
+            Object.keys(fallbackColors).forEach(key => {
+                specialtyColorMap[key] = fallbackColors[key];
+            });
             return;
         }
         
-        // Build from db.specialties
+        // Build from db.specialties with their colors
         specialtyList = db.specialties.map(spec => ({
             id: spec.id,
-            name: spec.name_en || spec.name_ar || spec.id
+            name: spec.name_en || spec.name_ar || spec.id,
+            color: spec.color || '#60a5fa'
         }));
+        
+        // Update color map
+        db.specialties.forEach(spec => {
+            specialtyColorMap[spec.id] = spec.color || '#60a5fa';
+        });
     }
 
     function updateNameLookup() {
         nameData = {};
         const residents = db.names || [];
         specialtyList.forEach(s => {
-            // Check if this specialty has an acceptPool defined
             const specObj = db.specialties?.find(sp => sp.id === s.id);
             const acceptPool = specObj?.acceptPool || [];
             
             if (s.id === "OP" || s.id === "ICU" || s.id === "GA") {
-                // For anesthesia specialties, get residents with spec "A"
                 nameData[s.id] = residents.filter(x => x.spec === "A").map(x => x.name);
             } else if (s.id === "D") {
-                // Death Certs accepts from all specialties (or from acceptPool if defined)
                 if (acceptPool.length > 0) {
                     nameData[s.id] = residents.filter(x => acceptPool.includes(x.spec)).map(x => x.name);
                 } else {
                     nameData[s.id] = residents.map(x => x.name);
                 }
             } else {
-                // For other specialties, filter by spec
                 if (acceptPool.length > 0) {
-                    // If acceptPool is defined, use it
                     nameData[s.id] = residents.filter(x => acceptPool.includes(x.spec)).map(x => x.name);
                 } else {
                     nameData[s.id] = residents.filter(x => x.spec === s.id).map(x => x.name);
@@ -570,7 +584,12 @@
         renderData();
     }
 
-    // ----- BUILD BOARD -----
+    // ========== GET COLOR FOR A SPECIALTY ==========
+    function getSpecColor(specId) {
+        return specialtyColorMap[specId] || '#60a5fa';
+    }
+
+    // ----- BUILD BOARD WITH DYNAMIC COLORS -----
     function generateBoard() {
         const picker = document.getElementById('month-picker');
         if (!picker) return;
@@ -581,9 +600,17 @@
 
         // Use dynamic specialty list
         specialtyList.forEach(spec => {
+            const specColor = getSpecColor(spec.id);
             const track = document.createElement('div');
-            track.className = `specialty-track track-${spec.id}`;
-            let html = `<div class="track-header"><h2>${spec.name}</h2></div><div class="days-list">`;
+            track.className = `specialty-track`;
+            track.style.setProperty('--spec-color', specColor);
+            
+            let html = `
+                <div class="track-header" style="border-bottom-color: ${specColor};">
+                    <h2 style="color: ${specColor};">${spec.name}</h2>
+                </div>
+                <div class="days-list">
+            `;
             for (let d = 1; d <= days; d++) {
                 const dateObj = new Date(yr, mon - 1, d);
                 const dayName = new Intl.DateTimeFormat('ar-IQ', { weekday: 'short' }).format(dateObj);
@@ -591,18 +618,19 @@
                 const uid = `${d}-${spec.id}`;
                 const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
                 html += `
-                    <div class="day-box ${isWeekend ? 'weekend' : ''}">
+                    <div class="day-box ${isWeekend ? 'weekend' : ''}" style="${isWeekend ? `border-left-color: ${specColor};` : ''}">
                         <div class="day-label"><span>${dateFull.substring(0,5)}</span><span>${dayName}</span></div>
                         <div class="input-wrapper" onclick="event.stopPropagation()">
                             <div class="ghost-text" id="ghost-${uid}"></div>
                             <input type="text" class="cell-input" id="input-${uid}"
+                                style="caret-color: ${specColor};"
                                 onfocus="closeAllMenus()"
                                 oninput="handleAC(this, '${spec.id}', '${uid}')"
                                 onkeydown="handleKeys(event, this, '${uid}')"
                                 onblur="handleBlur('${uid}')"
                                 data-date="${dateFull}" data-spec="${spec.id}" autocomplete="off" placeholder=" ">
                             <span class="dropdown-arrow" onclick="toggleMenu(event, '${uid}', '${spec.id}')">▼</span>
-                            <div class="custom-menu" id="menu-${uid}"></div>
+                            <div class="custom-menu" id="menu-${uid}" style="border-color: ${specColor};"></div>
                         </div>
                     </div>`;
             }
@@ -618,10 +646,12 @@
         (db.schedule || []).forEach(row => {
             if (row.date && row.date.endsWith(`${mon}/${yr}`)) {
                 const day = parseInt(row.date.split('/')[0]);
+                const specColor = getSpecColor(row.specCode);
                 const el = document.getElementById(`input-${day}-${row.specCode}`);
                 if (el) { 
                     el.value = row.name; 
-                    el.classList.add('prefilled'); 
+                    el.classList.add('prefilled');
+                    el.style.setProperty('--spec-color', specColor);
                 }
             }
         });
@@ -672,6 +702,8 @@
         const open = m.style.display === "block";
         closeAllMenus();
         if (!open) {
+            const specColor = getSpecColor(sid);
+            m.style.borderColor = specColor;
             m.innerHTML = (nameData[sid] || []).map(n => `<div onmousedown="selectName('${uid}', '${n}')">${n}</div>`).join('');
             m.style.display = "block";
         }
@@ -717,7 +749,7 @@
         const picker = document.getElementById('month-picker');
         const [yr, mon] = picker.value.split('-');
 
-        // ✅ PRESERVE EXISTING SCHEDULE WITH VISIT COUNTS
+        // PRESERVE EXISTING SCHEDULE WITH VISIT COUNTS
         const preservedSchedule = (db.schedule || []).filter(r => 
             !r.date || !r.date.endsWith(`${mon}/${yr}`)
         );
@@ -742,7 +774,7 @@
 
         const updatedSchedule = [...preservedSchedule, ...newMonthEntries];
 
-        // ✅ PRESERVE PASSWORDS AND SPECIALTIES
+        // PRESERVE PASSWORDS AND SPECIALTIES
         const preservedPasswords = db.passwords || { user: "12345", admin: "123" };
         const preservedSpecialties = db.specialties || [];
 
