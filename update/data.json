@@ -76,7 +76,9 @@
       "id": "Pe",
       "name_ar": "الاطفال",
       "name_en": "Paediatrics",
-      "icon": "👶"
+      "icon": "👶",
+      "color": "#3dff6e",
+      "acceptPool": []
     },
     {
       "id": "NM",
