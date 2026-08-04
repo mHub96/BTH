@@ -1588,13 +1588,6 @@
       "phone": "+9647726868449",
       "tag": "OR",
       "active": true
-    },
-    {
-      "name": "AO TEST 02",
-      "spec": "AO",
-      "tag": "AO",
-      "phone": "987654321",
-      "active": true
     }
   ],
   "schedule": [
