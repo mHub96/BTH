@@ -1,1314 +1,1142 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Duty Portal 🇮🇶</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تسجيل الخفراء · المستشفى التعليمي</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
-            --bg: #1a1c20;
-            --light: #2a2d34;
-            --shadow: #0d0e11;
-            --accent: #fbbf24;
-            --crimson: #e11d48;
-            --emerald: #10b981;
-            --btn-grey: #33373e;
+            --bg-primary: #f0f4f8;
+            --bg-card: #ffffff;
+            --bg-input: #f8fafc;
+            --text-primary: #1a2332;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0,0,0,0.06);
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-glow: rgba(37,99,235,0.2);
         }
+
+        body.dark {
+            --bg-primary: #0b0e12;
+            --bg-card: #141a24;
+            --bg-input: #0f151e;
+            --text-primary: #e8edf5;
+            --text-secondary: #a8b3c9;
+            --text-muted: #5d6f83;
+            --border-color: #2a3346;
+            --shadow-color: rgba(0,0,0,0.5);
+            --accent: #d4af37;
+            --accent-hover: #b8942e;
+            --accent-glow: rgba(212,175,55,0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: #94a3b8;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .embossed-card {
-            position: relative;
-            background: var(--bg);
-            border-radius: 3rem;
-            box-shadow: 20px 20px 60px var(--shadow), -10px -10px 40px var(--light);
-            z-index: 10;
-            transition: all 0.7s ease;
-            outline: 1px solid rgba(148, 163, 184, 0.06);
-            outline-offset: 0px;
-        }
-        .embossed-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 3rem;
-            border: 1px solid rgba(148, 163, 184, 0.04);
-            pointer-events: none;
-            z-index: 5;
-        }
-        .breathing {
-            animation: frameBreath 3s infinite ease-in-out;
-        }
-        @keyframes frameBreath {
-            0%, 100% { box-shadow: 20px 20px 60px var(--shadow), -10px -10px 40px var(--light); }
-            50% { box-shadow: 15px 15px 45px var(--shadow), -8px -8px 30px var(--light), 0 0 50px rgba(251, 191, 36, 0.2); }
-        }
-
-        .tube-container {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 20;
-            width: 100%;
-            height: 100%;
-        }
-        #tube-bg {
-            fill: none;
-            stroke: rgba(251, 191, 36, 0.03);
-            stroke-width: 4;
-        }
-        #tube-fluid {
-            fill: none;
-            stroke: var(--accent);
-            stroke-width: 5;
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 12px var(--accent));
-            stroke-dasharray: 500 1200;
-            stroke-dashoffset: 1700;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .loading-active #tube-fluid {
-            opacity: 1;
-            animation: seamlessFlow 2s linear infinite;
-        }
-        @keyframes seamlessFlow {
-            from { stroke-dashoffset: 1700; }
-            to { stroke-dashoffset: 0; }
-        }
-
-        .recessed-input {
-            background: var(--bg);
-            border-radius: 1.5rem;
-            box-shadow: inset 8px 8px 16px var(--shadow), inset -4px -4px 12px var(--light);
-            position: relative;
-        }
-
-        /* Password dot animation container */
-        .password-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.5rem 1.25rem;
-            min-height: 4rem;
-            direction: ltr;
-        }
-
-        .password-dot {
-            width: 1.2rem;
-            height: 1.2rem;
-            border-radius: 50%;
-            background: rgba(251, 191, 36, 0.08);
-            border: 2px solid rgba(251, 191, 36, 0.06);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform: scale(0.5);
-            opacity: 0;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .password-dot.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.2);
-            opacity: 1;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3), 0 0 60px rgba(251, 191, 36, 0.08), inset 0 2px 4px rgba(255,255,255,0.15);
-            animation: dotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes dotPop {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.4); opacity: 1; }
-            100% { transform: scale(1.2); opacity: 1; }
-        }
-
-        .password-dot.active::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.15);
-            animation: rippleDot 0.6s ease-out;
-        }
-
-        @keyframes rippleDot {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
-        }
-
-        .password-dot.filled {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1);
-            opacity: 1;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.12), inset 0 2px 4px rgba(255,255,255,0.1);
-        }
-
-        .password-dot.filled::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            border: 2px solid rgba(251, 191, 36, 0.06);
-            animation: pulseFilled 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseFilled {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 0.2; }
-        }
-
-        .password-dot.empty {
-            transform: scale(0.5);
-            opacity: 0;
-        }
-
-        .password-dot.error-shake {
-            animation: shakeError 0.5s ease;
-            border-color: var(--crimson);
-            background: var(--crimson);
-            box-shadow: 0 0 30px rgba(225, 29, 72, 0.3);
-        }
-
-        @keyframes shakeError {
-            0%, 100% { transform: translateX(0) scale(1); }
-            15% { transform: translateX(-10px) scale(1.05); }
-            30% { transform: translateX(10px) scale(1.05); }
-            45% { transform: translateX(-6px) scale(1.02); }
-            60% { transform: translateX(6px) scale(1.02); }
-            80% { transform: translateX(-3px) scale(1); }
-        }
-
-        .password-input-overlay {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: text;
-            z-index: 5;
-        }
-        .password-input-overlay input {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: transparent;
-            caret-color: var(--accent);
-            font-size: 1px;
-            letter-spacing: 1px;
-            padding: 0;
-            margin: 0;
-            cursor: text;
-            text-align: center;
-        }
-        .password-input-overlay input::selection {
-            background: transparent;
-        }
-
-        .cursor-indicator {
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: cursorPulse 1.2s ease-in-out infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-        }
-        .cursor-indicator.visible {
-            opacity: 1;
-        }
-        @keyframes cursorPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
-            50% { transform: translateX(-50%) scale(3); opacity: 1; }
-        }
-
-        /* ============================================================
-           3D BLOCK BUTTON - Stronger extrusion effect
-           ============================================================ */
-        .embossed-btn {
-            background: #2a2d34;
-            border-radius: 1.5rem;
-            box-shadow: 
-                0 8px 0 #0d0e11,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light);
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #94a3b8;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            text-align: center;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            position: relative;
-            transform: translateY(0);
-        }
-        .embossed-btn:active {
-            box-shadow: 
-                0 2px 0 #0d0e11,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light);
-            transform: translateY(6px);
-        }
-        .embossed-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 
-                0 6px 0 #0d0e11,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light);
-        }
-
-        .fetched-active {
-            background: var(--accent) !important;
-            color: #1a1c20 !important;
-            box-shadow: 
-                0 8px 0 #b08830,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(251, 191, 36, 0.4) !important;
-        }
-        .fetched-active:active {
-            box-shadow: 
-                0 2px 0 #b08830,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(251, 191, 36, 0.3) !important;
-            transform: translateY(6px);
-        }
-        .success-state {
-            background: var(--emerald) !important;
-            color: white !important;
-            box-shadow: 
-                0 8px 0 #0a7a4a,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(16, 185, 129, 0.4) !important;
-        }
-        .success-state:active {
-            box-shadow: 
-                0 2px 0 #0a7a4a,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(16, 185, 129, 0.3) !important;
-            transform: translateY(6px);
-        }
-
-        /* CRIMSON WARNING - Fixed: Preserves 3D shadow */
-        .crimson-warning {
-            background: var(--crimson) !important;
-            color: white !important;
-            box-shadow: 
-                0 8px 0 #8a1428,
-                12px 12px 24px var(--shadow), 
-                -8px -8px 20px var(--light),
-                0 0 30px rgba(225, 29, 72, 0.4) !important;
-            animation: quickShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        .crimson-warning:active {
-            box-shadow: 
-                0 2px 0 #8a1428,
-                6px 6px 12px var(--shadow), 
-                -4px -4px 10px var(--light),
-                0 0 30px rgba(225, 29, 72, 0.3) !important;
-            transform: translateY(6px);
-        }
-        @keyframes quickShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            30%, 70% { transform: translate3d(4px, 0, 0); }
-            40%, 60% { transform: translate3d(-4px, 0, 0); }
-        }
-
-        .wa-glow {
-            background: rgba(16, 185, 129, 0.1) !important;
-            border: 1px solid var(--emerald);
-            color: var(--emerald) !important;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .suggestions-box {
-            max-height: 180px;
-            overflow-y: auto;
-            border-radius: 1.5rem;
-            margin-top: 0.5rem;
-            background: var(--bg);
-            box-shadow: 10px 10px 20px var(--shadow);
+            font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
             direction: rtl;
-        }
-        .suggestion-item {
-            padding: 14px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--light);
             text-align: right;
-            color: #94a3b8;
-        }
-        .suggestion-item:hover,
-        .suggestion-item.selected {
-            background: var(--light);
-            color: var(--accent);
+            min-height: 100vh;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.4s ease, color 0.3s ease;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #shield {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 100;
-            transition: opacity 0.5s;
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ===== LOCK SCREEN ===== */
+        .lock-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            min-height: 100vh;
+            padding: 1.5rem;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--bg-primary);
+            transition: opacity 0.5s ease;
         }
-        #shield .shield-spinner {
-            width: 3rem;
-            height: 3rem;
-            border: 3px solid rgba(251, 191, 36, 0.06);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        #shield .shield-text {
-            color: rgba(251, 191, 36, 0.3);
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        .lock-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .hidden { display: none !important; }
-        .rtl-text { direction: rtl; text-align: center; }
-        .rtl-input { direction: rtl; text-align: right; }
-        .phone-display { direction: ltr; unicode-bidi: isolate; display: inline-block; }
-
-        .toast-error {
-            background: rgba(225, 29, 72, 0.06);
-            border: 1px solid rgba(225, 29, 72, 0.1);
-            border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.7rem;
-            color: #f1948a;
+        .lock-card {
+            background: var(--bg-card);
+            border-radius: 2.5rem;
+            padding: 2.5rem 2.2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px var(--shadow-color);
+            border: 1px solid var(--border-color);
             text-align: center;
-            animation: slideDown 0.4s ease;
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           REMEMBER ME CHECKBOX - Dark grey, distinguishable from box
-           ============================================================ */
-        .toggle-remember {
+        .lock-card .icon-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        .lock-card .icon-circle i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .lock-card h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .lock-card p.subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.9rem 1.4rem;
+            border-radius: 1rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .input-field:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 1.2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px var(--accent-glow);
+            font-family: inherit;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px var(--accent-glow);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            padding: 0.6rem 1.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 1rem;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .btn-secondary:hover {
+            background: var(--bg-input);
+            border-color: var(--text-muted);
+        }
+
+        .lock-error {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            min-height: 1.5rem;
+        }
+
+        .remember-me {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            font-size: 0.7rem;
-            color: rgba(148, 163, 184, 0.4);
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
             cursor: pointer;
-            user-select: none;
-            transition: color 0.3s ease;
-            margin-top: 4px;
         }
-        .toggle-remember:hover {
-            color: rgba(148, 163, 184, 0.6);
-        }
-        .toggle-remember input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 1.2rem;
-            height: 1.2rem;
-            background: #2a2d34;
-            border-radius: 4px;
+        .remember-me input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: var(--accent);
             cursor: pointer;
-            position: relative;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-        .toggle-remember input[type="checkbox"]:checked {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-        .toggle-remember input[type="checkbox"]:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #1a1c20;
-            font-size: 0.8rem;
-            font-weight: 900;
-        }
-        .toggle-remember input[type="checkbox"]:hover {
-            border-color: rgba(148, 163, 184, 0.2);
         }
 
-        .view-wrapper {
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .view-wrapper.exit {
-            opacity: 0;
-            transform: translateY(-20px) scale(0.97);
-        }
-        .view-wrapper.enter {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .hidden-view { display: none !important; }
-
-        /* Status dot - hidden, only text blinks */
-        .status-dot {
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .main-content.visible {
+            display: block;
         }
 
-        .status-text {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            color: rgba(148, 163, 184, 0.3);
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-        }
-        .status-text.ready {
-            color: rgba(16, 185, 129, 0.5);
-            animation: blinkReady 1.2s ease-in-out infinite;
-        }
-        .status-text.error {
-            color: rgba(225, 29, 72, 0.5);
-        }
-        @keyframes blinkReady {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           ACTION BUTTONS - Full label in one line with 3D effect
-           ============================================================ */
-        .action-btn {
+        .card {
+            background: var(--bg-card);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px var(--shadow-color);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .header h1 i {
+            color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 0.75rem 0.5rem;
-            border-radius: 1.5rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.65rem;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            min-width: 0;
-            flex: 1;
-            background: #2a2d34;
-            box-shadow: 
-                0 6px 0 #0d0e11,
-                8px 8px 16px var(--shadow), 
-                -6px -6px 14px var(--light);
-            color: #94a3b8;
-            transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateY(0);
-            border: none;
-            cursor: pointer;
+            font-size: 1.2rem;
         }
-        .action-btn:active {
-            box-shadow: 
-                0 2px 0 #0d0e11,
-                4px 4px 8px var(--shadow), 
-                -3px -3px 8px var(--light);
-            transform: translateY(4px);
-        }
-        .action-btn.wa {
-            color: var(--emerald);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-        }
-        .action-btn.call {
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.15);
-        }
-        .action-btn.wa:hover {
-            background: rgba(16, 185, 129, 0.05);
-        }
-        .action-btn.call:hover {
-            background: rgba(96, 165, 250, 0.05);
-        }
-        .action-btn .icon {
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-        .action-btn .label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-        @media (max-width: 380px) {
-            .action-btn .label {
-                font-size: 0.55rem;
-            }
-            .action-btn .icon {
-                font-size: 0.85rem;
-            }
-        }
-        @media (min-width: 640px) {
-            .action-btn .label {
-                font-size: 0.75rem;
-            }
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
-        /* ============================================================
-           ENGRAVED TEXT - 3D engraved effect into the card (BRIGHTER)
-           ============================================================ */
-        .engraved-text {
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(201, 184, 154, 0.35);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.04),
-                0 -1px 0 rgba(0, 0, 0, 0.25);
+        .logout-btn {
+            padding: 0.4rem 1.2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
             background: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            padding: 0.5rem 0 0.25rem 0;
-            margin-top: 0.5rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.04);
-            text-align: center;
+            font-family: inherit;
         }
-        .engraved-text:hover {
-            color: rgba(201, 184, 154, 0.5);
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.06),
-                0 -1px 0 rgba(0, 0, 0, 0.3);
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group select,
+        .form-group .input-wrapper {
+            width: 100%;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.4rem;
+            border-radius: 1rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 1rem center;
+            cursor: pointer;
+        }
+        .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        .form-group select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .input-wrapper .ghost-text {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0.9rem 1.4rem;
+            color: rgba(255, 255, 255, 0.25);
+            z-index: 5;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            direction: rtl;
+            font-weight: 500;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .input-wrapper .ghost-text .ghost-offset {
+            color: transparent;
+            visibility: hidden;
+            white-space: pre;
+        }
+        .input-wrapper .ghost-text .ghost-suggestion {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .input-wrapper .ghost-text .ghost-suggestion-bright {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        body:not(.dark) .input-wrapper .ghost-text {
+            color: rgba(0, 0, 0, 0.25);
+        }
+        body:not(.dark) .input-wrapper .ghost-text .ghost-suggestion {
+            color: rgba(0, 0, 0, 0.25);
+        }
+        body:not(.dark) .input-wrapper .ghost-text .ghost-suggestion-bright {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.9rem 1.4rem;
+            border-radius: 1rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            position: relative;
+            z-index: 10;
+            direction: rtl;
+        }
+        .input-wrapper input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .input-wrapper input::placeholder {
+            color: var(--text-muted);
+        }
+        .input-wrapper input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-wrapper .dropdown-arrow {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            z-index: 20;
+            padding: 6px 10px;
+            border-radius: 2rem;
+            transition: 0.2s ease;
+            background: rgba(0, 0, 0, 0.05);
+            line-height: 1;
+        }
+        .input-wrapper .dropdown-arrow:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .custom-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 1rem;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            padding: 0.3rem 0;
+        }
+        .custom-menu div {
+            padding: 0.7rem 1.2rem;
+            font-size: 0.9rem;
+            text-align: right;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: 0.1s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .custom-menu div:last-child {
+            border-bottom: none;
+        }
+        .custom-menu div:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .custom-menu::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-menu::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 20px;
+        }
+
+        .selected-info {
+            background: var(--bg-input);
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            margin-top: 0.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .selected-info .label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .selected-info .value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+        .status-badge.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        .footer-credit {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.6;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 90%;
+            max-width: 420px;
+        }
+        .toast {
+            padding: 14px 24px;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.hide { transform: translateY(-20px); opacity: 0; }
+        .toast-success { background: rgba(16,185,129,0.92); color: white; }
+        .toast-error { background: rgba(239,68,68,0.92); color: white; }
+        .toast-info { background: rgba(59,130,246,0.92); color: white; }
+
+        @media (max-width: 480px) {
+            body { padding: 0.75rem; }
+            .card { padding: 1.25rem; }
+            .lock-card { padding: 1.5rem; }
+            .header h1 { font-size: 1.2rem; }
         }
     </style>
 </head>
-<body class="p-4">
+<body>
 
-    <div id="shield">
-        <div class="shield-spinner"></div>
-        <span class="shield-text">Iraqi Hosp. Duty Portal</span>
+    <div id="toast-container"></div>
+
+    <!-- ===== LOCK SCREEN ===== -->
+    <div id="lock-screen" class="lock-screen">
+        <div class="lock-card">
+            <div class="icon-circle">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h2>🔐 تسجيل الخفراء</h2>
+            <p class="subtitle">أدخل كلمة المرور للدخول</p>
+            <div>
+                <input type="password" id="password-input" class="input-field" placeholder="•••••" maxlength="20">
+                <button id="login-btn" onclick="handleLogin()" class="btn-primary mt-3">
+                    <i class="fas fa-arrow-left ml-2"></i> دخول
+                </button>
+                <p id="lock-error" class="lock-error"></p>
+            </div>
+            <label class="remember-me">
+                <input type="checkbox" id="remember-me" checked />
+                تذكرني
+            </label>
+            <div style="margin-top:1.5rem; font-size:0.6rem; color:var(--text-muted); opacity:0.5;">
+                All rights reserved for Dr. Mohammed Riyadh
+            </div>
+        </div>
     </div>
 
-    <div id="main-card" class="w-full max-w-sm embossed-card breathing p-10 mx-auto">
-        <svg class="tube-container" viewBox="0 0 384 512" preserveAspectRatio="none">
-            <rect id="tube-bg" x="2" y="2" width="380" height="508" rx="48" />
-            <rect id="tube-fluid" x="2" y="2" width="380" height="508" rx="48" />
-        </svg>
-
-        <!-- LOGIN VIEW -->
-        <div id="login-view" class="view-wrapper">
-            <div class="text-center mb-10">
-                <h1 class="text-white text-2xl font-extrabold tracking-tight">On-Call Portal</h1>
-                <div class="flex items-center justify-center gap-2 mt-3">
-                    <span id="statusDot" class="status-dot"></span>
-                    <span id="status-text" class="status-text">جاري التحميل...</span>
+    <!-- ===== MAIN CONTENT ===== -->
+    <div id="main-content" class="main-content container">
+        <div class="card">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-pen-to-square"></i> تسجيل الخفراء</h1>
+                <div class="header-actions">
+                    <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt ml-1"></i> خروج
+                    </button>
                 </div>
             </div>
-            <div class="space-y-8">
-                <div class="recessed-input p-2" id="passwordContainer">
-                    <div class="password-container" id="dotContainer">
-                        <div class="password-dot empty" id="dot0"></div>
-                        <div class="password-dot empty" id="dot1"></div>
-                        <div class="password-dot empty" id="dot2"></div>
-                        <div class="password-dot empty" id="dot3"></div>
-                        <div class="password-dot empty" id="dot4"></div>
-                        <div class="password-dot empty" id="dot5"></div>
-                        <div class="password-dot empty" id="dot6"></div>
-                        <div class="password-dot empty" id="dot7"></div>
-                        <div class="cursor-indicator" id="cursorIndicator"></div>
-                    </div>
-                    <div class="password-input-overlay">
-                        <input type="password" id="pw" inputmode="numeric" maxlength="8" 
-                               autofocus
-                               onkeydown="handlePasswordKey(event)"
-                               oninput="handlePasswordInput()"
-                               onfocus="showCursor()"
-                               onblur="hideCursor()">
-                    </div>
-                </div>
 
-                <!-- SIGN IN BUTTON -->
-                <button id="entry-btn" onclick="handleEntry()" class="embossed-btn w-full py-6 tracking-widest uppercase" disabled>جاري التحميل...</button>
-                
-                <!-- REMEMBER ME - BELOW THE SIGN IN BUTTON (checked by default) -->
-                <div class="flex items-center justify-center px-1">
-                    <label class="toggle-remember">
-                        <input type="checkbox" id="rememberMe" checked>
-                        <span>تذكرني</span>
-                    </label>
-                    <span class="text-[0.5rem] tracking-widest ml-3" style="color: rgba(251, 191, 36, 0.12);">✦ SECURE</span>
-                </div>
-                
-                <div id="login-error" class="hidden toast-error"></div>
-            </div>
-            
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
-        </div>
-
-        <!-- LOOKUP VIEW -->
-        <div id="lookup-view" class="hidden-view view-wrapper text-center">
-            <div class="recessed-input inline-block px-6 py-4 mb-6">
-                <span id="service-display" class="text-amber-500 text-xl font-black uppercase">...</span>
-            </div>
-            <h2 id="name-display" class="text-white text-3xl font-extrabold mb-1 rtl-text">...</h2>
-            <p id="phone-display" class="text-slate-500 font-bold text-lg mb-8 phone-display">-</p>
-            <div class="flex flex-row gap-2 w-full">
-                <a href="#" id="call-link" class="action-btn call">
-                    <span class="icon">📞</span>
-                    <span class="label">SIM Call</span>
-                </a>
-                <a href="#" id="wa-link" onclick="openWhatsApp(event)" class="action-btn wa hidden">
-                    <span class="icon">💬</span>
-                    <span class="label">WhatsApp</span>
-                </a>
-            </div>
-            <p id="time-stamp" class="text-[0.65rem] text-slate-500 mt-10 font-bold tracking-wider uppercase"></p>
-            <div class="mt-4">
-                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
-            </div>
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
-        </div>
-
-        <!-- REGISTER VIEW -->
-        <div id="register-view" class="hidden-view view-wrapper space-y-6">
-            <h2 class="text-white text-xl font-extrabold text-center mb-2">Duty Update 🇮🇶</h2>
-            <div class="recessed-input p-2">
-                <select id="spec-select" onchange="prepNameInput()" class="w-full bg-transparent p-4 text-slate-300 font-bold outline-none appearance-none text-center">
-                    <!-- Options will be populated dynamically -->
+            <!-- Specialty Selection -->
+            <div class="form-group">
+                <label for="spec-select">اختر التخصص</label>
+                <select id="spec-select" onchange="onSpecialtyChange()">
+                    <option value="">-- اختر التخصص --</option>
                 </select>
             </div>
-            <div id="name-section" class="hidden space-y-4">
-                <div class="relative">
-                    <div class="recessed-input p-2">
-                        <input type="text" id="name-input" autocomplete="off" placeholder="اسم المقيم..." 
-                            oninput="filterNames()" onkeydown="handleNameKey(event)"
-                            onblur="setTimeout(() => document.getElementById('suggestions').classList.add('hidden'), 200)"
-                            class="w-full bg-transparent p-4 text-slate-300 font-bold outline-none rtl-input">
+
+            <!-- Resident Name Input (hidden initially) -->
+            <div id="name-section" style="display:none;">
+                <div class="form-group">
+                    <label for="name-input">اسم المقيم</label>
+                    <div class="input-wrapper" onclick="event.stopPropagation()">
+                        <div class="ghost-text" id="ghost-text"></div>
+                        <input type="text" id="name-input" 
+                               placeholder="ابتدأ بكتابة الاسم..." 
+                               oninput="handleNameInput()"
+                               onkeydown="handleNameKeys(event)"
+                               onfocus="closeAllMenus()"
+                               autocomplete="off" />
+                        <span class="dropdown-arrow" onclick="toggleMenu(event)">▼</span>
+                        <div class="custom-menu" id="name-menu"></div>
                     </div>
-                    <div id="suggestions" class="suggestions-box hidden absolute w-full z-50"></div>
                 </div>
-                <button id="submit-btn" onclick="submitRegistration()" class="embossed-btn fetched-active w-full py-6 uppercase tracking-widest">UPDATE</button>
+
+                <!-- Current Duty Holder Info -->
+                <div class="selected-info" id="current-holder-info">
+                    <span class="label">المقيم الحالي:</span>
+                    <span class="value" id="current-holder">—</span>
+                </div>
+
+                <button id="update-btn" onclick="updateDuty()" class="btn-primary mt-2" disabled>
+                    <i class="fas fa-save ml-2"></i> تحديث الخفير
+                </button>
             </div>
-            <div class="text-center pt-2">
-                <button onclick="logout()" class="text-[0.6rem] text-slate-500 hover:text-slate-300 underline-offset-2 underline transition-colors">تسجيل الخروج</button>
-            </div>
-            <!-- ENGRAVED TEXT - 3D engraved effect -->
-            <p class="engraved-text">By Dr. MOHAMMED RIYADH</p>
+
+            <!-- Status Message -->
+            <div id="status-message" style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-secondary); min-height:1.5rem;"></div>
         </div>
+
+        <div class="footer-credit">All rights reserved for Dr. Mohammed Riyadh</div>
     </div>
 
-<script>
-    // ############################################################
-    // ALL LATEST FUNCTIONALITY - Password animation, Remember Me, 8-digit PIN
-    // ############################################################
+    <script>
+        // ===== CONFIGURATION =====
+        const CONFIG = {
+            user: "mHub96",
+            repo: "BTH",
+            path: "update/data.json"
+        };
+        const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
+        const GH_TOKEN = _p.join('');
 
-    const CONFIG = { user: "mHub96", repo: "BTH", path: "update/data.json" };
-    const _pt1 = "ghp_dAUtsFhTH";
-    const _pt2 = "a2KeJQOsxsC";
-    const _pt3 = "Ct1vz8z1Z63";
-    const _pt4 = "Am sjS";
-    const GH_TOKEN = (_pt1 + _pt2 + _pt3 + _pt4).replace(/\s/g, '');
+        // ===== STATE =====
+        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+        let fileSha = "";
+        let isAdmin = false;
+        let dataLoaded = false;
+        let currentResidents = [];
+        let selectedIndex = -1;
+        let isAutoLoginAttempted = false;
 
-    let db = { passwords: {}, names: [], schedule: [], specialties: [] };
-    let fileSha = "";
-    let todayResident = null;
-    let currentPool = [];
-    let selectedIndex = -1;
-    let dataLoaded = false;
-    let loadError = false;
-    let isSessionRestored = false;
+        const STORAGE_KEY = 'duty_signup_session';
+        const SESSION_PIN = '1234';
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    const service = urlParams.get('service');
-
-    const STORAGE_KEY = 'duty_portal_session';
-    const SESSION_PIN = '1234';
-
-    // ---------- PASSWORD ANIMATION ----------
-    let passwordValue = '';
-
-    function updateDots(value) {
-        const dots = document.querySelectorAll('.password-dot');
-        const len = value.length;
-        
-        dots.forEach((dot, index) => {
-            dot.className = 'password-dot';
-            
-            if (index < len) {
-                dot.classList.add('filled');
-                if (dot.dataset.wasEmpty === 'true') {
-                    dot.classList.add('active');
-                    setTimeout(() => dot.classList.remove('active'), 500);
-                }
-                dot.dataset.wasEmpty = 'false';
+        // ===== THEME =====
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('dark')) {
+                icon.className = 'fas fa-sun';
             } else {
-                dot.classList.add('empty');
-                dot.dataset.wasEmpty = 'true';
+                icon.className = 'fas fa-moon';
             }
-        });
-
-        const cursor = document.getElementById('cursorIndicator');
-        if (len < 8) {
-            cursor.classList.add('visible');
-        } else {
-            cursor.classList.remove('visible');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
-    }
 
-    function handlePasswordInput() {
-        const input = document.getElementById('pw');
-        const value = input.value;
-        passwordValue = value;
-        updateDots(value);
-    }
-
-    function handlePasswordKey(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            handleEntry();
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fas fa-sun';
         }
-        if (e.key === 'Backspace') {
+
+        // ===== TOAST SYSTEM =====
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+                <button class="toast-close" style="margin-right:auto; background:none; border:none; color:inherit; font-size:1.2rem; cursor:pointer; opacity:0.6;" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
             setTimeout(() => {
-                const input = document.getElementById('pw');
-                updateDots(input.value);
-            }, 10);
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => { if (toast.parentElement) toast.remove(); }, 500);
+            }, duration);
         }
-    }
 
-    function showCursor() {
-        const cursor = document.getElementById('cursorIndicator');
-        if (passwordValue.length < 8) {
-            cursor.classList.add('visible');
-        }
-    }
-
-    function hideCursor() {
-        const cursor = document.getElementById('cursorIndicator');
-        cursor.classList.remove('visible');
-    }
-
-    function shakeDots() {
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
-            if (dot.classList.contains('filled')) {
-                dot.classList.add('error-shake');
-                setTimeout(() => dot.classList.remove('error-shake'), 500);
+        // ===== SESSION MANAGEMENT =====
+        function saveSession() {
+            if (document.getElementById('remember-me').checked) {
+                localStorage.setItem(STORAGE_KEY, 'authenticated');
+                localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
+                localStorage.setItem('rememberMe', 'true');
+                const pwd = document.getElementById('password-input').value;
+                if (pwd) localStorage.setItem('rememberToken', btoa(pwd));
+            } else {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(STORAGE_KEY + '_timestamp');
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('rememberToken');
             }
-        });
-    }
+        }
 
-    function resetPasswordInput() {
-        const input = document.getElementById('pw');
-        input.value = '';
-        passwordValue = '';
-        updateDots('');
-        const dots = document.querySelectorAll('.password-dot');
-        dots.forEach(dot => {
-            dot.className = 'password-dot empty';
-            dot.dataset.wasEmpty = 'true';
-        });
-    }
+        function checkSession() {
+            const session = localStorage.getItem(STORAGE_KEY);
+            if (!session) return false;
+            const ts = localStorage.getItem(STORAGE_KEY + '_timestamp');
+            if (ts) {
+                if ((Date.now() - parseInt(ts)) / (1000 * 60 * 60 * 24) > 7) {
+                    clearSession();
+                    return false;
+                }
+            }
+            return session === 'authenticated';
+        }
 
-    // ---------- REMEMBER ME ----------
-    function saveSession() {
-        const remember = document.getElementById('rememberMe');
-        if (remember && remember.checked) {
-            localStorage.setItem(STORAGE_KEY, 'authenticated');
-            localStorage.setItem(STORAGE_KEY + '_timestamp', Date.now().toString());
-        } else {
+        function clearSession() {
             localStorage.removeItem(STORAGE_KEY);
             localStorage.removeItem(STORAGE_KEY + '_timestamp');
+            localStorage.removeItem('rememberMe');
+            localStorage.removeItem('rememberToken');
         }
-    }
 
-    function checkSession() {
-        const session = localStorage.getItem(STORAGE_KEY);
-        if (!session) return false;
-        const timestamp = localStorage.getItem(STORAGE_KEY + '_timestamp');
-        if (timestamp) {
-            const days = (Date.now() - parseInt(timestamp)) / (1000 * 60 * 60 * 24);
-            if (days > 7) {
-                clearSession();
-                return false;
-            }
+        function logout() {
+            clearSession();
+            document.getElementById('lock-screen').classList.remove('hidden');
+            document.getElementById('main-content').classList.remove('visible');
+            document.getElementById('password-input').value = '';
+            document.getElementById('password-input').focus();
+            showToast('تم تسجيل الخروج', 'info');
         }
-        return session === 'authenticated';
-    }
 
-    function clearSession() {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(STORAGE_KEY + '_timestamp');
-    }
+        // ===== LOGIN =====
+        async function handleLogin() {
+            const input = document.getElementById('password-input');
+            const err = document.getElementById('lock-error');
+            const pwd = input.value.trim();
 
-    function logout() {
-        clearSession();
-        isSessionRestored = false;
-        const loginView = document.getElementById('login-view');
-        const registerView = document.getElementById('register-view');
-        const lookupView = document.getElementById('lookup-view');
-        
-        if (!registerView.classList.contains('hidden-view')) {
-            registerView.classList.add('exit');
-            setTimeout(() => {
-                registerView.classList.add('hidden-view');
-                registerView.classList.remove('exit');
-            }, 400);
-        }
-        if (!lookupView.classList.contains('hidden-view')) {
-            lookupView.classList.add('exit');
-            setTimeout(() => {
-                lookupView.classList.add('hidden-view');
-                lookupView.classList.remove('exit');
-            }, 400);
-        }
-        
-        setTimeout(() => {
-            loginView.classList.remove('hidden-view');
-            loginView.classList.add('enter');
-            setTimeout(() => loginView.classList.remove('enter'), 500);
-            resetPasswordInput();
-            const entryBtn = document.getElementById('entry-btn');
-            if (dataLoaded) {
-                entryBtn.disabled = false;
-                entryBtn.innerText = 'SIGN IN';
-                entryBtn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-            } else {
-                entryBtn.disabled = true;
-                entryBtn.innerText = 'جاري التحميل...';
-                entryBtn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-            }
-        }, 300);
-    }
-
-    // ---------- ENTRY HANDLER ----------
-    window.handleEntry = function() {
-        if (!dataLoaded) {
-            showLoginError('البيانات لم تكتمل، حاول مرة أخرى');
-            return;
-        }
-        const input = document.getElementById('pw');
-        const pin = input.value;
-        
-        if (pin === SESSION_PIN) {
-            saveSession();
-            proceedAfterAuth();
-        } else {
-            shakeDots();
-            showLoginError('الرمز غير صحيح');
-            const btn = document.getElementById('entry-btn');
-            btn.className = 'embossed-btn crimson-warning w-full py-6 tracking-widest uppercase';
-            const original = btn.innerText;
-            btn.innerText = "INCORRECT!";
-            setTimeout(() => {
-                if (dataLoaded) {
-                    btn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-                    btn.innerText = 'SIGN IN';
-                } else {
-                    btn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-                    btn.innerText = 'جاري التحميل...';
-                }
-            }, 1000);
-            setTimeout(() => {
-                resetPasswordInput();
+            if (!pwd) {
+                err.innerText = '❌ الرجاء إدخال كلمة المرور';
                 input.focus();
-            }, 400);
-        }
-    };
-
-    function proceedAfterAuth() {
-        const loginView = document.getElementById('login-view');
-        const registerView = document.getElementById('register-view');
-        const lookupView = document.getElementById('lookup-view');
-        
-        loginView.classList.add('exit');
-        setTimeout(() => {
-            loginView.classList.add('hidden-view');
-            loginView.classList.remove('exit');
-            
-            if (mode === 'register') {
-                registerView.classList.remove('hidden-view');
-                registerView.classList.add('enter');
-                setTimeout(() => registerView.classList.remove('enter'), 500);
-            } else {
-                showLookupUI();
-                lookupView.classList.remove('hidden-view');
-                lookupView.classList.add('enter');
-                setTimeout(() => lookupView.classList.remove('enter'), 500);
+                setTimeout(() => err.innerText = '', 2500);
+                return;
             }
-        }, 500);
-    }
 
-    function showLoginError(msg) {
-        const errEl = document.getElementById('login-error');
-        errEl.innerText = msg;
-        errEl.classList.remove('hidden');
-        setTimeout(() => errEl.classList.add('hidden'), 4000);
-    }
+            err.innerText = '⏳ جاري التحقق...';
 
-    // ---------- LOADING & INIT ----------
-    window.onload = async function() {
-        const hasSession = checkSession();
-        const loginView = document.getElementById('login-view');
-        
-        if (hasSession) {
-            loginView.classList.add('hidden-view');
-            isSessionRestored = true;
-        }
+            try {
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                    headers: { "Authorization": `token ${GH_TOKEN}` }
+                });
 
-        const shieldTimeout = setTimeout(() => {
-            const s = document.getElementById('shield');
-            if (s && s.style.opacity !== '0') {
-                s.style.opacity = '0';
-                setTimeout(() => s.remove(), 500);
-            }
-        }, 5000);
+                if (res.ok) {
+                    const data = await res.json();
+                    fileSha = data.sha;
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                    db = content;
+                    db.specialties = (db.specialties || []).map(s => ({
+                        ...s,
+                        enabled: s.enabled !== undefined ? s.enabled : true
+                    }));
 
-        try {
-            await fetchDataWithTimeout(8000);
-        } catch (e) {
-            console.warn('Data fetch failed:', e);
-            loadError = true;
-            const cached = localStorage.getItem('duty_db_cache');
-            if (cached) {
-                try {
-                    db = JSON.parse(cached);
-                    dataLoaded = true;
-                } catch (e2) { /* ignore */ }
-            }
-        }
+                    const userPass = db.passwords?.user || "12345";
+                    const adminPass = db.passwords?.admin || "123";
 
-        clearTimeout(shieldTimeout);
-        const s = document.getElementById('shield');
-        if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 500); }
-
-        const entryBtn = document.getElementById('entry-btn');
-        const statusText = document.getElementById('status-text');
-        const statusDot = document.getElementById('statusDot');
-
-        if (dataLoaded) {
-            statusText.innerText = 'READY';
-            statusText.className = 'status-text ready';
-            statusDot.className = 'status-dot';
-            entryBtn.disabled = false;
-            entryBtn.innerText = 'SIGN IN';
-            entryBtn.className = 'embossed-btn fetched-active w-full py-6 tracking-widest uppercase';
-            
-            // Populate the specialty dropdown
-            populateSpecialties();
-
-            if (hasSession) {
-                setTimeout(() => {
-                    if (mode === 'register') {
-                        document.getElementById('register-view').classList.remove('hidden-view');
-                        document.getElementById('register-view').classList.add('enter');
-                        setTimeout(() => document.getElementById('register-view').classList.remove('enter'), 500);
+                    if (pwd === adminPass || pwd === userPass) {
+                        isAdmin = (pwd === adminPass);
+                        err.innerText = '';
+                        loginSuccess();
                     } else {
-                        showLookupUI();
-                        lookupView.classList.remove('hidden-view');
-                        lookupView.classList.add('enter');
-                        setTimeout(() => lookupView.classList.remove('enter'), 500);
+                        err.innerText = '❌ كلمة المرور غير صحيحة';
+                        input.value = '';
+                        input.focus();
+                        setTimeout(() => err.innerText = '', 2500);
                     }
-                }, 200);
-            } else {
-                if (!loginView.classList.contains('hidden-view')) {
-                    setTimeout(() => {
-                        document.getElementById('pw').focus();
-                    }, 300);
                 } else {
-                    loginView.classList.remove('hidden-view');
-                    loginView.classList.add('enter');
-                    setTimeout(() => {
-                        loginView.classList.remove('enter');
-                        document.getElementById('pw').focus();
-                    }, 300);
+                    err.innerText = '❌ خطأ في الاتصال بقاعدة البيانات';
+                    setTimeout(() => err.innerText = '', 2500);
                 }
+            } catch (error) {
+                console.error("Login error:", error);
+                err.innerText = '❌ خطأ في الاتصال بقاعدة البيانات';
+                setTimeout(() => err.innerText = '', 2500);
             }
-        } else if (loadError) {
-            statusText.innerText = '⚠️ غير متصل';
-            statusText.className = 'status-text error';
-            statusDot.className = 'status-dot';
-            entryBtn.disabled = true;
-            entryBtn.innerText = '⚠️ خطأ في الاتصال';
-            entryBtn.className = 'embossed-btn w-full py-6 tracking-widest uppercase';
-            showLoginError('تعذر الاتصال بقاعدة البيانات. يرجى تحديث الصفحة.');
+        }
+
+        function loginSuccess() {
+            dataLoaded = true;
+            document.getElementById('lock-screen').classList.add('hidden');
+            document.getElementById('main-content').classList.add('visible');
+            saveSession();
+            populateSpecialties();
+            showToast('تم تسجيل الدخول بنجاح', 'success');
+        }
+
+        // ===== AUTO-LOGIN =====
+        (function() {
+            const token = localStorage.getItem('rememberToken');
+            const rememberMe = localStorage.getItem('rememberMe');
+            if (token && rememberMe === 'true' && !isAutoLoginAttempted) {
+                isAutoLoginAttempted = true;
+                try {
+                    const pwd = atob(token);
+                    document.getElementById('password-input').value = pwd;
+                    setTimeout(handleLogin, 300);
+                } catch (e) { console.error("Auto-login error:", e); }
+            }
+        })();
+
+        // ===== POPULATE SPECIALTIES =====
+        function populateSpecialties() {
+            const select = document.getElementById('spec-select');
+            select.innerHTML = '<option value="">-- اختر التخصص --</option>';
             
-            if (loginView.classList.contains('hidden-view')) {
-                loginView.classList.remove('hidden-view');
-                loginView.classList.add('enter');
-                setTimeout(() => loginView.classList.remove('enter'), 300);
-            }
-        }
-
-        const rememberCheck = document.getElementById('rememberMe');
-        if (rememberCheck) {
-            rememberCheck.checked = true;
-        }
-
-        resetPasswordInput();
-    };
-
-    // ========== POPULATE SPECIALTIES DYNAMICALLY ==========
-    function populateSpecialties() {
-        const select = document.getElementById('spec-select');
-        if (!select || !db.specialties || db.specialties.length === 0) return;
-        
-        select.innerHTML = '<option value="" class="bg-[#1a1c20]">SELECT SPECIALTY</option>';
-        
-        db.specialties.forEach(spec => {
-            const option = document.createElement('option');
-            option.value = spec.id;
-            option.className = 'bg-[#1a1c20]';
-            option.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
-            select.appendChild(option);
-        });
-    }
-
-    async function fetchDataWithTimeout(timeoutMs) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
-        try {
-            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
-                headers: { "Authorization": `token ${GH_TOKEN}` },
-                signal: controller.signal
+            const enabledSpecs = (db.specialties || []).filter(s => s.enabled !== false);
+            enabledSpecs.forEach(spec => {
+                const opt = document.createElement('option');
+                opt.value = spec.id;
+                opt.textContent = `${spec.icon || '🏥'} ${spec.name_ar}`;
+                select.appendChild(opt);
             });
-            clearTimeout(timeoutId);
+        }
 
-            if (res.ok) {
-                const data = await res.json();
-                fileSha = data.sha;
-                const decoded = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
-                db = decoded;
-                localStorage.setItem('duty_db_cache', JSON.stringify(db));
-                dataLoaded = true;
-                loadError = false;
+        // ===== ON SPECIALTY CHANGE =====
+        function onSpecialtyChange() {
+            const select = document.getElementById('spec-select');
+            const specId = select.value;
+            const nameSection = document.getElementById('name-section');
+            const nameInput = document.getElementById('name-input');
+            const ghostText = document.getElementById('ghost-text');
+            const currentHolder = document.getElementById('current-holder');
+            const updateBtn = document.getElementById('update-btn');
+            const statusMsg = document.getElementById('status-message');
 
-                if (service) {
-                    const todayStr = getMedicalDate();
-                    todayResident = db.schedule.find(s => s.specCode === service && s.date === todayStr);
+            if (!specId) {
+                nameSection.style.display = 'none';
+                return;
+            }
+
+            nameSection.style.display = 'block';
+            nameInput.value = '';
+            ghostText.innerHTML = '';
+            ghostText.removeAttribute('data-full');
+            updateBtn.disabled = true;
+            statusMsg.textContent = '';
+
+            // Get residents for this specialty
+            const specObj = db.specialties?.find(s => s.id === specId);
+            const acceptPool = specObj?.acceptPool || [];
+            
+            if (specId === "OP" || specId === "ICU" || specId === "GA") {
+                currentResidents = (db.names || []).filter(n => n.spec === "A");
+            } else if (specId === "D") {
+                if (acceptPool.length > 0) {
+                    currentResidents = (db.names || []).filter(n => acceptPool.includes(n.spec));
+                } else {
+                    currentResidents = (db.names || []).slice();
                 }
-                return true;
             } else {
-                throw new Error(`HTTP ${res.status}`);
+                if (acceptPool.length > 0) {
+                    currentResidents = (db.names || []).filter(n => acceptPool.includes(n.spec));
+                } else {
+                    currentResidents = (db.names || []).filter(n => n.spec === specId);
+                }
             }
-        } catch (e) {
-            clearTimeout(timeoutId);
-            throw e;
-        }
-    }
 
-    function getMedicalDate() {
-        const now = new Date();
-        if (now.getHours() < 8) now.setDate(now.getDate() - 1);
-        const d = String(now.getDate()).padStart(2, '0');
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        return `${d}/${m}/${now.getFullYear()}`;
-    }
-
-    // ---------- BUILD SPECIALTY MAP FOR DISPLAY ----------
-    function getSpecialtyName(specId) {
-        const spec = db.specialties.find(s => s.id === specId);
-        return spec ? spec.name_ar : specId;
-    }
-
-    // ---------- ORIGINAL FUNCTIONS ----------
-    function showLookupUI() {
-        const targetDate = getMedicalDate();
-        const now = new Date();
-        const timestamp = `${String(now.getDate()).padStart(2, '0')}-${now.toLocaleString('en-GB', {month:'short'})}-${now.getFullYear()} | ${now.toLocaleString('en-GB', {hour:'2-digit', minute:'2-digit', hour12:true}).toUpperCase()}`;
-        
-        document.getElementById('service-display').innerText = getSpecialtyName(service) || service || "SERVICE";
-        document.getElementById('time-stamp').innerText = timestamp;
-
-        todayResident = db.schedule.find(s => s.specCode === service && s.date === targetDate);
-
-        if (todayResident) {
-            const info = db.names.find(n => n.name === todayResident.name);
-            document.getElementById('name-display').innerText = todayResident.name;
-            document.getElementById('phone-display').innerText = info ? info.phone : "No Number";
-            if (info?.phone) {
-                const callLink = document.getElementById('call-link');
-                callLink.href = "tel:" + info.phone;
-                callLink.classList.remove('hidden');
-                const waLink = document.getElementById('wa-link');
-                waLink.classList.remove('hidden');
-                waLink.href = "whatsapp://send?phone=" + info.phone;
+            // Get current duty holder
+            const today = getMedicalDate();
+            const currentEntry = (db.schedule || []).find(s => s.specCode === specId && s.date === today);
+            if (currentEntry) {
+                currentHolder.textContent = currentEntry.name || '—';
+                currentHolder.style.color = 'var(--accent)';
+            } else {
+                currentHolder.textContent = 'لا يوجد خفير اليوم';
+                currentHolder.style.color = 'var(--text-muted)';
             }
-        } else {
-            document.getElementById('name-display').innerText = "No Duty Found";
-            document.getElementById('phone-display').innerText = "Date: " + targetDate;
-            document.getElementById('call-link').classList.add('hidden');
-            document.getElementById('wa-link').classList.add('hidden');
+
+            nameInput.focus();
         }
-    }
 
-    function prepNameInput() {
-        if (!dataLoaded) return;
-        const spec = document.getElementById('spec-select').value;
-        const section = document.getElementById('name-section');
-        if (!spec) { section.classList.add('hidden'); return; }
-        document.getElementById('name-input').value = "";
-        section.classList.remove('hidden');
-        
-        if (spec === "ICU" || spec === "OP" || spec === "GA") {
-            currentPool = db.names.filter(n => n.spec === "A");
-        } else if (spec === "D") {
-            currentPool = db.names;
-        } else {
-            currentPool = db.names.filter(n => n.spec === spec);
-        }
-    }
-
-    function filterNames() {
-        if (!dataLoaded) return;
-        const val = document.getElementById('name-input').value.trim().toLowerCase().replace(/^د\.?\s*/, '');
-        const box = document.getElementById('suggestions');
-        if (!val) { box.classList.add('hidden'); return; }
-        
-        const matches = currentPool.filter(n => n.name.toLowerCase().replace(/^د\.?\s*/, '').includes(val));
-        matches.sort((a, b) => {
-            const aClean = a.name.toLowerCase().replace(/^د\.?\s*/, '');
-            const bClean = b.name.toLowerCase().replace(/^د\.?\s*/, '');
-            const aStarts = aClean.startsWith(val);
-            const bStarts = bClean.startsWith(val);
-            if (aStarts && !bStarts) return -1;
-            if (!aStarts && bStarts) return 1;
-            return aClean.localeCompare(bClean);
-        });
-
-        if (matches.length > 0) {
-            box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="selectSuggestion('${m.name}')">${m.name}</div>`).join('');
-            box.classList.remove('hidden');
-            selectedIndex = -1;
-        } else box.classList.add('hidden');
-    }
-
-    function handleNameKey(e) {
-        const items = document.querySelectorAll('.suggestion-item');
-        if (e.key === "ArrowDown") selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-        else if (e.key === "ArrowUp") selectedIndex = Math.max(selectedIndex - 1, 0);
-        else if (e.key === "Enter") {
-            if (selectedIndex > -1) selectSuggestion(items[selectedIndex].innerText);
-            else submitRegistration();
-        }
-        items.forEach((item, i) => item.classList.toggle('selected', i === selectedIndex));
-    }
-
-    function selectSuggestion(name) {
-        document.getElementById('name-input').value = name;
-        document.getElementById('suggestions').classList.add('hidden');
-    }
-
-    async function submitRegistration() {
-        if (!dataLoaded) {
-            alert('البيانات غير محملة، يرجى تحديث الصفحة');
-            return;
-        }
-        const btn = document.getElementById('submit-btn');
-        const name = document.getElementById('name-input').value;
-        const spec = document.getElementById('spec-select').value;
-        const card = document.getElementById('main-card');
-        
-        if (!name || !spec) return;
-
-        // ✅ PRESERVE PASSWORDS
-        const preservedPasswords = db.passwords || { user: "12345", admin: "123" };
-
-        card.classList.add('loading-active');
-        const dutyDate = getMedicalDate();
-        const entry = {
-            date: dutyDate, specCode: spec, name: name,
-            timestamp: new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'})
-        };
-
-        db.schedule = db.schedule.filter(s => !(s.date === entry.date && s.specCode === entry.specCode));
-        db.schedule.push(entry);
-
-        try {
-            const dataToSave = {
-                names: db.names,
-                schedule: db.schedule,
-                passwords: preservedPasswords,
-                specialties: db.specialties
-            };
-
-            const body = {
-                message: `Update: ${name}`,
-                content: btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2)))),
-                sha: fileSha
-            };
-            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                method: "PUT", headers: { "Authorization": `token ${GH_TOKEN}` }, body: JSON.stringify(body)
-            });
+        // ===== NAME INPUT HANDLING =====
+        function handleNameInput() {
+            const input = document.getElementById('name-input');
+            const ghost = document.getElementById('ghost-text');
+            const val = input.value.trim();
+            const updateBtn = document.getElementById('update-btn');
             
-            if (res.ok) {
-                const r = await res.json();
-                fileSha = r.content.sha;
-                db.passwords = preservedPasswords;
-                localStorage.setItem('duty_db_cache', JSON.stringify(db));
-                
-                card.classList.remove('loading-active');
-                btn.classList.replace('fetched-active', 'success-state');
-                const originalText = btn.innerText;
-                btn.innerText = "SUCCESS ✅";
+            ghost.innerHTML = '';
+            ghost.removeAttribute('data-full');
+            updateBtn.disabled = true;
 
-                setTimeout(() => {
-                    btn.classList.replace('success-state', 'fetched-active');
-                    btn.innerText = originalText;
-                    document.getElementById('name-input').value = "";
-                    document.getElementById('spec-select').value = "";
-                    document.getElementById('name-section').classList.add('hidden');
-                }, 1500);
+            if (!val) {
+                document.getElementById('status-message').textContent = '';
+                return;
             }
-        } catch (e) {
-            card.classList.remove('loading-active');
-            btn.innerText = "RETRY ❌";
-            setTimeout(() => {
-                btn.innerText = "UPDATE";
-            }, 2000);
+
+            // Filter residents
+            const valClean = val.toLowerCase().replace(/^د\.?\s*/, '');
+            const matches = currentResidents.filter(n => {
+                const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
+                return n.name.toLowerCase().startsWith(val.toLowerCase()) || nClean.startsWith(valClean);
+            });
+
+            if (matches.length > 0) {
+                const match = matches[0];
+                ghost.setAttribute('data-full', match.name);
+                let display = val.startsWith("د.") ? match.name : match.name.replace(/^د\.?\s*/, '');
+                if (display.toLowerCase().startsWith(val.toLowerCase())) {
+                    ghost.innerHTML = `<span class="ghost-offset">${val}</span><span class="ghost-suggestion-bright">${display.substring(val.length)}</span>`;
+                } else {
+                    ghost.innerHTML = `<span class="ghost-suggestion">${display}</span>`;
+                }
+                updateBtn.disabled = false;
+            } else {
+                updateBtn.disabled = true;
+            }
         }
-    }
 
-    function openWhatsApp(e) {
-        e.preventDefault();
-        const info = db.names.find(n => n.name === todayResident.name);
-        if (info?.phone) window.location.href = "whatsapp://send?phone=" + info.phone;
-    }
+        function handleNameKeys(e) {
+            const ghost = document.getElementById('ghost-text');
+            const full = ghost.getAttribute('data-full');
+            if (e.key === "Enter") {
+                e.preventDefault();
+                if (full) {
+                    document.getElementById('name-input').value = full;
+                    ghost.innerHTML = '';
+                    ghost.removeAttribute('data-full');
+                    updateDuty();
+                }
+            }
+        }
 
-    window.logout = logout;
+        function toggleMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('name-menu');
+            const isOpen = menu.style.display === 'block';
+            closeAllMenus();
+            if (!isOpen) {
+                const input = document.getElementById('name-input');
+                const val = input.value.trim().toLowerCase().replace(/^د\.?\s*/, '');
+                let matches = currentResidents;
+                if (val) {
+                    matches = currentResidents.filter(n => {
+                        const nClean = n.name.toLowerCase().replace(/^د\.?\s*/, '');
+                        return n.name.toLowerCase().includes(val) || nClean.includes(val);
+                    });
+                }
+                if (matches.length === 0) {
+                    menu.innerHTML = '<div style="color:var(--text-muted); font-size:0.8rem; text-align:center; padding:0.8rem;">لا يوجد مقيمين</div>';
+                } else {
+                    menu.innerHTML = matches.map(n => 
+                        `<div onclick="selectName('${n.name.replace(/'/g, "\\'")}')">${n.name}</div>`
+                    ).join('');
+                }
+                menu.style.display = 'block';
+            }
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('passwordContainer');
-        container.addEventListener('click', function() {
-            document.getElementById('pw').focus();
+        function selectName(name) {
+            document.getElementById('name-input').value = name;
+            document.getElementById('ghost-text').innerHTML = '';
+            document.getElementById('ghost-text').removeAttribute('data-full');
+            closeAllMenus();
+            document.getElementById('update-btn').disabled = false;
+            document.getElementById('name-input').focus();
+        }
+
+        function closeAllMenus() {
+            document.querySelectorAll('.custom-menu').forEach(m => m.style.display = 'none');
+        }
+
+        // ===== UPDATE DUTY =====
+        async function updateDuty() {
+            const specId = document.getElementById('spec-select').value;
+            const name = document.getElementById('name-input').value.trim();
+            const updateBtn = document.getElementById('update-btn');
+            const statusMsg = document.getElementById('status-message');
+
+            if (!specId || !name) {
+                showToast('الرجاء اختيار التخصص والاسم', 'error');
+                return;
+            }
+
+            // Verify the name belongs to this specialty
+            const isValid = currentResidents.some(n => n.name === name);
+            if (!isValid) {
+                showToast('هذا المقيم غير موجود في هذا التخصص', 'error');
+                return;
+            }
+
+            updateBtn.disabled = true;
+            updateBtn.innerHTML = '<i class="fas fa-spinner fa-pulse ml-2"></i> جاري التحديث...';
+
+            const today = getMedicalDate();
+            const timestamp = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+            // Remove existing entry for this specialty today
+            db.schedule = (db.schedule || []).filter(s => !(s.specCode === specId && s.date === today));
+
+            // Add new entry
+            db.schedule.push({
+                date: today,
+                specCode: specId,
+                name: name,
+                timestamp: timestamp,
+                VisitCount: 0
+            });
+
+            try {
+                const dataToSave = {
+                    names: db.names || [],
+                    schedule: db.schedule || [],
+                    passwords: db.passwords || {},
+                    specialties: db.specialties || []
+                };
+
+                const body = {
+                    message: `Duty update: ${specId} → ${name}`,
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2)))),
+                    sha: fileSha
+                };
+
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${GH_TOKEN}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    fileSha = data.content.sha;
+                    
+                    // Update current holder display
+                    document.getElementById('current-holder').textContent = name;
+                    document.getElementById('current-holder').style.color = 'var(--accent)';
+                    
+                    statusMsg.innerHTML = `<span style="color:#10b981;">✅ تم تحديث الخفير بنجاح إلى <strong>${name}</strong></span>`;
+                    showToast(`تم تحديث الخفير إلى ${name}`, 'success');
+                    
+                    // Clear input
+                    document.getElementById('name-input').value = '';
+                    document.getElementById('ghost-text').innerHTML = '';
+                    document.getElementById('ghost-text').removeAttribute('data-full');
+                    updateBtn.disabled = true;
+                } else {
+                    throw new Error('Failed to save');
+                }
+            } catch (e) {
+                console.error("Update error:", e);
+                statusMsg.innerHTML = `<span style="color:#ef4444;">❌ فشل تحديث الخفير. حاول مرة أخرى.</span>`;
+                showToast('فشل تحديث الخفير', 'error');
+                updateBtn.disabled = false;
+            }
+
+            updateBtn.innerHTML = '<i class="fas fa-save ml-2"></i> تحديث الخفير';
+        }
+
+        // ===== HELPER FUNCTIONS =====
+        function getMedicalDate() {
+            const now = new Date();
+            if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+            return `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+        }
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const lockScreen = document.getElementById('lock-screen');
+                if (!lockScreen.classList.contains('hidden')) {
+                    e.preventDefault();
+                    handleLogin();
+                }
+            }
+            if (e.key === 'Escape') {
+                closeAllMenus();
+            }
         });
-    });
-</script>
+
+        // ===== CLICK OUTSIDE TO CLOSE MENUS =====
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.input-wrapper')) {
+                closeAllMenus();
+            }
+        });
+
+        // ===== EXPOSE GLOBALLY =====
+        window.toggleTheme = toggleTheme;
+        window.handleLogin = handleLogin;
+        window.logout = logout;
+        window.onSpecialtyChange = onSpecialtyChange;
+        window.handleNameInput = handleNameInput;
+        window.handleNameKeys = handleNameKeys;
+        window.toggleMenu = toggleMenu;
+        window.selectName = selectName;
+        window.updateDuty = updateDuty;
+        window.closeAllMenus = closeAllMenus;
+        window.showToast = showToast;
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkSession()) {
+                const token = localStorage.getItem('rememberToken');
+                if (token) {
+                    try {
+                        const pwd = atob(token);
+                        document.getElementById('password-input').value = pwd;
+                        setTimeout(handleLogin, 200);
+                    } catch (e) {}
+                }
+            } else {
+                document.getElementById('password-input').focus();
+            }
+        });
+    </script>
 </body>
 </html>
