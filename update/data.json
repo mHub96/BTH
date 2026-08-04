@@ -100,7 +100,9 @@
       "id": "O",
       "name_ar": "العيون",
       "name_en": "Ophthalmology",
-      "icon": "👁️"
+      "icon": "👁️",
+      "color": "#38ffe8",
+      "acceptPool": []
     },
     {
       "id": "G",
