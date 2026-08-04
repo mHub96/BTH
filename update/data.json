@@ -1,27 +1,111 @@
 {
   "specialties": [
-    { "id": "GS", "name_ar": "الجراحة العامة", "name_en": "General Surgery", "icon": "🔪" },
-    { "id": "US", "name_ar": "جراحة المسالك البولية", "name_en": "Urosurgery", "icon": "🧬" },
-    { "id": "OR", "name_ar": "الكسور", "name_en": "Orthopaedics", "icon": "🦴" },
-    { "id": "M", "name_ar": "الباطنية", "name_en": "Internal Medicine", "icon": "💊" },
-    { "id": "ENT", "name_ar": "الأذن و الأنف و الحنجرة", "name_en": "ENT", "icon": "👂" },
-    { "id": "MF", "name_ar": "جراحة الوجه و الفكين", "name_en": "MaxilloFacial Surgery", "icon": "🦷" },
-    { "id": "ICU", "name_ar": "تخدير العناية المركزة", "name_en": "ICU Anaesthesia", "icon": "💉" },
-    { "id": "OP", "name_ar": "تخدير العمليات", "name_en": "OT Anaesthesia", "icon": "💉" },
-    { "id": "GA", "name_ar": "تخدير صالة الولادة", "name_en": "GYN Anaesthesia", "icon": "🤰" },
-    { "id": "Pe", "name_ar": "الاطفال", "name_en": "Paediatrics", "icon": "👶" },
-    { "id": "NM", "name_ar": "طب الجملة العصبية", "name_en": "Neuromedicine", "icon": "🧠" },
-    { "id": "N", "name_ar": "طب امراض الكلى", "name_en": "Nephrology", "icon": "🧫" },
-    { "id": "O", "name_ar": "العيون", "name_en": "Ophthalmology", "icon": "👁️" },
-    { "id": "G", "name_ar": "النسائية و التوليد", "name_en": "Gynecology", "icon": "🌸" },
-    { "id": "P", "name_ar": "النفسية", "name_en": "Psychiatry", "icon": "🧠" },
-    { "id": "R", "name_ar": "الأشعة و السونار", "name_en": "Radiology", "icon": "🩻" },
-    { "id": "D", "name_ar": "الوفيات", "name_en": "Death Certificatess", "icon": "📋" }
+    {
+      "id": "GS",
+      "name_ar": "الجراحة العامة",
+      "name_en": "General Surgery",
+      "icon": "🔪"
+    },
+    {
+      "id": "US",
+      "name_ar": "جراحة المسالك البولية",
+      "name_en": "Urosurgery",
+      "icon": "🧬"
+    },
+    {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴"
+    },
+    {
+      "id": "M",
+      "name_ar": "الباطنية",
+      "name_en": "Internal Medicine",
+      "icon": "💊"
+    },
+    {
+      "id": "ENT",
+      "name_ar": "الأذن و الأنف و الحنجرة",
+      "name_en": "ENT",
+      "icon": "👂"
+    },
+    {
+      "id": "MF",
+      "name_ar": "جراحة الوجه و الفكين",
+      "name_en": "MaxilloFacial Surgery",
+      "icon": "🦷"
+    },
+    {
+      "id": "ICU",
+      "name_ar": "تخدير العناية المركزة",
+      "name_en": "ICU Anaesthesia",
+      "icon": "💉"
+    },
+    {
+      "id": "OP",
+      "name_ar": "تخدير العمليات",
+      "name_en": "OT Anaesthesia",
+      "icon": "💉"
+    },
+    {
+      "id": "GA",
+      "name_ar": "تخدير صالة الولادة",
+      "name_en": "GYN Anaesthesia",
+      "icon": "🤰"
+    },
+    {
+      "id": "Pe",
+      "name_ar": "الاطفال",
+      "name_en": "Paediatrics",
+      "icon": "👶"
+    },
+    {
+      "id": "NM",
+      "name_ar": "طب الجملة العصبية",
+      "name_en": "Neuromedicine",
+      "icon": "🧠"
+    },
+    {
+      "id": "N",
+      "name_ar": "طب امراض الكلى",
+      "name_en": "Nephrology",
+      "icon": "🧫"
+    },
+    {
+      "id": "O",
+      "name_ar": "العيون",
+      "name_en": "Ophthalmology",
+      "icon": "👁️"
+    },
+    {
+      "id": "G",
+      "name_ar": "النسائية و التوليد",
+      "name_en": "Gynecology",
+      "icon": "🌸"
+    },
+    {
+      "id": "P",
+      "name_ar": "النفسية",
+      "name_en": "Psychiatry",
+      "icon": "🧠"
+    },
+    {
+      "id": "R",
+      "name_ar": "الأشعة و السونار",
+      "name_en": "Radiology",
+      "icon": "🩻"
+    },
+    {
+      "id": "D",
+      "name_ar": "الوفيات",
+      "name_en": "Death Certificatess",
+      "icon": "📋",
+      "acceptPool": [
+        "GS"
+      ]
+    }
   ],
-    "passwords": {
-    "user": "1234",
-    "admin": "MrjBth1996*"
-  },
   "names": [
     {
       "name": "د. مصطفى محمد علي الديوان",
@@ -1615,8 +1699,8 @@
     {
       "name": "TEST 01",
       "spec": "AO",
-      "tag": "AO",
       "phone": "+9648898789878",
+      "tag": "AO",
       "active": true
     }
   ],
@@ -4493,5 +4577,9 @@
       "name": "TEST 01",
       "VisitCount": 0
     }
-  ]
+  ],
+  "passwords": {
+    "user": "1234",
+    "admin": "MrjBth1996*"
+  }
 }
