@@ -124,7 +124,7 @@
       "icon": "🌸",
       "color": "#e40de7",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "P",
@@ -133,7 +133,7 @@
       "icon": "🧠",
       "color": "#fef606",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "R",
@@ -142,7 +142,7 @@
       "icon": "🩻",
       "color": "#6700e6",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "D",
@@ -168,7 +168,7 @@
         "P",
         "R"
       ],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "ZZ",
