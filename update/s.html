@@ -282,7 +282,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            color: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.35);
             z-index: 5;
             pointer-events: none;
             height: 100%;
@@ -292,6 +292,15 @@
             direction: rtl;
             background: transparent;
             font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .ghost-text .ghost-suggestion {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .ghost-text .ghost-suggestion-bright {
+            color: rgba(255, 255, 255, 0.55);
         }
 
         .ghost-offset {
@@ -664,8 +673,11 @@
                 ghost.setAttribute('data-full', match);
                 let display = val.startsWith("د.") ? match : match.replace(/^د\.\s*/, "");
                 if (display.toLowerCase().startsWith(val.toLowerCase())) {
-                    ghost.innerHTML = `<span class="ghost-offset">${val}</span><span>${display.substring(val.length)}</span>`;
-                } else { ghost.innerText = display; }
+                    // Show the typed part as invisible (offset) and the suggestion as ghost text
+                    ghost.innerHTML = `<span class="ghost-offset">${val}</span><span class="ghost-suggestion-bright">${display.substring(val.length)}</span>`;
+                } else { 
+                    ghost.innerHTML = `<span class="ghost-suggestion">${display}</span>`;
+                }
             }
         }
     }
