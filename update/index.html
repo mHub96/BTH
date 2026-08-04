@@ -72,6 +72,7 @@
             pointer-events: none;
             width: 90%;
             max-width: 480px;
+            direction: ltr;
         }
         .toast {
             padding: 14px 24px;
@@ -721,7 +722,7 @@
             document.getElementById('theme-icon').className = 'fas fa-sun';
         }
 
-        // ===== TOAST SYSTEM =====
+        // ===== TOAST SYSTEM - TOP CENTER FIXED =====
         function showToast(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
