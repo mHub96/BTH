@@ -4126,12 +4126,6 @@
       "VisitCount": 0
     },
     {
-      "date": "05/08/2026",
-      "specCode": "D",
-      "name": "د. غفران علي صبري",
-      "VisitCount": 1
-    },
-    {
       "date": "06/08/2026",
       "specCode": "D",
       "name": "د. وسن عباس",
@@ -4645,6 +4639,12 @@
     {
       "date": "05/08/2026",
       "specCode": "M",
+      "name": "د. مروان غازي",
+      "timestamp": "21:34"
+    },
+    {
+      "date": "05/08/2026",
+      "specCode": "D",
       "name": "د. مروان غازي",
       "timestamp": "21:34"
     }
