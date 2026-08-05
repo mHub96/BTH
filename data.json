@@ -3727,12 +3727,6 @@
       "VisitCount": 2
     },
     {
-      "date": "05/08/2026",
-      "specCode": "ICU",
-      "name": "د. فاطمة عباس",
-      "VisitCount": 0
-    },
-    {
       "date": "06/08/2026",
       "specCode": "ICU",
       "name": "د. رسل عوده ساري",
@@ -4469,6 +4463,12 @@
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
       "timestamp": "08:33"
+    },
+    {
+      "date": "05/08/2026",
+      "specCode": "ICU",
+      "name": "د. علاء سلمان",
+      "timestamp": "08:34"
     }
   ],
   "passwords": {
