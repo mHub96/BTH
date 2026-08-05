@@ -4460,15 +4460,15 @@
     },
     {
       "date": "05/08/2026",
-      "specCode": "ICU",
-      "name": "د. علاء سلمان",
-      "timestamp": "08:34"
-    },
-    {
-      "date": "05/08/2026",
       "specCode": "O",
       "name": "د. مصطفى فائز",
       "timestamp": "08:38"
+    },
+    {
+      "date": "05/08/2026",
+      "specCode": "ICU",
+      "name": "د. علي خالد",
+      "timestamp": "08:39"
     }
   ],
   "passwords": {
