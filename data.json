@@ -3322,12 +3322,6 @@
       "VisitCount": 0
     },
     {
-      "date": "06/08/2026",
-      "specCode": "M",
-      "name": "د. عبدالله ستار",
-      "VisitCount": 5
-    },
-    {
       "date": "07/08/2026",
       "specCode": "M",
       "name": "د. زينب ياسين باقر",
@@ -4656,6 +4650,12 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "20:03"
+    },
+    {
+      "date": "06/08/2026",
+      "specCode": "M",
+      "name": "د. عبد المحسن عيسى حسن",
+      "timestamp": "20:04"
     }
   ],
   "passwords": {
