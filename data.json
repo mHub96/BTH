@@ -2908,12 +2908,6 @@
       "VisitCount": 1
     },
     {
-      "date": "06/08/2026",
-      "specCode": "Pe",
-      "name": "د. زينب فلاح عبد المهدي",
-      "VisitCount": 0
-    },
-    {
       "date": "07/08/2026",
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
@@ -4649,6 +4643,12 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "08:04",
       "VisitCount": 1
+    },
+    {
+      "date": "06/08/2026",
+      "specCode": "Pe",
+      "name": "د. لينا نجم عبد",
+      "timestamp": "08:35"
     }
   ],
   "passwords": {
