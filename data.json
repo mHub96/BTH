@@ -3928,12 +3928,6 @@
       "VisitCount": 0
     },
     {
-      "date": "06/08/2026",
-      "specCode": "OP",
-      "name": "د. اياد فالح",
-      "VisitCount": 0
-    },
-    {
       "date": "07/08/2026",
       "specCode": "OP",
       "name": "د. غسق مصطفى",
@@ -4649,6 +4643,12 @@
       "specCode": "D",
       "name": "د. الزهراء حسام",
       "timestamp": "09:00"
+    },
+    {
+      "date": "06/08/2026",
+      "specCode": "OP",
+      "name": "د. علاء سلمان",
+      "timestamp": "10:02"
     }
   ],
   "passwords": {
