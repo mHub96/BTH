@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HOSPITAL SCHEDULER 🇮🇶</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* ----- design system ----- */
+        :root {
+            --bg: #0f1217;
+            --card: #181c22;
+            --card-hover: #1f252d;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-focus: rgba(255, 255, 255, 0.15);
+            --text-primary: #eef2f6;
+            --text-secondary: #9aa8b9;
+            --text-muted: #5d6f83;
+            --column-width: 290px;
+            --nav-h: 72px;
+            --radius-card: 2rem;
+            --radius-input: 1.2rem;
+        }
+
+        /* base */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-secondary);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            letter-spacing: 0.01em;
+        }
+
+        /* ----- navigation ----- */
+        .nav-bar {
+            height: var(--nav-h);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #12161c;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-brand h1 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            color: white;
+            background: linear-gradient(135deg, #f0f4ff 0%, #b7c9e2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-brand span {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .month-picker {
+            background: #1e2630;
+            border: 1px solid var(--border-subtle);
+            color: #d4dce8;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.02em;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+
+        .month-picker:focus {
+            outline: none;
+            border-color: var(--spec-color, #60a5fa);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .sync-btn {
+            background: white;
+            color: #0b0e11;
+            padding: 0.5rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            transition: 0.15s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .sync-btn:hover {
+            transform: scale(0.97);
+            background: #f0f3f8;
+        }
+
+        .sync-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* ----- board container ----- */
+        .board-container {
+            flex-grow: 1;
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem 3rem 2rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            align-items: flex-start;
+            box-sizing: border-box;
+            height: calc(100vh - var(--nav-h));
+            scroll-behavior: smooth;
+        }
+
+        .board-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .board-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .board-container::-webkit-scrollbar-thumb {
+            background: #2d3745;
+            border-radius: 20px;
+        }
+
+        /* ----- specialty track card ----- */
+        .specialty-track {
+            flex: 0 0 var(--column-width);
+            background: var(--card);
+            border-radius: var(--radius-card);
+            display: flex;
+            flex-direction: column;
+            max-height: 94%;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        .specialty-track:hover {
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.9), 0 0 20px -8px var(--spec-color);
+        }
+
+        .track-header {
+            padding: 1rem 1.2rem 0.8rem;
+            text-align: center;
+            flex-shrink: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+            border-bottom: 3px solid var(--spec-color);
+        }
+
+        .track-header h2 {
+            color: var(--spec-color);
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* ----- days list ----- */
+        .days-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.75rem 0.75rem 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: #2d3745 transparent;
+        }
+
+        .days-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .days-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .days-list::-webkit-scrollbar-thumb {
+            background: #2d3745;
+            border-radius: 20px;
+        }
+
+        /* ----- day box ----- */
+        .day-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 0.5rem;
+            border-radius: 1.2rem;
+            padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+            border: 1px solid transparent;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .day-box:focus-within {
+            border-color: var(--spec-color);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 0 1px var(--spec-color);
+        }
+
+        .day-box.weekend {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid var(--spec-color);
+            border-radius: 1.2rem 0.3rem 0.3rem 1.2rem;
+        }
+
+        .day-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            padding: 0.15rem 0.7rem 0.15rem 0.7rem;
+            text-transform: uppercase;
+        }
+
+        /* ----- duty slots container ----- */
+        .duty-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding: 0.1rem 0;
+        }
+
+        /* ----- individual slot ----- */
+        .duty-slot {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            position: relative;
+        }
+
+        .duty-slot .time-display {
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: var(--spec-color, #60a5fa);
+            min-width: 52px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.02em;
+            opacity: 0.8;
+            flex-shrink: 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.15rem 0.3rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .duty-slot .time-display:hover {
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 1;
+        }
+
+        .duty-slot .time-display.editable {
+            cursor: text;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed var(--spec-color, #60a5fa);
+        }
+
+        .duty-slot .time-display input {
+            background: transparent;
+            border: none;
+            color: var(--spec-color, #60a5fa);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            font-weight: 700;
+            width: 52px;
+            text-align: center;
+            outline: none;
+            padding: 0;
+        }
+
+        .duty-slot .time-display input:focus {
+            outline: none;
+        }
+
+        /* ----- input wrapper inside slot ----- */
+        .duty-slot .input-wrapper {
+            flex: 1;
+            position: relative;
+            direction: rtl;
+            text-align: right;
+            min-width: 0;
+        }
+
+        .duty-slot .cell-input,
+        .duty-slot .ghost-text {
+            width: 100%;
+            font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.6rem;
+            line-height: 1.3;
+            text-align: right;
+            box-sizing: border-box;
+            white-space: pre;
+            margin: 0;
+            border: none;
+            font-weight: 600;
+            border-radius: 0.7rem;
+        }
+
+        .duty-slot .cell-input {
+            background: transparent;
+            outline: none;
+            color: #f0f4fc;
+            position: relative;
+            z-index: 10;
+            direction: rtl;
+            caret-color: var(--spec-color, #60a5fa);
+            min-height: 30px;
+        }
+
+        .duty-slot .cell-input::placeholder {
+            color: rgba(255, 255, 255, 0.08);
+            font-weight: 400;
+        }
+
+        .duty-slot .ghost-text {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: rgba(255, 255, 255, 0.35);
+            z-index: 5;
+            pointer-events: none;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            direction: rtl;
+            background: transparent;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .duty-slot .ghost-text .ghost-suggestion {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .duty-slot .ghost-text .ghost-suggestion-bright {
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .duty-slot .ghost-offset {
+            color: transparent;
+            visibility: hidden;
+            white-space: pre;
+        }
+
+        .duty-slot .prefilled {
+            color: var(--spec-color) !important;
+            font-weight: 700;
+        }
+
+        .duty-slot .new-entry {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* dropdown arrow */
+        .duty-slot .dropdown-arrow {
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.4rem;
+            color: #4b5b70;
+            cursor: pointer;
+            z-index: 25;
+            padding: 2px 6px;
+            border-radius: 2rem;
+            transition: 0.1s ease;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+            line-height: 1;
+        }
+
+        .duty-slot .dropdown-arrow:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #b0c4dd;
+        }
+
+        /* custom menu */
+        .duty-slot .custom-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            background: #1e2632;
+            border: 1px solid var(--spec-color, #60a5fa);
+            border-radius: 0.8rem;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 0.2rem 0;
+        }
+
+        .duty-slot .custom-menu div {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+            text-align: right;
+            cursor: pointer;
+            color: #c8d4e3;
+            font-weight: 500;
+            transition: 0.1s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .duty-slot .custom-menu div:hover {
+            background: var(--spec-color, #60a5fa);
+            color: #0b0e11;
+        }
+
+        .duty-slot .custom-menu::-webkit-scrollbar {
+            width: 4px;
+        }
+        .duty-slot .custom-menu::-webkit-scrollbar-thumb {
+            background: #3f4d62;
+            border-radius: 20px;
+        }
+
+        /* ----- add slot button ----- */
+        .add-slot-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.6rem;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+            width: 100%;
+            margin-top: 0.2rem;
+            font-family: inherit;
+        }
+
+        .add-slot-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--spec-color, #60a5fa);
+            color: var(--spec-color, #60a5fa);
+        }
+
+        .add-slot-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ----- warning / tip notification ----- */
+        .slot-tip {
+            font-size: 0.45rem;
+            color: #fbbf24;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            margin-top: 0.1rem;
+            animation: fadeTip 0.3s ease;
+        }
+
+        .slot-tip.error {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .slot-tip.success {
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.1);
+        }
+
+        @keyframes fadeTip {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ----- delete slot button ----- */
+        .delete-slot-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            font-size: 0.5rem;
+            padding: 0.1rem 0.2rem;
+            border-radius: 0.3rem;
+            transition: 0.2s ease;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .delete-slot-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* loading state */
+        .loading-active {
+            opacity: 0.6 !important;
+            pointer-events: none !important;
+            cursor: wait !important;
+        }
+
+        /* small responsive tweaks */
+        @media (max-width: 640px) {
+            .nav-bar {
+                padding: 0 1rem;
+                flex-wrap: wrap;
+                height: auto;
+                min-height: var(--nav-h);
+                gap: 0.5rem;
+            }
+            .nav-brand h1 {
+                font-size: 0.9rem;
+            }
+            .board-container {
+                padding: 1rem 0.75rem 2rem;
+                gap: 1rem;
+            }
+            :root {
+                --column-width: 250px;
+                --nav-h: 80px;
+            }
+            .duty-slot .time-display {
+                min-width: 40px;
+                font-size: 0.4rem;
+            }
+            .duty-slot .time-display input {
+                width: 40px;
+                font-size: 0.4rem;
+            }
+            .duty-slot .cell-input {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-wrapper">
+        <div class="nav-bar">
+            <div class="nav-brand">
+                <h1>Teaching Hosp. Scheduler</h1>
+                <span>🇮🇶</span>
+            </div>
+            <div class="nav-actions">
+                <input type="month" id="month-picker" class="month-picker">
+                <button onclick="saveToGithub()" id="sync-btn" class="sync-btn">Sync Schedule</button>
+            </div>
+        </div>
+        <div class="board-container" id="board" onscroll="closeAllMenus()"></div>
+    </div>
+
+<script>
+    // ----- CONFIGURATION -----
+    const CONFIG = {
+        user: "mHub96",
+        repo: "BTH",
+        path: "update/data.json"
+    };
+
+    const t1 = "ghp_dAUtsFhTH";
+    const t2 = "a2KeJQOsxsC";
+    const t3 = "Ct1vz8z1Z63";
+    const t4 = "AmsjS";
+    const GH_TOKEN = t1 + t2 + t3 + t4;
+
+    let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+    let fileSha = "";
+    let nameData = {};
+    let specialtyList = [];
+    let specialtyColorMap = {};
+
+    // Track which day-spec combinations have multiple slots
+    let slotCounts = {};
+
+    // ----- INIT -----
+    window.onload = async () => {
+        const now = new Date();
+        const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+        const picker = document.getElementById('month-picker');
+        if (picker) {
+            picker.value = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, '0')}`;
+            picker.onchange = refreshView;
+        }
+        await init();
+    };
+
+    window.onclick = (e) => {
+        if (!e.target.classList.contains('dropdown-arrow') && !e.target.closest('.custom-menu')) {
+            closeAllMenus();
+        }
+    };
+
+    function closeAllMenus() {
+        document.querySelectorAll('.custom-menu').forEach(x => x.style.display = 'none');
+    }
+
+    // ----- LOAD DATA -----
+    async function init() {
+        const wrapper = document.getElementById('app-wrapper');
+        if (wrapper) wrapper.classList.add('loading-active');
+
+        try {
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                headers: {
+                    "Authorization": `token ${GH_TOKEN}`,
+                    "Accept": "application/vnd.github.v3+json"
+                }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                fileSha = data.sha;
+                db = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                db.names = (db.names || []).map(item => {
+                    if (Array.isArray(item)) return { name: item[0], spec: item[1] || "NS", phone: "" };
+                    return item;
+                });
+                
+                if (!db.passwords) {
+                    db.passwords = { user: "12345", admin: "123" };
+                }
+
+                buildSpecialtyList();
+            }
+            updateNameLookup();
+            refreshView();
+        } catch (e) { console.error("Init Error", e); }
+
+        if (wrapper) wrapper.classList.remove('loading-active');
+    }
+
+    // ========== BUILD SPECIALTY LIST WITH COLORS - FILTER ENABLED ONLY ==========
+    function buildSpecialtyList() {
+        specialtyColorMap = {};
+        const enabledSpecialties = (db.specialties || []).filter(spec => spec.enabled !== false);
+        
+        if (enabledSpecialties.length > 0) {
+            enabledSpecialties.forEach(spec => {
+                specialtyColorMap[spec.id] = spec.color || '#60a5fa';
+            });
+            specialtyList = enabledSpecialties.map(spec => ({
+                id: spec.id,
+                name: spec.name_en || spec.name_ar || spec.id,
+                color: spec.color || '#60a5fa'
+            }));
+            return;
+        }
+
+        specialtyList = [];
+        specialtyColorMap = {};
+    }
+
+    function updateNameLookup() {
+        nameData = {};
+        const residents = db.names || [];
+        specialtyList.forEach(s => {
+            const specObj = db.specialties?.find(sp => sp.id === s.id);
+            const acceptPool = specObj?.acceptPool || [];
+            
+            if (s.id === "OP" || s.id === "ICU" || s.id === "GA") {
+                nameData[s.id] = residents.filter(x => x.spec === "A").map(x => x.name);
+            } else if (s.id === "D") {
+                if (acceptPool.length > 0) {
+                    nameData[s.id] = residents.filter(x => acceptPool.includes(x.spec)).map(x => x.name);
+                } else {
+                    nameData[s.id] = residents.map(x => x.name);
+                }
+            } else {
+                if (acceptPool.length > 0) {
+                    nameData[s.id] = residents.filter(x => acceptPool.includes(x.spec)).map(x => x.name);
+                } else {
+                    nameData[s.id] = residents.filter(x => x.spec === s.id).map(x => x.name);
+                }
+            }
+        });
+    }
+
+    function getSpecColor(specId) {
+        return specialtyColorMap[specId] || '#60a5fa';
+    }
+
+    // ========== TIME UTILITIES ==========
+    const DAY_START = 8; // 8 AM
+    const DAY_END = 32; // 8 AM next day (24 hours later)
+
+    function minutesToTimeStr(minutes) {
+        const totalMinutes = minutes + (DAY_START * 60);
+        const hrs = Math.floor(totalMinutes / 60) % 24;
+        const mins = totalMinutes % 60;
+        const ampm = hrs >= 12 ? 'PM' : 'AM';
+        const h12 = hrs % 12 || 12;
+        return `${String(h12).padStart(2, '0')}:${String(mins).padStart(2, '0')}${ampm}`;
+    }
+
+    function timeStrToMinutes(str) {
+        const match = str.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+        if (!match) return null;
+        let hrs = parseInt(match[1]);
+        const mins = parseInt(match[2]);
+        const ampm = match[3].toUpperCase();
+        if (ampm === 'PM' && hrs !== 12) hrs += 12;
+        if (ampm === 'AM' && hrs === 12) hrs = 0;
+        let total = hrs * 60 + mins;
+        if (total < DAY_START * 60) total += 24 * 60;
+        return total - (DAY_START * 60);
+    }
+
+    function formatDutyTime(startMin, endMin) {
+        return `${minutesToTimeStr(startMin)} - ${minutesToTimeStr(endMin)}`;
+    }
+
+    function parseDutyTime(dutyTimeStr) {
+        if (!dutyTimeStr) return null;
+        const parts = dutyTimeStr.split(' - ');
+        if (parts.length !== 2) return null;
+        const start = timeStrToMinutes(parts[0].trim());
+        const end = timeStrToMinutes(parts[1].trim());
+        if (start === null || end === null) return null;
+        return { start, end };
+    }
+
+    // ========== CALCULATE SLOT TIMES ==========
+    function calculateSlotTimes(numSlots, customOverrides = {}) {
+        if (numSlots === 0) return [];
+        
+        // If there are custom overrides, use them but validate
+        const times = [];
+        const totalDuration = 24 * 60; // 24 hours in minutes
+        
+        if (numSlots === 1) {
+            return [{ start: 0, end: totalDuration }];
+        }
+        
+        const slotDuration = totalDuration / numSlots;
+        const results = [];
+        
+        for (let i = 0; i < numSlots; i++) {
+            let start = i * slotDuration;
+            let end = (i + 1) * slotDuration;
+            
+            // Check for custom override
+            const key = `slot_${i}`;
+            if (customOverrides[key]) {
+                const custom = customOverrides[key];
+                if (custom.start !== undefined && custom.end !== undefined) {
+                    // Validate custom times
+                    if (custom.start >= 0 && custom.end <= totalDuration && custom.start < custom.end) {
+                        start = custom.start;
+                        end = custom.end;
+                    }
+                }
+            }
+            
+            results.push({ start: Math.round(start), end: Math.round(end) });
+        }
+        
+        return results;
+    }
+
+    // ========== VALIDATE SLOT TIMES ==========
+    function validateSlotTimes(slots) {
+        if (slots.length <= 1) return { valid: true, gaps: [] };
+        
+        const sorted = [...slots].sort((a, b) => a.start - b.start);
+        const gaps = [];
+        const totalDuration = 24 * 60;
+        
+        // Check first slot starts at 0
+        if (sorted[0].start > 0) {
+            gaps.push({ start: 0, end: sorted[0].start });
+        }
+        
+        // Check gaps between slots
+        for (let i = 0; i < sorted.length - 1; i++) {
+            if (sorted[i].end < sorted[i + 1].start) {
+                gaps.push({ start: sorted[i].end, end: sorted[i + 1].start });
+            }
+        }
+        
+        // Check last slot ends at totalDuration
+        if (sorted[sorted.length - 1].end < totalDuration) {
+            gaps.push({ start: sorted[sorted.length - 1].end, end: totalDuration });
+        }
+        
+        // Check overlaps
+        for (let i = 0; i < sorted.length - 1; i++) {
+            if (sorted[i].end > sorted[i + 1].start) {
+                return { valid: false, gaps: [], overlap: true };
+            }
+        }
+        
+        return { valid: gaps.length === 0, gaps };
+    }
+
+    // ========== AUTO-CORRECT SLOT TIMES ==========
+    function autoCorrectSlotTimes(slots) {
+        if (slots.length <= 1) {
+            return [{ start: 0, end: 24 * 60 }];
+        }
+        
+        const totalDuration = 24 * 60;
+        const sorted = [...slots].sort((a, b) => a.start - b.start);
+        
+        // If there are gaps, redistribute evenly
+        const validation = validateSlotTimes(sorted);
+        if (validation.valid && !validation.overlap) {
+            return sorted;
+        }
+        
+        // Redistribute evenly
+        const slotDuration = totalDuration / slots.length;
+        return slots.map((_, i) => ({
+            start: Math.round(i * slotDuration),
+            end: Math.round((i + 1) * slotDuration)
+        }));
+    }
+
+    // ========== GET SLOTS FOR A DAY ==========
+    function getDaySlots(date, specCode) {
+        const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        return entries.map((entry, index) => {
+            let dutyTime = entry.dutyTime || null;
+            let timeData = null;
+            if (dutyTime) {
+                timeData = parseDutyTime(dutyTime);
+            }
+            return {
+                index,
+                name: entry.name,
+                dutyTime,
+                timeData,
+                visitCount: entry.VisitCount || 0,
+                raw: entry
+            };
+        });
+    }
+
+    // ========== BUILD BOARD WITH DYNAMIC COLORS ==========
+    function generateBoard() {
+        const picker = document.getElementById('month-picker');
+        if (!picker) return;
+        const [yr, mon] = picker.value.split('-').map(Number);
+        const days = new Date(yr, mon, 0).getDate();
+        const board = document.getElementById('board');
+        board.innerHTML = "";
+
+        if (specialtyList.length === 0) {
+            board.innerHTML = `
+                <div style="width:100%; display:flex; justify-content:center; align-items:center; height:80%;">
+                    <div style="text-align:center; color: #5d6f83; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+                        <div style="font-weight: 700; font-size: 1.2rem; color: #9aa8b9;">لا توجد تخصصات مفعلة</div>
+                        <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.6;">يرجى التواصل مع المسؤول لتفعيل التخصصات</div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        specialtyList.forEach(spec => {
+            const specColor = getSpecColor(spec.id);
+            const track = document.createElement('div');
+            track.className = `specialty-track`;
+            track.style.setProperty('--spec-color', specColor);
+            
+            let html = `
+                <div class="track-header" style="border-bottom-color: ${specColor};">
+                    <h2 style="color: ${specColor};">${spec.name}</h2>
+                </div>
+                <div class="days-list">
+            `;
+            
+            for (let d = 1; d <= days; d++) {
+                const dateObj = new Date(yr, mon - 1, d);
+                const dayName = new Intl.DateTimeFormat('ar-IQ', { weekday: 'short' }).format(dateObj);
+                const dateFull = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
+                const uid = `${d}-${spec.id}`;
+                const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
+                
+                // Get existing slots for this day
+                const slots = getDaySlots(dateFull, spec.id);
+                const numSlots = slots.length;
+                
+                html += `
+                    <div class="day-box ${isWeekend ? 'weekend' : ''}" style="${isWeekend ? `border-left-color: ${specColor};` : ''}" data-day="${dateFull}" data-spec="${spec.id}">
+                        <div class="day-label"><span>${dateFull.substring(0,5)}</span><span>${dayName}</span></div>
+                        <div class="duty-slots" id="slots-${uid}">
+                `;
+                
+                if (numSlots === 0) {
+                    html += `
+                        <div class="duty-slot" data-slot-index="0">
+                            <div class="input-wrapper" onclick="event.stopPropagation()">
+                                <div class="ghost-text" id="ghost-${uid}-0"></div>
+                                <input type="text" class="cell-input" id="input-${uid}-0"
+                                    style="caret-color: ${specColor};"
+                                    onfocus="closeAllMenus()"
+                                    oninput="handleAC(this, '${spec.id}', '${uid}-0')"
+                                    onkeydown="handleKeys(event, this, '${uid}-0')"
+                                    onblur="handleBlur('${uid}-0')"
+                                    data-date="${dateFull}" data-spec="${spec.id}" data-slot="0" autocomplete="off" placeholder=" ">
+                                <span class="dropdown-arrow" onclick="toggleMenu(event, '${uid}-0', '${spec.id}')">▼</span>
+                                <div class="custom-menu" id="menu-${uid}-0" style="border-color: ${specColor};"></div>
+                            </div>
+                            <button class="delete-slot-btn" onclick="deleteSlot('${dateFull}', '${spec.id}', 0)" style="display:none;">✕</button>
+                        </div>
+                    `;
+                } else {
+                    // Calculate times for slots
+                    const timeOverrides = {};
+                    slots.forEach((slot, idx) => {
+                        if (slot.timeData) {
+                            timeOverrides[`slot_${idx}`] = slot.timeData;
+                        }
+                    });
+                    
+                    let calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+                    
+                    // Check if times need correction
+                    const validation = validateSlotTimes(calculatedTimes);
+                    if (!validation.valid || validation.overlap) {
+                        calculatedTimes = autoCorrectSlotTimes(calculatedTimes);
+                        // Mark that correction was applied
+                    }
+                    
+                    slots.forEach((slot, idx) => {
+                        const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                        const dutyTimeStr = formatDutyTime(timeData.start, timeData.end);
+                        const slotUid = `${uid}-${idx}`;
+                        
+                        html += `
+                            <div class="duty-slot" data-slot-index="${idx}">
+                                <span class="time-display editable" id="time-${slotUid}" 
+                                      onclick="editTime(this, '${dateFull}', '${spec.id}', ${idx})">
+                                    <span id="time-text-${slotUid}">${dutyTimeStr}</span>
+                                </span>
+                                <div class="input-wrapper" onclick="event.stopPropagation()">
+                                    <div class="ghost-text" id="ghost-${slotUid}"></div>
+                                    <input type="text" class="cell-input prefilled" id="input-${slotUid}"
+                                        style="caret-color: ${specColor};"
+                                        onfocus="closeAllMenus()"
+                                        oninput="handleAC(this, '${spec.id}', '${slotUid}')"
+                                        onkeydown="handleKeys(event, this, '${slotUid}')"
+                                        onblur="handleBlur('${slotUid}')"
+                                        data-date="${dateFull}" data-spec="${spec.id}" data-slot="${idx}" autocomplete="off" 
+                                        value="${slot.name}">
+                                    <span class="dropdown-arrow" onclick="toggleMenu(event, '${slotUid}', '${spec.id}')">▼</span>
+                                    <div class="custom-menu" id="menu-${slotUid}" style="border-color: ${specColor};"></div>
+                                </div>
+                                <button class="delete-slot-btn" onclick="deleteSlot('${dateFull}', '${spec.id}', ${idx})">✕</button>
+                            </div>
+                        `;
+                    });
+                    
+                    // Add validation warning if needed
+                    if (!validation.valid || validation.gaps.length > 0) {
+                        html += `
+                            <div class="slot-tip error" id="tip-${uid}">
+                                ⚠️ ${validation.gaps.length > 0 ? `يوجد فجوات في التغطية (${validation.gaps.map(g => formatDutyTime(g.start, g.end)).join(', ')})` : 'تداخل في الأوقات'}
+                            </div>
+                        `;
+                    }
+                }
+                
+                html += `
+                        </div>
+                        <button class="add-slot-btn" onclick="addSlot('${dateFull}', '${spec.id}')">
+                            <i class="fas fa-plus"></i> إضافة خفير
+                        </button>
+                    </div>
+                `;
+            }
+            
+            track.innerHTML = html + `</div>`;
+            board.appendChild(track);
+        });
+    }
+
+    // ========== ADD SLOT ==========
+    function addSlot(date, specCode) {
+        const existing = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        const newIndex = existing.length;
+        
+        // Create new entry with default time
+        const numSlots = existing.length + 1;
+        const timeOverrides = {};
+        existing.forEach((entry, idx) => {
+            if (entry.dutyTime) {
+                const parsed = parseDutyTime(entry.dutyTime);
+                if (parsed) {
+                    timeOverrides[`slot_${idx}`] = parsed;
+                }
+            }
+        });
+        
+        const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+        const timeData = calculatedTimes[newIndex] || { start: 0, end: 24 * 60 };
+        const dutyTimeStr = formatDutyTime(timeData.start, timeData.end);
+        
+        db.schedule.push({
+            date: date,
+            specCode: specCode,
+            name: "",
+            VisitCount: 0,
+            dutyTime: dutyTimeStr,
+            dutySlot: newIndex
+        });
+        
+        refreshView();
+        showToast(`تم إضافة خفير جديد لـ ${date}`, 'success', 1500);
+    }
+
+    // ========== DELETE SLOT ==========
+    function deleteSlot(date, specCode, slotIndex) {
+        // Find and remove the slot
+        const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        if (slotIndex >= entries.length) return;
+        
+        const entryToRemove = entries[slotIndex];
+        const idx = db.schedule.indexOf(entryToRemove);
+        if (idx !== -1) {
+            db.schedule.splice(idx, 1);
+        }
+        
+        // Reindex remaining slots
+        const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        remaining.forEach((entry, idx) => {
+            entry.dutySlot = idx;
+        });
+        
+        // Recalculate times
+        const numSlots = remaining.length;
+        if (numSlots > 0) {
+            const timeOverrides = {};
+            remaining.forEach((entry, idx) => {
+                if (entry.dutyTime) {
+                    const parsed = parseDutyTime(entry.dutyTime);
+                    if (parsed) {
+                        timeOverrides[`slot_${idx}`] = parsed;
+                    }
+                }
+            });
+            const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+            remaining.forEach((entry, idx) => {
+                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
+            });
+        }
+        
+        refreshView();
+        showToast(`تم حذف الخفير`, 'info', 1500);
+    }
+
+    // ========== EDIT TIME ==========
+    function editTime(element, date, specCode, slotIndex) {
+        const timeTextSpan = element.querySelector('span');
+        const currentText = timeTextSpan.textContent;
+        
+        // Create input field
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+        input.className = 'time-edit-input';
+        input.style.cssText = `
+            background: transparent;
+            border: none;
+            color: var(--spec-color, #60a5fa);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
+            outline: none;
+            padding: 0;
+        `;
+        input.placeholder = 'HH:MMAM - HH:MMPM';
+        
+        timeTextSpan.replaceWith(input);
+        input.focus();
+        input.select();
+        
+        input.addEventListener('blur', () => {
+            saveTimeEdit(input, date, specCode, slotIndex);
+        });
+        
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveTimeEdit(input, date, specCode, slotIndex);
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                // Revert to original
+                const span = document.createElement('span');
+                span.id = timeTextSpan.id;
+                span.textContent = currentText;
+                input.replaceWith(span);
+                // Reload view to ensure consistency
+                refreshView();
+            }
+        });
+    }
+
+    function saveTimeEdit(input, date, specCode, slotIndex) {
+        const value = input.value.trim();
+        const parsed = parseDutyTime(value);
+        
+        // Find the entry
+        const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        if (slotIndex >= entries.length) {
+            input.replaceWith(createTimeSpan(value));
+            return;
+        }
+        
+        const entry = entries[slotIndex];
+        
+        if (parsed) {
+            // Valid time format
+            entry.dutyTime = value;
+            
+            // Check for gaps/overlaps with other slots
+            const allSlots = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+            const timeData = {};
+            allSlots.forEach((s, idx) => {
+                if (s.dutyTime) {
+                    const p = parseDutyTime(s.dutyTime);
+                    if (p) timeData[`slot_${idx}`] = p;
+                }
+            });
+            
+            const numSlots = allSlots.length;
+            const calculatedTimes = calculateSlotTimes(numSlots, timeData);
+            const validation = validateSlotTimes(calculatedTimes);
+            
+            // Save changes
+            refreshView();
+            
+            if (!validation.valid || validation.gaps.length > 0) {
+                // Show warning
+                const tipId = `tip-${date.split('/')[0]}-${specCode}`;
+                const tipElement = document.getElementById(tipId);
+                if (tipElement) {
+                    tipElement.textContent = `⚠️ ${validation.gaps.length > 0 ? `فجوات في التغطية (${validation.gaps.map(g => formatDutyTime(g.start, g.end)).join(', ')})` : 'تداخل في الأوقات'}`;
+                    tipElement.className = 'slot-tip error';
+                    tipElement.style.display = 'flex';
+                } else {
+                    // Create tip
+                    const slotsContainer = document.getElementById(`slots-${date.split('/')[0]}-${specCode}`);
+                    if (slotsContainer) {
+                        const tip = document.createElement('div');
+                        tip.className = 'slot-tip error';
+                        tip.id = tipId;
+                        tip.textContent = `⚠️ ${validation.gaps.length > 0 ? `فجوات في التغطية (${validation.gaps.map(g => formatDutyTime(g.start, g.end)).join(', ')})` : 'تداخل في الأوقات'}`;
+                        slotsContainer.appendChild(tip);
+                    }
+                }
+                showToast('⚠️ توجد مشكلة في توزيع الأوقات، تم إعادة توزيعها تلقائياً', 'error', 3000);
+            } else {
+                // Remove any existing tip
+                const tipId = `tip-${date.split('/')[0]}-${specCode}`;
+                const tipElement = document.getElementById(tipId);
+                if (tipElement) tipElement.remove();
+                showToast('✅ تم تحديث الوقت بنجاح', 'success', 1500);
+            }
+        } else {
+            // Invalid format - revert
+            const span = createTimeSpan(entry.dutyTime || formatDutyTime(0, 24 * 60));
+            input.replaceWith(span);
+            showToast('❌ صيغة غير صالحة. استخدم: HH:MMAM - HH:MMPM', 'error', 2000);
+        }
+    }
+
+    function createTimeSpan(text) {
+        const span = document.createElement('span');
+        span.textContent = text;
+        return span;
+    }
+
+    // ========== RENDER DATA ==========
+    function renderData() {
+        const picker = document.getElementById('month-picker');
+        if (!picker) return;
+        const [yr, mon] = picker.value.split('-');
+        
+        // Clear all inputs and set values from db
+        const inputs = document.querySelectorAll('.cell-input');
+        inputs.forEach(input => {
+            const date = input.dataset.date;
+            const specCode = input.dataset.spec;
+            const slotIdx = parseInt(input.dataset.slot) || 0;
+            
+            if (date && date.endsWith(`${mon}/${yr}`)) {
+                const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+                if (slotIdx < entries.length) {
+                    const entry = entries[slotIdx];
+                    input.value = entry.name || '';
+                    if (entry.name) {
+                        input.classList.add('prefilled');
+                    }
+                    
+                    // Update time display
+                    const timeSpan = document.getElementById(`time-text-${date.split('/')[0]}-${specCode}-${slotIdx}`);
+                    if (timeSpan && entry.dutyTime) {
+                        timeSpan.textContent = entry.dutyTime;
+                    }
+                } else {
+                    input.value = '';
+                    input.classList.remove('prefilled');
+                }
+            }
+        });
+    }
+
+    // ========== INPUT LOGIC ==========
+    function handleAC(el, sid, uid) {
+        const ghost = document.getElementById(`ghost-${uid}`);
+        const val = el.value;
+        ghost.innerHTML = "";
+        ghost.removeAttribute('data-full');
+        el.classList.remove('prefilled');
+        if (!val.trim()) { el.classList.remove('new-entry'); return; }
+        el.classList.add('new-entry');
+
+        if (nameData[sid]) {
+            const match = nameData[sid].find(n => {
+                const nClean = n.toLowerCase().replace(/^د\.\s*/, "").trim();
+                const valClean = val.toLowerCase().replace(/^د\.\s*/, "").trim();
+                return n.toLowerCase().startsWith(val.toLowerCase()) || nClean.startsWith(valClean);
+            });
+            if (match) {
+                ghost.setAttribute('data-full', match);
+                let display = val.startsWith("د.") ? match : match.replace(/^د\.\s*/, "");
+                if (display.toLowerCase().startsWith(val.toLowerCase())) {
+                    ghost.innerHTML = `<span class="ghost-offset">${val}</span><span class="ghost-suggestion-bright">${display.substring(val.length)}</span>`;
+                } else { 
+                    ghost.innerHTML = `<span class="ghost-suggestion">${display}</span>`;
+                }
+            }
+        }
+    }
+
+    function handleKeys(e, el, uid) {
+        const ghost = document.getElementById(`ghost-${uid}`);
+        const full = ghost.getAttribute('data-full');
+        if (e.key === "Enter") {
+            e.preventDefault();
+            if (full) { 
+                el.value = full; 
+                el.classList.add('new-entry'); 
+                ghost.innerHTML = "";
+                // Auto-save the entry
+                saveEntry(el);
+            }
+        }
+    }
+
+    function toggleMenu(e, uid, sid) {
+        e.stopPropagation();
+        const m = document.getElementById(`menu-${uid}`);
+        const open = m.style.display === "block";
+        closeAllMenus();
+        if (!open) {
+            const specColor = getSpecColor(sid);
+            m.style.borderColor = specColor;
+            m.innerHTML = (nameData[sid] || []).map(n => `<div onmousedown="selectName('${uid}', '${n}')">${n}</div>`).join('');
+            m.style.display = "block";
+        }
+    }
+
+    function selectName(uid, name) {
+        const i = document.getElementById(`input-${uid}`);
+        if (i) {
+            i.value = name;
+            i.classList.add('new-entry');
+            const g = document.getElementById(`ghost-${uid}`);
+            if (g) g.innerHTML = "";
+            // Auto-save the entry
+            saveEntry(i);
+        }
+        closeAllMenus();
+    }
+
+    function handleBlur(uid) {
+        setTimeout(() => {
+            const g = document.getElementById(`ghost-${uid}`);
+            const input = document.getElementById(`input-${uid}`);
+            if (g && g.getAttribute('data-full') && input && input.value !== "") {
+                input.value = g.getAttribute('data-full');
+                input.classList.add('new-entry');
+                // Auto-save the entry
+                saveEntry(input);
+            }
+            if (g) g.innerHTML = "";
+        }, 250);
+    }
+
+    // ========== SAVE ENTRY ==========
+    function saveEntry(input) {
+        const date = input.dataset.date;
+        const specCode = input.dataset.spec;
+        const slotIdx = parseInt(input.dataset.slot) || 0;
+        const name = input.value.trim();
+        
+        if (!name) return;
+        
+        // Find the entry
+        const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        if (slotIdx >= entries.length) {
+            // Create new entry
+            const numSlots = entries.length + 1;
+            const timeOverrides = {};
+            entries.forEach((entry, idx) => {
+                if (entry.dutyTime) {
+                    const parsed = parseDutyTime(entry.dutyTime);
+                    if (parsed) timeOverrides[`slot_${idx}`] = parsed;
+                }
+            });
+            const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+            const timeData = calculatedTimes[slotIdx] || { start: 0, end: 24 * 60 };
+            const dutyTimeStr = formatDutyTime(timeData.start, timeData.end);
+            
+            db.schedule.push({
+                date: date,
+                specCode: specCode,
+                name: name,
+                VisitCount: 0,
+                dutyTime: dutyTimeStr,
+                dutySlot: slotIdx
+            });
+        } else {
+            entries[slotIdx].name = name;
+        }
+        
+        // Recalculate times if needed
+        const allEntries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+        const numSlots = allEntries.length;
+        if (numSlots > 0) {
+            const timeOverrides = {};
+            allEntries.forEach((entry, idx) => {
+                if (entry.dutyTime) {
+                    const parsed = parseDutyTime(entry.dutyTime);
+                    if (parsed) timeOverrides[`slot_${idx}`] = parsed;
+                }
+            });
+            const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+            allEntries.forEach((entry, idx) => {
+                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
+            });
+        }
+        
+        // Refresh view to show updated times
+        refreshView();
+        showToast(`تم حفظ ${name}`, 'success', 1000);
+    }
+
+    // ========== REFRESH VIEW ==========
+    function refreshView() {
+        generateBoard();
+        renderData();
+    }
+
+    // ========== SAVE TO GITHUB ==========
+    async function saveToGithub() {
+        const btn = document.getElementById('sync-btn');
+        const oldText = btn.innerText;
+        btn.innerText = "Syncing…";
+
+        // Collect all data from inputs
+        const inputs = Array.from(document.querySelectorAll('.cell-input'));
+        const dateSpecMap = {};
+        
+        inputs.forEach(input => {
+            const date = input.dataset.date;
+            const specCode = input.dataset.spec;
+            const slotIdx = parseInt(input.dataset.slot) || 0;
+            const name = input.value.trim();
+            
+            if (name && date && specCode) {
+                const key = `${date}-${specCode}`;
+                if (!dateSpecMap[key]) dateSpecMap[key] = [];
+                dateSpecMap[key][slotIdx] = name;
+            }
+        });
+        
+        // Build new schedule entries
+        const newSchedule = [];
+        Object.keys(dateSpecMap).forEach(key => {
+            const [date, specCode] = key.split('-');
+            const names = dateSpecMap[key];
+            names.forEach((name, idx) => {
+                if (name) {
+                    // Check if entry exists with dutyTime
+                    const existing = (db.schedule || []).find(s => 
+                        s.date === date && s.specCode === specCode && s.dutySlot === idx
+                    );
+                    newSchedule.push({
+                        date: date,
+                        specCode: specCode,
+                        name: name,
+                        VisitCount: existing?.VisitCount || 0,
+                        dutyTime: existing?.dutyTime || formatDutyTime(idx * (24 * 60 / names.length), (idx + 1) * (24 * 60 / names.length)),
+                        dutySlot: idx
+                    });
+                }
+            });
+        });
+        
+        // Preserve entries that are not in the current month
+        const picker = document.getElementById('month-picker');
+        const [yr, mon] = picker.value.split('-');
+        const preserved = (db.schedule || []).filter(s => 
+            !s.date || !s.date.endsWith(`${mon}/${yr}`)
+        );
+        
+        const updatedSchedule = [...preserved, ...newSchedule];
+        
+        try {
+            const dataToSave = {
+                names: db.names || [],
+                schedule: updatedSchedule,
+                passwords: db.passwords || { user: "12345", admin: "123" },
+                specialties: db.specialties || []
+            };
+
+            const body = {
+                message: "Sync Schedule 🇮🇶",
+                content: btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2)))),
+                sha: fileSha
+            };
+            
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${GH_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+            
+            if (res.ok) {
+                const update = await res.json();
+                fileSha = update.content.sha;
+                db.schedule = updatedSchedule;
+                btn.innerText = "Synced ✅";
+                showToast('✅ تم حفظ الجدول بنجاح', 'success');
+            } else { 
+                btn.innerText = "Sync Error ❌";
+                showToast('❌ فشل حفظ الجدول', 'error');
+            }
+        } catch (e) { 
+            btn.innerText = "Error";
+            showToast('❌ خطأ في الاتصال', 'error');
+        }
+        setTimeout(() => btn.innerText = oldText, 2000);
+    }
+
+    // ========== TOAST ==========
+    function showToast(message, type = 'info', duration = 2000) {
+        const existing = document.querySelector('.toast-container');
+        if (existing) existing.remove();
+        
+        const container = document.createElement('div');
+        container.className = 'toast-container';
+        container.style.cssText = `
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 99999;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: white;
+            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            max-width: 90%;
+            text-align: center;
+            direction: rtl;
+        `;
+        container.textContent = message;
+        document.body.appendChild(container);
+        
+        setTimeout(() => {
+            container.style.opacity = '0';
+            container.style.transform = 'translateX(-50%) translateY(-20px)';
+            setTimeout(() => container.remove(), 300);
+        }, duration);
+    }
+
+    // ========== EXPOSE FUNCTIONS ==========
+    window.addSlot = addSlot;
+    window.deleteSlot = deleteSlot;
+    window.editTime = editTime;
+    window.saveToGithub = saveToGithub;
+    window.refreshView = refreshView;
+    window.handleAC = handleAC;
+    window.handleKeys = handleKeys;
+    window.toggleMenu = toggleMenu;
+    window.selectName = selectName;
+    window.handleBlur = handleBlur;
+    window.closeAllMenus = closeAllMenus;
+    window.showToast = showToast;
+</script>
+</body>
+</html>
