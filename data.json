@@ -3304,12 +3304,6 @@
       "VisitCount": 0
     },
     {
-      "date": "07/08/2026",
-      "specCode": "M",
-      "name": "د. زينب ياسين باقر",
-      "VisitCount": 0
-    },
-    {
       "date": "08/08/2026",
       "specCode": "M",
       "name": "د. ضحى عبد الكريم مصطفى",
@@ -4658,6 +4652,12 @@
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "08:54"
+    },
+    {
+      "date": "07/08/2026",
+      "specCode": "M",
+      "name": "د. محمد حسن علي",
+      "timestamp": "13:47"
     }
   ],
   "passwords": {
