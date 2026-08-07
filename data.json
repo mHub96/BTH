@@ -1990,12 +1990,6 @@
       "VisitCount": 5
     },
     {
-      "date": "07/08/2026",
-      "specCode": "GS",
-      "name": "د. مصطفى محمد موسى",
-      "VisitCount": 0
-    },
-    {
       "date": "08/08/2026",
       "specCode": "GS",
       "name": "د. طيبة شاكر سبع",
@@ -4658,6 +4652,12 @@
       "specCode": "N",
       "name": "د. علي احمد خزعل",
       "timestamp": "21:15"
+    },
+    {
+      "date": "07/08/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد موسى",
+      "timestamp": "08:00"
     }
   ],
   "passwords": {
