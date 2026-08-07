@@ -784,6 +784,7 @@
         let dataLoaded = false;
         let currentResidents = [];
         let isAutoLoginAttempted = false;
+        let isAutoLoginSuccess = false; // Track if auto-login already showed a toast
 
         const STORAGE_KEY = 'duty_signup_session';
 
@@ -805,8 +806,21 @@
         // ============================================================
         // TOAST - TOP CENTER
         // ============================================================
+        let toastTimeout = null;
+
         function showToast(message, type = 'info', duration = 3000) {
+            // Clear any existing toast timeout to prevent stacking
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toastTimeout = null;
+            }
+
             const container = document.getElementById('toast-container');
+            
+            // Remove any existing toast that might be showing
+            const existingToasts = container.querySelectorAll('.toast-item');
+            existingToasts.forEach(t => t.remove());
+
             const toast = document.createElement('div');
             toast.className = `toast-item ${type}`;
             toast.innerHTML = `
@@ -820,17 +834,25 @@
                 toast.classList.add('show');
             });
 
-            const timer = setTimeout(() => {
+            toastTimeout = setTimeout(() => {
                 toast.classList.remove('show');
                 toast.classList.add('hide');
-                setTimeout(() => toast.remove(), 400);
+                setTimeout(() => {
+                    if (toast.parentElement) toast.remove();
+                    toastTimeout = null;
+                }, 400);
             }, duration);
 
             toast.querySelector('.toast-close').addEventListener('click', () => {
-                clearTimeout(timer);
+                if (toastTimeout) {
+                    clearTimeout(toastTimeout);
+                    toastTimeout = null;
+                }
                 toast.classList.remove('show');
                 toast.classList.add('hide');
-                setTimeout(() => toast.remove(), 400);
+                setTimeout(() => {
+                    if (toast.parentElement) toast.remove();
+                }, 400);
             });
         }
 
@@ -869,6 +891,7 @@
 
         function logout() {
             clearSession();
+            isAutoLoginSuccess = false;
             document.getElementById('lock-screen').classList.remove('hidden');
             document.getElementById('main-app').classList.remove('visible');
             document.getElementById('password-input').value = '';
@@ -913,7 +936,7 @@
 
                     if (pwd === adminPass || pwd === userPass) {
                         err.textContent = '';
-                        loginSuccess();
+                        loginSuccess(false); // false = not auto-login
                     } else {
                         err.textContent = '❌ كلمة المرور غير صحيحة';
                         input.value = '';
@@ -931,17 +954,29 @@
             }
         }
 
-        function loginSuccess() {
+        function loginSuccess(isAuto) {
             dataLoaded = true;
             document.getElementById('lock-screen').classList.add('hidden');
             document.getElementById('main-app').classList.add('visible');
             saveSession();
             populateSpecialties();
-            showToast('تم تسجيل الدخول بنجاح', 'success');
+
+            // Only show toast if it's NOT auto-login, or if auto-login hasn't shown one yet
+            if (!isAuto || !isAutoLoginSuccess) {
+                if (isAuto) {
+                    isAutoLoginSuccess = true;
+                }
+                showToast('تم تسجيل الدخول بنجاح', 'success');
+            }
+            
+            // Reset the auto-login flag after successful login
+            if (isAuto) {
+                isAutoLoginSuccess = true;
+            }
         }
 
         // ============================================================
-        // AUTO LOGIN
+        // AUTO LOGIN - FIXED: Only shows toast once
         // ============================================================
         (function() {
             const token = localStorage.getItem('rememberToken');
@@ -949,11 +984,49 @@
                 isAutoLoginAttempted = true;
                 try {
                     const pwd = atob(token);
+                    // Set the password in the input field
                     document.getElementById('password-input').value = pwd;
-                    setTimeout(handleLogin, 300);
-                } catch (e) {}
+                    // Perform auto-login with a flag
+                    performAutoLogin(pwd);
+                } catch (e) {
+                    console.error("Auto-login decode error:", e);
+                }
             }
         })();
+
+        async function performAutoLogin(pwd) {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}?t=${Date.now()}`, {
+                    headers: { "Authorization": `token ${GH_TOKEN}` }
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    fileSha = data.sha;
+                    const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                    db = content;
+                    db.specialties = (db.specialties || []).map(s => ({
+                        ...s,
+                        enabled: s.enabled !== undefined ? s.enabled : true
+                    }));
+
+                    const userPass = db.passwords?.user || "12345";
+                    const adminPass = db.passwords?.admin || "123";
+
+                    if (pwd === adminPass || pwd === userPass) {
+                        // Auto-login success - show toast only once
+                        loginSuccess(true);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.error("Auto-login error:", e);
+            }
+
+            // If auto-login fails, show lock screen
+            document.getElementById('lock-screen').classList.remove('hidden');
+            document.getElementById('password-input').focus();
+        }
 
         // ============================================================
         // SPECIALTIES
@@ -1183,7 +1256,6 @@
             const msg = document.getElementById('status-msg');
             const card = document.getElementById('app-card');
 
-            // Reset all fields
             select.value = '';
             section.style.display = 'none';
             input.value = '';
@@ -1194,7 +1266,6 @@
             closeMenu();
             card.classList.remove('card-success');
 
-            // Focus on the select
             select.focus();
         }
 
@@ -1260,14 +1331,10 @@
                     const data = await res.json();
                     fileSha = data.content.sha;
 
-                    // Show success message
                     msg.innerHTML = `<span style="color:#10b981;">✅ تم تحديث الخفير إلى <strong>${name}</strong></span>`;
                     showToast(`تم تحديث الخفير إلى ${name}`, 'success');
-                    
-                    // Add success glow to card
                     card.classList.add('card-success');
 
-                    // Wait 1.5 seconds then reset to start
                     setTimeout(() => {
                         resetToStart();
                     }, 1500);
@@ -1329,8 +1396,9 @@
                 const token = localStorage.getItem('rememberToken');
                 if (token) {
                     try {
-                        document.getElementById('password-input').value = atob(token);
-                        setTimeout(handleLogin, 200);
+                        const pwd = atob(token);
+                        document.getElementById('password-input').value = pwd;
+                        // The auto-login IIFE will handle the rest
                     } catch (e) {}
                 }
             } else {
