@@ -3484,12 +3484,6 @@
       "VisitCount": 1
     },
     {
-      "date": "08/08/2026",
-      "specCode": "G",
-      "name": "د. وديان فرات كمال",
-      "VisitCount": 0
-    },
-    {
       "date": "09/08/2026",
       "specCode": "G",
       "name": "د. امنه صفاء احمد",
@@ -4661,6 +4655,12 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "08:23"
+    },
+    {
+      "date": "08/08/2026",
+      "specCode": "G",
+      "name": "د. زينب حاكم فيصل",
+      "timestamp": "08:47"
     }
   ],
   "passwords": {
