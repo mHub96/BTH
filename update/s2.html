@@ -38,8 +38,10 @@
 
         /* ----- navigation - FIXED ----- */
         .nav-bar {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
             height: var(--nav-h);
             padding: 0 1.5rem;
@@ -169,34 +171,34 @@
             color: #0b0e11;
         }
 
-        /* ----- board container ----- */
+        /* ----- board container - NOW WITH TOP PADDING FOR FIXED NAV ----- */
         .board-container {
             flex: 1;
             display: flex;
             gap: 1.5rem;
-            padding: 1.5rem 2rem 2rem;
+            padding: calc(var(--nav-h) + 1.5rem) 2rem 2rem 2rem;
             overflow-x: auto;
             overflow-y: hidden;
             align-items: flex-start;
             box-sizing: border-box;
-            height: calc(100vh - var(--nav-h));
+            height: 100vh;
             scroll-behavior: smooth;
             transition: all 0.3s ease;
             position: relative;
             touch-action: pan-y;
+            margin-top: 0;
         }
 
         .board-container.all-view {
             overflow-x: auto;
             overflow-y: hidden;
             justify-content: flex-start;
-            padding: 1.5rem 2rem 2rem;
         }
 
         .board-container.single-view {
             overflow: hidden;
             justify-content: center;
-            padding: 1rem;
+            padding: calc(var(--nav-h) + 1.5rem) 1rem 2rem 1rem;
             touch-action: none;
         }
 
@@ -219,7 +221,7 @@
             border-radius: var(--radius-card);
             display: flex;
             flex-direction: column;
-            max-height: 94%;
+            max-height: calc(100vh - var(--nav-h) - 3rem);
             border: 1px solid var(--border-subtle);
             box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02);
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.3s ease, opacity 0.3s ease;
@@ -234,6 +236,7 @@
             width: 300px;
             min-width: 260px;
             max-width: 360px;
+            max-height: calc(100vh - var(--nav-h) - 3rem);
         }
 
         .board-container.single-view .specialty-track {
@@ -241,6 +244,7 @@
             max-width: 520px;
             min-width: 280px;
             width: 92%;
+            max-height: calc(100vh - var(--nav-h) - 3rem);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
         }
 
@@ -842,7 +846,7 @@
             gap: 0.4rem;
             padding: 0.3rem 0;
             position: absolute;
-            bottom: 4px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
@@ -884,6 +888,10 @@
 
         /* responsive */
         @media (max-width: 640px) {
+            :root {
+                --nav-h: 60px;
+            }
+            
             .nav-bar {
                 padding: 0.4rem 0.75rem;
                 height: auto;
@@ -896,29 +904,34 @@
             .nav-brand span {
                 font-size: 1rem;
             }
+            
             .board-container {
-                padding: 0.75rem 0.5rem 1.5rem;
+                padding: calc(var(--nav-h) + 1rem) 0.5rem 1.5rem 0.5rem;
                 gap: 1rem;
             }
             .board-container.all-view {
-                padding: 0.75rem 0.5rem 1.5rem;
+                padding: calc(var(--nav-h) + 1rem) 0.5rem 1.5rem 0.5rem;
                 gap: 1rem;
             }
+            .board-container.single-view {
+                padding: calc(var(--nav-h) + 1rem) 0.5rem 1.5rem 0.5rem;
+            }
+            
             .board-container.all-view .specialty-track {
                 flex: 0 0 260px;
                 width: 260px;
                 min-width: 220px;
                 max-width: 320px;
+                max-height: calc(100vh - var(--nav-h) - 2.5rem);
             }
             .board-container.single-view .specialty-track {
                 flex: 0 0 96%;
                 max-width: 100%;
                 min-width: 0;
                 width: 96%;
+                max-height: calc(100vh - var(--nav-h) - 2.5rem);
             }
-            :root {
-                --nav-h: 60px;
-            }
+            
             .duty-slot .time-display {
                 min-width: 38px;
                 font-size: 0.4rem;
@@ -971,6 +984,10 @@
             .track-indicators .dot.active {
                 width: 14px;
             }
+            .swipe-hint {
+                bottom: 30px;
+                font-size: 0.4rem;
+            }
         }
 
         @media (max-width: 400px) {
@@ -978,10 +995,12 @@
                 flex: 0 0 220px;
                 width: 220px;
                 min-width: 190px;
+                max-height: calc(100vh - var(--nav-h) - 2rem);
             }
             .board-container.single-view .specialty-track {
                 flex: 0 0 98%;
                 width: 98%;
+                max-height: calc(100vh - var(--nav-h) - 2rem);
             }
             .duty-slot .time-display {
                 min-width: 32px;
@@ -1264,7 +1283,6 @@
         container.classList.remove('all-view', 'single-view');
         container.classList.add(view === 'all' ? 'all-view' : 'single-view');
         
-        // Show/hide tracks
         const tracks = container.querySelectorAll('.specialty-track');
         if (view === 'all') {
             tracks.forEach((track) => {
@@ -1273,7 +1291,6 @@
             });
             document.querySelector('.swipe-hint').style.display = 'none';
         } else {
-            // Single view - show only current track
             tracks.forEach((track, index) => {
                 if (index === currentTrackIndex) {
                     track.classList.remove('hidden-track', 'slide-out-left', 'slide-out-right');
@@ -1286,7 +1303,6 @@
             });
             document.querySelector('.swipe-hint').style.display = 'block';
             
-            // Scroll to the track
             setTimeout(() => {
                 const visibleTrack = container.querySelector('.specialty-track:not(.hidden-track)');
                 if (visibleTrack) {
@@ -1318,15 +1334,12 @@
             return;
         }
         
-        // Prepare next track
         nextTrack.classList.remove('hidden-track');
         nextTrack.style.display = '';
         nextTrack.classList.add(direction > 0 ? 'slide-out-right' : 'slide-out-left');
         
-        // Animate current track out
         currentTrack.classList.add(direction > 0 ? 'slide-out-left' : 'slide-out-right');
         
-        // After animation, swap
         setTimeout(() => {
             currentTrack.classList.add('hidden-track');
             currentTrack.style.display = 'none';
@@ -1346,7 +1359,6 @@
     }
 
     function updateIndicators() {
-        // Remove existing indicators
         const container = document.getElementById('board');
         const existingIndicators = container.querySelector('.track-indicators');
         if (existingIndicators) existingIndicators.remove();
@@ -1659,7 +1671,6 @@
             board.appendChild(track);
         });
 
-        // Update indicators after building
         updateIndicators();
     }
 
@@ -2156,7 +2167,6 @@
     function refreshView() {
         generateBoard();
         renderData();
-        // Reapply view state
         if (currentView === 'single') {
             const container = document.getElementById('board');
             const tracks = container.querySelectorAll('.specialty-track');
