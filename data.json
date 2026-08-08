@@ -4652,15 +4652,15 @@
     },
     {
       "date": "08/08/2026",
-      "specCode": "G",
-      "name": "د. زينب حاكم فيصل",
-      "timestamp": "08:47"
-    },
-    {
-      "date": "08/08/2026",
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
       "timestamp": "10:20"
+    },
+    {
+      "date": "08/08/2026",
+      "specCode": "G",
+      "name": "د. وديان فرات كمال",
+      "timestamp": "10:31"
     }
   ],
   "passwords": {
