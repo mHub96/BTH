@@ -2542,12 +2542,6 @@
       "VisitCount": 2
     },
     {
-      "date": "08/08/2026",
-      "specCode": "ENT",
-      "name": "د. دعاء ناظم اسماعيل",
-      "VisitCount": 0
-    },
-    {
       "date": "09/08/2026",
       "specCode": "ENT",
       "name": "د. وديان باقر كامل",
@@ -4661,6 +4655,12 @@
       "specCode": "ICU",
       "name": "د. علاء سلمان",
       "timestamp": "00:04"
+    },
+    {
+      "date": "08/08/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "08:23"
     }
   ],
   "passwords": {
