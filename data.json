@@ -4222,12 +4222,6 @@
       "VisitCount": 1
     },
     {
-      "date": "09/08/2026",
-      "specCode": "R",
-      "name": "د. رند اياد",
-      "VisitCount": 0
-    },
-    {
       "date": "10/08/2026",
       "specCode": "R",
       "name": "د. اسراء زهير",
@@ -4663,6 +4657,12 @@
       "specCode": "ENT",
       "name": "د. وديان باقر كامل",
       "timestamp": "11:47"
+    },
+    {
+      "date": "09/08/2026",
+      "specCode": "R",
+      "name": "د. سهاد حسن",
+      "timestamp": "14:53"
     }
   ],
   "passwords": {
