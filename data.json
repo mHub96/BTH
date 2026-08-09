@@ -2722,12 +2722,6 @@
       "VisitCount": 3
     },
     {
-      "date": "09/08/2026",
-      "specCode": "O",
-      "name": "د. غفران علي صبري",
-      "VisitCount": 0
-    },
-    {
       "date": "10/08/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم عجيل",
@@ -4663,6 +4657,12 @@
       "name": "د. وديان فرات كمال",
       "timestamp": "10:31",
       "VisitCount": 1
+    },
+    {
+      "date": "09/08/2026",
+      "specCode": "O",
+      "name": "د. غفران علي صبري",
+      "timestamp": "08:22"
     }
   ],
   "passwords": {
