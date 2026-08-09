@@ -3238,12 +3238,6 @@
       "VisitCount": 5
     },
     {
-      "date": "09/08/2026",
-      "specCode": "N",
-      "name": "د. ايات عبدالحسين",
-      "VisitCount": 3
-    },
-    {
       "date": "10/08/2026",
       "specCode": "N",
       "name": "د. دعاء خضير",
@@ -4666,6 +4660,12 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "20:39"
+    },
+    {
+      "date": "09/08/2026",
+      "specCode": "N",
+      "name": "د. علي احمد خزعل",
+      "timestamp": "21:20"
     }
   ],
   "passwords": {
