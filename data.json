@@ -4036,12 +4036,6 @@
       "VisitCount": 2
     },
     {
-      "date": "09/08/2026",
-      "specCode": "D",
-      "name": "د. توفيق حيدر توفيق",
-      "VisitCount": 2
-    },
-    {
       "date": "10/08/2026",
       "specCode": "D",
       "name": "د. احمد ياسر شنيور",
@@ -4666,6 +4660,12 @@
       "name": "د. سهاد حسن",
       "timestamp": "14:53",
       "VisitCount": 1
+    },
+    {
+      "date": "09/08/2026",
+      "specCode": "D",
+      "name": "د. محمد أحمد",
+      "timestamp": "20:38"
     }
   ],
   "passwords": {
