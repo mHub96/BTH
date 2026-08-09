@@ -3286,12 +3286,6 @@
       "VisitCount": 0
     },
     {
-      "date": "09/08/2026",
-      "specCode": "M",
-      "name": "د. ايمان نعيم",
-      "VisitCount": 2
-    },
-    {
       "date": "10/08/2026",
       "specCode": "M",
       "name": "د. ضحى عبد الكريم مصطفى",
@@ -4666,6 +4660,12 @@
       "specCode": "D",
       "name": "د. محمد أحمد",
       "timestamp": "20:38"
+    },
+    {
+      "date": "09/08/2026",
+      "specCode": "M",
+      "name": "د. محمد أحمد",
+      "timestamp": "20:39"
     }
   ],
   "passwords": {
