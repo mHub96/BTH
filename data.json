@@ -4655,12 +4655,6 @@
     },
     {
       "date": "10/08/2026",
-      "specCode": "O",
-      "name": "د. بشير حسن",
-      "timestamp": "17:39"
-    },
-    {
-      "date": "10/08/2026",
       "specCode": "M",
       "name": "د. احمد جمال",
       "timestamp": "20:53",
@@ -4671,6 +4665,12 @@
       "specCode": "D",
       "name": "د. كرار حسن",
       "timestamp": "22:18"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم عجيل",
+      "timestamp": "01:25"
     }
   ],
   "passwords": {
