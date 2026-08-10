@@ -4633,12 +4633,6 @@
     },
     {
       "date": "10/08/2026",
-      "specCode": "O",
-      "name": "د. ذو الفقار باسم عجيل",
-      "timestamp": "08:24"
-    },
-    {
-      "date": "10/08/2026",
       "specCode": "GS",
       "name": "د. احمد حسين هادي",
       "timestamp": "08:25",
@@ -4670,6 +4664,12 @@
       "name": "د. هارون عاشور",
       "timestamp": "14:17",
       "VisitCount": 2
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "O",
+      "name": "د. بشير حسن",
+      "timestamp": "17:39"
     }
   ],
   "passwords": {
