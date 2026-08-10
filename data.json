@@ -3244,12 +3244,6 @@
       "VisitCount": 0
     },
     {
-      "date": "10/08/2026",
-      "specCode": "M",
-      "name": "د. ضحى عبد الكريم مصطفى",
-      "VisitCount": 0
-    },
-    {
       "date": "11/08/2026",
       "specCode": "M",
       "name": "د. ضحى عبد الكريم مصطفى",
@@ -4670,6 +4664,12 @@
       "specCode": "O",
       "name": "د. بشير حسن",
       "timestamp": "17:39"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "M",
+      "name": "د. احمد جمال",
+      "timestamp": "20:53"
     }
   ],
   "passwords": {
