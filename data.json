@@ -2716,12 +2716,6 @@
       "VisitCount": 3
     },
     {
-      "date": "10/08/2026",
-      "specCode": "O",
-      "name": "د. ذو الفقار باسم عجيل",
-      "VisitCount": 0
-    },
-    {
       "date": "11/08/2026",
       "specCode": "O",
       "name": "د. بشير حسن",
@@ -4666,6 +4660,12 @@
       "specCode": "ENT",
       "name": "د. مريم علي محمد",
       "timestamp": "00:14"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم عجيل",
+      "timestamp": "08:24"
     }
   ],
   "passwords": {
