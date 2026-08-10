@@ -4652,12 +4652,6 @@
     },
     {
       "date": "10/08/2026",
-      "specCode": "OR",
-      "name": "د. علي مطشر ابو كحيله",
-      "timestamp": "09:25"
-    },
-    {
-      "date": "10/08/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "12:49"
@@ -4667,6 +4661,12 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "14:08"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "OR",
+      "name": "د. هارون عاشور",
+      "timestamp": "14:17"
     }
   ],
   "passwords": {
