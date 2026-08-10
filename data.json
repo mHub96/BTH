@@ -2530,12 +2530,6 @@
       "VisitCount": 2
     },
     {
-      "date": "10/08/2026",
-      "specCode": "ENT",
-      "name": "د. مريم علي محمد",
-      "VisitCount": 3
-    },
-    {
       "date": "11/08/2026",
       "specCode": "ENT",
       "name": "د. الزهراء علي محمد",
@@ -4667,6 +4661,12 @@
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "12:49"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "13:40"
     }
   ],
   "passwords": {
