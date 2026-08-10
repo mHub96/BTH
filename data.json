@@ -2176,12 +2176,6 @@
       "VisitCount": 6
     },
     {
-      "date": "10/08/2026",
-      "specCode": "OR",
-      "name": "د. علي عدنان",
-      "VisitCount": 0
-    },
-    {
       "date": "11/08/2026",
       "specCode": "OR",
       "name": "د. عبد الحكيم هادي",
@@ -4667,6 +4661,12 @@
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "08:41"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "OR",
+      "name": "على مطشر ابوكحيله",
+      "timestamp": "09:24"
     }
   ],
   "passwords": {
