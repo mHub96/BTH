@@ -2002,12 +2002,6 @@
       "VisitCount": 7
     },
     {
-      "date": "10/08/2026",
-      "specCode": "GS",
-      "name": "د. احمد حسين هادي",
-      "VisitCount": 0
-    },
-    {
       "date": "11/08/2026",
       "specCode": "GS",
       "name": "د. سعيد جندي لهمود",
@@ -4666,6 +4660,12 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم عجيل",
       "timestamp": "08:24"
+    },
+    {
+      "date": "10/08/2026",
+      "specCode": "GS",
+      "name": "د. احمد حسين هادي",
+      "timestamp": "08:25"
     }
   ],
   "passwords": {
