@@ -2356,12 +2356,6 @@
       "VisitCount": 1
     },
     {
-      "date": "11/08/2026",
-      "specCode": "US",
-      "name": "د. عمر حسين",
-      "VisitCount": 5
-    },
-    {
       "date": "12/08/2026",
       "specCode": "US",
       "name": "د. حيدر علي",
@@ -4675,6 +4669,12 @@
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:16"
+    },
+    {
+      "date": "11/08/2026",
+      "specCode": "US",
+      "name": "د. كرار حسن",
+      "timestamp": "21:45"
     }
   ],
   "passwords": {
