@@ -2848,12 +2848,6 @@
       "VisitCount": 1
     },
     {
-      "date": "11/08/2026",
-      "specCode": "Pe",
-      "name": "د. ضرغام قاسم",
-      "VisitCount": 0
-    },
-    {
       "date": "12/08/2026",
       "specCode": "Pe",
       "name": "د. وعد سمير باسم",
@@ -4672,6 +4666,12 @@
       "specCode": "MF",
       "name": "د. تقى حسن",
       "timestamp": "09:29"
+    },
+    {
+      "date": "11/08/2026",
+      "specCode": "Pe",
+      "name": "د. ضرغام قاسم",
+      "timestamp": "10:02"
     }
   ],
   "passwords": {
