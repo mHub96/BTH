@@ -3244,12 +3244,6 @@
       "VisitCount": 0
     },
     {
-      "date": "11/08/2026",
-      "specCode": "M",
-      "name": "د. ضحى عبد الكريم مصطفى",
-      "VisitCount": 0
-    },
-    {
       "date": "12/08/2026",
       "specCode": "M",
       "name": "د. فاطمة كريم",
@@ -4672,6 +4666,12 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم عجيل",
       "timestamp": "01:25"
+    },
+    {
+      "date": "11/08/2026",
+      "specCode": "M",
+      "name": "د. اسيل علي",
+      "timestamp": "08:49"
     }
   ],
   "passwords": {
