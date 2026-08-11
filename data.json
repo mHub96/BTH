@@ -3952,12 +3952,6 @@
       "VisitCount": 2
     },
     {
-      "date": "11/08/2026",
-      "specCode": "D",
-      "name": "د. احمد ياسين",
-      "VisitCount": 5
-    },
-    {
       "date": "12/08/2026",
       "specCode": "D",
       "name": "د. فاطمة كريم",
@@ -4673,6 +4667,12 @@
       "specCode": "M",
       "name": "د. عبد المحسن عيسى حسن",
       "timestamp": "20:07"
+    },
+    {
+      "date": "11/08/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:16"
     }
   ],
   "passwords": {
