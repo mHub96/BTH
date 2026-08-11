@@ -1828,12 +1828,6 @@
       "VisitCount": 7
     },
     {
-      "date": "11/08/2026",
-      "specCode": "MF",
-      "name": "د. وضاح اكثم",
-      "VisitCount": 0
-    },
-    {
       "date": "12/08/2026",
       "specCode": "MF",
       "name": "د. عبد الله وسام",
@@ -4672,6 +4666,12 @@
       "specCode": "M",
       "name": "د. اسيل علي",
       "timestamp": "08:49"
+    },
+    {
+      "date": "11/08/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "timestamp": "09:29"
     }
   ],
   "passwords": {
