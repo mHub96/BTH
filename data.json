@@ -4643,13 +4643,6 @@
     },
     {
       "date": "12/08/2026",
-      "specCode": "M",
-      "name": "د. نزار سليم",
-      "timestamp": "08:01",
-      "VisitCount": 6
-    },
-    {
-      "date": "12/08/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "08:23"
@@ -4679,6 +4672,12 @@
       "specCode": "ENT",
       "name": "د. مريم علي محمد",
       "timestamp": "17:19"
+    },
+    {
+      "date": "12/08/2026",
+      "specCode": "M",
+      "name": "د. محمد أحمد",
+      "timestamp": "20:04"
     }
   ],
   "passwords": {
