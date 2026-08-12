@@ -4243,12 +4243,6 @@
       "VisitCount": 0
     },
     {
-      "date": "12/08/2026",
-      "specCode": "D",
-      "name": "د. زين العابدين عبد الرحمن عباس",
-      "VisitCount": 3
-    },
-    {
       "date": "13/08/2026",
       "specCode": "D",
       "name": "د. رسل منذر",
@@ -4709,6 +4703,12 @@
       "specCode": "AO",
       "name": "ثائر رزاق",
       "VisitCount": 0
+    },
+    {
+      "date": "12/08/2026",
+      "specCode": "D",
+      "name": "د. يونس باسل",
+      "timestamp": "01:54"
     }
   ],
   "passwords": {
