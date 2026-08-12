@@ -3940,12 +3940,6 @@
       "VisitCount": 2
     },
     {
-      "date": "12/08/2026",
-      "specCode": "D",
-      "name": "د. فاطمة كريم",
-      "VisitCount": 0
-    },
-    {
       "date": "13/08/2026",
       "specCode": "D",
       "name": "د. رسل منذر",
@@ -4676,6 +4670,12 @@
       "specCode": "M",
       "name": "د. نزار سليم",
       "timestamp": "08:01"
+    },
+    {
+      "date": "12/08/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "08:23"
     }
   ],
   "passwords": {
