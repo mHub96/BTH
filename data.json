@@ -2176,12 +2176,6 @@
       "VisitCount": 7
     },
     {
-      "date": "12/08/2026",
-      "specCode": "OR",
-      "name": "محمد عبدالعباس",
-      "VisitCount": 0
-    },
-    {
       "date": "13/08/2026",
       "specCode": "OR",
       "name": "د. عبد الجبار منذر",
@@ -4678,6 +4672,12 @@
       "name": "د. فاطمة عباس",
       "timestamp": "09:50",
       "VisitCount": 2
+    },
+    {
+      "date": "12/08/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "12:59"
     }
   ],
   "passwords": {
