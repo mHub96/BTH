@@ -2041,12 +2041,6 @@
       "VisitCount": 7
     },
     {
-      "date": "13/08/2026",
-      "specCode": "GS",
-      "name": "د. مصطفى محمد موسى",
-      "VisitCount": 0
-    },
-    {
       "date": "14/08/2026",
       "specCode": "GS",
       "name": "د. محمد حيدر باقر",
@@ -4710,6 +4704,12 @@
       "specCode": "MF",
       "name": "د. وضاح اكثم",
       "timestamp": "08:08"
+    },
+    {
+      "date": "13/08/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد موسى",
+      "timestamp": "08:26"
     }
   ],
   "passwords": {
