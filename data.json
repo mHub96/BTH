@@ -4703,16 +4703,16 @@
     },
     {
       "date": "13/08/2026",
-      "specCode": "D",
-      "name": "د. هبة اياد بركات",
-      "timestamp": "11:39"
-    },
-    {
-      "date": "13/08/2026",
       "specCode": "ICU",
       "name": "د. اياد فالح",
       "timestamp": "11:42",
       "VisitCount": 2
+    },
+    {
+      "date": "13/08/2026",
+      "specCode": "D",
+      "name": "د.فاطمه كريم",
+      "timestamp": "16:59"
     }
   ],
   "passwords": {
