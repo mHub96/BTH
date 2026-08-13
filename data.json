@@ -3847,12 +3847,6 @@
       "VisitCount": 3
     },
     {
-      "date": "13/08/2026",
-      "specCode": "ICU",
-      "name": "د. مصطفى عبد الله",
-      "VisitCount": 0
-    },
-    {
       "date": "14/08/2026",
       "specCode": "ICU",
       "name": "د. اياد فالح",
@@ -4712,6 +4706,12 @@
       "specCode": "D",
       "name": "د. هبة اياد بركات",
       "timestamp": "11:39"
+    },
+    {
+      "date": "13/08/2026",
+      "specCode": "ICU",
+      "name": "د. اياد فالح",
+      "timestamp": "11:42"
     }
   ],
   "passwords": {
