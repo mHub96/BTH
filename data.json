@@ -3391,12 +3391,6 @@
       "VisitCount": 4
     },
     {
-      "date": "13/08/2026",
-      "specCode": "M",
-      "name": "د. فاطمة كريم",
-      "VisitCount": 2
-    },
-    {
       "date": "14/08/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
@@ -4713,6 +4707,12 @@
       "specCode": "D",
       "name": "د.فاطمه كريم",
       "timestamp": "16:59"
+    },
+    {
+      "date": "13/08/2026",
+      "specCode": "M",
+      "name": "د عباس المنصوري ",
+      "timestamp": "20:47"
     }
   ],
   "passwords": {
