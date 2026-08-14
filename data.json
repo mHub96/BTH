@@ -1620,22 +1620,29 @@
     {
       "name": "د. سراء ياسين ساري",
       "spec": "G",
-      "tag": "G",
       "phone": "+9647735654940",
+      "tag": "G",
       "active": true
     },
     {
       "name": "د. زهراء جاسم حمدان",
       "spec": "G",
-      "tag": "G",
       "phone": "+9647718688349",
+      "tag": "G",
       "active": true
     },
     {
       "name": "د. شهد فوزي ماضي",
       "spec": "G",
-      "tag": "G",
       "phone": "+9647705975254",
+      "tag": "G",
+      "active": true
+    },
+    {
+      "name": "د. حسين علي عاشور",
+      "spec": "OR",
+      "tag": "OR",
+      "phone": "+9647760688768",
       "active": true
     }
   ],
