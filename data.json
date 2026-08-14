@@ -2234,12 +2234,6 @@
       "VisitCount": 4
     },
     {
-      "date": "14/08/2026",
-      "specCode": "OR",
-      "name": "د. منير عبد الوافي",
-      "VisitCount": 0
-    },
-    {
       "date": "15/08/2026",
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
@@ -4721,6 +4715,12 @@
       "specCode": "M",
       "name": "د عباس المنصوري",
       "timestamp": "20:50"
+    },
+    {
+      "date": "14/08/2026",
+      "specCode": "OR",
+      "name": "د. محمد عبد العباس",
+      "timestamp": "08:21"
     }
   ],
   "passwords": {
