@@ -4214,12 +4214,6 @@
       "VisitCount": 0
     },
     {
-      "date": "14/08/2026",
-      "specCode": "D",
-      "name": "د. حسن عادل",
-      "VisitCount": 1
-    },
-    {
       "date": "15/08/2026",
       "specCode": "D",
       "name": "د. مها عباس",
@@ -4721,6 +4715,12 @@
       "specCode": "OR",
       "name": "د. محمد عبد العباس",
       "timestamp": "08:21"
+    },
+    {
+      "date": "14/08/2026",
+      "specCode": "D",
+      "name": "حسين علي عاشور",
+      "timestamp": "08:27"
     }
   ],
   "passwords": {
