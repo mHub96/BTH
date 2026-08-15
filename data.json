@@ -2228,12 +2228,6 @@
       "VisitCount": 4
     },
     {
-      "date": "15/08/2026",
-      "specCode": "OR",
-      "name": "د. علي مطشر ابو كحيله",
-      "VisitCount": 0
-    },
-    {
       "date": "16/08/2026",
       "specCode": "OR",
       "name": "د. محمد خزعل",
@@ -4745,6 +4739,12 @@
       "specCode": "GA",
       "name": "د. رسل عوده ساري",
       "VisitCount": 0
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "OR",
+      "name": "د. منير عبد الوافي",
+      "timestamp": "10:18"
     }
   ],
   "passwords": {
