@@ -4733,6 +4733,18 @@
       "specCode": "GA",
       "name": "د. رسل عوده ساري ",
       "timestamp": "09:53"
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "OP",
+      "name": "ط",
+      "VisitCount": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "GA",
+      "name": "د. رسل عوده ساري",
+      "VisitCount": 0
     }
   ],
   "passwords": {
