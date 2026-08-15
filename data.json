@@ -4010,12 +4010,6 @@
       "VisitCount": 2
     },
     {
-      "date": "15/08/2026",
-      "specCode": "OP",
-      "name": "د. الاء اسماعيل",
-      "VisitCount": 0
-    },
-    {
       "date": "16/08/2026",
       "specCode": "OP",
       "name": "د. فاطمة عباس",
@@ -4726,6 +4720,12 @@
       "name": "د. حيدر علي",
       "timestamp": "08:01",
       "VisitCount": 1
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "OP",
+      "name": "د. علاء سلمان",
+      "timestamp": "08:36"
     }
   ],
   "passwords": {
