@@ -2414,12 +2414,6 @@
       "VisitCount": 3
     },
     {
-      "date": "15/08/2026",
-      "specCode": "US",
-      "name": "د. حسين علي عطيه",
-      "VisitCount": 0
-    },
-    {
       "date": "16/08/2026",
       "specCode": "US",
       "name": "د. حيدر علي",
@@ -4725,6 +4719,12 @@
       "specCode": "D",
       "name": "د. عبدالله علي الأنصاري",
       "timestamp": "01:31"
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "US",
+      "name": "د. حيدر علي",
+      "timestamp": "08:01"
     }
   ],
   "passwords": {
