@@ -2588,12 +2588,6 @@
       "VisitCount": 6
     },
     {
-      "date": "15/08/2026",
-      "specCode": "ENT",
-      "name": "د. درر علي  + د. بان عبد الامير",
-      "VisitCount": 0
-    },
-    {
       "date": "16/08/2026",
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
@@ -4746,6 +4740,12 @@
       "specCode": "US",
       "name": "د. حسين علي عطيه",
       "timestamp": "12:22"
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "14:07"
     }
   ],
   "passwords": {
