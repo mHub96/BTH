@@ -4704,13 +4704,6 @@
     },
     {
       "date": "15/08/2026",
-      "specCode": "US",
-      "name": "د. حيدر علي",
-      "timestamp": "08:01",
-      "VisitCount": 1
-    },
-    {
-      "date": "15/08/2026",
       "specCode": "OP",
       "name": "د. علاء سلمان",
       "timestamp": "08:36",
@@ -4747,6 +4740,12 @@
       "name": "د. منير عبد الوافي",
       "timestamp": "10:18",
       "VisitCount": 1
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "US",
+      "name": "د. حسين علي عطيه",
+      "timestamp": "12:22"
     }
   ],
   "passwords": {
