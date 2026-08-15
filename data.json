@@ -4160,12 +4160,6 @@
       "VisitCount": 0
     },
     {
-      "date": "15/08/2026",
-      "specCode": "D",
-      "name": "د. مها عباس",
-      "VisitCount": 0
-    },
-    {
       "date": "16/08/2026",
       "specCode": "D",
       "name": "د. نور الهدى علي",
@@ -4748,6 +4742,12 @@
       "specCode": "M",
       "name": "د. صادق رحيم محمد",
       "timestamp": "19:58"
+    },
+    {
+      "date": "15/08/2026",
+      "specCode": "D",
+      "name": "د. صادق رحيم محمد",
+      "timestamp": "19:59"
     }
   ],
   "passwords": {
