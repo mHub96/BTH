@@ -2774,12 +2774,6 @@
       "VisitCount": 0
     },
     {
-      "date": "16/08/2026",
-      "specCode": "O",
-      "name": "د. نور الهدى علي",
-      "VisitCount": 0
-    },
-    {
       "date": "17/08/2026",
       "specCode": "O",
       "name": "د. مصطفى هادي",
@@ -4749,6 +4743,12 @@
       "specCode": "M",
       "name": "د. صادق رحيم محمد",
       "timestamp": "20:13"
+    },
+    {
+      "date": "16/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "08:28"
     }
   ],
   "passwords": {
