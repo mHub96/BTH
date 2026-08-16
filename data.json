@@ -4154,12 +4154,6 @@
       "VisitCount": 0
     },
     {
-      "date": "16/08/2026",
-      "specCode": "D",
-      "name": "د. نور الهدى علي",
-      "VisitCount": 0
-    },
-    {
       "date": "17/08/2026",
       "specCode": "D",
       "name": "د. زينب علي مجيد",
@@ -4749,6 +4743,12 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "08:28"
+    },
+    {
+      "date": "16/08/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "08:43"
     }
   ],
   "passwords": {
