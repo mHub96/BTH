@@ -457,6 +457,19 @@
             opacity: 1;
         }
 
+        /* Single slot - 24hr style (non-editable indicator) */
+        .duty-slot .time-display.single-slot {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.1);
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .duty-slot .time-display.single-slot:hover {
+            background: rgba(212, 175, 55, 0.08);
+            opacity: 0.7;
+        }
+
         .duty-slot .time-display .time-start,
         .duty-slot .time-display .time-end {
             display: block;
@@ -638,6 +651,11 @@
         .delete-slot-btn:hover {
             color: #ef4444;
             background: rgba(239, 68, 68, 0.08);
+        }
+
+        /* Hide delete button when only one slot */
+        .duty-slots.single-slot .delete-slot-btn {
+            display: none !important;
         }
 
         /* ----- Add Slot Button ----- */
@@ -1567,7 +1585,6 @@
                     track.style.display = 'none';
                 }
                 
-                // Count total residents for this specialty
                 const totalResidents = nameData[spec.id]?.length || 0;
                 
                 let html = `
@@ -1594,6 +1611,7 @@
                     
                     const slots = getDaySlots(dateFull, spec.id);
                     const numSlots = slots.length;
+                    const isSingleSlot = numSlots === 1;
                     
                     html += `
                         <div class="day-box ${isWeekend ? 'weekend' : ''}" style="${isWeekend ? `border-left-color: ${specColor};` : ''}" data-day="${dateFull}" data-spec="${spec.id}">
@@ -1601,7 +1619,7 @@
                                 <span class="day-date">${dateFull.substring(0,5)}</span>
                                 <span>${dayName}</span>
                             </div>
-                            <div class="duty-slots" id="slots-${uid}">
+                            <div class="duty-slots ${isSingleSlot ? 'single-slot' : ''}" id="slots-${uid}">
                     `;
                     
                     if (numSlots === 0) {
@@ -1642,12 +1660,18 @@
                             const slotUid = `${uid}-${idx}`;
                             const isValidName = nameData[spec.id]?.includes(slot.name) || false;
                             
+                            // For single slot: show 24hr style (non-editable)
+                            const isSingle = numSlots === 1;
+                            const timeDisplayClass = isSingle ? 'time-display single-slot' : 'time-display';
+                            const onClickTime = isSingle ? '' : `onclick="openTimePicker(event, '${dateFull}', '${spec.id}', ${idx})"`;
+                            
                             html += `
                                 <div class="duty-slot" data-slot-index="${idx}">
-                                    <div class="time-display" onclick="openTimePicker(event, '${dateFull}', '${spec.id}', ${idx})">
+                                    <div class="${timeDisplayClass}" ${onClickTime}>
                                         <span class="time-start">${minutesToTimeStr(timeData.start)}</span>
                                         <span class="time-sep">—</span>
                                         <span class="time-end">${minutesToTimeStr(timeData.end)}</span>
+                                        ${isSingle ? '<span style="font-size:0.3rem;opacity:0.5;display:block;">24h</span>' : ''}
                                     </div>
                                     <div class="input-wrapper" onclick="event.stopPropagation()">
                                         <div class="ghost-text" id="ghost-${slotUid}"></div>
@@ -1701,10 +1725,17 @@
         // ================================================================
         function openTimePicker(event, date, specCode, slotIndex) {
             event.stopPropagation();
+            
+            // Check if this is a single slot day - if so, don't allow editing
+            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+            if (entries.length <= 1) {
+                showToast('⏰ الوقت ثابت لـ 24 ساعة (خفير واحد)', 'info', 2000);
+                return;
+            }
+            
             closeTimePicker();
             
             const specColor = getSpecColor(specCode);
-            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             if (slotIndex >= entries.length) return;
             
             const entry = entries[slotIndex];
@@ -1843,8 +1874,11 @@
             refreshView();
             setTimeout(() => {
                 const input = document.querySelector(`#input-${date.split('/')[0]}-${specCode}-${newIndex}`);
-                if (input) input.focus();
-            }, 100);
+                if (input) {
+                    input.focus();
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 150);
             showToast('✅ تم إضافة خفير', 'success', 1500);
         }
 
@@ -1928,10 +1962,46 @@
                     }
                 }
             });
+            
+            // Update single-slot indicators
+            document.querySelectorAll('.duty-slots').forEach(container => {
+                const slots = container.querySelectorAll('.duty-slot');
+                const isSingle = slots.length === 1;
+                container.classList.toggle('single-slot', isSingle);
+                
+                if (isSingle) {
+                    const timeDisplay = container.querySelector('.time-display');
+                    if (timeDisplay) {
+                        timeDisplay.classList.add('single-slot');
+                        // Ensure it shows 24h
+                        const start = timeDisplay.querySelector('.time-start');
+                        const end = timeDisplay.querySelector('.time-end');
+                        if (start && end) {
+                            start.textContent = '08:00AM';
+                            end.textContent = '08:00AM';
+                        }
+                        // Add 24h label if not present
+                        if (!timeDisplay.querySelector('.single-slot-label')) {
+                            const label = document.createElement('span');
+                            label.className = 'single-slot-label';
+                            label.style.cssText = 'font-size:0.3rem;opacity:0.5;display:block;';
+                            label.textContent = '24h';
+                            timeDisplay.appendChild(label);
+                        }
+                    }
+                } else {
+                    const timeDisplay = container.querySelector('.time-display');
+                    if (timeDisplay) {
+                        timeDisplay.classList.remove('single-slot');
+                        const label = timeDisplay.querySelector('.single-slot-label');
+                        if (label) label.remove();
+                    }
+                }
+            });
         }
 
         // ================================================================
-        // INPUT LOGIC
+        // INPUT LOGIC - ENTER KEY NAVIGATION
         // ================================================================
         function handleAC(el, sid, uid) {
             const ghost = document.getElementById(`ghost-${uid}`);
@@ -1981,15 +2051,20 @@
                 const specCode = el.dataset.spec;
                 const slotIdx = parseInt(el.dataset.slot) || 0;
                 
+                // If there's a suggestion, use it
                 if (full) {
                     el.value = full;
                     el.classList.add('new-entry');
                     ghost.innerHTML = "";
                     saveEntry(el);
                 } else if (el.value.trim()) {
+                    // If there's a value but no suggestion, still save it
                     saveEntry(el);
                 }
+                
+                // Move to the next cell
                 moveToNextCell(date, specCode, slotIdx);
+                return;
             }
         }
 
@@ -1997,34 +2072,51 @@
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const numSlots = entries.length;
             
+            // First try to go to the next slot in the same day
             if (currentSlot + 1 < numSlots) {
                 const nextInput = document.querySelector(`#input-${date.split('/')[0]}-${specCode}-${currentSlot + 1}`);
                 if (nextInput) {
                     nextInput.focus();
                     nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Select the text for easy editing
+                    nextInput.select();
                     return;
                 }
             }
             
+            // If no more slots in this day, move to the next day
             const picker = document.getElementById('month-picker');
             const [yr, mon] = picker.value.split('-').map(Number);
             const currentDay = parseInt(date.split('/')[0]);
             const daysInMonth = new Date(yr, mon, 0).getDate();
             
+            // Find the next day with entries or create a new one
             for (let d = currentDay + 1; d <= daysInMonth; d++) {
                 const nextDate = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
                 const nextEntries = (db.schedule || []).filter(s => s.date === nextDate && s.specCode === specCode);
+                
                 if (nextEntries.length > 0) {
-                    const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-0`);
-                    if (nextInput) {
-                        nextInput.focus();
-                        nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Check if the first slot is filled
+                    const firstInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-0`);
+                    if (firstInput) {
+                        firstInput.focus();
+                        firstInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInput.select();
                         return;
                     }
                 } else {
+                    // No entries for this day, create one automatically
                     addSlot(nextDate, specCode);
+                    // focus will be handled by addSlot
                     return;
                 }
+            }
+            
+            // If we've reached the end of the month, stay on the last cell
+            const lastInput = document.querySelector(`#input-${String(daysInMonth).padStart(2, '0')}-${specCode}-${numSlots - 1}`);
+            if (lastInput) {
+                lastInput.focus();
+                lastInput.select();
             }
         }
 
