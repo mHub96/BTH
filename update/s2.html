@@ -1444,7 +1444,7 @@
         }
 
         // ================================================================
-        // TIME UTILITIES - FIXED CROSS-DAY HANDLING
+        // TIME UTILITIES - EQUAL DIVISION WITH CROSS-DAY HANDLING
         // ================================================================
         const DAY_START = 8;
 
@@ -1489,21 +1489,30 @@
             return { start, end };
         }
 
+        // ================================================================
+        // EQUAL DIVISION OF TIME - FIXED
+        // ================================================================
         function calculateSlotTimes(numSlots, customOverrides = {}) {
             if (numSlots === 0) return [];
             const totalDuration = 24 * 60;
+            
+            // For 1 slot: full 24 hours
             if (numSlots === 1) return [{ start: 0, end: totalDuration }];
             
+            // For multiple slots: divide equally
             const slotDuration = totalDuration / numSlots;
             const results = [];
+            
             for (let i = 0; i < numSlots; i++) {
-                let start = i * slotDuration;
-                let end = (i + 1) * slotDuration;
+                let start = Math.round(i * slotDuration);
+                let end = Math.round((i + 1) * slotDuration);
+                
+                // Check if there's a custom override for this slot
                 const key = `slot_${i}`;
                 if (customOverrides[key]) {
                     const custom = customOverrides[key];
                     if (custom.start !== undefined && custom.end !== undefined) {
-                        // Allow end to be adjusted for cross-day
+                        // Allow custom times, handling cross-day
                         let adjustedEnd = custom.end;
                         if (custom.end <= custom.start) {
                             adjustedEnd = custom.end + totalDuration;
@@ -1514,7 +1523,7 @@
                         }
                     }
                 }
-                results.push({ start: Math.round(start), end: Math.round(end) });
+                results.push({ start, end });
             }
             return results;
         }
@@ -1545,10 +1554,6 @@
         function autoCorrectSlotTimes(slots) {
             if (slots.length <= 1) return [{ start: 0, end: 24 * 60 }];
             const totalDuration = 24 * 60;
-            const sorted = [...slots].sort((a, b) => a.start - b.start);
-            const validation = validateSlotTimes(sorted);
-            if (validation.valid && !validation.overlaps) return sorted;
-            
             const slotDuration = totalDuration / slots.length;
             return slots.map((_, i) => ({
                 start: Math.round(i * slotDuration),
@@ -1675,7 +1680,7 @@
                             </div>
                         `;
                     } else {
-                        // Auto-calculate times based on number of slots
+                        // Auto-calculate times based on number of slots (EQUAL DIVISION)
                         const timeOverrides = {};
                         slots.forEach((slot, idx) => {
                             if (slot.timeData) {
@@ -1762,7 +1767,7 @@
         }
 
         // ================================================================
-        // TIME PICKER - FIXED CROSS-DAY HANDLING
+        // TIME PICKER
         // ================================================================
         function openTimePicker(event, date, specCode, slotIndex) {
             event.stopPropagation();
@@ -1862,6 +1867,7 @@
             const entry = entries[slotIndex];
             entry.dutyTime = formatDutyTime(startVal, endVal);
             
+            // Recalculate all times for the day based on custom overrides
             const allSlots = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const timeOverrides = {};
             allSlots.forEach((s, idx) => {
@@ -1875,6 +1881,12 @@
             const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
             const validation = validateSlotTimes(calculatedTimes);
             
+            // Apply the recalculated times to all slots
+            allSlots.forEach((s, idx) => {
+                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                s.dutyTime = formatDutyTime(timeData.start, timeData.end);
+            });
+            
             closeTimePicker();
             refreshView();
             
@@ -1886,14 +1898,14 @@
         }
 
         // ================================================================
-        // ADD / DELETE SLOT - AUTO DIVIDE TIME
+        // ADD / DELETE SLOT - AUTO DIVIDE TIME EQUALLY
         // ================================================================
         function addSlot(date, specCode) {
             const existing = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const newIndex = existing.length;
             const numSlots = existing.length + 1;
             
-            // Auto-calculate times for all slots
+            // Auto-calculate times for all slots (EQUAL DIVISION)
             const timeOverrides = {};
             existing.forEach((entry, idx) => {
                 if (entry.dutyTime) {
@@ -1946,7 +1958,7 @@
             const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             remaining.forEach((entry, idx) => { entry.dutySlot = idx; });
             
-            // Recalculate times for remaining slots
+            // Recalculate times for remaining slots (EQUAL DIVISION)
             const numSlots = remaining.length;
             if (numSlots > 0) {
                 const timeOverrides = {};
@@ -2057,7 +2069,7 @@
         }
 
         // ================================================================
-        // INPUT LOGIC - ENTER KEY ONLY MOVES FOCUS
+        // INPUT LOGIC - ENTER KEY MOVES TO NEXT CELL IN SEQUENCE
         // ================================================================
         function handleAC(el, sid, uid) {
             const ghost = document.getElementById(`ghost-${uid}`);
@@ -2106,7 +2118,20 @@
                 const specCode = el.dataset.spec;
                 const slotIdx = parseInt(el.dataset.slot) || 0;
                 
-                // Just move focus to next cell - no auto-saving
+                // Check if there's a ghost suggestion
+                const ghost = document.getElementById(`ghost-${uid}`);
+                const full = ghost ? ghost.getAttribute('data-full') : null;
+                if (full && el.value.trim() !== full) {
+                    el.value = full;
+                    el.classList.add('new-entry');
+                    el.classList.remove('invalid-name');
+                    if (ghost) ghost.innerHTML = "";
+                    saveEntry(el);
+                } else if (el.value.trim()) {
+                    saveEntry(el);
+                }
+                
+                // Move to the next cell (sequential)
                 moveToNextCell(date, specCode, slotIdx);
                 return false;
             }
@@ -2127,20 +2152,35 @@
                 }
             }
             
-            // If no more slots in this day, move to the next day's first slot
+            // If no more slots in this day, find the next day with slots
             const picker = document.getElementById('month-picker');
             const [yr, mon] = picker.value.split('-').map(Number);
             const currentDay = parseInt(date.split('/')[0]);
             const daysInMonth = new Date(yr, mon, 0).getDate();
             
+            // Find the next day that has any slots
             for (let d = currentDay + 1; d <= daysInMonth; d++) {
                 const nextDate = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
-                const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-0`);
-                if (nextInput) {
-                    nextInput.focus();
-                    nextInput.select();
-                    nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
+                const nextEntries = (db.schedule || []).filter(s => s.date === nextDate && s.specCode === specCode);
+                if (nextEntries.length > 0) {
+                    // Find the first empty or first slot in that day
+                    let targetSlot = 0;
+                    for (let i = 0; i < nextEntries.length; i++) {
+                        if (!nextEntries[i].name || nextEntries[i].name.trim() === '') {
+                            targetSlot = i;
+                            break;
+                        }
+                        if (i === nextEntries.length - 1) {
+                            targetSlot = 0;
+                        }
+                    }
+                    const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-${targetSlot}`);
+                    if (nextInput) {
+                        nextInput.focus();
+                        nextInput.select();
+                        nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
                 }
             }
             
@@ -2266,7 +2306,7 @@
             
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             if (slotIdx >= entries.length) {
-                // Recalculate all times for the day
+                // Recalculate all times for the day (EQUAL DIVISION)
                 const numSlots = entries.length + 1;
                 const timeOverrides = {};
                 entries.forEach((entry, idx) => {
@@ -2291,7 +2331,7 @@
                 entries[slotIdx].name = name;
             }
             
-            // Recalculate all times for the day
+            // Recalculate all times for the day (EQUAL DIVISION)
             const allEntries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const numSlots = allEntries.length;
             if (numSlots > 0) {
