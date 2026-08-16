@@ -1444,7 +1444,7 @@
         }
 
         // ================================================================
-        // TIME UTILITIES
+        // TIME UTILITIES - FIXED CROSS-DAY HANDLING
         // ================================================================
         const DAY_START = 8;
 
@@ -1675,6 +1675,7 @@
                             </div>
                         `;
                     } else {
+                        // Auto-calculate times based on number of slots
                         const timeOverrides = {};
                         slots.forEach((slot, idx) => {
                             if (slot.timeData) {
@@ -1761,7 +1762,7 @@
         }
 
         // ================================================================
-        // TIME PICKER
+        // TIME PICKER - FIXED CROSS-DAY HANDLING
         // ================================================================
         function openTimePicker(event, date, specCode, slotIndex) {
             event.stopPropagation();
@@ -1845,8 +1846,10 @@
             const startVal = parseFloat(startSelect.value);
             const endVal = parseFloat(endSelect.value);
             
-            if (startVal >= endVal) {
-                showToast('❌ البداية قبل النهاية', 'error', 2000);
+            // Allow cross-day: end can be <= start (meaning it continues to next day)
+            // Only show error if start == end (0 duration)
+            if (startVal === endVal) {
+                showToast('❌ مدة الخفير لا يمكن أن تكون صفر', 'error', 2000);
                 return;
             }
             
@@ -1883,12 +1886,14 @@
         }
 
         // ================================================================
-        // ADD / DELETE SLOT
+        // ADD / DELETE SLOT - AUTO DIVIDE TIME
         // ================================================================
         function addSlot(date, specCode) {
             const existing = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const newIndex = existing.length;
             const numSlots = existing.length + 1;
+            
+            // Auto-calculate times for all slots
             const timeOverrides = {};
             existing.forEach((entry, idx) => {
                 if (entry.dutyTime) {
@@ -1898,6 +1903,14 @@
             });
             
             const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
+            
+            // Update all existing slots with new times
+            existing.forEach((entry, idx) => {
+                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
+            });
+            
+            // Add new slot with its time
             const timeData = calculatedTimes[newIndex] || { start: 0, end: 24 * 60 };
             const dutyTimeStr = formatDutyTime(timeData.start, timeData.end);
             
@@ -1933,6 +1946,7 @@
             const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             remaining.forEach((entry, idx) => { entry.dutySlot = idx; });
             
+            // Recalculate times for remaining slots
             const numSlots = remaining.length;
             if (numSlots > 0) {
                 const timeOverrides = {};
@@ -2043,7 +2057,7 @@
         }
 
         // ================================================================
-        // INPUT LOGIC - ENTER KEY NAVIGATION (FIXED)
+        // INPUT LOGIC - ENTER KEY ONLY MOVES FOCUS
         // ================================================================
         function handleAC(el, sid, uid) {
             const ghost = document.getElementById(`ghost-${uid}`);
@@ -2084,9 +2098,6 @@
         }
 
         function handleKeys(e, el, uid) {
-            const ghost = document.getElementById(`ghost-${uid}`);
-            const full = ghost.getAttribute('data-full');
-            
             if (e.key === "Enter") {
                 e.preventDefault();
                 e.stopPropagation();
@@ -2095,17 +2106,7 @@
                 const specCode = el.dataset.spec;
                 const slotIdx = parseInt(el.dataset.slot) || 0;
                 
-                // Save the current entry if there's a value
-                if (full) {
-                    el.value = full;
-                    el.classList.add('new-entry');
-                    ghost.innerHTML = "";
-                    saveEntry(el);
-                } else if (el.value.trim()) {
-                    saveEntry(el);
-                }
-                
-                // Move to the next cell
+                // Just move focus to next cell - no auto-saving
                 moveToNextCell(date, specCode, slotIdx);
                 return false;
             }
@@ -2126,28 +2127,19 @@
                 }
             }
             
-            // If no more slots in this day, move to the next day
+            // If no more slots in this day, move to the next day's first slot
             const picker = document.getElementById('month-picker');
             const [yr, mon] = picker.value.split('-').map(Number);
             const currentDay = parseInt(date.split('/')[0]);
             const daysInMonth = new Date(yr, mon, 0).getDate();
             
-            // Find the next day with entries
             for (let d = currentDay + 1; d <= daysInMonth; d++) {
                 const nextDate = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
-                const nextEntries = (db.schedule || []).filter(s => s.date === nextDate && s.specCode === specCode);
-                
-                if (nextEntries.length > 0) {
-                    const firstInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-0`);
-                    if (firstInput) {
-                        firstInput.focus();
-                        firstInput.select();
-                        firstInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        return;
-                    }
-                } else {
-                    // No entries for this day, create one automatically
-                    addSlot(nextDate, specCode);
+                const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-0`);
+                if (nextInput) {
+                    nextInput.focus();
+                    nextInput.select();
+                    nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return;
                 }
             }
@@ -2274,6 +2266,7 @@
             
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             if (slotIdx >= entries.length) {
+                // Recalculate all times for the day
                 const numSlots = entries.length + 1;
                 const timeOverrides = {};
                 entries.forEach((entry, idx) => {
@@ -2298,6 +2291,7 @@
                 entries[slotIdx].name = name;
             }
             
+            // Recalculate all times for the day
             const allEntries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const numSlots = allEntries.length;
             if (numSlots > 0) {
