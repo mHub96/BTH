@@ -2588,12 +2588,6 @@
       "VisitCount": 6
     },
     {
-      "date": "16/08/2026",
-      "specCode": "ENT",
-      "name": "د. دعاء ناظم اسماعيل",
-      "VisitCount": 2
-    },
-    {
       "date": "17/08/2026",
       "specCode": "ENT",
       "name": "د. درر علي محمد",
@@ -4750,6 +4744,12 @@
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "08:49"
+    },
+    {
+      "date": "16/08/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "14:44"
     }
   ],
   "passwords": {
