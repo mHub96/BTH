@@ -5136,6 +5136,30 @@
       "VisitCount": 0,
       "dutyTime": "08:00AM - 08:00AM",
       "dutySlot": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "M",
+      "name": "د. بشير كريم",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00AM",
+      "dutySlot": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "M",
+      "name": "د مها عباس جابر",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "M",
+      "name": "د. عباس نوري عبدالحسين فهد",
+      "VisitCount": 0,
+      "dutyTime": "12:00AM - 08:00AM",
+      "dutySlot": 2
     }
   ],
   "passwords": {
