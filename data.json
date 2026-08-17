@@ -4097,12 +4097,6 @@
       "VisitCount": 0
     },
     {
-      "date": "17/08/2026",
-      "specCode": "D",
-      "name": "د. زينب علي مجيد",
-      "VisitCount": 1
-    },
-    {
       "date": "18/08/2026",
       "specCode": "D",
       "name": "د. علي عادل",
@@ -4741,6 +4735,12 @@
       "name": "د. ضرغام قاسم",
       "timestamp": "10:27",
       "VisitCount": 1
+    },
+    {
+      "date": "17/08/2026",
+      "specCode": "D",
+      "name": "د. محمد ناظم",
+      "timestamp": "20:20"
     }
   ],
   "passwords": {
