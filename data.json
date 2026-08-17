@@ -3338,12 +3338,6 @@
       "VisitCount": 4
     },
     {
-      "date": "17/08/2026",
-      "specCode": "M",
-      "name": "د. مها عباس",
-      "VisitCount": 0
-    },
-    {
       "date": "18/08/2026",
       "specCode": "M",
       "name": "د. ايمان نعيم",
@@ -4759,6 +4753,12 @@
       "name": "د. عبدالله علي الأنصاري",
       "timestamp": "20:56",
       "VisitCount": 2
+    },
+    {
+      "date": "17/08/2026",
+      "specCode": "M",
+      "name": "د. قمر بدر",
+      "timestamp": "08:18"
     }
   ],
   "passwords": {
