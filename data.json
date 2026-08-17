@@ -2588,12 +2588,6 @@
       "VisitCount": 6
     },
     {
-      "date": "17/08/2026",
-      "specCode": "ENT",
-      "name": "د. درر علي محمد",
-      "VisitCount": 0
-    },
-    {
       "date": "18/08/2026",
       "specCode": "ENT",
       "name": "د. الزهراء علي + د. مريم علي",
@@ -4759,6 +4753,12 @@
       "specCode": "M",
       "name": "د. قمر بدر",
       "timestamp": "08:18"
+    },
+    {
+      "date": "17/08/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "timestamp": "08:32"
     }
   ],
   "passwords": {
