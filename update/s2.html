@@ -1490,7 +1490,7 @@
         }
 
         // ================================================================
-        // EQUAL DIVISION OF TIME - FIXED
+        // EQUAL DIVISION OF TIME
         // ================================================================
         function calculateSlotTimes(numSlots, customOverrides = {}) {
             if (numSlots === 0) return [];
@@ -2069,7 +2069,7 @@
         }
 
         // ================================================================
-        // INPUT LOGIC - ENTER KEY MOVES TO NEXT CELL IN SEQUENCE
+        // INPUT LOGIC - ENTER KEY MOVES TO NEXT CELL
         // ================================================================
         function handleAC(el, sid, uid) {
             const ghost = document.getElementById(`ghost-${uid}`);
@@ -2131,8 +2131,10 @@
                     saveEntry(el);
                 }
                 
-                // Move to the next cell (sequential)
-                moveToNextCell(date, specCode, slotIdx);
+                // Move to the next cell - use a small delay to ensure save completes
+                setTimeout(() => {
+                    moveToNextCell(date, specCode, slotIdx);
+                }, 50);
                 return false;
             }
         }
@@ -2158,20 +2160,17 @@
             const currentDay = parseInt(date.split('/')[0]);
             const daysInMonth = new Date(yr, mon, 0).getDate();
             
-            // Find the next day that has any slots
+            // First, try to find the next day with any slots
             for (let d = currentDay + 1; d <= daysInMonth; d++) {
                 const nextDate = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
                 const nextEntries = (db.schedule || []).filter(s => s.date === nextDate && s.specCode === specCode);
                 if (nextEntries.length > 0) {
-                    // Find the first empty or first slot in that day
+                    // Find the first empty slot or the first slot
                     let targetSlot = 0;
                     for (let i = 0; i < nextEntries.length; i++) {
                         if (!nextEntries[i].name || nextEntries[i].name.trim() === '') {
                             targetSlot = i;
                             break;
-                        }
-                        if (i === nextEntries.length - 1) {
-                            targetSlot = 0;
                         }
                     }
                     const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-${targetSlot}`);
@@ -2184,7 +2183,7 @@
                 }
             }
             
-            // If we've reached the end, stay on the current cell
+            // If we've reached the end, stay on the current cell and select all text
             const currentInput = document.querySelector(`#input-${String(currentDay).padStart(2, '0')}-${specCode}-${currentSlot}`);
             if (currentInput) {
                 currentInput.focus();
