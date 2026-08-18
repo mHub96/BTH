@@ -2729,12 +2729,6 @@
       "VisitCount": 3
     },
     {
-      "date": "18/08/2026",
-      "specCode": "O",
-      "name": "د. بشير حسن",
-      "VisitCount": 0
-    },
-    {
       "date": "19/08/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
@@ -4741,6 +4735,12 @@
       "specCode": "GS",
       "name": "د. حسنين كريم صالح",
       "timestamp": "09:04"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "12:46"
     }
   ],
   "passwords": {
