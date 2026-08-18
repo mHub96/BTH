@@ -2549,12 +2549,6 @@
       "VisitCount": 6
     },
     {
-      "date": "18/08/2026",
-      "specCode": "ENT",
-      "name": "د. الزهراء علي + د. مريم علي",
-      "VisitCount": 0
-    },
-    {
       "date": "19/08/2026",
       "specCode": "ENT",
       "name": "د. بان عبد الامير صمد",
@@ -4743,6 +4737,12 @@
       "specCode": "D",
       "name": "د. عبدالحكيم ها دي",
       "timestamp": "20:11"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "timestamp": "20:26"
     }
   ],
   "passwords": {
