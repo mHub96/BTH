@@ -2039,12 +2039,6 @@
       "VisitCount": 5
     },
     {
-      "date": "18/08/2026",
-      "specCode": "GS",
-      "name": "د. احمد علي خلف",
-      "VisitCount": 0
-    },
-    {
       "date": "19/08/2026",
       "specCode": "GS",
       "name": "د. تحسين علي حلو",
@@ -4740,6 +4734,12 @@
       "specCode": "MF",
       "name": "د. تقى حسن",
       "timestamp": "08:56"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "GS",
+      "name": "د. احمد علي خلف",
+      "timestamp": "09:04"
     }
   ],
   "passwords": {
