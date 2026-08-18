@@ -1871,12 +1871,6 @@
       "VisitCount": 6
     },
     {
-      "date": "18/08/2026",
-      "specCode": "MF",
-      "name": "د. عبد الله وسام",
-      "VisitCount": 0
-    },
-    {
       "date": "19/08/2026",
       "specCode": "MF",
       "name": "د. تقى حسن",
@@ -4740,6 +4734,12 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "08:47"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "timestamp": "08:56"
     }
   ],
   "passwords": {
