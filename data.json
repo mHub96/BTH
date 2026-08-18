@@ -3275,12 +3275,6 @@
       "VisitCount": 4
     },
     {
-      "date": "18/08/2026",
-      "specCode": "M",
-      "name": "د. ايمان نعيم",
-      "VisitCount": 1
-    },
-    {
       "date": "19/08/2026",
       "specCode": "M",
       "name": "د. نزار سليم",
@@ -4743,6 +4737,12 @@
       "specCode": "ICU",
       "name": "د. ميسم اكرم",
       "timestamp": "19:55"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "M",
+      "name": "د. صادق رحيم محمد",
+      "timestamp": "20:04"
     }
   ],
   "passwords": {
