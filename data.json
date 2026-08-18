@@ -3725,12 +3725,6 @@
       "VisitCount": 5
     },
     {
-      "date": "18/08/2026",
-      "specCode": "ICU",
-      "name": "د. رسل عوده ساري",
-      "VisitCount": 4
-    },
-    {
       "date": "19/08/2026",
       "specCode": "ICU",
       "name": "د. اديان محمد",
@@ -4743,6 +4737,12 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "12:46"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "ICU",
+      "name": "د. ميسم اكرم",
+      "timestamp": "19:55"
     }
   ],
   "passwords": {
