@@ -1150,14 +1150,14 @@
             setupSwipe();
         };
 
-        window.onclick = (e) => {
+        document.addEventListener('click', (e) => {
             if (!e.target.closest('.custom-menu') && !e.target.closest('.dropdown-arrow')) {
                 closeAllMenus();
             }
             if (!e.target.closest('.time-picker-popup') && !e.target.closest('.time-display')) {
                 closeTimePicker();
             }
-        };
+        });
 
         function closeAllMenus() {
             document.querySelectorAll('.custom-menu').forEach(x => x.style.display = 'none');
@@ -1528,6 +1528,38 @@
             return results;
         }
 
+        function normalizeDayEntries(date, specCode) {
+            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+            entries.sort((a, b) => (a.dutySlot || 0) - (b.dutySlot || 0));
+            entries.forEach((entry, idx) => { entry.dutySlot = idx; });
+            return entries;
+        }
+
+        function recalculateDaySlotTimes(date, specCode) {
+            const entries = normalizeDayEntries(date, specCode);
+            if (entries.length === 0) return [];
+
+            const timeOverrides = {};
+            entries.forEach((entry, idx) => {
+                if (entry.dutyTime) {
+                    const parsed = parseDutyTime(entry.dutyTime);
+                    if (parsed) timeOverrides[`slot_${idx}`] = parsed;
+                }
+            });
+
+            const calculatedTimes = calculateSlotTimes(entries.length, timeOverrides);
+            entries.forEach((entry, idx) => {
+                if (entries.length === 1) {
+                    entry.dutyTime = '';
+                    return;
+                }
+                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
+            });
+
+            return calculatedTimes;
+        }
+
         function validateSlotTimes(slots) {
             if (slots.length <= 1) return { valid: true, gaps: [], overlaps: false };
             
@@ -1535,19 +1567,25 @@
             const sorted = [...slots].sort((a, b) => a.start - b.start);
             const gaps = [];
             
-            if (sorted[0].start > 0) gaps.push({ start: 0, end: sorted[0].start });
+            // Allow 1-2 minute tolerance for rounding
+            const TOLERANCE = 2;
+            
+            if (sorted[0].start > TOLERANCE) {
+                gaps.push({ start: 0, end: sorted[0].start });
+            }
+            
             for (let i = 0; i < sorted.length - 1; i++) {
-                if (sorted[i].end < sorted[i + 1].start) {
+                const gap = sorted[i + 1].start - sorted[i].end;
+                if (gap > TOLERANCE) {
                     gaps.push({ start: sorted[i].end, end: sorted[i + 1].start });
                 }
-                if (sorted[i].end > sorted[i + 1].start + 1) {
-                    return { valid: false, gaps: [], overlaps: true };
-                }
             }
+            
             const lastEnd = sorted[sorted.length - 1].end;
-            if (lastEnd < totalDuration) {
+            if (lastEnd < totalDuration - TOLERANCE) {
                 gaps.push({ start: lastEnd, end: totalDuration });
             }
+            
             return { valid: gaps.length === 0, gaps, overlaps: false };
         }
 
@@ -1644,7 +1682,7 @@
                     const dateObj = new Date(yr, mon - 1, d);
                     const dayName = new Intl.DateTimeFormat('ar-IQ', { weekday: 'short' }).format(dateObj);
                     const dateFull = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
-                    const uid = `${d}-${spec.id}`;
+                    const uid = `${String(d).padStart(2, '0')}-${spec.id}`;
                     const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
                     
                     const slots = getDaySlots(dateFull, spec.id);
@@ -1703,7 +1741,6 @@
                             const timeDisplayClass = isSingle ? 'time-display single-slot' : 'time-display';
                             const onClickTime = isSingle ? '' : `onclick="openTimePicker(event, '${dateFull}', '${spec.id}', ${idx})"`;
                             
-                            // Calculate display times - handle cross-day properly
                             let displayStart = timeData.start;
                             let displayEnd = timeData.end;
                             const totalDuration = 24 * 60;
@@ -1711,14 +1748,17 @@
                                 displayEnd = displayEnd + totalDuration;
                             }
                             
+                            const timeDisplayHtml = isSingle
+                                ? `<div class="${timeDisplayClass}" aria-label="24h"><span class="single-slot-label">24h</span></div>`
+                                : `<div class="${timeDisplayClass}" ${onClickTime}>
+                                    <span class="time-start">${minutesToTimeStr(displayStart)}</span>
+                                    <span class="time-sep">—</span>
+                                    <span class="time-end">${minutesToTimeStr(displayEnd)}</span>
+                                </div>`;
+                            
                             html += `
                                 <div class="duty-slot" data-slot-index="${idx}">
-                                    <div class="${timeDisplayClass}" ${onClickTime}>
-                                        <span class="time-start">${minutesToTimeStr(displayStart)}</span>
-                                        <span class="time-sep">—</span>
-                                        <span class="time-end">${minutesToTimeStr(displayEnd)}</span>
-                                        ${isSingle ? '<span class="single-slot-label">24h</span>' : ''}
-                                    </div>
+                                    ${timeDisplayHtml}
                                     <div class="input-wrapper" onclick="event.stopPropagation()">
                                         <div class="ghost-text" id="ghost-${slotUid}"></div>
                                         <input type="text" class="cell-input ${slot.name && !isValidName ? 'invalid-name' : 'prefilled'}" 
@@ -1901,49 +1941,36 @@
         // ADD / DELETE SLOT - AUTO DIVIDE TIME EQUALLY
         // ================================================================
         function addSlot(date, specCode) {
-            const existing = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
-            const newIndex = existing.length;
-            const numSlots = existing.length + 1;
-            
-            // Auto-calculate times for all slots (EQUAL DIVISION)
-            const timeOverrides = {};
-            existing.forEach((entry, idx) => {
-                if (entry.dutyTime) {
-                    const parsed = parseDutyTime(entry.dutyTime);
-                    if (parsed) timeOverrides[`slot_${idx}`] = parsed;
-                }
-            });
-            
-            const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
-            
-            // Update all existing slots with new times
-            existing.forEach((entry, idx) => {
-                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
-                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
-            });
-            
-            // Add new slot with its time
-            const timeData = calculatedTimes[newIndex] || { start: 0, end: 24 * 60 };
-            const dutyTimeStr = formatDutyTime(timeData.start, timeData.end);
-            
-            db.schedule.push({
+            const entries = normalizeDayEntries(date, specCode);
+            const newIndex = entries.length;
+            const newEntry = {
                 date: date,
                 specCode: specCode,
                 name: "",
                 VisitCount: 0,
-                dutyTime: dutyTimeStr,
+                dutyTime: "",
                 dutySlot: newIndex
-            });
-            
+            };
+            db.schedule.push(newEntry);
+
+            const allEntries = normalizeDayEntries(date, specCode);
+            if (allEntries.length > 0) {
+                recalculateDaySlotTimes(date, specCode);
+            }
+
+            pendingFocusDate = date;
+            pendingFocusSpec = specCode;
+            pendingFocusSlot = newIndex;
             refreshView();
+
             setTimeout(() => {
-                const input = document.querySelector(`#input-${date.split('/')[0]}-${specCode}-${newIndex}`);
+                const input = document.querySelector(`input[data-date="${date}"][data-spec="${specCode}"][data-slot="${newIndex}"]`);
                 if (input) {
                     input.focus();
                     input.select();
                     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-            }, 150);
+            }, 120);
             showToast('✅ تم إضافة خفير', 'success', 1500);
         }
 
@@ -1958,21 +1985,8 @@
             const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             remaining.forEach((entry, idx) => { entry.dutySlot = idx; });
             
-            // Recalculate times for remaining slots (EQUAL DIVISION)
-            const numSlots = remaining.length;
-            if (numSlots > 0) {
-                const timeOverrides = {};
-                remaining.forEach((entry, idx) => {
-                    if (entry.dutyTime) {
-                        const parsed = parseDutyTime(entry.dutyTime);
-                        if (parsed) timeOverrides[`slot_${idx}`] = parsed;
-                    }
-                });
-                const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
-                remaining.forEach((entry, idx) => {
-                    const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
-                    entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
-                });
+            if (remaining.length > 0) {
+                recalculateDaySlotTimes(date, specCode);
             }
             
             refreshView();
@@ -2016,15 +2030,19 @@
                         if (timeDisplay && entry.dutyTime) {
                             const parsed = parseDutyTime(entry.dutyTime);
                             if (parsed) {
-                                const startEl = timeDisplay.querySelector('.time-start');
-                                const endEl = timeDisplay.querySelector('.time-end');
-                                let displayStart = parsed.start;
-                                let displayEnd = parsed.end;
-                                if (displayEnd <= displayStart) {
-                                    displayEnd = displayEnd + (24 * 60);
+                                if (entries.length === 1) {
+                                    timeDisplay.innerHTML = '<span class="single-slot-label">24h</span>';
+                                } else {
+                                    const startEl = timeDisplay.querySelector('.time-start');
+                                    const endEl = timeDisplay.querySelector('.time-end');
+                                    let displayStart = parsed.start;
+                                    let displayEnd = parsed.end;
+                                    if (displayEnd <= displayStart) {
+                                        displayEnd = displayEnd + (24 * 60);
+                                    }
+                                    if (startEl) startEl.textContent = minutesToTimeStr(displayStart);
+                                    if (endEl) endEl.textContent = minutesToTimeStr(displayEnd);
                                 }
-                                if (startEl) startEl.textContent = minutesToTimeStr(displayStart);
-                                if (endEl) endEl.textContent = minutesToTimeStr(displayEnd);
                             }
                         }
                     } else {
@@ -2118,6 +2136,9 @@
                 const specCode = el.dataset.spec;
                 const slotIdx = parseInt(el.dataset.slot) || 0;
                 
+                // Get next cell info BEFORE DOM is rebuilt
+                const nextCell = getNextCellInfo(date, specCode, slotIdx);
+                
                 // Check if there's a ghost suggestion
                 const ghost = document.getElementById(`ghost-${uid}`);
                 const full = ghost ? ghost.getAttribute('data-full') : null;
@@ -2126,65 +2147,81 @@
                     el.classList.add('new-entry');
                     el.classList.remove('invalid-name');
                     if (ghost) ghost.innerHTML = "";
+                    
+                    // Set pending focus BEFORE saveEntry rebuilds the DOM
+                    if (nextCell) {
+                        pendingFocusDate = nextCell.date;
+                        pendingFocusSpec = nextCell.spec;
+                        pendingFocusSlot = nextCell.slot;
+                    }
                     saveEntry(el);
                 } else if (el.value.trim()) {
+                    // Set pending focus BEFORE saveEntry rebuilds the DOM
+                    if (nextCell) {
+                        pendingFocusDate = nextCell.date;
+                        pendingFocusSpec = nextCell.spec;
+                        pendingFocusSlot = nextCell.slot;
+                    }
                     saveEntry(el);
-                }
-                
-                // Move to the next cell - use a small delay to ensure save completes
-                setTimeout(() => {
+                } else {
+                    // Empty field - just move to next
                     moveToNextCell(date, specCode, slotIdx);
-                }, 50);
+                }
                 return false;
             }
         }
+        
+        function getNextCellInfo(date, specCode, currentSlot) {
+            // Get ALL inputs for this specialty
+            const allInputs = Array.from(document.querySelectorAll(`input[data-spec="${specCode}"]`));
+            
+            // Find the current input
+            const currentInput = allInputs.find(inp => 
+                inp.dataset.date === date && 
+                parseInt(inp.dataset.slot) === currentSlot
+            );
+            
+            if (!currentInput) return null;
+            
+            // Get index and find next
+            const currentIndex = allInputs.indexOf(currentInput);
+            if (currentIndex + 1 < allInputs.length) {
+                const nextInput = allInputs[currentIndex + 1];
+                return {
+                    date: nextInput.dataset.date,
+                    spec: nextInput.dataset.spec,
+                    slot: parseInt(nextInput.dataset.slot)
+                };
+            }
+            
+            return null;
+        }
 
         function moveToNextCell(date, specCode, currentSlot) {
-            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
-            const numSlots = entries.length;
+            // Get ALL inputs for this specialty in document order
+            const allInputs = Array.from(document.querySelectorAll(`input[data-spec="${specCode}"]`));
             
-            // First try to go to the next slot in the same day
-            if (currentSlot + 1 < numSlots) {
-                const nextInput = document.querySelector(`#input-${date.split('/')[0]}-${specCode}-${currentSlot + 1}`);
-                if (nextInput) {
-                    nextInput.focus();
-                    nextInput.select();
-                    nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
-                }
+            // Find the current input by matching date AND slot
+            const currentInput = allInputs.find(inp => 
+                inp.dataset.date === date && 
+                parseInt(inp.dataset.slot) === currentSlot
+            );
+            
+            if (!currentInput) return;
+            
+            // Get index of current input
+            const currentIndex = allInputs.indexOf(currentInput);
+            
+            // Move to next input if it exists
+            if (currentIndex + 1 < allInputs.length) {
+                const nextInput = allInputs[currentIndex + 1];
+                nextInput.focus();
+                nextInput.select();
+                nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
             }
             
-            // If no more slots in this day, find the next day with slots
-            const picker = document.getElementById('month-picker');
-            const [yr, mon] = picker.value.split('-').map(Number);
-            const currentDay = parseInt(date.split('/')[0]);
-            const daysInMonth = new Date(yr, mon, 0).getDate();
-            
-            // First, try to find the next day with any slots
-            for (let d = currentDay + 1; d <= daysInMonth; d++) {
-                const nextDate = `${String(d).padStart(2, '0')}/${String(mon).padStart(2, '0')}/${yr}`;
-                const nextEntries = (db.schedule || []).filter(s => s.date === nextDate && s.specCode === specCode);
-                if (nextEntries.length > 0) {
-                    // Find the first empty slot or the first slot
-                    let targetSlot = 0;
-                    for (let i = 0; i < nextEntries.length; i++) {
-                        if (!nextEntries[i].name || nextEntries[i].name.trim() === '') {
-                            targetSlot = i;
-                            break;
-                        }
-                    }
-                    const nextInput = document.querySelector(`#input-${nextDate.split('/')[0]}-${specCode}-${targetSlot}`);
-                    if (nextInput) {
-                        nextInput.focus();
-                        nextInput.select();
-                        nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        return;
-                    }
-                }
-            }
-            
-            // If we've reached the end, stay on the current cell and select all text
-            const currentInput = document.querySelector(`#input-${String(currentDay).padStart(2, '0')}-${specCode}-${currentSlot}`);
+            // If no next input, stay on current and select all
             if (currentInput) {
                 currentInput.focus();
                 currentInput.select();
@@ -2232,6 +2269,11 @@
         }
 
         function handleBlur(uid) {
+            // Don't handle blur if we're in the middle of a DOM refresh/focus transition
+            if (isRefreshing || pendingFocusDate !== null) {
+                return;
+            }
+            
             setTimeout(() => {
                 const g = document.getElementById(`ghost-${uid}`);
                 const input = document.getElementById(`input-${uid}`);
@@ -2356,7 +2398,13 @@
         // ================================================================
         // REFRESH VIEW
         // ================================================================
+        let pendingFocusDate = null;
+        let pendingFocusSpec = null;
+        let pendingFocusSlot = null;
+        let isRefreshing = false;  // Prevent blur handling during DOM rebuild
+        
         function refreshView() {
+            isRefreshing = true;  // Prevent blur handlers from interfering
             generateBoard();
             renderData();
             if (currentView === 'single') {
@@ -2373,6 +2421,26 @@
                 });
             }
             updateIndicators();
+            
+            // Restore focus if pending
+            if (pendingFocusDate && pendingFocusSpec !== null && pendingFocusSlot !== null) {
+                setTimeout(() => {
+                    const targetInput = document.querySelector(
+                        `input[data-date="${pendingFocusDate}"][data-spec="${pendingFocusSpec}"][data-slot="${pendingFocusSlot}"]`
+                    );
+                    if (targetInput) {
+                        targetInput.focus();
+                        targetInput.select();
+                        targetInput.scrollIntoView({ behavior: 'auto', block: 'center' });
+                    }
+                    pendingFocusDate = null;
+                    pendingFocusSpec = null;
+                    pendingFocusSlot = null;
+                    isRefreshing = false;  // Done refreshing, allow blur handlers again
+                }, 10);
+            } else {
+                isRefreshing = false;  // Done refreshing, allow blur handlers again
+            }
         }
 
         // ================================================================
