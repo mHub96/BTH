@@ -459,16 +459,19 @@
 
         /* Single slot - 24hr style (non-editable indicator) */
         .duty-slot .time-display.single-slot {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: rgba(212, 175, 55, 0.15);
+            background: rgba(212, 175, 55, 0.12);
+            border-color: rgba(212, 175, 55, 0.2);
             cursor: default;
-            opacity: 0.8;
+            opacity: 0.9;
             color: #fbbf24;
+            min-height: 36px;
+            justify-content: center;
+            align-items: center;
         }
 
         .duty-slot .time-display.single-slot:hover {
-            background: rgba(212, 175, 55, 0.1);
-            opacity: 0.8;
+            background: rgba(212, 175, 55, 0.12);
+            opacity: 0.9;
         }
 
         .duty-slot .time-display .time-start,
@@ -484,11 +487,12 @@
         }
 
         .duty-slot .time-display .single-slot-label {
-            font-size: 0.35rem;
-            opacity: 0.6;
+            font-size: 0.7rem;
+            font-weight: 800;
+            opacity: 1;
             display: block;
-            font-weight: 600;
             color: #fbbf24;
+            letter-spacing: 0.05em;
         }
 
         /* ----- Input Wrapper ----- */
@@ -993,6 +997,9 @@
             .duty-slot .time-display .time-end {
                 font-size: 0.45rem;
             }
+            .duty-slot .time-display .single-slot-label {
+                font-size: 0.55rem;
+            }
             .duty-slot .cell-input {
                 font-size: 0.8rem;
                 padding: 0.25rem 0.5rem;
@@ -1068,6 +1075,9 @@
             .duty-slot .time-display .time-end {
                 font-size: 0.4rem;
             }
+            .duty-slot .time-display .single-slot-label {
+                font-size: 0.5rem;
+            }
             .duty-slot .cell-input {
                 font-size: 0.7rem;
                 padding: 0.2rem 0.35rem;
@@ -1134,6 +1144,9 @@
         let touchStartX = 0;
         let touchStartY = 0;
         let isSwiping = false;
+
+        // Track which days have custom modified times (so we preserve them)
+        let customTimeOverrides = {};
 
         // ================================================================
         // INIT
@@ -1535,19 +1548,35 @@
             return entries;
         }
 
-        function recalculateDaySlotTimes(date, specCode) {
+        function recalculateDaySlotTimes(date, specCode, forceReset = false) {
             const entries = normalizeDayEntries(date, specCode);
             if (entries.length === 0) return [];
 
+            // If forceReset is true, clear custom overrides for this day
+            const dayKey = `${date}-${specCode}`;
+            if (forceReset) {
+                delete customTimeOverrides[dayKey];
+            }
+
             const timeOverrides = {};
+            const hasCustomTimes = customTimeOverrides[dayKey] && Object.keys(customTimeOverrides[dayKey]).length > 0;
+            
             entries.forEach((entry, idx) => {
                 if (entry.dutyTime) {
                     const parsed = parseDutyTime(entry.dutyTime);
-                    if (parsed) timeOverrides[`slot_${idx}`] = parsed;
+                    if (parsed) {
+                        // Only use custom override if it exists for this slot
+                        if (hasCustomTimes && customTimeOverrides[dayKey] && customTimeOverrides[dayKey][idx]) {
+                            timeOverrides[`slot_${idx}`] = customTimeOverrides[dayKey][idx];
+                        } else {
+                            timeOverrides[`slot_${idx}`] = parsed;
+                        }
+                    }
                 }
             });
 
             const calculatedTimes = calculateSlotTimes(entries.length, timeOverrides);
+            
             entries.forEach((entry, idx) => {
                 if (entries.length === 1) {
                     entry.dutyTime = '';
@@ -1685,8 +1714,9 @@
                     const uid = `${String(d).padStart(2, '0')}-${spec.id}`;
                     const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
                     
-                    const slots = getDaySlots(dateFull, spec.id);
-                    const numSlots = slots.length;
+                    // Ensure all entries for this day are normalized
+                    const entries = normalizeDayEntries(dateFull, spec.id);
+                    const numSlots = entries.length;
                     const isSingleSlot = numSlots === 1;
                     
                     html += `
@@ -1718,28 +1748,15 @@
                             </div>
                         `;
                     } else {
-                        // Auto-calculate times based on number of slots (EQUAL DIVISION)
-                        const timeOverrides = {};
-                        slots.forEach((slot, idx) => {
-                            if (slot.timeData) {
-                                timeOverrides[`slot_${idx}`] = slot.timeData;
-                            }
-                        });
+                        // Recalculate times for this day
+                        const calculatedTimes = recalculateDaySlotTimes(dateFull, spec.id, false);
                         
-                        let calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
-                        const validation = validateSlotTimes(calculatedTimes);
-                        if (!validation.valid || validation.overlaps) {
-                            calculatedTimes = autoCorrectSlotTimes(calculatedTimes);
-                        }
-                        
-                        slots.forEach((slot, idx) => {
-                            const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
+                        entries.forEach((entry, idx) => {
+                            const timeData = calculatedTimes && calculatedTimes[idx] ? calculatedTimes[idx] : { start: 0, end: 24 * 60 };
                             const slotUid = `${uid}-${idx}`;
-                            const isValidName = nameData[spec.id]?.includes(slot.name) || false;
+                            const isValidName = nameData[spec.id]?.includes(entry.name) || false;
                             
                             const isSingle = numSlots === 1;
-                            const timeDisplayClass = isSingle ? 'time-display single-slot' : 'time-display';
-                            const onClickTime = isSingle ? '' : `onclick="openTimePicker(event, '${dateFull}', '${spec.id}', ${idx})"`;
                             
                             let displayStart = timeData.start;
                             let displayEnd = timeData.end;
@@ -1748,20 +1765,29 @@
                                 displayEnd = displayEnd + totalDuration;
                             }
                             
-                            const timeDisplayHtml = isSingle
-                                ? `<div class="${timeDisplayClass}" aria-label="24h"><span class="single-slot-label">24h</span></div>`
-                                : `<div class="${timeDisplayClass}" ${onClickTime}>
-                                    <span class="time-start">${minutesToTimeStr(displayStart)}</span>
-                                    <span class="time-sep">—</span>
-                                    <span class="time-end">${minutesToTimeStr(displayEnd)}</span>
-                                </div>`;
+                            let timeDisplayHtml;
+                            if (isSingle) {
+                                timeDisplayHtml = `
+                                    <div class="time-display single-slot" aria-label="24h">
+                                        <span class="single-slot-label">24h</span>
+                                    </div>
+                                `;
+                            } else {
+                                timeDisplayHtml = `
+                                    <div class="time-display" onclick="openTimePicker(event, '${dateFull}', '${spec.id}', ${idx})">
+                                        <span class="time-start">${minutesToTimeStr(displayStart)}</span>
+                                        <span class="time-sep">—</span>
+                                        <span class="time-end">${minutesToTimeStr(displayEnd)}</span>
+                                    </div>
+                                `;
+                            }
                             
                             html += `
                                 <div class="duty-slot" data-slot-index="${idx}">
                                     ${timeDisplayHtml}
                                     <div class="input-wrapper" onclick="event.stopPropagation()">
                                         <div class="ghost-text" id="ghost-${slotUid}"></div>
-                                        <input type="text" class="cell-input ${slot.name && !isValidName ? 'invalid-name' : 'prefilled'}" 
+                                        <input type="text" class="cell-input ${entry.name && !isValidName ? 'invalid-name' : 'prefilled'}" 
                                             id="input-${slotUid}"
                                             style="caret-color: ${specColor};"
                                             onfocus="closeAllMenus()"
@@ -1769,7 +1795,7 @@
                                             onkeydown="handleKeys(event, this, '${slotUid}')"
                                             onblur="handleBlur('${slotUid}')"
                                             data-date="${dateFull}" data-spec="${spec.id}" data-slot="${idx}" autocomplete="off" 
-                                            value="${slot.name || ''}">
+                                            value="${entry.name || ''}">
                                         <span class="dropdown-arrow" onclick="toggleMenu(event, '${slotUid}', '${spec.id}')">▼</span>
                                         <div class="custom-menu" id="menu-${slotUid}" style="border-color: ${specColor};"></div>
                                     </div>
@@ -1778,15 +1804,19 @@
                             `;
                         });
                         
-                        if (!validation.valid || validation.gaps.length > 0) {
-                            const gapText = validation.gaps.map(g => 
-                                `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
-                            ).join(', ');
-                            html += `
-                                <div class="slot-tip error" id="tip-${uid}">
-                                    ⚠️ فجوات: ${gapText}
-                                </div>
-                            `;
+                        // Check for gaps
+                        if (calculatedTimes) {
+                            const validation = validateSlotTimes(calculatedTimes);
+                            if (!validation.valid || validation.gaps.length > 0) {
+                                const gapText = validation.gaps.map(g => 
+                                    `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
+                                ).join(', ');
+                                html += `
+                                    <div class="slot-tip error" id="tip-${uid}">
+                                        ⚠️ فجوات: ${gapText}
+                                    </div>
+                                `;
+                            }
                         }
                     }
                     
@@ -1891,8 +1921,6 @@
             const startVal = parseFloat(startSelect.value);
             const endVal = parseFloat(endSelect.value);
             
-            // Allow cross-day: end can be <= start (meaning it continues to next day)
-            // Only show error if start == end (0 duration)
             if (startVal === endVal) {
                 showToast('❌ مدة الخفير لا يمكن أن تكون صفر', 'error', 2000);
                 return;
@@ -1906,6 +1934,11 @@
             
             const entry = entries[slotIndex];
             entry.dutyTime = formatDutyTime(startVal, endVal);
+            
+            // Store custom override for this day and slot
+            const dayKey = `${date}-${specCode}`;
+            if (!customTimeOverrides[dayKey]) customTimeOverrides[dayKey] = {};
+            customTimeOverrides[dayKey][slotIndex] = { start: startVal, end: endVal };
             
             // Recalculate all times for the day based on custom overrides
             const allSlots = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
@@ -1921,7 +1954,6 @@
             const calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
             const validation = validateSlotTimes(calculatedTimes);
             
-            // Apply the recalculated times to all slots
             allSlots.forEach((s, idx) => {
                 const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
                 s.dutyTime = formatDutyTime(timeData.start, timeData.end);
@@ -1943,6 +1975,11 @@
         function addSlot(date, specCode) {
             const entries = normalizeDayEntries(date, specCode);
             const newIndex = entries.length;
+            
+            // Clear custom overrides for this day when adding a new slot (start fresh)
+            const dayKey = `${date}-${specCode}`;
+            delete customTimeOverrides[dayKey];
+            
             const newEntry = {
                 date: date,
                 specCode: specCode,
@@ -1953,9 +1990,10 @@
             };
             db.schedule.push(newEntry);
 
+            // Recalculate all times for the day from scratch
             const allEntries = normalizeDayEntries(date, specCode);
             if (allEntries.length > 0) {
-                recalculateDaySlotTimes(date, specCode);
+                recalculateDaySlotTimes(date, specCode, true);
             }
 
             pendingFocusDate = date;
@@ -1982,11 +2020,15 @@
             const idx = db.schedule.indexOf(entryToRemove);
             if (idx !== -1) db.schedule.splice(idx, 1);
             
+            // Clear custom overrides for this day when deleting a slot
+            const dayKey = `${date}-${specCode}`;
+            delete customTimeOverrides[dayKey];
+            
             const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             remaining.forEach((entry, idx) => { entry.dutySlot = idx; });
             
             if (remaining.length > 0) {
-                recalculateDaySlotTimes(date, specCode);
+                recalculateDaySlotTimes(date, specCode, true);
             }
             
             refreshView();
@@ -2032,6 +2074,7 @@
                             if (parsed) {
                                 if (entries.length === 1) {
                                     timeDisplay.innerHTML = '<span class="single-slot-label">24h</span>';
+                                    timeDisplay.classList.add('single-slot');
                                 } else {
                                     const startEl = timeDisplay.querySelector('.time-start');
                                     const endEl = timeDisplay.querySelector('.time-end');
@@ -2042,6 +2085,7 @@
                                     }
                                     if (startEl) startEl.textContent = minutesToTimeStr(displayStart);
                                     if (endEl) endEl.textContent = minutesToTimeStr(displayEnd);
+                                    timeDisplay.classList.remove('single-slot');
                                 }
                             }
                         }
@@ -2062,17 +2106,8 @@
                     const timeDisplay = container.querySelector('.time-display');
                     if (timeDisplay) {
                         timeDisplay.classList.add('single-slot');
-                        const start = timeDisplay.querySelector('.time-start');
-                        const end = timeDisplay.querySelector('.time-end');
-                        if (start && end) {
-                            start.textContent = '08:00AM';
-                            end.textContent = '08:00AM';
-                        }
                         if (!timeDisplay.querySelector('.single-slot-label')) {
-                            const label = document.createElement('span');
-                            label.className = 'single-slot-label';
-                            label.textContent = '24h';
-                            timeDisplay.appendChild(label);
+                            timeDisplay.innerHTML = '<span class="single-slot-label">24h</span>';
                         }
                     }
                 } else {
@@ -2148,7 +2183,6 @@
                     el.classList.remove('invalid-name');
                     if (ghost) ghost.innerHTML = "";
                     
-                    // Set pending focus BEFORE saveEntry rebuilds the DOM
                     if (nextCell) {
                         pendingFocusDate = nextCell.date;
                         pendingFocusSpec = nextCell.spec;
@@ -2156,7 +2190,6 @@
                     }
                     saveEntry(el);
                 } else if (el.value.trim()) {
-                    // Set pending focus BEFORE saveEntry rebuilds the DOM
                     if (nextCell) {
                         pendingFocusDate = nextCell.date;
                         pendingFocusSpec = nextCell.spec;
@@ -2269,7 +2302,6 @@
         }
 
         function handleBlur(uid) {
-            // Don't handle blur if we're in the middle of a DOM refresh/focus transition
             if (isRefreshing || pendingFocusDate !== null) {
                 return;
             }
@@ -2347,7 +2379,6 @@
             
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             if (slotIdx >= entries.length) {
-                // Recalculate all times for the day (EQUAL DIVISION)
                 const numSlots = entries.length + 1;
                 const timeOverrides = {};
                 entries.forEach((entry, idx) => {
@@ -2401,10 +2432,10 @@
         let pendingFocusDate = null;
         let pendingFocusSpec = null;
         let pendingFocusSlot = null;
-        let isRefreshing = false;  // Prevent blur handling during DOM rebuild
+        let isRefreshing = false;
         
         function refreshView() {
-            isRefreshing = true;  // Prevent blur handlers from interfering
+            isRefreshing = true;
             generateBoard();
             renderData();
             if (currentView === 'single') {
@@ -2422,7 +2453,6 @@
             }
             updateIndicators();
             
-            // Restore focus if pending
             if (pendingFocusDate && pendingFocusSpec !== null && pendingFocusSlot !== null) {
                 setTimeout(() => {
                     const targetInput = document.querySelector(
@@ -2436,10 +2466,10 @@
                     pendingFocusDate = null;
                     pendingFocusSpec = null;
                     pendingFocusSlot = null;
-                    isRefreshing = false;  // Done refreshing, allow blur handlers again
+                    isRefreshing = false;
                 }, 10);
             } else {
-                isRefreshing = false;  // Done refreshing, allow blur handlers again
+                isRefreshing = false;
             }
         }
 
