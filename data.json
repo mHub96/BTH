@@ -4055,12 +4055,6 @@
       "VisitCount": 0
     },
     {
-      "date": "18/08/2026",
-      "specCode": "D",
-      "name": "د. علي عادل",
-      "VisitCount": 2
-    },
-    {
       "date": "19/08/2026",
       "specCode": "D",
       "name": "د. علي قاسم عبدالله",
@@ -4743,6 +4737,12 @@
       "specCode": "M",
       "name": "د. صادق رحيم محمد",
       "timestamp": "20:04"
+    },
+    {
+      "date": "18/08/2026",
+      "specCode": "D",
+      "name": "د. عبدالحكيم هادي",
+      "timestamp": "20:07"
     }
   ],
   "passwords": {
