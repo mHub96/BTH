@@ -1871,12 +1871,6 @@
       "VisitCount": 6
     },
     {
-      "date": "19/08/2026",
-      "specCode": "MF",
-      "name": "د. تقى حسن",
-      "VisitCount": 3
-    },
-    {
       "date": "20/08/2026",
       "specCode": "MF",
       "name": "د. عبد الله صادق",
@@ -4747,6 +4741,12 @@
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "09:07"
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "timestamp": "10:59"
     }
   ],
   "passwords": {
