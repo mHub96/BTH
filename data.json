@@ -3269,12 +3269,6 @@
       "VisitCount": 4
     },
     {
-      "date": "19/08/2026",
-      "specCode": "M",
-      "name": "د. نزار سليم",
-      "VisitCount": 0
-    },
-    {
       "date": "20/08/2026",
       "specCode": "M",
       "name": "د. ضحى جاسم محمد",
@@ -4747,6 +4741,12 @@
       "name": "د. صادق رحيم محمد",
       "timestamp": "20:27",
       "VisitCount": 1
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "M",
+      "name": "د. نزار سليم",
+      "timestamp": "08:01"
     }
   ],
   "passwords": {
