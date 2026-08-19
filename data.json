@@ -2033,12 +2033,6 @@
       "VisitCount": 5
     },
     {
-      "date": "19/08/2026",
-      "specCode": "GS",
-      "name": "د. تحسين علي حلو",
-      "VisitCount": 5
-    },
-    {
       "date": "20/08/2026",
       "specCode": "GS",
       "name": "د. احمد حسين هادي",
@@ -4752,6 +4746,12 @@
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:04"
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "GS",
+      "name": "د. محمد حيدر باقر",
+      "timestamp": "20:06"
     }
   ],
   "passwords": {
