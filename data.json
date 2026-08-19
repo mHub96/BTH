@@ -2543,12 +2543,6 @@
       "VisitCount": 6
     },
     {
-      "date": "19/08/2026",
-      "specCode": "ENT",
-      "name": "د. بان عبد الامير صمد",
-      "VisitCount": 0
-    },
-    {
       "date": "20/08/2026",
       "specCode": "ENT",
       "name": "د. مريم علي محمد",
@@ -4747,6 +4741,12 @@
       "specCode": "O",
       "name": "د. نور الهدى علي",
       "timestamp": "12:41"
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "ENT",
+      "name": "د. بان عبد الامير صمد",
+      "timestamp": "13:55"
     }
   ],
   "passwords": {
