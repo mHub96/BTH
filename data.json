@@ -4696,13 +4696,6 @@
     },
     {
       "date": "19/08/2026",
-      "specCode": "M",
-      "name": "د. فلاح غيدان",
-      "timestamp": "08:07",
-      "VisitCount": 1
-    },
-    {
-      "date": "19/08/2026",
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "09:07",
@@ -4758,6 +4751,12 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "20:17"
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "M",
+      "name": "د. مصطفى فرات",
+      "timestamp": "20:28"
     }
   ],
   "passwords": {
