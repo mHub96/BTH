@@ -4013,12 +4013,6 @@
       "VisitCount": 0
     },
     {
-      "date": "19/08/2026",
-      "specCode": "D",
-      "name": "د. علي قاسم عبدالله",
-      "VisitCount": 1
-    },
-    {
       "date": "20/08/2026",
       "specCode": "D",
       "name": "د. تحسين علي حلو",
@@ -4752,6 +4746,12 @@
       "name": "د. فاطمة عباس",
       "timestamp": "14:54",
       "VisitCount": 2
+    },
+    {
+      "date": "19/08/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:04"
     }
   ],
   "passwords": {
