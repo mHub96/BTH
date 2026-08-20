@@ -3221,12 +3221,6 @@
       "VisitCount": 4
     },
     {
-      "date": "20/08/2026",
-      "specCode": "M",
-      "name": "د. ضحى جاسم محمد",
-      "VisitCount": 1
-    },
-    {
       "date": "21/08/2026",
       "specCode": "M",
       "name": "د. قمر بدر",
@@ -4762,6 +4756,12 @@
       "specCode": "OR",
       "name": "د مصطفى عبد الاله",
       "timestamp": "18:57"
+    },
+    {
+      "date": "20/08/2026",
+      "specCode": "M",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:03"
     }
   ],
   "passwords": {
