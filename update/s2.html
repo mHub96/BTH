@@ -39,9 +39,6 @@
             overflow: hidden;
         }
 
-        /* ============================================================
-           NAVIGATION - FIXED TOP
-           ============================================================ */
         .nav-bar {
             position: fixed;
             top: 0;
@@ -173,9 +170,6 @@
             transform: scale(0.94);
         }
 
-        /* ============================================================
-           BOARD CONTAINER - FILLS SPACE BELOW NAV
-           ============================================================ */
         .board-container {
             position: fixed;
             top: var(--nav-h);
@@ -217,9 +211,6 @@
             border-radius: 20px;
         }
 
-        /* ============================================================
-           SPECIALTY TRACK CARD
-           ============================================================ */
         .specialty-track {
             flex: 0 0 auto;
             width: 340px;
@@ -262,7 +253,6 @@
             display: none;
         }
 
-        /* Slide animations */
         .specialty-track.slide-out-left {
             transform: translateX(-120%) scale(0.9);
             opacity: 0;
@@ -280,9 +270,6 @@
             opacity: 1;
         }
 
-        /* ============================================================
-           TRACK HEADER - ELEGANT CENTERED
-           ============================================================ */
         .track-header {
             padding: 1rem 1.2rem 0.8rem;
             text-align: center;
@@ -349,9 +336,6 @@
             color: var(--text-secondary);
         }
 
-        /* ============================================================
-           DAYS LIST
-           ============================================================ */
         .days-list {
             flex: 1;
             overflow-y: auto;
@@ -371,9 +355,6 @@
             border-radius: 20px;
         }
 
-        /* ============================================================
-           DAY BOX
-           ============================================================ */
         .day-box {
             background: rgba(255, 255, 255, 0.015);
             margin-bottom: 0.3rem;
@@ -411,9 +392,6 @@
             color: var(--text-primary);
         }
 
-        /* ============================================================
-           DUTY SLOTS
-           ============================================================ */
         .duty-slots {
             display: flex;
             flex-direction: column;
@@ -428,7 +406,6 @@
             min-height: 40px;
         }
 
-        /* ----- Time Display ----- */
         .duty-slot .time-display {
             display: flex;
             flex-direction: column;
@@ -457,7 +434,6 @@
             opacity: 1;
         }
 
-        /* Single slot - 24hr style (non-editable indicator) */
         .duty-slot .time-display.single-slot {
             background: rgba(212, 175, 55, 0.12);
             border-color: rgba(212, 175, 55, 0.2);
@@ -495,7 +471,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* ----- Input Wrapper ----- */
         .duty-slot .input-wrapper {
             flex: 1;
             position: relative;
@@ -588,7 +563,6 @@
             background: rgba(239, 68, 68, 0.05);
         }
 
-        /* ----- Dropdown Arrow ----- */
         .duty-slot .dropdown-arrow {
             position: absolute;
             left: 4px;
@@ -610,7 +584,6 @@
             color: #b0c4dd;
         }
 
-        /* ----- Custom Menu ----- */
         .duty-slot .custom-menu {
             position: absolute;
             top: calc(100% + 4px);
@@ -652,7 +625,6 @@
             border-radius: 20px;
         }
 
-        /* ----- Delete Button ----- */
         .delete-slot-btn {
             background: none;
             border: none;
@@ -672,12 +644,10 @@
             background: rgba(239, 68, 68, 0.08);
         }
 
-        /* Hide delete button when only one slot */
         .duty-slots.single-slot .delete-slot-btn {
             display: none !important;
         }
 
-        /* ----- Add Slot Button ----- */
         .add-slot-btn {
             display: flex;
             align-items: center;
@@ -703,7 +673,6 @@
             color: var(--spec-color, #60a5fa);
         }
 
-        /* ----- Slot Tip ----- */
         .slot-tip {
             font-size: 0.45rem;
             color: #fbbf24;
@@ -730,9 +699,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           TIME PICKER POPUP
-           ============================================================ */
         .time-picker-popup {
             position: fixed;
             background: #1a2230;
@@ -809,9 +775,6 @@
             color: var(--text-secondary);
         }
 
-        /* ============================================================
-           NAVIGATION ARROWS (Single View)
-           ============================================================ */
         .nav-arrows {
             display: none;
             position: fixed;
@@ -848,9 +811,6 @@
             display: flex;
         }
 
-        /* ============================================================
-           TRACK INDICATORS
-           ============================================================ */
         .track-indicators {
             display: flex;
             justify-content: center;
@@ -878,9 +838,6 @@
             border-radius: 3px;
         }
 
-        /* ============================================================
-           SWIPE HINT
-           ============================================================ */
         .swipe-hint {
             position: absolute;
             bottom: 34px;
@@ -900,9 +857,6 @@
             50% { opacity: 0.4; }
         }
 
-        /* ============================================================
-           TOAST
-           ============================================================ */
         .toast-container {
             position: fixed;
             top: calc(var(--nav-h) + 10px);
@@ -924,18 +878,12 @@
             pointer-events: none;
         }
 
-        /* ============================================================
-           LOADING
-           ============================================================ */
         .loading-active {
             opacity: 0.6 !important;
             pointer-events: none !important;
             cursor: wait !important;
         }
 
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
         @media (max-width: 640px) {
             :root {
                 --nav-h: 56px;
@@ -1093,7 +1041,6 @@
 <body>
 
     <div id="app-wrapper">
-        <!-- ===== FIXED NAVIGATION ===== -->
         <div class="nav-bar">
             <div class="nav-brand">
                 <h1>Teaching Hosp.</h1>
@@ -1109,7 +1056,6 @@
             </div>
         </div>
 
-        <!-- ===== BOARD ===== -->
         <div class="board-container all-view" id="board">
             <button class="nav-arrows left" onclick="navigateTrack(-1)">‹</button>
             <button class="nav-arrows right" onclick="navigateTrack(1)">›</button>
@@ -1145,6 +1091,11 @@
         let touchStartY = 0;
         let isSwiping = false;
 
+        let pendingFocusDate = null;
+        let pendingFocusSpec = null;
+        let pendingFocusSlot = null;
+        let isRefreshing = false;
+
         // ================================================================
         // INIT
         // ================================================================
@@ -1161,7 +1112,6 @@
         };
 
         document.addEventListener('click', (e) => {
-            // Close time picker when clicking outside
             if (!e.target.closest('.time-picker-popup') && !e.target.closest('.time-display')) {
                 closeTimePicker();
             }
@@ -1455,9 +1405,10 @@
         }
 
         // ================================================================
-        // TIME UTILITIES - EQUAL DIVISION WITH CROSS-DAY HANDLING
+        // TIME UTILITIES
         // ================================================================
         const DAY_START = 8;
+        const TOTAL_MINUTES = 24 * 60;
 
         function minutesToTimeStr(minutes) {
             const totalMinutes = minutes + (DAY_START * 60);
@@ -1482,10 +1433,9 @@
         }
 
         function formatDutyTime(startMin, endMin) {
-            // Handle cross-day: if endMin <= startMin, add 24 hours
             let endAdjusted = endMin;
             if (endMin <= startMin) {
-                endAdjusted = endMin + (24 * 60);
+                endAdjusted = endMin + TOTAL_MINUTES;
             }
             return `${minutesToTimeStr(startMin)} - ${minutesToTimeStr(endAdjusted)}`;
         }
@@ -1501,84 +1451,37 @@
         }
 
         // ================================================================
-        // EQUAL DIVISION OF TIME - CORE FUNCTION
+        // EQUAL DIVISION OF TIME - REDISTRIBUTE EVERYTHING FROM SCRATCH
         // ================================================================
-        function calculateSlotTimes(numSlots, customOverrides = {}) {
-            if (numSlots === 0) return [];
-            const totalDuration = 24 * 60;
-            
-            // For 1 slot: full 24 hours
-            if (numSlots === 1) return [{ start: 0, end: totalDuration }];
-            
-            // For multiple slots: divide equally
-            const slotDuration = totalDuration / numSlots;
-            const results = [];
-            
-            for (let i = 0; i < numSlots; i++) {
-                let start = Math.round(i * slotDuration);
-                let end = Math.round((i + 1) * slotDuration);
-                
-                // Check if there's a custom override for this slot
-                const key = `slot_${i}`;
-                if (customOverrides[key]) {
-                    const custom = customOverrides[key];
-                    if (custom.start !== undefined && custom.end !== undefined) {
-                        let adjustedEnd = custom.end;
-                        if (custom.end <= custom.start) {
-                            adjustedEnd = custom.end + totalDuration;
-                        }
-                        if (custom.start >= 0 && custom.start < totalDuration && adjustedEnd > custom.start) {
-                            start = custom.start;
-                            end = adjustedEnd;
-                        }
-                    }
-                }
-                results.push({ start, end });
-            }
-            return results;
-        }
-
-        function normalizeDayEntries(date, specCode) {
+        function recalculateDaySlotTimes(date, specCode) {
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             entries.sort((a, b) => (a.dutySlot || 0) - (b.dutySlot || 0));
             entries.forEach((entry, idx) => { entry.dutySlot = idx; });
-            return entries;
-        }
 
-        // ================================================================
-        // RECALCULATE TIMES FOR A DAY - FIXED
-        // ================================================================
-        function recalculateDaySlotTimes(date, specCode) {
-            const entries = normalizeDayEntries(date, specCode);
-            if (entries.length === 0) return [];
+            const numSlots = entries.length;
+            if (numSlots === 0) return [];
 
-            // Collect any custom time overrides from existing entries
-            const timeOverrides = {};
-            let hasCustom = false;
-            entries.forEach((entry, idx) => {
-                if (entry.dutyTime) {
-                    const parsed = parseDutyTime(entry.dutyTime);
-                    if (parsed) {
-                        timeOverrides[`slot_${idx}`] = parsed;
-                        hasCustom = true;
-                    }
-                }
-            });
+            // If only 1 slot: 24 hours
+            if (numSlots === 1) {
+                entries[0].dutyTime = '';
+                return [{ start: 0, end: TOTAL_MINUTES }];
+            }
 
-            // If no custom times, calculate equal division from scratch
-            const calculatedTimes = calculateSlotTimes(entries.length, timeOverrides);
-            
-            // Apply calculated times to all entries
-            entries.forEach((entry, idx) => {
-                if (entries.length === 1) {
-                    entry.dutyTime = '';
-                    return;
-                }
-                const timeData = calculatedTimes[idx] || { start: 0, end: 24 * 60 };
-                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
-            });
+            // Divide equally among all slots
+            const slotDuration = TOTAL_MINUTES / numSlots;
+            const results = [];
 
-            return calculatedTimes;
+            for (let i = 0; i < numSlots; i++) {
+                const start = Math.round(i * slotDuration);
+                const end = Math.round((i + 1) * slotDuration);
+                const timeData = { start, end };
+                results.push(timeData);
+                
+                // Apply to the entry
+                entries[i].dutyTime = formatDutyTime(start, end);
+            }
+
+            return results;
         }
 
         function getDaySlots(date, specCode) {
@@ -1598,6 +1501,35 @@
                     raw: entry
                 };
             });
+        }
+
+        // ================================================================
+        // VALIDATE SLOT TIMES - DETECT GAPS
+        // ================================================================
+        function validateSlotTimes(slots) {
+            if (slots.length <= 1) return { valid: true, gaps: [], overlaps: false };
+            
+            const sorted = [...slots].sort((a, b) => a.start - b.start);
+            const gaps = [];
+            const TOLERANCE = 2;
+            
+            if (sorted[0].start > TOLERANCE) {
+                gaps.push({ start: 0, end: sorted[0].start });
+            }
+            
+            for (let i = 0; i < sorted.length - 1; i++) {
+                const gap = sorted[i + 1].start - sorted[i].end;
+                if (gap > TOLERANCE) {
+                    gaps.push({ start: sorted[i].end, end: sorted[i + 1].start });
+                }
+            }
+            
+            const lastEnd = sorted[sorted.length - 1].end;
+            if (lastEnd < TOTAL_MINUTES - TOLERANCE) {
+                gaps.push({ start: lastEnd, end: TOTAL_MINUTES });
+            }
+            
+            return { valid: gaps.length === 0, gaps, overlaps: false };
         }
 
         // ================================================================
@@ -1667,13 +1599,11 @@
                     const uid = `${String(d).padStart(2, '0')}-${spec.id}`;
                     const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
                     
-                    // Normalize entries and recalculate times
-                    const entries = normalizeDayEntries(dateFull, spec.id);
+                    // Recalculate times from scratch for this day
+                    const calculatedTimes = recalculateDaySlotTimes(dateFull, spec.id);
+                    const entries = (db.schedule || []).filter(s => s.date === dateFull && s.specCode === spec.id);
                     const numSlots = entries.length;
                     const isSingleSlot = numSlots === 1;
-                    
-                    // Recalculate times for this day
-                    const calculatedTimes = recalculateDaySlotTimes(dateFull, spec.id);
                     
                     html += `
                         <div class="day-box ${isWeekend ? 'weekend' : ''}" style="${isWeekend ? `border-left-color: ${specColor};` : ''}" data-day="${dateFull}" data-spec="${spec.id}">
@@ -1685,7 +1615,6 @@
                     `;
                     
                     if (numSlots === 0) {
-                        // Empty day - show placeholder
                         html += `
                             <div class="duty-slot" data-slot-index="0">
                                 <div class="time-display" style="opacity:0.2; min-width:38px; font-size:0.4rem;">—</div>
@@ -1705,9 +1634,8 @@
                             </div>
                         `;
                     } else {
-                        // Render each slot with calculated times
                         entries.forEach((entry, idx) => {
-                            const timeData = calculatedTimes && calculatedTimes[idx] ? calculatedTimes[idx] : { start: 0, end: 24 * 60 };
+                            const timeData = calculatedTimes && calculatedTimes[idx] ? calculatedTimes[idx] : { start: 0, end: TOTAL_MINUTES };
                             const slotUid = `${uid}-${idx}`;
                             const isValidName = nameData[spec.id]?.includes(entry.name) || false;
                             
@@ -1715,9 +1643,8 @@
                             
                             let displayStart = timeData.start;
                             let displayEnd = timeData.end;
-                            const totalDuration = 24 * 60;
                             if (displayEnd <= displayStart) {
-                                displayEnd = displayEnd + totalDuration;
+                                displayEnd = displayEnd + TOTAL_MINUTES;
                             }
                             
                             let timeDisplayHtml;
@@ -1759,16 +1686,22 @@
                             `;
                         });
                         
-                        // Check for gaps
-                        if (calculatedTimes) {
+                        // Check for gaps and show warning
+                        if (calculatedTimes && numSlots > 1) {
                             const validation = validateSlotTimes(calculatedTimes);
                             if (!validation.valid || validation.gaps.length > 0) {
                                 const gapText = validation.gaps.map(g => 
                                     `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
-                                ).join(', ');
+                                ).join('، ');
                                 html += `
                                     <div class="slot-tip error" id="tip-${uid}">
-                                        ⚠️ فجوات: ${gapText}
+                                        ⚠️ يوجد فجوات في التوزيع: ${gapText}
+                                    </div>
+                                `;
+                            } else {
+                                html += `
+                                    <div class="slot-tip" id="tip-${uid}" style="color:#10b981; border-color:rgba(16,185,129,0.1); background:rgba(16,185,129,0.05);">
+                                        ✅ تم توزيع الوقت بالتساوي
                                     </div>
                                 `;
                             }
@@ -1791,33 +1724,6 @@
             updateIndicators();
         }
 
-        function validateSlotTimes(slots) {
-            if (slots.length <= 1) return { valid: true, gaps: [], overlaps: false };
-            
-            const totalDuration = 24 * 60;
-            const sorted = [...slots].sort((a, b) => a.start - b.start);
-            const gaps = [];
-            const TOLERANCE = 2;
-            
-            if (sorted[0].start > TOLERANCE) {
-                gaps.push({ start: 0, end: sorted[0].start });
-            }
-            
-            for (let i = 0; i < sorted.length - 1; i++) {
-                const gap = sorted[i + 1].start - sorted[i].end;
-                if (gap > TOLERANCE) {
-                    gaps.push({ start: sorted[i].end, end: sorted[i + 1].start });
-                }
-            }
-            
-            const lastEnd = sorted[sorted.length - 1].end;
-            if (lastEnd < totalDuration - TOLERANCE) {
-                gaps.push({ start: lastEnd, end: totalDuration });
-            }
-            
-            return { valid: gaps.length === 0, gaps, overlaps: false };
-        }
-
         // ================================================================
         // TIME PICKER
         // ================================================================
@@ -1825,7 +1731,6 @@
             event.stopPropagation();
             event.preventDefault();
             
-            // Close any existing time picker
             closeTimePicker();
             
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
@@ -1838,7 +1743,7 @@
             if (slotIndex >= entries.length) return;
             
             const entry = entries[slotIndex];
-            let startMin = 0, endMin = 24 * 60;
+            let startMin = 0, endMin = TOTAL_MINUTES;
             
             if (entry.dutyTime) {
                 const parsed = parseDutyTime(entry.dutyTime);
@@ -1848,7 +1753,7 @@
                 }
             } else {
                 const numSlots = entries.length;
-                const slotDuration = (24 * 60) / numSlots;
+                const slotDuration = TOTAL_MINUTES / numSlots;
                 startMin = slotIndex * slotDuration;
                 endMin = (slotIndex + 1) * slotDuration;
             }
@@ -1903,16 +1808,6 @@
                 </div>
             `;
             document.body.appendChild(popup);
-            
-            // Click outside to close
-            setTimeout(() => {
-                document.addEventListener('click', function closeOnOutside(e) {
-                    if (!e.target.closest('.time-picker-popup') && !e.target.closest('.time-display')) {
-                        closeTimePicker();
-                        document.removeEventListener('click', closeOnOutside);
-                    }
-                });
-            }, 10);
         }
 
         function confirmTimePicker(popup, date, specCode, slotIndex) {
@@ -1932,40 +1827,75 @@
                 return;
             }
             
+            // Apply custom time to this slot
             const entry = entries[slotIndex];
             entry.dutyTime = formatDutyTime(startVal, endVal);
             
-            // Recalculate all times for the day
-            recalculateDaySlotTimes(date, specCode);
+            // Recalculate all times based on custom overrides
+            const timeOverrides = {};
+            entries.forEach((s, idx) => {
+                if (s.dutyTime) {
+                    const p = parseDutyTime(s.dutyTime);
+                    if (p) timeOverrides[`slot_${idx}`] = p;
+                }
+            });
+            
+            const numSlots = entries.length;
+            const slotDuration = TOTAL_MINUTES / numSlots;
+            const results = [];
+            
+            for (let i = 0; i < numSlots; i++) {
+                let start = Math.round(i * slotDuration);
+                let end = Math.round((i + 1) * slotDuration);
+                const key = `slot_${i}`;
+                if (timeOverrides[key]) {
+                    const custom = timeOverrides[key];
+                    let adjustedEnd = custom.end;
+                    if (custom.end <= custom.start) {
+                        adjustedEnd = custom.end + TOTAL_MINUTES;
+                    }
+                    if (custom.start >= 0 && custom.start < TOTAL_MINUTES && adjustedEnd > custom.start) {
+                        start = custom.start;
+                        end = adjustedEnd;
+                    }
+                }
+                results.push({ start, end });
+                entries[i].dutyTime = formatDutyTime(start, end);
+            }
             
             closeTimePicker();
             refreshView();
-            showToast('✅ تم تحديث الوقت', 'success', 1500);
+            
+            // Check for gaps
+            const validation = validateSlotTimes(results);
+            if (!validation.valid || validation.gaps.length > 0) {
+                showToast(`⚠️ فجوات: ${validation.gaps.map(g => formatDutyTime(g.start, g.end)).join(', ')}`, 'error', 3000);
+            } else {
+                showToast('✅ تم تحديث الوقت', 'success', 1500);
+            }
         }
 
         // ================================================================
-        // ADD / DELETE SLOT - FIXED: ACTUALLY ADDS A NEW CELL
+        // ADD / DELETE SLOT
         // ================================================================
         function addSlot(date, specCode) {
-            // Get existing entries for this day
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const newIndex = entries.length;
             
-            // Create a new entry with empty name
+            // Create new entry with empty name - times will be recalculated
             const newEntry = {
                 date: date,
                 specCode: specCode,
                 name: "",
                 VisitCount: 0,
-                dutyTime: "",  // Will be calculated by recalculateDaySlotTimes
+                dutyTime: "",
                 dutySlot: newIndex
             };
             db.schedule.push(newEntry);
             
-            // Recalculate all times for the day (equal division)
+            // Recalculate times from scratch for this day
             recalculateDaySlotTimes(date, specCode);
             
-            // Set focus to the new cell
             pendingFocusDate = date;
             pendingFocusSpec = specCode;
             pendingFocusSlot = newIndex;
@@ -1981,7 +1911,7 @@
                 }
             }, 150);
             
-            showToast('✅ تم إضافة خفير جديد', 'success', 1500);
+            showToast('✅ تم إضافة خفير جديد - تم إعادة توزيع الوقت', 'success', 2000);
         }
 
         function deleteSlot(date, specCode, slotIndex) {
@@ -2001,7 +1931,7 @@
             }
             
             refreshView();
-            showToast('🗑️ تم حذف الخفير', 'info', 1500);
+            showToast('🗑️ تم حذف الخفير - تم إعادة توزيع الوقت', 'info', 2000);
         }
 
         // ================================================================
@@ -2035,79 +1965,9 @@
                         } else {
                             input.classList.remove('prefilled', 'invalid-name');
                         }
-                        
-                        // Update time display
-                        const slotUid = `${date.split('/')[0]}-${specCode}-${slotIdx}`;
-                        const timeDisplay = document.querySelector(`#slots-${date.split('/')[0]}-${specCode} .duty-slot[data-slot-index="${slotIdx}"] .time-display`);
-                        if (timeDisplay && entry.dutyTime) {
-                            const parsed = parseDutyTime(entry.dutyTime);
-                            if (parsed) {
-                                if (entries.length === 1) {
-                                    timeDisplay.innerHTML = '<span class="single-slot-label">24h</span>';
-                                    timeDisplay.className = 'time-display single-slot';
-                                } else {
-                                    const startEl = timeDisplay.querySelector('.time-start');
-                                    const endEl = timeDisplay.querySelector('.time-end');
-                                    let displayStart = parsed.start;
-                                    let displayEnd = parsed.end;
-                                    if (displayEnd <= displayStart) {
-                                        displayEnd = displayEnd + (24 * 60);
-                                    }
-                                    if (startEl) startEl.textContent = minutesToTimeStr(displayStart);
-                                    if (endEl) endEl.textContent = minutesToTimeStr(displayEnd);
-                                    timeDisplay.className = 'time-display';
-                                }
-                            }
-                        }
                     } else {
                         input.value = '';
                         input.classList.remove('prefilled', 'invalid-name');
-                    }
-                }
-            });
-            
-            // Update single-slot indicators
-            document.querySelectorAll('.duty-slots').forEach(container => {
-                const slots = container.querySelectorAll('.duty-slot');
-                const isSingle = slots.length === 1;
-                container.classList.toggle('single-slot', isSingle);
-                
-                if (isSingle) {
-                    const timeDisplay = container.querySelector('.time-display');
-                    if (timeDisplay) {
-                        timeDisplay.className = 'time-display single-slot';
-                        if (!timeDisplay.querySelector('.single-slot-label')) {
-                            timeDisplay.innerHTML = '<span class="single-slot-label">24h</span>';
-                        }
-                    }
-                } else {
-                    const timeDisplay = container.querySelector('.time-display');
-                    if (timeDisplay && timeDisplay.classList.contains('single-slot')) {
-                        timeDisplay.classList.remove('single-slot');
-                        const label = timeDisplay.querySelector('.single-slot-label');
-                        if (label) label.remove();
-                        // Rebuild time display content
-                        const date = container.closest('.day-box')?.dataset?.day;
-                        const specCode = container.closest('.day-box')?.dataset?.spec;
-                        if (date && specCode) {
-                            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
-                            const slotIdx = parseInt(container.querySelector('.duty-slot')?.dataset?.slotIndex || 0);
-                            if (slotIdx < entries.length && entries[slotIdx]?.dutyTime) {
-                                const parsed = parseDutyTime(entries[slotIdx].dutyTime);
-                                if (parsed) {
-                                    let displayStart = parsed.start;
-                                    let displayEnd = parsed.end;
-                                    if (displayEnd <= displayStart) {
-                                        displayEnd = displayEnd + (24 * 60);
-                                    }
-                                    timeDisplay.innerHTML = `
-                                        <span class="time-start">${minutesToTimeStr(displayStart)}</span>
-                                        <span class="time-sep">—</span>
-                                        <span class="time-end">${minutesToTimeStr(displayEnd)}</span>
-                                    `;
-                                }
-                            }
-                        }
                     }
                 }
             });
@@ -2163,7 +2023,6 @@
                 const specCode = el.dataset.spec;
                 const slotIdx = parseInt(el.dataset.slot) || 0;
                 
-                // Get next cell info
                 const nextCell = getNextCellInfo(date, specCode, slotIdx);
                 
                 const ghost = document.getElementById(`ghost-${uid}`);
@@ -2350,7 +2209,6 @@
             
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             if (slotIdx >= entries.length) {
-                // This shouldn't happen normally, but handle it just in case
                 const newEntry = {
                     date: date,
                     specCode: specCode,
@@ -2375,11 +2233,6 @@
         // ================================================================
         // REFRESH VIEW
         // ================================================================
-        let pendingFocusDate = null;
-        let pendingFocusSpec = null;
-        let pendingFocusSlot = null;
-        let isRefreshing = false;
-        
         function refreshView() {
             isRefreshing = true;
             generateBoard();
