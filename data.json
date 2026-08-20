@@ -3029,12 +3029,6 @@
       "VisitCount": 7
     },
     {
-      "date": "20/08/2026",
-      "specCode": "NM",
-      "name": "د. صبا ياسين",
-      "VisitCount": 0
-    },
-    {
       "date": "21/08/2026",
       "specCode": "NM",
       "name": "د. علي حسن",
@@ -4761,6 +4755,12 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "20:43",
       "VisitCount": 1
+    },
+    {
+      "date": "20/08/2026",
+      "specCode": "NM",
+      "name": "د. علي حسن",
+      "timestamp": "10:59"
     }
   ],
   "passwords": {
