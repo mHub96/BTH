@@ -4343,12 +4343,6 @@
       "VisitCount": 1
     },
     {
-      "date": "20/08/2026",
-      "specCode": "AO",
-      "name": "محمد رحيم",
-      "VisitCount": 1
-    },
-    {
       "date": "21/08/2026",
       "specCode": "AO",
       "name": "حيدر صدام",
@@ -4762,6 +4756,12 @@
       "name": "د. علي حسن",
       "timestamp": "10:59",
       "VisitCount": 3
+    },
+    {
+      "date": "20/08/2026",
+      "specCode": "AO",
+      "name": "حيدر صدام",
+      "timestamp": "14:55"
     }
   ],
   "passwords": {
