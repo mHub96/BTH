@@ -200,15 +200,6 @@
       "enabled": true
     },
     {
-      "id": "P",
-      "name_ar": "النفسية",
-      "name_en": "Psychiatry",
-      "icon": "🧠",
-      "color": "#fef606",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "ZZ",
       "name_ar": "الجراحة الخارقة للطبيعة",
       "name_en": "SUPERNATURAL SURGERY",
@@ -216,6 +207,15 @@
       "color": "#fbbf24",
       "acceptPool": [],
       "enabled": true
+    },
+    {
+      "id": "P",
+      "name_ar": "النفسية",
+      "name_en": "Psychiatry",
+      "icon": "🧠",
+      "color": "#fef606",
+      "acceptPool": [],
+      "enabled": false
     },
     {
       "id": "Der",
