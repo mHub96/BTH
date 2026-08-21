@@ -218,6 +218,15 @@
       "enabled": false
     },
     {
+      "id": "ON",
+      "name_ar": "طب الاورام",
+      "name_en": "Oncology",
+      "icon": "☢️",
+      "color": "#84cc16",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "EM",
       "name_ar": "طب الطوارئ",
       "name_en": "Emergency Medicine",
@@ -252,15 +261,6 @@
       "color": "#c91d70",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "ON",
-      "name_ar": "طب الاورام",
-      "name_en": "Oncology",
-      "icon": "☢️",
-      "color": "#84cc16",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "PS",
