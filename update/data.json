@@ -46,15 +46,6 @@
       "enabled": true
     },
     {
-      "id": "MF",
-      "name_ar": "جراحة الوجه و الفكين",
-      "name_en": "MaxilloFacial Surgery",
-      "icon": "🦷",
-      "color": "#d600af",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "OR",
       "name_ar": "الكسور",
       "name_en": "Orthopaedics",
@@ -223,6 +214,15 @@
       "name_en": "Dermatology",
       "icon": "🏥",
       "color": "#e27ef6",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "MF",
+      "name_ar": "جراحة الوجه و الفكين",
+      "name_en": "MaxilloFacial Surgery",
+      "icon": "🦷",
+      "color": "#d600af",
       "acceptPool": [],
       "enabled": false
     },
