@@ -2,20 +2,20 @@
   "hospitalName": "Iraqi Teaching Hospital",
   "specialties": [
     {
-      "id": "CT",
-      "name_ar": "جراحة الصدر و الاوعية الدموية",
-      "name_en": "Cardiothoracic Surgery",
-      "icon": "🫀",
-      "color": "#e05910",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
       "id": "NS",
       "name_ar": "جراحة الجملة العصبية",
       "name_en": "Neurosurgery",
       "icon": "🧠",
       "color": "#fea101",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "CT",
+      "name_ar": "جراحة الصدر و الاوعية الدموية",
+      "name_en": "Cardiothoracic Surgery",
+      "icon": "🫀",
+      "color": "#e05910",
       "acceptPool": [],
       "enabled": true
     },
