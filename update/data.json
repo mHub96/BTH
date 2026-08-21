@@ -184,6 +184,15 @@
       "enabled": false
     },
     {
+      "id": "AO",
+      "name_ar": "المعاون الاداري",
+      "name_en": "Administrative Officer",
+      "icon": "🧑",
+      "color": "#2563eb",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "NM",
       "name_ar": "طب الجملة العصبية",
       "name_en": "Neuromedicine",
@@ -290,15 +299,6 @@
       "color": "#3bb8f7",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "AO",
-      "name_ar": "المعاون الاداري",
-      "name_en": "Administrative Officer",
-      "icon": "🧑",
-      "color": "#2563eb",
-      "acceptPool": [],
-      "enabled": true
     }
   ],
   "names": [
