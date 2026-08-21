@@ -284,10 +284,10 @@
     },
     {
       "id": "E",
-      "name_ar": "E",
-      "name_en": "E",
+      "name_ar": "طب الطوارئ",
+      "name_en": "Emergency Medicine",
       "icon": "🏥",
-      "color": "#10b981",
+      "color": "#9a5ce6",
       "acceptPool": [],
       "enabled": true
     },
