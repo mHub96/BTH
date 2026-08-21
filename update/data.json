@@ -56,6 +56,15 @@
       "enabled": true
     },
     {
+      "id": "Pe",
+      "name_ar": "الاطفال",
+      "name_en": "Paediatrics",
+      "icon": "👶",
+      "color": "#3dff6e",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -171,15 +180,6 @@
       "name_en": "Nephrology",
       "icon": "🧫",
       "color": "#ff5ccb",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "Pe",
-      "name_ar": "الاطفال",
-      "name_en": "Paediatrics",
-      "icon": "👶",
-      "color": "#3dff6e",
       "acceptPool": [],
       "enabled": true
     },
