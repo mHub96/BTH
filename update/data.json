@@ -174,6 +174,15 @@
       "enabled": true
     },
     {
+      "id": "ON",
+      "name_ar": "طب الاورام",
+      "name_en": "Oncology",
+      "icon": "☢️",
+      "color": "#84cc16",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "D",
       "name_ar": "الوفيات",
       "name_en": "Death Certificatess",
@@ -216,15 +225,6 @@
       "color": "#e27ef6",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "ON",
-      "name_ar": "طب الاورام",
-      "name_en": "Oncology",
-      "icon": "☢️",
-      "color": "#84cc16",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "EM",
