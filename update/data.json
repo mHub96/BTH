@@ -242,7 +242,7 @@
       "icon": "🫀",
       "color": "#c91d70",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "NS",
