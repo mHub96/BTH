@@ -101,6 +101,15 @@
       "enabled": true
     },
     {
+      "id": "P",
+      "name_ar": "النفسية",
+      "name_en": "Psychiatry",
+      "icon": "🧠",
+      "color": "#fef606",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -180,15 +189,6 @@
       "name_en": "GYN Anaesthesia",
       "icon": "🤰",
       "color": "#fe62ad",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "P",
-      "name_ar": "النفسية",
-      "name_en": "Psychiatry",
-      "icon": "🧠",
-      "color": "#fef606",
       "acceptPool": [],
       "enabled": true
     },
