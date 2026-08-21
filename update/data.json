@@ -264,9 +264,9 @@
     },
     {
       "id": "PS",
-      "name_ar": "PS",
-      "name_en": "PS",
-      "icon": "🏥",
+      "name_ar": "الجراحة التجميلية",
+      "name_en": "Plastic Surgery",
+      "icon": "🪡",
       "color": "#2563eb",
       "acceptPool": [],
       "enabled": true
