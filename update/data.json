@@ -215,6 +215,15 @@
       "icon": "🏥",
       "color": "#8cb3ed",
       "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "NS",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#fea101",
+      "acceptPool": [],
       "enabled": true
     },
     {
@@ -243,15 +252,6 @@
       "color": "#c91d70",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "NS",
-      "name_ar": "جراحة الجملة العصبية",
-      "name_en": "Neurosurgery",
-      "icon": "🧠",
-      "color": "#fea101",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "ON",
