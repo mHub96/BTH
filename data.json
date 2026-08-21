@@ -4750,13 +4750,6 @@
     },
     {
       "date": "21/08/2026",
-      "specCode": "D",
-      "name": "د. علي مطشر ابو كحيله",
-      "timestamp": "10:52",
-      "VisitCount": 2
-    },
-    {
-      "date": "21/08/2026",
       "specCode": "AO",
       "name": "منير تعبان",
       "timestamp": "14:25"
@@ -4766,6 +4759,12 @@
       "specCode": "M",
       "name": "د. حسن عبدالواحد",
       "timestamp": "19:30"
+    },
+    {
+      "date": "21/08/2026",
+      "specCode": "D",
+      "name": "ما ادري",
+      "timestamp": "19:49"
     }
   ],
   "passwords": {
