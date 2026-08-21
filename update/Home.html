@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#0f766e" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -160,13 +162,13 @@
             transform: translateY(0) scale(1) perspective(600px) rotateX(0) rotateY(0);
             box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9);
             will-change: transform;
-            min-height: 220px;
+            min-height: 168px;
             width: 100%;
             background: transparent;
             border-color: transparent;
         }
         body.light .roster-card { background: rgba(255,255,255,0.95); border-color: rgba(200,210,220,0.3); }
-        body.dark .roster-card { background: rgba(20,28,44,0.85); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
+        body.dark .roster-card { background: rgba(12,18,30,0.92); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
         
         .roster-card:hover {
             transform: perspective(600px) translateY(-4px) scale(1.01) rotateX(1.5deg) rotateY(1.5deg);
@@ -318,7 +320,7 @@
         
         /* --- Card Body --- */
         .roster-card .card-body {
-            padding: 0.8rem 1.5rem 1.2rem;
+            padding: 0.85rem 1.25rem 0.95rem;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -328,27 +330,106 @@
             gap: 0.1rem;
             position: relative;
         }
+        .roster-card .card-status {
+            position: absolute;
+            top: 1.1rem;
+            left: -0.15rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.28rem 0.55rem 0.28rem 0.7rem;
+            border: 1px solid rgba(16,185,129,0.24);
+            border-left: none;
+            border-radius: 0 100px 100px 0;
+            background: rgba(16,185,129,0.1);
+            color: #10b981;
+            font-size: 0.62rem;
+            font-weight: 800;
+            line-height: 1;
+            box-shadow: 5px 5px 14px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.08);
+            z-index: 2;
+        }
+        .roster-card .card-status i { font-size: 0.55rem; }
+        .roster-card .card-status .status-trending { color: #fbbf24; text-shadow: 0 0 12px rgba(251,191,36,0.35); }
+        .roster-card .card-status .status-separator { opacity: 0.35; }
+        .roster-card .card-status.muted { opacity: 0.35; }
+        .roster-card-wrapper.trending .roster-card .card-status { border-color: rgba(251,191,36,0.28); background: rgba(251,191,36,0.1); color: #fbbf24; }
+        .roster-card-wrapper.crimson .roster-card .card-status { border-color: rgba(220,38,38,0.25); background: rgba(220,38,38,0.1); color: #dc2626; }
         
         /* --- Specialty Bubbles (LARGER) --- */
         .roster-card .specialty-bubbles {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            align-items: center;
+            column-gap: 0.55rem;
+            row-gap: 0.55rem;
             justify-content: center;
             margin-top: 0.3rem;
             margin-bottom: 0.1rem;
+        }
+        .roster-card .specialty-flip {
+            display: inline-grid;
+            border: none;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+            perspective: 700px;
+            position: relative;
+            touch-action: manipulation;
+            overflow: visible;
+            flex: 0 0 auto;
+            isolation: isolate;
+            will-change: width, transform;
+            transition: transform 0.2s ease, filter 0.2s ease, width 0.35s ease;
+        }
+        .roster-card .specialty-flip:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 6px 8px rgba(0,0,0,0.16));
         }
         .roster-card .specialty-bubble {
             font-size: 0.9rem;
             font-weight: 700;
             padding: 0.25rem 1.2rem;
             border-radius: 100px;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 2px solid;
             background: rgba(212,175,55,0.06);
             border-color: rgba(212,175,55,0.12);
             color: #d4af37;
             line-height: 1.4;
+            height: 2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            grid-area: 1 / 1;
+            backface-visibility: hidden;
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .roster-card .specialty-back {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            transform: rotateY(180deg);
+            font-family: 'JetBrains Mono', monospace;
+            direction: ltr;
+            color: #10b981;
+            white-space: nowrap;
+            overflow: hidden;
+            border-radius: inherit;
+            clip-path: inset(0 round 999px);
+        }
+        .roster-card .specialty-flip.flipped .specialty-front { transform: rotateY(-180deg); }
+        .roster-card .specialty-flip.flipped .specialty-back { transform: rotateY(0); }
+        .roster-card .specialty-flip.flipped { z-index: 2; }
+        .roster-card .specialty-timer-label {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 0.64rem;
+            direction: rtl;
         }
         body.light .roster-card .specialty-bubble {
             background: #dbeafe;
@@ -360,25 +441,25 @@
             border-color: rgba(212,175,55,0.15);
             background: rgba(212,175,55,0.04);
         }
-        .roster-card .specialty-bubble.multiple {
+        .roster-card .specialty-flip.multiple .specialty-bubble {
             background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
             color: #1a2332 !important;
             border-color: #f59e0b !important;
             box-shadow: 0 0 20px rgba(251,191,36,0.15);
             font-weight: 800;
         }
-        body.dark .roster-card .specialty-bubble.multiple {
+        body.dark .roster-card .specialty-flip.multiple .specialty-bubble {
             background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
             color: #1a2332 !important;
             border-color: #f59e0b !important;
             box-shadow: 0 0 20px rgba(251,191,36,0.2);
         }
         /* Earliest-ending specialty in a multi-specialty card: breathing glow around the bubble, not the bubble itself */
-        .roster-card .specialty-bubble-critical {
+        .roster-card .specialty-flip.specialty-bubble-critical {
             position: relative;
             z-index: 1;
         }
-        .roster-card .specialty-bubble-critical::after {
+        .roster-card .specialty-flip.specialty-bubble-critical::after {
             content: '';
             position: absolute;
             inset: 0;
@@ -1380,7 +1461,7 @@
 
                     const specName = getSpecName(specCode);
                     const icon = getSpecIcon(specCode);
-                    resultMap[key].specs.push({ code: specCode, name: specName, icon: icon, endMin: endMin });
+                    resultMap[key].specs.push({ code: specCode, name: specName, icon: icon, endMin: endMin, remainingMinutes: remainingMinutes });
 
                     // The specialty ending soonest drives the card's main timer
                     if (endMin < resultMap[key].endMin) {
@@ -1657,17 +1738,22 @@
             const cards = document.querySelectorAll('.roster-card');
             
             cards.forEach(card => {
-                const timerEl = card.querySelector('.countdown-timer');
                 const endMin = parseInt(card.dataset.endMin || '0');
-                if (!timerEl || !endMin) return;
+                if (!endMin) return;
                 
                 let remaining = endMin - currentMin;
                 if (remaining < 0) remaining = 0;
                 if (remaining > TOTAL_MINUTES) remaining = TOTAL_MINUTES;
-                
-                const hours = Math.floor(remaining / 60);
-                const minutes = Math.floor(remaining % 60);
-                timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+                card.querySelectorAll('.countdown-timer').forEach(timerEl => {
+                    const timerEndMin = parseInt(timerEl.dataset.endMin || '0');
+                    let timerRemaining = timerEndMin - currentMin;
+                    if (timerRemaining < 0) timerRemaining = 0;
+                    if (timerRemaining > TOTAL_MINUTES) timerRemaining = TOTAL_MINUTES;
+                    const hours = Math.floor(timerRemaining / 60);
+                    const minutes = Math.floor(timerRemaining % 60);
+                    timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                });
                 
                 const isCrimson = remaining < 60 && remaining > 0;
                 const wrapper = card.closest('.roster-card-wrapper');
@@ -1680,6 +1766,51 @@
                     setTimeout(() => { renderRoster(); renderTrending(); }, 2000);
                 }
             });
+        }
+
+        function measureSpecialtyFace(face) {
+            const clone = face.cloneNode(true);
+            clone.style.cssText += ';position:fixed !important;inset:auto !important;left:-10000px !important;top:0 !important;width:max-content !important;height:2rem !important;transform:none !important;visibility:hidden !important;pointer-events:none !important;';
+            document.body.appendChild(clone);
+            const width = clone.getBoundingClientRect().width;
+            clone.remove();
+            return width;
+        }
+
+        function setSpecialtyTimerState(button, flipped) {
+            const front = button.querySelector('.specialty-front');
+            const back = button.querySelector('.specialty-back');
+            if (!front || !back) return;
+            clearTimeout(Number(button.dataset.flipTimeout));
+
+            const currentWidth = button.getBoundingClientRect().width;
+            const targetWidth = measureSpecialtyFace(flipped ? back : front);
+            button.style.height = front.getBoundingClientRect().height + 'px';
+            button.style.width = currentWidth + 'px';
+            requestAnimationFrame(() => {
+                button.classList.toggle('flipped', flipped);
+                button.style.width = targetWidth + 'px';
+            });
+
+            if (flipped) {
+                button.dataset.flipTimeout = String(setTimeout(() => setSpecialtyTimerState(button, false), 2000));
+            } else {
+                delete button.dataset.flipTimeout;
+                setTimeout(() => {
+                    if (!button.classList.contains('flipped')) {
+                        button.style.width = '';
+                        button.style.height = '';
+                    }
+                }, 360);
+            }
+        }
+
+        function toggleSpecialtyTimer(button) {
+            const wasFlipped = button.classList.contains('flipped');
+            document.querySelectorAll('.specialty-flip.flipped').forEach(element => {
+                if (element !== button) setSpecialtyTimerState(element, false);
+            });
+            setSpecialtyTimerState(button, !wasFlipped);
         }
 
         // ================================================================
@@ -1809,19 +1940,25 @@
 
                 // Generate specialty bubbles - LARGER. The earliest-ending specialty glows only during its final hour.
                 const specialtyBubbles = resident.specs.map(spec => {
-                    const bubbleClasses = ['specialty-bubble'];
-                    if (isMultiple) bubbleClasses.push('multiple');
-                    if (isMultiple && isCrimson && spec.code === resident.criticalSpecCode) bubbleClasses.push('specialty-bubble-critical');
-                    return `<span class="${bubbleClasses.join(' ')}">${spec.icon} ${spec.name}</span>`;
+                    const flipClasses = ['specialty-flip'];
+                    if (isMultiple) flipClasses.push('multiple');
+                    if (isMultiple && isCrimson && spec.code === resident.criticalSpecCode) flipClasses.push('specialty-bubble-critical');
+                    const specHours = Math.floor(spec.remainingMinutes / 60);
+                    const specMinutes = Math.floor(spec.remainingMinutes % 60);
+                    const specTimer = `${String(specHours).padStart(2, '0')}:${String(specMinutes).padStart(2, '0')}`;
+                    return `<button type="button" class="${flipClasses.join(' ')}" data-end-min="${spec.endMin}" onclick="toggleSpecialtyTimer(this)" aria-label="Show remaining time for ${spec.name}">
+                        <span class="specialty-bubble specialty-front">${spec.icon} ${spec.name}</span>
+                        <span class="specialty-bubble specialty-back"><span class="specialty-timer-label">الوقت المتبقي</span><span class="countdown-timer" data-end-min="${spec.endMin}">${specTimer}</span></span>
+                    </button>`;
                 }).join('');
 
-                let ribbonStatusHtml = '';
+                let cardStatusHtml = '';
                 if (isTrending) {
-                    ribbonStatusHtml = `<span class="ribbon-status"><span class="ribbon-trending"><i class="fas fa-fire"></i> Trending</span><span class="ribbon-separator">|</span><span><i class="fas fa-eye"></i> ${resident.visitCount}</span></span>`;
+                    cardStatusHtml = `<span class="card-status"><span class="status-trending"><i class="fas fa-fire"></i></span><span class="status-separator">|</span><span><i class="fas fa-eye"></i> ${resident.visitCount}</span></span>`;
                 } else if (resident.visitCount > 0) {
-                    ribbonStatusHtml = `<span class="ribbon-status"><i class="fas fa-eye"></i><span>${resident.visitCount} visits</span></span>`;
+                    cardStatusHtml = `<span class="card-status"><i class="fas fa-eye"></i><span>${resident.visitCount}</span></span>`;
                 } else {
-                    ribbonStatusHtml = `<span class="ribbon-status muted"><i class="fas fa-eye"></i><span>No visits yet</span></span>`;
+                    cardStatusHtml = `<span class="card-status muted"><i class="fas fa-eye"></i><span>0</span></span>`;
                 }
 
                 // Determine card wrapper classes
@@ -1834,16 +1971,9 @@
                         <div class="roster-card" data-end-min="${resident.endMin}"
                              onmousemove="handleCardTilt(event, this)"
                              onmouseleave="resetCardTilt(this)">
-                            
-                            <!-- TIMER RIBBON (Integrated inside card, top section) -->
-                            <div class="timer-ribbon">
-                                ${ribbonStatusHtml}
-                                <span class="ribbon-label">الوقت المتبقي</span>
-                                <span class="countdown-timer">${timerDisplay}</span>
-                            </div>
-                            
                             <!-- Card Body -->
                             <div class="card-body">
+                                ${cardStatusHtml}
                                 <!-- Specialty Bubbles (LARGER) -->
                                 <div class="specialty-bubbles">${specialtyBubbles}</div>
                                 
@@ -2199,8 +2329,10 @@
         window.renderTrending = renderTrending;
         window.showToast = showToast;
         window.updateCountdowns = updateCountdowns;
+        window.toggleSpecialtyTimer = toggleSpecialtyTimer;
         window.handleTrendingClick = handleTrendingClick;
         window.triggerConfetti = triggerConfetti;
     </script>
+    <script src="pwa.js"></script>
 </body>
 </html>
