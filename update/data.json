@@ -65,6 +65,15 @@
       "enabled": true
     },
     {
+      "id": "NM",
+      "name_ar": "طب الجملة العصبية",
+      "name_en": "Neuromedicine",
+      "icon": "🧠",
+      "color": "#79e9f1",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -189,15 +198,6 @@
       "name_en": "Administrative Officer",
       "icon": "🧑",
       "color": "#2563eb",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "NM",
-      "name_ar": "طب الجملة العصبية",
-      "name_en": "Neuromedicine",
-      "icon": "🧠",
-      "color": "#79e9f1",
       "acceptPool": [],
       "enabled": true
     },
