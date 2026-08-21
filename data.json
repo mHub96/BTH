@@ -3209,12 +3209,6 @@
       "VisitCount": 4
     },
     {
-      "date": "21/08/2026",
-      "specCode": "M",
-      "name": "د. قمر بدر",
-      "VisitCount": 2
-    },
-    {
       "date": "22/08/2026",
       "specCode": "M",
       "name": "د. نوره فالح",
@@ -4766,6 +4760,12 @@
       "specCode": "AO",
       "name": "منير تعبان",
       "timestamp": "14:25"
+    },
+    {
+      "date": "21/08/2026",
+      "specCode": "M",
+      "name": "د. حسن عبدالواحد",
+      "timestamp": "19:30"
     }
   ],
   "passwords": {
