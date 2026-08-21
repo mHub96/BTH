@@ -94,15 +94,6 @@
       "enabled": true
     },
     {
-      "id": "ON",
-      "name_ar": "طب الاورام",
-      "name_en": "Oncology",
-      "icon": "☢️",
-      "color": "#84cc16",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "R",
       "name_ar": "الأشعة و السونار",
       "name_en": "Radiology",
@@ -128,6 +119,15 @@
         "G"
       ],
       "enabled": true
+    },
+    {
+      "id": "ON",
+      "name_ar": "طب الاورام",
+      "name_en": "Oncology",
+      "icon": "☢️",
+      "color": "#84cc16",
+      "acceptPool": [],
+      "enabled": false
     },
     {
       "id": "ZZ",
