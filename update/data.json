@@ -1,4 +1,5 @@
 {
+  "hospitalName": "Iraqi Teaching Hospital",
   "specialties": [
     {
       "id": "NS",
@@ -655,8 +656,8 @@
     },
     {
       "name": "د. عبدالحليم حسن موسى",
-      "phone": "+9647711207221",
       "spec": "RESERVE",
+      "phone": "+9647711207221",
       "tag": "CT",
       "active": false
     },
@@ -1047,8 +1048,8 @@
     },
     {
       "name": "د. اياد يعرب",
-      "phone": "+9647736024102",
       "spec": "RESERVE",
+      "phone": "+9647736024102",
       "tag": "NS",
       "active": false
     },
