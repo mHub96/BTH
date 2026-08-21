@@ -162,7 +162,7 @@
       "icon": "🧠",
       "color": "#fef606",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "ON",
@@ -179,15 +179,6 @@
       "name_en": "Radiology",
       "icon": "🩻",
       "color": "#6700e6",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "ZZ",
-      "name_ar": "الجراحة الخارقة للطبيعة",
-      "name_en": "SUPERNATURAL SURGERY",
-      "icon": "😎",
-      "color": "#fbbf24",
       "acceptPool": [],
       "enabled": true
     },
@@ -215,6 +206,15 @@
         "P",
         "R"
       ],
+      "enabled": true
+    },
+    {
+      "id": "ZZ",
+      "name_ar": "الجراحة الخارقة للطبيعة",
+      "name_en": "SUPERNATURAL SURGERY",
+      "icon": "😎",
+      "color": "#fbbf24",
+      "acceptPool": [],
       "enabled": true
     },
     {
