@@ -17,7 +17,7 @@
       "icon": "🫀",
       "color": "#e05910",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "GS",
@@ -211,6 +211,15 @@
       "enabled": false
     },
     {
+      "id": "F",
+      "name_ar": "طب الأسرة",
+      "name_en": "Family Medicine",
+      "icon": "👨",
+      "color": "#78edb8",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "EM",
       "name_ar": "طب الطوارئ",
       "name_en": "Emergency Medicine",
@@ -288,15 +297,6 @@
       "name_en": "Emergency Medicine",
       "icon": "🏥",
       "color": "#9a5ce6",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "F",
-      "name_ar": "طب الأسرة",
-      "name_en": "Family Medicine",
-      "icon": "👨",
-      "color": "#78edb8",
       "acceptPool": [],
       "enabled": true
     }
