@@ -244,15 +244,6 @@
       "enabled": false
     },
     {
-      "id": "EM",
-      "name_ar": "طب الطوارئ",
-      "name_en": "Emergency Medicine",
-      "icon": "🏥",
-      "color": "#8cb3ed",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "GP",
       "name_ar": "ممارسين",
       "name_en": "General Practitioner",
