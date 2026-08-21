@@ -253,15 +253,6 @@
       "enabled": false
     },
     {
-      "id": "FM",
-      "name_ar": "طب الاسرة",
-      "name_en": "Family Medicine",
-      "icon": "🏥",
-      "color": "#f4f67e",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "GP",
       "name_ar": "ممارسين",
       "name_en": "General Practitioner",
