@@ -47,15 +47,6 @@
       "enabled": true
     },
     {
-      "id": "NS",
-      "name_ar": "جراحة الجملة العصبية",
-      "name_en": "Neurosurgery",
-      "icon": "🧠",
-      "color": "#fea101",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "CT",
       "name_ar": "جراحة الصدر و الاوعية الدموية",
       "name_en": "Cardiothoracic Surgery",
@@ -288,6 +279,15 @@
       "name_en": "Plastic Surgery",
       "icon": "🪡",
       "color": "#2563eb",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "NS",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#fea101",
       "acceptPool": [],
       "enabled": false
     },
