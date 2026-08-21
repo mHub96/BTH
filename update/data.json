@@ -255,9 +255,9 @@
     },
     {
       "id": "ON",
-      "name_ar": "ON",
-      "name_en": "ON",
-      "icon": "🏥",
+      "name_ar": "طب الاورام",
+      "name_en": "Oncology",
+      "icon": "☢️",
       "color": "#84cc16",
       "acceptPool": [],
       "enabled": true
