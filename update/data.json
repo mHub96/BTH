@@ -210,10 +210,10 @@
     },
     {
       "id": "EM",
-      "name_ar": "EM",
-      "name_en": "EM",
+      "name_ar": "طب الطوارئ",
+      "name_en": "Emergency Medicine",
       "icon": "🏥",
-      "color": "#f59e0b",
+      "color": "#8cb3ed",
       "acceptPool": [],
       "enabled": true
     },
