@@ -126,7 +126,9 @@
       "name_en": "OT Anaesthesia",
       "icon": "💉",
       "color": "#b4cc00",
-      "acceptPool": [],
+      "acceptPool": [
+        "A"
+      ],
       "enabled": true
     },
     {
