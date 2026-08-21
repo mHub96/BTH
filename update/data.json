@@ -47,6 +47,15 @@
       "enabled": true
     },
     {
+      "id": "O",
+      "name_ar": "العيون",
+      "name_en": "Ophthalmology",
+      "icon": "👁️",
+      "color": "#38ffe8",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -135,15 +144,6 @@
       "name_en": "GYN Anaesthesia",
       "icon": "🤰",
       "color": "#fe62ad",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "O",
-      "name_ar": "العيون",
-      "name_en": "Ophthalmology",
-      "icon": "👁️",
-      "color": "#38ffe8",
       "acceptPool": [],
       "enabled": true
     },
