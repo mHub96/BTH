@@ -92,6 +92,15 @@
       "enabled": true
     },
     {
+      "id": "G",
+      "name_ar": "النسائية و التوليد",
+      "name_en": "Gynecology",
+      "icon": "🤰",
+      "color": "#e40de7",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -155,15 +164,6 @@
       "color": "#fbbf24",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "G",
-      "name_ar": "النسائية و التوليد",
-      "name_en": "Gynecology",
-      "icon": "🤰",
-      "color": "#e40de7",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "A",
