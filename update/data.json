@@ -46,15 +46,6 @@
       "enabled": true
     },
     {
-      "id": "A",
-      "name_ar": "التخدير و العناية المركزة",
-      "name_en": "Anaethesia",
-      "icon": "💉",
-      "color": "#ff8e24",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "ICU",
       "name_ar": "تخدير العناية المركزة",
       "name_en": "ICU Anaethesia",
@@ -196,6 +187,15 @@
       "name_en": "Psychiatry",
       "icon": "🧠",
       "color": "#fef606",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "A",
+      "name_ar": "التخدير و العناية المركزة",
+      "name_en": "Anaethesia",
+      "icon": "💉",
+      "color": "#ff8e24",
       "acceptPool": [],
       "enabled": false
     },
