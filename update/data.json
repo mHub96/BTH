@@ -166,6 +166,15 @@
       "enabled": true
     },
     {
+      "id": "AO",
+      "name_ar": "المعاون الاداري",
+      "name_en": "Administrative Officer",
+      "icon": "🧑",
+      "color": "#2563eb",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "ON",
       "name_ar": "طب الاورام",
       "name_en": "Oncology",
@@ -191,15 +200,6 @@
       "color": "#ff8e24",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "AO",
-      "name_ar": "المعاون الاداري",
-      "name_en": "Administrative Officer",
-      "icon": "🧑",
-      "color": "#2563eb",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "Der",
