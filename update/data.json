@@ -269,7 +269,7 @@
       "icon": "🪡",
       "color": "#2563eb",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "RM",
