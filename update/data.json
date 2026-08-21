@@ -11,6 +11,15 @@
       "enabled": true
     },
     {
+      "id": "GS",
+      "name_ar": "الجراحة العامة",
+      "name_en": "General Surgery",
+      "icon": "🔪",
+      "color": "#2ac200",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "NS",
       "name_ar": "جراحة الجملة العصبية",
       "name_en": "Neurosurgery",
@@ -27,15 +36,6 @@
       "color": "#e05910",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "GS",
-      "name_ar": "الجراحة العامة",
-      "name_en": "General Surgery",
-      "icon": "🔪",
-      "color": "#2ac200",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "US",
