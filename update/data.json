@@ -202,6 +202,15 @@
       "enabled": false
     },
     {
+      "id": "E",
+      "name_ar": "طب الطوارئ",
+      "name_en": "Emergency Medicine",
+      "icon": "🏥",
+      "color": "#9a5ce6",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "MF",
       "name_ar": "جراحة الوجه و الفكين",
       "name_en": "MaxilloFacial Surgery",
@@ -288,15 +297,6 @@
       "name_en": "Administrative Officer",
       "icon": "🧑",
       "color": "#2563eb",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "E",
-      "name_ar": "طب الطوارئ",
-      "name_en": "Emergency Medicine",
-      "icon": "🏥",
-      "color": "#9a5ce6",
       "acceptPool": [],
       "enabled": true
     }
