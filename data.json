@@ -4313,12 +4313,6 @@
       "VisitCount": 1
     },
     {
-      "date": "21/08/2026",
-      "specCode": "AO",
-      "name": "حيدر صدام",
-      "VisitCount": 5
-    },
-    {
       "date": "22/08/2026",
       "specCode": "AO",
       "name": "منير تعبان",
@@ -4766,6 +4760,12 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "10:52",
       "VisitCount": 1
+    },
+    {
+      "date": "21/08/2026",
+      "specCode": "AO",
+      "name": "منير تعبان",
+      "timestamp": "14:25"
     }
   ],
   "passwords": {
