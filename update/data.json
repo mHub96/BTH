@@ -237,10 +237,10 @@
     },
     {
       "id": "H",
-      "name_ar": "H",
-      "name_en": "H",
-      "icon": "🏥",
-      "color": "#06b6d4",
+      "name_ar": "طب الامراض القلبية",
+      "name_en": "Cardiology",
+      "icon": "🫀",
+      "color": "#c91d70",
       "acceptPool": [],
       "enabled": true
     },
