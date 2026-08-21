@@ -137,7 +137,9 @@
       "name_en": "GYN Anaesthesia",
       "icon": "🤰",
       "color": "#fe62ad",
-      "acceptPool": [],
+      "acceptPool": [
+        "A"
+      ],
       "enabled": true
     },
     {
