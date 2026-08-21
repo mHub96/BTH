@@ -110,15 +110,6 @@
       "enabled": true
     },
     {
-      "id": "OP",
-      "name_ar": "تخدير العمليات",
-      "name_en": "OT Anaesthesia",
-      "icon": "💉",
-      "color": "#b4cc00",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
       "id": "ICU",
       "name_ar": "تخدير العناية المركزة",
       "name_en": "ICU Anaethesia",
@@ -127,6 +118,15 @@
       "acceptPool": [
         "A"
       ],
+      "enabled": true
+    },
+    {
+      "id": "OP",
+      "name_ar": "تخدير العمليات",
+      "name_en": "OT Anaesthesia",
+      "icon": "💉",
+      "color": "#b4cc00",
+      "acceptPool": [],
       "enabled": true
     },
     {
