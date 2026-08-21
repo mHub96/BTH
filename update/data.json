@@ -66,15 +66,6 @@
       "enabled": true
     },
     {
-      "id": "Pe",
-      "name_ar": "الاطفال",
-      "name_en": "Paediatrics",
-      "icon": "👶",
-      "color": "#3dff6e",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "CT",
       "name_ar": "جراحة الصدر و الاوعية الدموية",
       "name_en": "Cardiothoracic Surgery",
@@ -178,6 +169,15 @@
       "name_en": "Nephrology",
       "icon": "🧫",
       "color": "#ff5ccb",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "Pe",
+      "name_ar": "الاطفال",
+      "name_en": "Paediatrics",
+      "icon": "👶",
+      "color": "#3dff6e",
       "acceptPool": [],
       "enabled": false
     },
