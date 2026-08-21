@@ -119,6 +119,9 @@
             opacity: 0;
             pointer-events: none;
         }
+        body.session-checking #lock-screen {
+            visibility: hidden;
+        }
 
         .lock-box {
             background: white;
@@ -679,6 +682,16 @@
     </style>
 </head>
 <body>
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+            const timestamp = Number(localStorage.getItem('duty_signup_session_ts'));
+            const hasRememberedSession = localStorage.getItem('duty_signup_session') === 'authenticated' &&
+                localStorage.getItem('duty_signup_remember_token') && timestamp &&
+                Date.now() - timestamp <= 7 * 24 * 60 * 60 * 1000;
+            if (hasRememberedSession) document.body.classList.add('session-checking');
+        })();
+    </script>
 
     <!-- ===== TOAST CONTAINER ===== -->
     <div id="toast-container"></div>
@@ -690,7 +703,7 @@
                 <i class="fas fa-calendar-check"></i>
             </div>
             <h2>🔐 تسجيل الخفراء</h2>
-            <p class="subtitle">أدخل كلمة المرور للدخول</p>
+            <p class="subtitle"><span data-hospital-name>Basra Teaching Hospital</span> · أدخل كلمة المرور للدخول</p>
             <div>
                 <input type="password" id="password-input" class="lock-input" placeholder="•••••" maxlength="20">
                 <button id="login-btn" class="btn-login" onclick="handleLogin()">
@@ -779,14 +792,25 @@
         // ============================================================
         // STATE
         // ============================================================
-        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+        const cachedHospitalName = localStorage.getItem('hospital_name_cache');
+        let db = { hospitalName: cachedHospitalName || 'Basra Teaching Hospital', names: [], schedule: [], passwords: {}, specialties: [] };
         let fileSha = "";
         let dataLoaded = false;
         let currentResidents = [];
         let isAutoLoginAttempted = false;
         let isAutoLoginSuccess = false; // Track if auto-login already showed a toast
 
+        function applyHospitalName() {
+            const hospitalName = String(db.hospitalName || 'Basra Teaching Hospital').trim() || 'Basra Teaching Hospital';
+            document.querySelectorAll('[data-hospital-name]').forEach(element => { element.textContent = hospitalName; });
+            localStorage.setItem('hospital_name_cache', hospitalName);
+            document.title = hospitalName + ' · تسجيل الخفراء';
+        }
+
+        applyHospitalName();
+
         const STORAGE_KEY = 'duty_signup_session';
+        const REMEMBER_TOKEN_KEY = 'duty_signup_remember_token';
 
         // ============================================================
         // THEME
@@ -864,11 +888,11 @@
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
                 localStorage.setItem(STORAGE_KEY + '_ts', Date.now().toString());
                 const pwd = document.getElementById('password-input').value;
-                if (pwd) localStorage.setItem('rememberToken', btoa(pwd));
+                if (pwd) localStorage.setItem(REMEMBER_TOKEN_KEY, btoa(pwd));
             } else {
                 localStorage.removeItem(STORAGE_KEY);
                 localStorage.removeItem(STORAGE_KEY + '_ts');
-                localStorage.removeItem('rememberToken');
+                localStorage.removeItem(REMEMBER_TOKEN_KEY);
             }
         }
 
@@ -886,12 +910,13 @@
         function clearSession() {
             localStorage.removeItem(STORAGE_KEY);
             localStorage.removeItem(STORAGE_KEY + '_ts');
-            localStorage.removeItem('rememberToken');
+            localStorage.removeItem(REMEMBER_TOKEN_KEY);
         }
 
         function logout() {
             clearSession();
             isAutoLoginSuccess = false;
+            document.body.classList.remove('session-checking');
             document.getElementById('lock-screen').classList.remove('hidden');
             document.getElementById('main-app').classList.remove('visible');
             document.getElementById('password-input').value = '';
@@ -926,6 +951,7 @@
                     fileSha = data.sha;
                     const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
                     db = content;
+                    applyHospitalName();
                     db.specialties = (db.specialties || []).map(s => ({
                         ...s,
                         enabled: s.enabled !== undefined ? s.enabled : true
@@ -958,6 +984,7 @@
             dataLoaded = true;
             document.getElementById('lock-screen').classList.add('hidden');
             document.getElementById('main-app').classList.add('visible');
+            document.body.classList.remove('session-checking');
             saveSession();
             populateSpecialties();
 
@@ -979,8 +1006,8 @@
         // AUTO LOGIN - FIXED: Only shows toast once
         // ============================================================
         (function() {
-            const token = localStorage.getItem('rememberToken');
-            if (token && !isAutoLoginAttempted) {
+            const token = localStorage.getItem(REMEMBER_TOKEN_KEY);
+            if (checkSession() && token && !isAutoLoginAttempted) {
                 isAutoLoginAttempted = true;
                 try {
                     const pwd = atob(token);
@@ -1005,6 +1032,7 @@
                     fileSha = data.sha;
                     const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
                     db = content;
+                    applyHospitalName();
                     db.specialties = (db.specialties || []).map(s => ({
                         ...s,
                         enabled: s.enabled !== undefined ? s.enabled : true
@@ -1024,6 +1052,8 @@
             }
 
             // If auto-login fails, show lock screen
+            clearSession();
+            document.body.classList.remove('session-checking');
             document.getElementById('lock-screen').classList.remove('hidden');
             document.getElementById('password-input').focus();
         }
@@ -1306,6 +1336,7 @@
 
             try {
                 const dataToSave = {
+                    hospitalName: db.hospitalName || 'Basra Teaching Hospital',
                     names: db.names || [],
                     schedule: db.schedule || [],
                     passwords: db.passwords || {},
@@ -1393,7 +1424,7 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             if (checkSession()) {
-                const token = localStorage.getItem('rememberToken');
+                const token = localStorage.getItem(REMEMBER_TOKEN_KEY);
                 if (token) {
                     try {
                         const pwd = atob(token);
