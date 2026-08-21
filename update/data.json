@@ -1,6 +1,15 @@
 {
   "specialties": [
     {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴",
+      "color": "#ff0000",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "GS",
       "name_ar": "الجراحة العامة",
       "name_en": "General Surgery",
@@ -15,15 +24,6 @@
       "name_en": "Urosurgery",
       "icon": "🧬",
       "color": "#e66551",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "OR",
-      "name_ar": "الكسور",
-      "name_en": "Orthopaedics",
-      "icon": "🦴",
-      "color": "#ff0000",
       "acceptPool": [],
       "enabled": true
     },
