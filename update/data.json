@@ -47,15 +47,6 @@
       "enabled": true
     },
     {
-      "id": "CT",
-      "name_ar": "جراحة الصدر و الاوعية الدموية",
-      "name_en": "Cardiothoracic Surgery",
-      "icon": "🫀",
-      "color": "#e05910",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "OP",
       "name_ar": "تخدير العمليات",
       "name_en": "OT Anaesthesia",
@@ -297,6 +288,15 @@
       "name_en": "Respiratory Medicine",
       "icon": "🫁",
       "color": "#3bb8f7",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "CT",
+      "name_ar": "جراحة الصدر و الاوعية الدموية",
+      "name_en": "Cardiothoracic Surgery",
+      "icon": "🫀",
+      "color": "#e05910",
       "acceptPool": [],
       "enabled": false
     }
