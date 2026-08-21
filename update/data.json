@@ -138,6 +138,15 @@
       "enabled": false
     },
     {
+      "id": "CT",
+      "name_ar": "جراحة الصدر و الاوعية الدموية",
+      "name_en": "Cardiothoracic Surgery",
+      "icon": "🫀",
+      "color": "#e05910",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "G",
       "name_ar": "النسائية و التوليد",
       "name_en": "Gynecology",
@@ -206,15 +215,6 @@
         "P",
         "R"
       ],
-      "enabled": true
-    },
-    {
-      "id": "CT",
-      "name_ar": "جراحة الصدر و الاوعية الدموية",
-      "name_en": "Cardiothoracic Surgery",
-      "icon": "🫀",
-      "color": "#e05910",
-      "acceptPool": [],
       "enabled": true
     },
     {
