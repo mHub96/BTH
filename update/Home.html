@@ -1159,14 +1159,17 @@
         // ================================================================
         let specNames = {};
         let specIcons = {};
+        let specialtyOrder = {};
 
         function buildSpecialtyMaps(specialties) {
             specNames = {};
             specIcons = {};
+            specialtyOrder = {};
             if (!specialties || !Array.isArray(specialties)) return;
-            specialties.forEach(spec => {
+            specialties.forEach((spec, index) => {
                 specNames[spec.id] = spec.name_ar;
                 specIcons[spec.id] = spec.icon || "🏥";
+                specialtyOrder[spec.id] = index;
             });
         }
 
@@ -1392,15 +1395,21 @@
             
             // Sort specs within each resident
             for (const key in resultMap) {
-                resultMap[key].specs.sort((a, b) => a.name.localeCompare(b.name));
+                resultMap[key].specs.sort((a, b) => {
+                    const aOrder = specialtyOrder[a.code] ?? Number.MAX_SAFE_INTEGER;
+                    const bOrder = specialtyOrder[b.code] ?? Number.MAX_SAFE_INTEGER;
+                    return aOrder - bOrder || a.name.localeCompare(b.name);
+                });
             }
             
-            // Convert to array and sort by first spec name
+            // Convert to array and sort by the first specialty's saved admin order
             const result = Object.values(resultMap);
             result.sort((a, b) => {
+                const aOrder = specialtyOrder[a.specs[0]?.code] ?? Number.MAX_SAFE_INTEGER;
+                const bOrder = specialtyOrder[b.specs[0]?.code] ?? Number.MAX_SAFE_INTEGER;
                 const aSpec = a.specs[0]?.name || '';
                 const bSpec = b.specs[0]?.name || '';
-                return aSpec.localeCompare(bSpec);
+                return aOrder - bOrder || aSpec.localeCompare(bSpec);
             });
             
             return result;
