@@ -19,6 +19,15 @@
       "enabled": true
     },
     {
+      "id": "NS",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#fea101",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "US",
       "name_ar": "جراحة المسالك البولية",
       "name_en": "Urosurgery",
@@ -80,15 +89,6 @@
       "name_en": "OT Anaesthesia",
       "icon": "💉",
       "color": "#b4cc00",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "NS",
-      "name_ar": "جراحة الجملة العصبية",
-      "name_en": "Neurosurgery",
-      "icon": "🧠",
-      "color": "#fea101",
       "acceptPool": [],
       "enabled": true
     },
