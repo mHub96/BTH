@@ -244,7 +244,7 @@
       "icon": "🦴",
       "color": "#ff0000",
       "acceptPool": [],
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "H",
