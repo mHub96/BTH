@@ -1,4 +1,185 @@
 {
+  "specialties": [
+    {
+      "id": "GS",
+      "name_ar": "الجراحة العامة",
+      "name_en": "General Surgery",
+      "icon": "🔪",
+      "color": "#2ac200",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "US",
+      "name_ar": "جراحة المسالك البولية",
+      "name_en": "Urosurgery",
+      "icon": "🧬",
+      "color": "#e66551",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴",
+      "color": "#ff0000",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "M",
+      "name_ar": "الباطنية",
+      "name_en": "Internal Medicine",
+      "icon": "💊",
+      "color": "#a1e972",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "ENT",
+      "name_ar": "الأذن و الأنف و الحنجرة",
+      "name_en": "ENT",
+      "icon": "👂",
+      "color": "#fbff00",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "MF",
+      "name_ar": "جراحة الوجه و الفكين",
+      "name_en": "MaxilloFacial Surgery",
+      "icon": "🦷",
+      "color": "#d600af",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "A",
+      "name_ar": "التخدير و العناية المركزة",
+      "name_en": "Anaethesia",
+      "icon": "💉",
+      "color": "#ff8e24",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "OP",
+      "name_ar": "تخدير العمليات",
+      "name_en": "OT Anaesthesia",
+      "icon": "💉",
+      "color": "#b4cc00",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "GA",
+      "name_ar": "تخدير صالة الولادة",
+      "name_en": "GYN Anaesthesia",
+      "icon": "🤰",
+      "color": "#fe62ad",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "Pe",
+      "name_ar": "الاطفال",
+      "name_en": "Paediatrics",
+      "icon": "👶",
+      "color": "#3dff6e",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "NM",
+      "name_ar": "طب الجملة العصبية",
+      "name_en": "Neuromedicine",
+      "icon": "🧠",
+      "color": "#79e9f1",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "N",
+      "name_ar": "طب امراض الكلى",
+      "name_en": "Nephrology",
+      "icon": "🧫",
+      "color": "#ff5ccb",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "O",
+      "name_ar": "العيون",
+      "name_en": "Ophthalmology",
+      "icon": "👁️",
+      "color": "#38ffe8",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "G",
+      "name_ar": "النسائية و التوليد",
+      "name_en": "Gynecology",
+      "icon": "🌸",
+      "color": "#e40de7",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "P",
+      "name_ar": "النفسية",
+      "name_en": "Psychiatry",
+      "icon": "🧠",
+      "color": "#fef606",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "R",
+      "name_ar": "الأشعة و السونار",
+      "name_en": "Radiology",
+      "icon": "🩻",
+      "color": "#6700e6",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "D",
+      "name_ar": "الوفيات",
+      "name_en": "Death Certificatess",
+      "icon": "📋",
+      "color": "#bababa",
+      "acceptPool": [
+        "GS",
+        "US",
+        "OR",
+        "M",
+        "ENT",
+        "MF",
+        "ICU",
+        "OP",
+        "GA",
+        "Pe",
+        "NM",
+        "N",
+        "O",
+        "G",
+        "P",
+        "R"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "ZZ",
+      "name_ar": "الجراحة الخارقة للطبيعة",
+      "name_en": "SUPERNATURAL SURGERY",
+      "icon": "😎",
+      "color": "#fbbf24",
+      "acceptPool": [],
+      "enabled": true
+    }
+  ],
   "names": [
     {
       "name": "د. مصطفى محمد علي الديوان",
@@ -1689,7 +1870,7 @@
     },
     {
       "date": "29/07/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "timestamp": "16:49"
     },
@@ -3259,7 +3440,7 @@
     },
     {
       "date": "01/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اياد فالح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3267,7 +3448,7 @@
     },
     {
       "date": "02/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3275,7 +3456,7 @@
     },
     {
       "date": "03/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. غسق مصطفى",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3283,7 +3464,7 @@
     },
     {
       "date": "04/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3291,7 +3472,7 @@
     },
     {
       "date": "05/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3299,7 +3480,7 @@
     },
     {
       "date": "06/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3307,7 +3488,7 @@
     },
     {
       "date": "07/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. علي خالد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3315,7 +3496,7 @@
     },
     {
       "date": "08/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اياد فالح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3323,7 +3504,7 @@
     },
     {
       "date": "09/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. ايثار عدنان",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3331,7 +3512,7 @@
     },
     {
       "date": "10/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. علي خالد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3339,7 +3520,7 @@
     },
     {
       "date": "11/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. شهد عبد الله",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3347,7 +3528,7 @@
     },
     {
       "date": "12/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. علاء سلمان",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3355,7 +3536,7 @@
     },
     {
       "date": "13/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. مصطفى عبد الله",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3363,7 +3544,7 @@
     },
     {
       "date": "14/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اياد فالح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3371,7 +3552,7 @@
     },
     {
       "date": "15/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اديان محمد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3379,7 +3560,7 @@
     },
     {
       "date": "16/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. علي خالد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3387,7 +3568,7 @@
     },
     {
       "date": "17/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. ايات فلاح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3395,7 +3576,7 @@
     },
     {
       "date": "18/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3403,7 +3584,7 @@
     },
     {
       "date": "19/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اديان محمد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3411,7 +3592,7 @@
     },
     {
       "date": "20/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. علي خالد",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3419,7 +3600,7 @@
     },
     {
       "date": "21/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. مصطفى عبد الله",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3427,7 +3608,7 @@
     },
     {
       "date": "22/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اياد فالح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3435,7 +3616,7 @@
     },
     {
       "date": "23/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. الاء اسماعيل",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3443,7 +3624,7 @@
     },
     {
       "date": "24/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3451,7 +3632,7 @@
     },
     {
       "date": "25/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. ايثار عدنان",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3459,7 +3640,7 @@
     },
     {
       "date": "26/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. الاء اسماعيل",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3467,7 +3648,7 @@
     },
     {
       "date": "27/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. اياد فالح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3475,7 +3656,7 @@
     },
     {
       "date": "28/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3483,7 +3664,7 @@
     },
     {
       "date": "29/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. ايثار عدنان",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3491,7 +3672,7 @@
     },
     {
       "date": "30/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. ايات فلاح",
       "VisitCount": 0,
       "dutyTime": "",
@@ -3499,7 +3680,7 @@
     },
     {
       "date": "31/08/2026",
-      "specCode": "ICU",
+      "specCode": "A",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
       "dutyTime": "",
@@ -5229,186 +5410,5 @@
   "passwords": {
     "user": "1234",
     "admin": "MrjBth1996*"
-  },
-  "specialties": [
-    {
-      "id": "GS",
-      "name_ar": "الجراحة العامة",
-      "name_en": "General Surgery",
-      "icon": "🔪",
-      "color": "#2ac200",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "US",
-      "name_ar": "جراحة المسالك البولية",
-      "name_en": "Urosurgery",
-      "icon": "🧬",
-      "color": "#e66551",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "OR",
-      "name_ar": "الكسور",
-      "name_en": "Orthopaedics",
-      "icon": "🦴",
-      "color": "#ff0000",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "M",
-      "name_ar": "الباطنية",
-      "name_en": "Internal Medicine",
-      "icon": "💊",
-      "color": "#a1e972",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "ENT",
-      "name_ar": "الأذن و الأنف و الحنجرة",
-      "name_en": "ENT",
-      "icon": "👂",
-      "color": "#fbff00",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "MF",
-      "name_ar": "جراحة الوجه و الفكين",
-      "name_en": "MaxilloFacial Surgery",
-      "icon": "🦷",
-      "color": "#d600af",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "ICU",
-      "name_ar": "تخدير العناية المركزة",
-      "name_en": "ICU Anaesthesia",
-      "icon": "💉",
-      "color": "#ff8e24",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "OP",
-      "name_ar": "تخدير العمليات",
-      "name_en": "OT Anaesthesia",
-      "icon": "💉",
-      "color": "#b4cc00",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "GA",
-      "name_ar": "تخدير صالة الولادة",
-      "name_en": "GYN Anaesthesia",
-      "icon": "🤰",
-      "color": "#fe62ad",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
-      "id": "Pe",
-      "name_ar": "الاطفال",
-      "name_en": "Paediatrics",
-      "icon": "👶",
-      "color": "#3dff6e",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "NM",
-      "name_ar": "طب الجملة العصبية",
-      "name_en": "Neuromedicine",
-      "icon": "🧠",
-      "color": "#79e9f1",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "N",
-      "name_ar": "طب امراض الكلى",
-      "name_en": "Nephrology",
-      "icon": "🧫",
-      "color": "#ff5ccb",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "O",
-      "name_ar": "العيون",
-      "name_en": "Ophthalmology",
-      "icon": "👁️",
-      "color": "#38ffe8",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
-      "id": "G",
-      "name_ar": "النسائية و التوليد",
-      "name_en": "Gynecology",
-      "icon": "🌸",
-      "color": "#e40de7",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "P",
-      "name_ar": "النفسية",
-      "name_en": "Psychiatry",
-      "icon": "🧠",
-      "color": "#fef606",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "R",
-      "name_ar": "الأشعة و السونار",
-      "name_en": "Radiology",
-      "icon": "🩻",
-      "color": "#6700e6",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "D",
-      "name_ar": "الوفيات",
-      "name_en": "Death Certificatess",
-      "icon": "📋",
-      "color": "#bababa",
-      "acceptPool": [
-        "GS",
-        "US",
-        "OR",
-        "M",
-        "ENT",
-        "MF",
-        "ICU",
-        "OP",
-        "GA",
-        "Pe",
-        "NM",
-        "N",
-        "O",
-        "G",
-        "P",
-        "R"
-      ],
-      "enabled": true
-    },
-    {
-      "id": "ZZ",
-      "name_ar": "الجراحة الخارقة للطبيعة",
-      "name_en": "SUPERNATURAL SURGERY",
-      "icon": "😎",
-      "color": "#fbbf24",
-      "acceptPool": [],
-      "enabled": true
-    }
-  ]
+  }
 }
