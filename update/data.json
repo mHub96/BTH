@@ -193,6 +193,15 @@
       "enabled": true
     },
     {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴",
+      "color": "#ff0000",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "NM",
       "name_ar": "طب الجملة العصبية",
       "name_en": "Neuromedicine",
@@ -263,15 +272,6 @@
       "color": "#627ae4",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "OR",
-      "name_ar": "الكسور",
-      "name_en": "Orthopaedics",
-      "icon": "🦴",
-      "color": "#ff0000",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "H",
