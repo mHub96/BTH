@@ -219,10 +219,10 @@
     },
     {
       "id": "FM",
-      "name_ar": "FM",
-      "name_en": "FM",
+      "name_ar": "طب الاسرة",
+      "name_en": "Family Medicine",
       "icon": "🏥",
-      "color": "#ef4444",
+      "color": "#f4f67e",
       "acceptPool": [],
       "enabled": true
     },
