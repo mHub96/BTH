@@ -46,15 +46,6 @@
       "enabled": true
     },
     {
-      "id": "OR",
-      "name_ar": "الكسور",
-      "name_en": "Orthopaedics",
-      "icon": "🦴",
-      "color": "#ff0000",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "A",
       "name_ar": "التخدير و العناية المركزة",
       "name_en": "Anaethesia",
@@ -250,6 +241,15 @@
       "name_en": "General Practitioner",
       "icon": "🏥",
       "color": "#627ae4",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴",
+      "color": "#ff0000",
       "acceptPool": [],
       "enabled": false
     },
