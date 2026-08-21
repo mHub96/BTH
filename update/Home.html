@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Basra Teaching Hospital · Duty Roster 🇮🇶</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
@@ -20,140 +20,345 @@
             overflow-x: hidden;
         }
         body.light { background: #d1d9e6; color: #1a2332; }
-        body.light .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-        body.light .roster-card { background: rgba(255,255,255,0.92); border-color: rgba(200,210,220,0.3); box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9); }
-        body.light .roster-card .action-btn-sm { background: rgba(255,255,255,0.7); box-shadow: 3px 3px 8px rgba(0,0,0,0.04), -3px -3px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(0,0,0,0.02); border: 1px solid rgba(255,255,255,0.3); }
-        body.light .report-btn { background: #2563eb; border-color: #1d4ed8; color: white; }
-        body.light .trending-btn { background: #f59e0b; border-color: #d97706; color: white; }
         body.dark { background: #0b0e12; color: #e8edf5; }
-        body.dark .glass-card { background: rgba(16,22,34,0.82); backdrop-filter: blur(14px); border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-        body.dark .roster-card { background: rgba(14,20,32,0.8); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
-        body.dark .roster-card .action-btn-sm { background: rgba(0,0,0,0.35); box-shadow: 4px 4px 10px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.02), 0 1px 0 rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.02); }
-        body.dark .report-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.12); color: #d4af37; }
-        body.dark .trending-btn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.2); color: #fbbf24; }
-        body.dark .btn-gradient { background: linear-gradient(135deg, #d4af37, #b8942e); box-shadow: 0 8px 24px rgba(212,175,55,0.2); color: #0b0e12; }
-        .glass-card { border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 1; }
         
-        /* ============================================================
-           ROSTER CARDS — 3D POP & PRESS ANIMATION
-           ============================================================ */
+        .glass-card {
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        body.light .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+        body.dark .glass-card { background: rgba(16,22,34,0.82); backdrop-filter: blur(14px); border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+        
+        .header-3d {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-align: center;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        @media (min-width: 640px) { .header-3d { font-size: 2.8rem; } }
+        
         .roster-grid {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
             padding: 0.2rem 0;
         }
+        
+        /* ============================================================
+           CARD DESIGN - With Integrated Timer Ribbon
+           ============================================================ */
+        .roster-card-wrapper {
+            position: relative;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* --- Main Card --- */
         .roster-card {
-            border-radius: 1.4rem; 
-            padding: 1.3rem 1.6rem; 
-            display: flex; 
+            border-radius: 1.5rem;
+            padding: 0;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid; 
-            gap: 0.3rem;
-            position: relative; 
-            overflow: hidden; 
+            border: 1px solid;
+            gap: 0;
+            position: relative;
+            overflow: hidden;
             cursor: default;
             transform: translateY(0) scale(1) perspective(600px) rotateX(0) rotateY(0);
             box-shadow: 10px 10px 20px rgba(0,0,0,0.06), -8px -8px 18px rgba(255,255,255,0.8), 0 4px 0 rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.9);
             will-change: transform;
+            min-height: 220px;
+            width: 100%;
+            background: transparent;
+            border-color: transparent;
         }
-        body.dark .roster-card {
-            box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02);
-        }
+        body.light .roster-card { background: rgba(255,255,255,0.95); border-color: rgba(200,210,220,0.3); }
+        body.dark .roster-card { background: rgba(20,28,44,0.85); border-color: rgba(212,175,55,0.06); box-shadow: 12px 12px 28px rgba(0,0,0,0.7), -10px -10px 24px rgba(255,255,255,0.02), 0 5px 0 rgba(0,0,0,0.5), 0 0 50px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.02); }
+        
         .roster-card:hover {
-            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
+            transform: perspective(600px) translateY(-4px) scale(1.01) rotateX(1.5deg) rotateY(1.5deg);
             border-color: rgba(212,175,55,0.15);
-            box-shadow: 14px 14px 28px rgba(0,0,0,0.08), -10px -10px 22px rgba(255,255,255,0.9), 0 6px 0 rgba(0,0,0,0.02), 0 12px 32px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.95);
         }
         body.dark .roster-card:hover {
             border-color: rgba(212,175,55,0.15);
             box-shadow: 16px 16px 36px rgba(0,0,0,0.8), -12px -12px 28px rgba(255,255,255,0.03), 0 7px 0 rgba(0,0,0,0.5), 0 0 70px rgba(212,175,55,0.04), 0 0 100px rgba(212,175,55,0.01), inset 0 1px 0 rgba(255,255,255,0.03);
-            transform: perspective(600px) translateY(-6px) scale(1.02) rotateX(2deg) rotateY(2deg);
+            transform: perspective(600px) translateY(-4px) scale(1.01) rotateX(1.5deg) rotateY(1.5deg);
         }
         .roster-card:active {
             transform: perspective(600px) translateY(4px) scale(0.97) rotateX(0) rotateY(0) !important;
             box-shadow: 4px 4px 10px rgba(0,0,0,0.04), -3px -3px 10px rgba(255,255,255,0.5), 0 1px 0 rgba(0,0,0,0.01) !important;
             transition-duration: 0.08s;
         }
-        body.dark .roster-card:active {
-            transform: perspective(600px) translateY(5px) scale(0.97) rotateX(0) rotateY(0) !important;
-            box-shadow: 5px 5px 14px rgba(0,0,0,0.4), -4px -4px 12px rgba(255,255,255,0.01), 0 1px 0 rgba(0,0,0,0.2) !important;
+        
+        /* --- TRENDING CARD STYLE (Golden border/glow) --- */
+        .roster-card-wrapper.trending .roster-card {
+            border-color: #fbbf24 !important;
+            box-shadow: 0 0 40px rgba(251,191,36,0.2), inset 0 0 40px rgba(251,191,36,0.03) !important;
         }
-        .roster-card::after {
-            content: '';
+        body.dark .roster-card-wrapper.trending .roster-card {
+            box-shadow: 0 0 50px rgba(251,191,36,0.25), inset 0 0 40px rgba(251,191,36,0.03) !important;
+        }
+        .roster-card-wrapper.trending .roster-card .timer-ribbon {
+            background: rgba(251,191,36,0.08);
+            border-bottom: 1px solid rgba(251,191,36,0.12);
+        }
+        .roster-card-wrapper.trending .roster-card .status-badge .badge-trending {
+            color: #fbbf24 !important;
+        }
+        
+        /* --- CRIMSON + TRENDING (both can apply) --- */
+        .roster-card-wrapper.trending.crimson .roster-card {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 40px rgba(220,38,38,0.25), 0 0 40px rgba(251,191,36,0.1), inset 0 0 40px rgba(220,38,38,0.05) !important;
+            animation: pulse-crimson-trending 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-crimson-trending {
+            0%, 100% { border-color: #dc2626; box-shadow: 0 0 40px rgba(220,38,38,0.25), 0 0 40px rgba(251,191,36,0.1); }
+            50% { border-color: #ef4444; box-shadow: 0 0 60px rgba(220,38,38,0.35), 0 0 40px rgba(251,191,36,0.15); }
+        }
+        .roster-card-wrapper.trending.crimson .roster-card .timer-ribbon {
+            background: rgba(220,38,38,0.1);
+            border-bottom: 1px solid rgba(220,38,38,0.15);
+        }
+        
+        /* --- Crimson Card (without trending) --- */
+        .roster-card-wrapper.crimson:not(.trending) .roster-card {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 30px rgba(220,38,38,0.25), inset 0 0 30px rgba(220,38,38,0.05) !important;
+            animation: pulse-crimson 1.5s ease-in-out infinite;
+        }
+        body.dark .roster-card-wrapper.crimson:not(.trending) .roster-card {
+            box-shadow: 0 0 40px rgba(220,38,38,0.3), inset 0 0 30px rgba(220,38,38,0.05) !important;
+        }
+        @keyframes pulse-crimson {
+            0%, 100% { border-color: #dc2626; }
+            50% { border-color: #ef4444; box-shadow: 0 0 50px rgba(220,38,38,0.35), inset 0 0 30px rgba(220,38,38,0.05) !important; }
+        }
+        .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon {
+            background: rgba(220,38,38,0.1);
+            border-bottom: 1px solid rgba(220,38,38,0.15);
+        }
+        .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon .countdown-timer {
+            color: #dc2626;
+            font-size: 1.6rem;
+            animation: timer-pulse 0.8s ease-in-out infinite;
+        }
+        .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon .ribbon-label { color: #dc2626; opacity: 0.7; }
+        .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon .timer-units { color: #dc2626; opacity: 0.6; }
+        
+        /* --- TIMER RIBBON (Integrated inside card, top section) --- */
+        .roster-card .timer-ribbon {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.25rem 1rem;
+            background: rgba(16,185,129,0.08);
+            border-bottom: 1px solid rgba(16,185,129,0.1);
+            min-height: 36px;
+            flex-shrink: 0;
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+        body.light .roster-card .timer-ribbon {
+            background: rgba(16,185,129,0.06);
+            border-bottom: 1px solid rgba(16,185,129,0.08);
+        }
+        .roster-card .timer-ribbon .ribbon-label {
+            font-size: 0.5rem;
+            font-weight: 600;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+        .roster-card .timer-ribbon .countdown-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #10b981;
+            direction: ltr;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+        }
+        .roster-card .timer-ribbon .timer-units {
+            font-size: 0.45rem;
+            font-weight: 600;
+            opacity: 0.4;
+            letter-spacing: 0.05em;
+        }
+        
+        /* --- Card Body --- */
+        .roster-card .card-body {
+            padding: 0.8rem 1.5rem 1.2rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.1rem;
+            position: relative;
+        }
+        
+        /* --- STATUS BADGE (Inside card body, top-left) --- */
+        .roster-card .status-badge {
             position: absolute;
-            inset: 0;
-            border-radius: 1.4rem;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.04), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            top: 0.3rem;
+            left: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0.05rem 0.5rem;
+            border-radius: 100px;
+            font-size: 0.5rem;
+            font-weight: 700;
+            z-index: 10;
+            background: rgba(16,185,129,0.08);
+            border: 1px solid rgba(16,185,129,0.08);
+            color: #10b981;
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
             pointer-events: none;
         }
-        .roster-card:hover::after { opacity: 1; }
+        .roster-card-wrapper.crimson .roster-card .status-badge {
+            background: rgba(220,38,38,0.08);
+            border-color: rgba(220,38,38,0.08);
+            color: #dc2626;
+        }
+        .roster-card-wrapper.trending .roster-card .status-badge {
+            background: rgba(251,191,36,0.08);
+            border-color: rgba(251,191,36,0.1);
+            color: #fbbf24;
+        }
+        .roster-card-wrapper.trending.crimson .roster-card .status-badge {
+            background: rgba(220,38,38,0.08);
+            border-color: rgba(220,38,38,0.08);
+            color: #dc2626;
+        }
+        .roster-card .status-badge i { font-size: 0.35rem; }
+        .roster-card .status-badge .badge-trending { 
+            color: #fbbf24 !important;
+            font-weight: 800;
+        }
+        .roster-card .status-badge .badge-dot { 
+            font-size: 0.2rem; 
+            opacity: 0.3; 
+        }
         
-        .roster-card .resident-spec {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.1rem 0.8rem;
-            border-radius: 100px;
-            display: inline-block;
-            border: 1px solid;
+        /* --- Specialty Bubbles (LARGER) --- */
+        .roster-card .specialty-bubbles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            margin-top: 0.3rem;
             margin-bottom: 0.1rem;
         }
-        body.light .roster-card .resident-spec { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
-        body.dark .roster-card .resident-spec { color: #d4af37 !important; border-color: rgba(212,175,55,0.15); background: rgba(212,175,55,0.04); }
-        
-        /* Golden style for multiple specialties */
-        .roster-card .resident-spec.multiple {
+        .roster-card .specialty-bubble {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.25rem 1.2rem;
+            border-radius: 100px;
+            display: inline-block;
+            border: 2px solid;
+            background: rgba(212,175,55,0.06);
+            border-color: rgba(212,175,55,0.12);
+            color: #d4af37;
+            line-height: 1.4;
+        }
+        body.light .roster-card .specialty-bubble {
+            background: #dbeafe;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+        body.dark .roster-card .specialty-bubble {
+            color: #d4af37 !important;
+            border-color: rgba(212,175,55,0.15);
+            background: rgba(212,175,55,0.04);
+        }
+        .roster-card .specialty-bubble.multiple {
             background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
             color: #1a2332 !important;
             border-color: #f59e0b !important;
             box-shadow: 0 0 20px rgba(251,191,36,0.15);
             font-weight: 800;
         }
-        body.dark .roster-card .resident-spec.multiple {
+        body.dark .roster-card .specialty-bubble.multiple {
             background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
             color: #1a2332 !important;
             border-color: #f59e0b !important;
             box-shadow: 0 0 20px rgba(251,191,36,0.2);
         }
         
+        /* --- Resident Name --- */
         .roster-card .resident-name {
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.3rem;
-            padding: 0.1rem 0;
+            padding: 0.05rem 0;
+            line-height: 1.3;
         }
         body.light .roster-card .resident-name { color: #1a2332; }
         body.dark .roster-card .resident-name { color: #f0f3f8; }
         
+        /* --- Phone Number --- */
         .roster-card .resident-phone {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-family: monospace;
+            font-family: 'JetBrains Mono', monospace;
             direction: ltr;
             unicode-bidi: isolate;
             opacity: 0.5;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.05rem;
+            letter-spacing: 0.05em;
         }
         
+        /* --- Divider --- */
+        .roster-card .divider {
+            width: 50%;
+            height: 1px;
+            background: rgba(212,175,55,0.06);
+            margin: 0.1rem auto;
+            border-radius: 10px;
+        }
+        body.light .roster-card .divider { background: rgba(0,0,0,0.06); }
+        
+        /* --- Duty Hours Section --- */
+        .roster-card .duty-hours {
+            font-size: 0.7rem;
+            font-weight: 700;
+            opacity: 0.6;
+            margin: 0.05rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .roster-card .duty-hours .day-indicator {
+            font-size: 0.5rem;
+            font-weight: 600;
+            opacity: 0.4;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        
+        /* --- Action Buttons --- */
         .roster-card .card-actions {
             display: flex;
-            gap: 0.6rem;
-            margin-top: 0.1rem;
+            gap: 0.5rem;
+            margin-top: 0.2rem;
             justify-content: center;
             width: 100%;
         }
         .roster-card .action-btn-sm {
-            padding: 0.5rem 1rem;
-            border-radius: 0.9rem;
+            padding: 0.4rem 1rem;
+            border-radius: 0.8rem;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.65rem;
@@ -163,9 +368,22 @@
             transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
             cursor: pointer;
             flex: 1;
-            max-width: 140px;
+            max-width: 130px;
             justify-content: center;
+            border: 1px solid transparent;
+            line-height: 1.2;
         }
+        body.light .roster-card .action-btn-sm { 
+            background: rgba(255,255,255,0.7); 
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.04), -3px -3px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(0,0,0,0.02); 
+            border: 1px solid rgba(255,255,255,0.3); 
+        }
+        body.dark .roster-card .action-btn-sm { 
+            background: rgba(0,0,0,0.35); 
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.02), 0 1px 0 rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.02); 
+        }
+        .roster-card .action-btn-sm .btn-icon { font-size: 0.75rem; }
         .roster-card .action-btn-sm.call { color: #2563eb; }
         body.dark .roster-card .action-btn-sm.call { color: #60a5fa; }
         .roster-card .action-btn-sm.call:hover { background: rgba(37,99,235,0.08); }
@@ -175,45 +393,363 @@
         .roster-card .action-btn-sm.wa:hover { background: rgba(5,150,105,0.08); }
         body.dark .roster-card .action-btn-sm.wa:hover { background: rgba(52,211,153,0.08); }
         .roster-card .action-btn-sm.opacity-40 { opacity: 0.25; cursor: default; pointer-events: none; }
+        
+        /* --- NO RESIDENT CARD --- */
+        .no-resident-card {
+            padding: 1.5rem;
+            text-align: center;
+            opacity: 0.5;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .no-resident-card .icon { font-size: 2rem; margin-bottom: 0.3rem; }
+        .no-resident-card .label { font-size: 0.7rem; font-weight: 600; }
+        
+        .counter-badge {
+            font-size: 0.65rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            font-weight: 700;
+            display: inline-block;
+            border: 1px solid;
+            transition: all 0.3s ease;
+        }
+        body.light .counter-badge { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        body.dark .counter-badge { background: rgba(212,175,55,0.12); color: #d4af37; border-color: rgba(212,175,55,0.15); }
+        
         .btn-gradient {
-            border: none; font-weight: 700; padding: 0.9rem 2rem; border-radius: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
-            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white;
+            border: none;
+            font-weight: 700;
+            padding: 0.9rem 2rem;
+            border-radius: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
             box-shadow: 0 8px 24px rgba(37,99,235,0.3);
         }
+        body.dark .btn-gradient { background: linear-gradient(135deg, #d4af37, #b8942e); box-shadow: 0 8px 24px rgba(212,175,55,0.2); color: #0b0e12; }
         .btn-gradient:hover { transform: translateY(-2px) scale(1.01); }
-        .input-field {
-            border-radius: 1rem; padding: 0.9rem 1.4rem; font-weight: 500;
-            transition: all 0.3s ease; width: 100%; border: 2px solid; outline: none;
+        
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+            flex-wrap: wrap;
         }
-        .modal-overlay {
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(16px);
-            position: fixed; inset: 0; z-index: 999;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: all 0.4s ease; padding: 1.5rem;
+        .top-bar .spacer { flex: 1; }
+        
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(0,0,0,0.1);
         }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-card {
-            max-width: 600px; width: 100%; border-radius: 2rem; padding: 1.5rem;
-            transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-            background: #ffffff; max-height: 90vh; overflow-y: auto;
+        body.dark .theme-toggle-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.2); }
+        
+        .lock-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
-        body.dark .modal-card { background: #141c2a; border: 1px solid rgba(212,175,55,0.08); }
-        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
         .lock-card {
-            border-radius: 2.5rem; padding: 2.5rem 2.2rem; width: 100%; max-width: 400px;
-            background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+            border-radius: 2.5rem;
+            padding: 2.5rem 2.2rem;
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.5);
         }
         body.dark .lock-card { background: rgba(12,18,30,0.92); border: 1px solid rgba(212,175,55,0.12); }
-        .hidden-content { display: none; }
-        .header-3d {
-            font-family: 'Playfair Display', serif; font-weight: 900;
-            font-size: 2.2rem; text-align: center;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .input-field {
+            border-radius: 1rem;
+            padding: 0.9rem 1.4rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            border: 2px solid;
+            outline: none;
         }
-        @media (min-width: 640px) { .header-3d { font-size: 2.8rem; } }
+        body.light .input-field { background: rgba(255,255,255,0.9); border-color: #e2e8f0; color: #1a2332; }
+        body.dark .input-field { background: rgba(10,14,24,0.9); border-color: #2a3346; color: #e8edf5; }
+        .input-field:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+        body.dark .input-field:focus { border-color: #d4af37; box-shadow: 0 0 0 4px rgba(212,175,55,0.12); }
+        
+        .hidden-content { display: none; }
+        .footer-credit {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            padding: 0.8rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(128,128,128,0.1);
+            margin-top: 1.5rem;
+        }
+        .lock-footer {
+            margin-top: 1.5rem;
+            font-size: 0.65rem;
+            opacity: 0.4;
+            text-align: center;
+        }
+        
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 90%;
+            max-width: 420px;
+        }
+        .toast {
+            padding: 14px 24px;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast-success { background: rgba(16,185,129,0.92); color: white; }
+        .toast-error { background: rgba(239,68,68,0.92); color: white; }
+        .toast-info { background: rgba(59,130,246,0.92); color: white; }
+        
+        #shield {
+            position: fixed;
+            inset: 0;
+            background: #0b0e12;
+            z-index: 100;
+            transition: opacity 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        body.light #shield { background: #d1d9e6; }
+        .shield-spinner {
+            width: 2.8rem;
+            height: 2.8rem;
+            border: 2px solid rgba(212,175,55,0.03);
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .current-time-display {
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.4;
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+        .report-btn {
+            border-radius: 1.2rem;
+            padding: 0.6rem 1.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid;
+            background: #2563eb;
+            border-color: #1d4ed8;
+            color: white;
+        }
+        .trending-btn {
+            border-radius: 1.2rem;
+            padding: 0.6rem 1.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid;
+            background: #f59e0b;
+            border-color: #d97706;
+            color: white;
+        }
+        body.dark .trending-btn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.2); color: #fbbf24; }
+        .admin-reset-btn {
+            background: #dc2626;
+            color: white;
+            border: 1px solid #b91c1c;
+            padding: 0.4rem 1.2rem;
+            border-radius: 1.2rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .admin-reset-btn:hover { background: #b91c1c; transform: scale(1.02); }
+        body.dark .admin-reset-btn { background: #dc2626; color: white; border-color: #991b1b; }
+        
+        .reset-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .reset-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(212,175,55,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reset-option:hover { background: rgba(212,175,55,0.05); border-color: rgba(212,175,55,0.2); }
+        .reset-option input[type="radio"] { accent-color: #dc2626; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+        .reset-option label { cursor: pointer; flex: 1; font-weight: 600; font-size: 0.9rem; }
+        .reset-option .desc { font-size: 0.65rem; opacity: 0.6; font-weight: 400; }
+        
+        .modal-overlay {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(16px);
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-card {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            background: #ffffff;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        body.dark .modal-card { background: #141c2a; border: 1px solid rgba(212,175,55,0.08); }
+        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
+        
+        .btn-ghost {
+            border-radius: 1.2rem;
+            padding: 0.6rem 1.4rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid;
+        }
+        body.light .btn-ghost { background: rgba(255,255,255,0.5); border-color: rgba(0,0,0,0.08); color: #1a2332; }
+        body.dark .btn-ghost { background: rgba(255,255,255,0.04); border-color: rgba(212,175,55,0.12); color: #f0f3f8; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.8); }
+        body.dark .btn-ghost:hover { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.25); }
+
+        /* ============================================================
+           TRENDING & LEADERBOARD STYLES
+           ============================================================ */
+        .trending-fire-border {
+            position: relative;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24);
+            animation: spin-border 3s linear infinite;
+            box-shadow: 0 0 30px rgba(251,191,36,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .trending-fire-border:hover {
+            box-shadow: 0 0 60px rgba(251,191,36,0.5);
+            transform: scale(1.01);
+        }
+        @keyframes spin-border {
+            0% { background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
+            100% { background: conic-gradient(from 360deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
+        }
+        .trending-inner {
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            position: relative;
+        }
+        body.light .trending-inner {
+            background: rgba(14,20,32,0.92);
+            color: #e8edf5;
+        }
+        body.light .trending-inner .text-primary { color: #f0f3f8; }
+        body.light .trending-inner .text-secondary { color: #a8b3c9; }
+        body.light .trending-inner .text-amber-500 { color: #fbbf24; }
+        body.dark .trending-inner {
+            background: rgba(255,255,255,0.92);
+            color: #1a2332;
+        }
+        body.dark .trending-inner .text-primary { color: #1a2332; }
+        body.dark .trending-inner .text-secondary { color: #475569; }
+        body.dark .trending-inner .text-amber-500 { color: #d97706; }
+        body.dark .trending-inner .trending-badge { color: #0b0e12; }
+        
+        .trending-fire-icon {
+            font-size: 2rem;
+            animation: flicker 1.2s infinite alternate;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .trending-fire-icon:hover { transform: scale(1.15); }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); text-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b; }
+            100% { transform: scale(1.1) rotate(2deg); text-shadow: 0 0 20px #f59e0b, 0 0 40px #dc2626; }
+        }
         .trending-badge {
             display: inline-flex; align-items: center; gap: 0.3rem;
             background: linear-gradient(135deg, #fbbf24, #f59e0b);
@@ -224,9 +760,29 @@
         }
         body.dark .trending-badge { color: #0b0e12; }
         
-        /* ============================================================
-           STEP CHART — FIXED CONTAINER, PROPORTIONAL SCALING
-           ============================================================ */
+        .trending-hand {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            opacity: 0.8;
+            animation: handReach 2.5s ease-in-out infinite;
+            pointer-events: none;
+            filter: drop-shadow(0 0 20px rgba(251,191,36,0.3));
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+        .trending-hand.hidden { opacity: 0; animation: none; }
+        @keyframes handReach {
+            0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
+            30% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
+            50% { transform: translateY(-50%) translateX(-30px) scale(1.15) rotate(-8deg); }
+            70% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
+            90% { transform: translateY(-50%) translateX(0) scale(1); }
+        }
+
+        /* --- STEP CHART (Leaderboard) --- */
         .step-chart-wrapper {
             border-radius: 1.2rem;
             padding: 0.5rem 0.5rem 0.6rem;
@@ -292,50 +848,18 @@
             position: relative;
             will-change: height;
         }
-        .step-bar .bar.gold { 
-            background: linear-gradient(180deg, #fbbf24, #f59e0b); 
-            box-shadow: 0 0 15px rgba(251,191,36,0.15); 
-        }
-        .step-bar .bar.silver { 
-            background: linear-gradient(180deg, #94a3b8, #6b7280); 
-            box-shadow: 0 0 10px rgba(148,163,184,0.1); 
-        }
-        .step-bar .bar.bronze { 
-            background: linear-gradient(180deg, #cd7f32, #a0522d); 
-            box-shadow: 0 0 10px rgba(205,127,50,0.1); 
-        }
+        .step-bar .bar.gold { background: linear-gradient(180deg, #fbbf24, #f59e0b); box-shadow: 0 0 15px rgba(251,191,36,0.15); }
+        .step-bar .bar.silver { background: linear-gradient(180deg, #94a3b8, #6b7280); box-shadow: 0 0 10px rgba(148,163,184,0.1); }
+        .step-bar .bar.bronze { background: linear-gradient(180deg, #cd7f32, #a0522d); box-shadow: 0 0 10px rgba(205,127,50,0.1); }
         .step-chart .step-bar:nth-child(1) { order: 1; }
         .step-chart .step-bar:nth-child(2) { order: 2; }
         .step-chart .step-bar:nth-child(3) { order: 3; }
-        .step-bar .bar-value {
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--text-primary, #1a2332);
-            line-height: 1;
-        }
+        .step-bar .bar-value { font-size: 0.6rem; font-weight: 800; color: var(--text-primary, #1a2332); line-height: 1; }
         body.dark .step-bar .bar-value { color: #f0f3f8; }
-        .step-bar .bar-label {
-            font-size: 0.45rem;
-            font-weight: 700;
-            text-align: center;
-            color: var(--text-secondary, #475569);
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            max-width: 60px;
-            line-height: 1.2;
-            padding: 0 2px;
-            min-height: 1.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .step-bar .bar-label { font-size: 0.45rem; font-weight: 700; text-align: center; color: var(--text-secondary, #475569); word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; max-width: 60px; line-height: 1.2; padding: 0 2px; min-height: 1.6rem; display: flex; align-items: center; justify-content: center; }
         body.dark .step-bar .bar-label { color: #a8b3c9; }
-        .step-medal-icon {
-            font-size: 1rem;
-            line-height: 1;
-        }
-        
+        .step-medal-icon { font-size: 1rem; line-height: 1; }
+
         .filter-tabs {
             display: flex; gap: 0.3rem; flex-wrap: wrap;
             margin-bottom: 0.3rem;
@@ -352,121 +876,12 @@
             background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.15); color: #d4af37;
         }
         body.dark .filter-tab.active { background: rgba(212,175,55,0.12); border-color: rgba(212,175,55,0.2); }
-        .lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; position: relative; z-index: 2; }
-        .footer-credit { font-size: 0.7rem; opacity: 0.5; padding: 0.8rem 0; text-align: center; border-top: 1px solid rgba(128,128,128,0.1); margin-top: 1.5rem; }
-        .theme-toggle-btn {
-            display: flex; align-items: center; justify-content: center;
-            width: 44px; height: 44px; border-radius: 50%; border: 2px solid;
-            cursor: pointer; transition: all 0.3s ease;
-            background: rgba(255,255,255,0.3); border-color: rgba(0,0,0,0.1);
+        
+        .medal-item {
+            display: flex; align-items: center; gap: 0.8rem; padding: 0.4rem 0.6rem; border-radius: 0.8rem; transition: all 0.3s ease;
         }
-        body.dark .theme-toggle-btn { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.2); }
-        #toast-container {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            z-index: 9999; display: flex; flex-direction: column; align-items: center;
-            gap: 8px; pointer-events: none; width: 90%; max-width: 420px;
-        }
-        .toast {
-            padding: 14px 24px; border-radius: 1rem; font-weight: 600; font-size: 0.9rem;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-20px);
-            opacity: 0; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
-            pointer-events: auto; display: flex; align-items: center; gap: 12px;
-            width: 100%;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        .toast-success { background: rgba(16,185,129,0.92); color: white; }
-        .toast-error { background: rgba(239,68,68,0.92); color: white; }
-        .toast-info { background: rgba(59,130,246,0.92); color: white; }
-        #shield {
-            position: fixed; inset: 0; background: #0b0e12; z-index: 100;
-            transition: opacity 0.6s ease; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 1.5rem;
-        }
-        body.light #shield { background: #d1d9e6; }
-        .shield-spinner {
-            width: 2.8rem; height: 2.8rem;
-            border: 2px solid rgba(212,175,55,0.03); border-top-color: #d4af37;
-            border-radius: 50%; animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .counter-badge {
-            font-size: 0.65rem; padding: 0.3rem 0.9rem; border-radius: 100px;
-            font-weight: 700; display: inline-block; border: 1px solid;
-            transition: all 0.3s ease;
-        }
-        body.light .counter-badge { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
-        body.dark .counter-badge { background: rgba(212,175,55,0.12); color: #d4af37; border-color: rgba(212,175,55,0.15); }
-        .report-btn, .trending-btn {
-            border-radius: 1.2rem; padding: 0.6rem 1.8rem; font-size: 0.7rem;
-            font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem;
-            cursor: pointer; transition: all 0.3s ease; border: 1px solid;
-        }
-        .top-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0.25rem 0; flex-wrap: wrap; }
-        .top-bar .spacer { flex: 1; }
-        .medal-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.4rem 0.6rem; border-radius: 0.8rem; transition: all 0.3s ease; }
         .medal-item:hover { background: rgba(212,175,55,0.04); }
-
-        /* TRENDING CARD FIRE BORDER */
-        .trending-fire-border {
-            position: relative;
-            border-radius: 1.5rem;
-            padding: 1px;
-            background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24);
-            animation: spin-border 3s linear infinite;
-            box-shadow: 0 0 30px rgba(251,191,36,0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1.5rem;
-        }
-        .trending-fire-border:hover {
-            box-shadow: 0 0 60px rgba(251,191,36,0.5);
-            transform: scale(1.01);
-        }
-        @keyframes spin-border {
-            0% { background: conic-gradient(from 0deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
-            100% { background: conic-gradient(from 360deg, #fbbf24, #f59e0b, #dc2626, #f59e0b, #fbbf24); }
-        }
-        .trending-inner {
-            border-radius: 1.5rem;
-            padding: 1.2rem 1.5rem;
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            position: relative;
-        }
-        body.light .trending-inner {
-            background: rgba(14,20,32,0.92);
-            color: #e8edf5;
-        }
-        body.light .trending-inner .text-primary { color: #f0f3f8; }
-        body.light .trending-inner .text-secondary { color: #a8b3c9; }
-        body.light .trending-inner .text-amber-500 { color: #fbbf24; }
-        body.dark .trending-inner {
-            background: rgba(255,255,255,0.92);
-            color: #1a2332;
-        }
-        body.dark .trending-inner .text-primary { color: #1a2332; }
-        body.dark .trending-inner .text-secondary { color: #475569; }
-        body.dark .trending-inner .text-amber-500 { color: #d97706; }
-        body.dark .trending-inner .trending-badge { color: #0b0e12; }
-
-        .trending-fire-icon {
-            font-size: 2.5rem;
-            animation: flicker 1.2s infinite alternate;
-            display: inline-block;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        .trending-fire-icon:hover {
-            transform: scale(1.15);
-        }
-        @keyframes flicker {
-            0% { transform: scale(1) rotate(-2deg); text-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b; }
-            100% { transform: scale(1.1) rotate(2deg); text-shadow: 0 0 20px #f59e0b, 0 0 40px #dc2626; }
-        }
+        
         .confetti-container {
             position: fixed;
             top: 0;
@@ -476,72 +891,6 @@
             pointer-events: none;
             z-index: 9998;
         }
-        .admin-reset-btn {
-            background: #dc2626; color: white; border: 1px solid #b91c1c;
-            padding: 0.4rem 1.2rem; border-radius: 1.2rem; font-size: 0.65rem;
-            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-            display: inline-flex; align-items: center; gap: 0.4rem;
-        }
-        .admin-reset-btn:hover { background: #b91c1c; transform: scale(1.02); }
-        body.dark .admin-reset-btn { background: #dc2626; color: white; border-color: #991b1b; }
-
-        /* ============================================================
-           HAND ANIMATION — reaches for trending card
-           ============================================================ */
-        .trending-hand {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.8rem;
-            opacity: 0.8;
-            animation: handReach 2.5s ease-in-out infinite;
-            pointer-events: none;
-            filter: drop-shadow(0 0 20px rgba(251,191,36,0.3));
-            transition: opacity 0.5s ease;
-            z-index: 2;
-        }
-        .trending-hand.hidden {
-            opacity: 0;
-            animation: none;
-        }
-        @keyframes handReach {
-            0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
-            30% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
-            50% { transform: translateY(-50%) translateX(-30px) scale(1.15) rotate(-8deg); }
-            70% { transform: translateY(-50%) translateX(-20px) scale(1.1) rotate(-5deg); }
-            90% { transform: translateY(-50%) translateX(0) scale(1); }
-        }
-        .trending-fire-border .trending-inner {
-            position: relative;
-            overflow: visible;
-        }
-        body.light .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.5)); }
-        body.dark .trending-hand { filter: drop-shadow(0 0 30px rgba(251,191,36,0.4)); }
-
-        /* ============================================================
-           RESET MODAL — OPTIONS
-           ============================================================ */
-        .reset-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            margin: 0.8rem 0;
-        }
-        .reset-option {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.6rem 1rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(212,175,55,0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .reset-option:hover { background: rgba(212,175,55,0.05); border-color: rgba(212,175,55,0.2); }
-        .reset-option input[type="radio"] { accent-color: #dc2626; width: 1.1rem; height: 1.1rem; cursor: pointer; }
-        .reset-option label { cursor: pointer; flex: 1; font-weight: 600; font-size: 0.9rem; }
-        .reset-option .desc { font-size: 0.65rem; opacity: 0.6; font-weight: 400; }
     </style>
 </head>
 <body class="light" id="app-body">
@@ -579,7 +928,7 @@
     </div>
 
     <!-- MAIN APP -->
-    <div id="main-content" class="hidden-content max-w-3xl mx-auto px-4 py-6 relative z-10">
+    <div id="main-content" class="hidden-content max-w-2xl mx-auto px-4 py-6 relative z-10">
 
         <div class="top-bar">
             <div class="flex items-center gap-3">
@@ -610,20 +959,24 @@
         <h1 class="header-3d">Basra Teaching Hospital</h1>
         <p class="text-center text-sm font-bold text-secondary/50 mb-4 tracking-wider">On-Call Residents · Duty Roster</p>
 
+        <div class="text-center mb-4">
+            <span id="current-time-display" class="current-time-display"></span>
+        </div>
+
         <p id="count-tag" class="counter-badge mt-2 mb-4 inline-block">
             <i class="fas fa-users mr-1"></i> جاري التحميل...
         </p>
 
-        <!-- TRENDING CARD with fire border + hand animation -->
+        <!-- TRENDING CARD -->
         <div id="trending-container" class="mb-4"></div>
 
-        <!-- ROSTER GRID with uniform spacing -->
+        <!-- ROSTER GRID - Vertical Layout -->
         <div id="roster-container" class="roster-grid"></div>
 
         <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
     </div>
 
-    <!-- LEADERBOARD MODAL — UPDATED STYLE -->
+    <!-- LEADERBOARD MODAL -->
     <div id="trending-modal" class="modal-overlay" onclick="if(event.target===this) closeTrendingModal()">
         <div class="modal-card glass-card">
             <div class="flex justify-between items-center mb-2">
@@ -678,12 +1031,33 @@
     <div id="confetti-container" class="confetti-container"></div>
 
     <script>
-        // ========== CONFIG ==========
-        const CONFIG = { user: "mHub96", repo: "BTH", path: "update/data.json" };
+        // ================================================================
+        // CONFIGURATION
+        // ================================================================
+        const CONFIG = {
+            user: "mHub96",
+            repo: "BTH",
+            path: "update/data.json"
+        };
         const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
         const GH_TOKEN = _p.join('');
 
-        // ========== DYNAMIC SPECIALTY MAPS ==========
+        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+        let fileSha = "";
+        let dataLoaded = false;
+        let userRole = null;
+        let clickCooldown = {};
+        const COOLDOWN_TIME = 30000;
+        const STORAGE_KEY = 'basra_roster_session';
+        let isAutoLoginAttempted = false;
+        let updateInterval = null;
+        let countdownInterval = null;
+        let currentLeaderboardFilter = 'today';
+        let trendingHandVisible = true;
+
+        // ================================================================
+        // DYNAMIC SPECIALTY MAPS
+        // ================================================================
         let specNames = {};
         let specIcons = {};
 
@@ -705,17 +1079,294 @@
             return specIcons[code] || "🏥";
         }
 
-        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
-        let fileSha = "";
-        let dataLoaded = false;
-        let userRole = null;
-        let clickCooldown = {};
-        const COOLDOWN_TIME = 30000;
-        const STORAGE_KEY = 'basra_roster_session';
-        let isAutoLoginAttempted = false;
-        let trendingHandVisible = true;
+        // ================================================================
+        // TIME UTILITIES
+        // ================================================================
+        const DAY_START = 8;
+        const TOTAL_MINUTES = 24 * 60;
 
-        // ========== THEME ==========
+        function minutesToTimeStr(minutes) {
+            const totalMinutes = minutes + (DAY_START * 60);
+            const hrs = Math.floor(totalMinutes / 60) % 24;
+            const mins = totalMinutes % 60;
+            const ampm = hrs >= 12 ? 'PM' : 'AM';
+            const h12 = hrs % 12 || 12;
+            return `${String(h12).padStart(2, '0')}:${String(mins).padStart(2, '0')}${ampm}`;
+        }
+
+        function timeStrToMinutes(str) {
+            const match = str.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (!match) return null;
+            let hrs = parseInt(match[1]);
+            const mins = parseInt(match[2]);
+            const ampm = match[3].toUpperCase();
+            if (ampm === 'PM' && hrs !== 12) hrs += 12;
+            if (ampm === 'AM' && hrs === 12) hrs = 0;
+            let total = hrs * 60 + mins;
+            if (total < DAY_START * 60) total += 24 * 60;
+            return total - (DAY_START * 60);
+        }
+
+        function parseDutyTime(dutyTimeStr) {
+            if (!dutyTimeStr) return null;
+            const parts = dutyTimeStr.split(' - ');
+            if (parts.length !== 2) return null;
+            const start = timeStrToMinutes(parts[0].trim());
+            const end = timeStrToMinutes(parts[1].trim());
+            if (start === null || end === null) return null;
+            return { start, end };
+        }
+
+        function getMedicalDate() {
+            const now = new Date();
+            if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+            return `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+        }
+
+        function getFormattedDate() {
+            const now = new Date();
+            return `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+        }
+
+        function getCurrentMinutes() {
+            const now = new Date();
+            let total = now.getHours() * 60 + now.getMinutes();
+            if (total < DAY_START * 60) total += 24 * 60;
+            return total - (DAY_START * 60);
+        }
+
+        function getCurrentTimeString() {
+            const now = new Date();
+            const hrs = now.getHours();
+            const mins = now.getMinutes();
+            const ampm = hrs >= 12 ? 'PM' : 'AM';
+            const h12 = hrs % 12 || 12;
+            return `${String(h12).padStart(2, '0')}:${String(mins).padStart(2, '0')} ${ampm}`;
+        }
+
+        // ================================================================
+        // GET CURRENT ON-DUTY RESIDENT FOR EACH SPECIALTY
+        // ================================================================
+        function getCurrentResidentForSpecialty(specCode) {
+            const targetDate = getMedicalDate();
+            const currentMin = getCurrentMinutes();
+            
+            const todayEntries = (db.schedule || []).filter(s => s.date === targetDate && s.specCode === specCode);
+            
+            if (todayEntries.length === 0) return null;
+
+            for (const entry of todayEntries) {
+                let dutyTime = entry.dutyTime;
+                let timeData = null;
+                
+                if (!dutyTime) {
+                    const entriesForDay = (db.schedule || []).filter(s => s.date === targetDate && s.specCode === specCode);
+                    if (entriesForDay.length === 1) {
+                        timeData = { start: 0, end: TOTAL_MINUTES };
+                    } else {
+                        const slotIdx = entry.dutySlot || 0;
+                        const numSlots = entriesForDay.length;
+                        const slotDuration = TOTAL_MINUTES / numSlots;
+                        timeData = {
+                            start: slotIdx * slotDuration,
+                            end: (slotIdx + 1) * slotDuration
+                        };
+                    }
+                } else {
+                    timeData = parseDutyTime(dutyTime);
+                }
+                
+                if (!timeData) continue;
+                
+                let start = timeData.start;
+                let end = timeData.end;
+                
+                if (end <= start) {
+                    if (currentMin >= start || currentMin < end) {
+                        return entry;
+                    }
+                } else {
+                    if (currentMin >= start && currentMin < end) {
+                        return entry;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // ================================================================
+        // GET ALL CURRENT RESIDENTS WITH MULTIPLE SPECIALTIES
+        // ================================================================
+        function getAllCurrentResidents() {
+            const resultMap = {};
+            
+            const allSpecs = new Set();
+            const today = getMedicalDate();
+            (db.schedule || []).forEach(s => {
+                if (s.date === today) {
+                    allSpecs.add(s.specCode);
+                }
+            });
+            
+            (db.specialties || []).forEach(spec => {
+                if (spec.enabled !== false) {
+                    const hasEntry = (db.schedule || []).some(s => s.specCode === spec.id && s.date === today);
+                    if (hasEntry) {
+                        allSpecs.add(spec.id);
+                    }
+                }
+            });
+            
+            for (const specCode of allSpecs) {
+                const resident = getCurrentResidentForSpecialty(specCode);
+                if (resident) {
+                    const key = resident.name;
+                    if (!resultMap[key]) {
+                        const phone = db.names.find(n => n.name === resident.name)?.phone || "رقم غير متوفر";
+                        
+                        let dutyTime = resident.dutyTime;
+                        let timeData = null;
+                        let startMin = 0;
+                        let endMin = TOTAL_MINUTES;
+                        
+                        if (!dutyTime) {
+                            const entriesForDay = (db.schedule || []).filter(s => s.date === today && s.specCode === specCode);
+                            if (entriesForDay.length === 1) {
+                                timeData = { start: 0, end: TOTAL_MINUTES };
+                            } else {
+                                const slotIdx = resident.dutySlot || 0;
+                                const numSlots = entriesForDay.length;
+                                const slotDuration = TOTAL_MINUTES / numSlots;
+                                timeData = {
+                                    start: slotIdx * slotDuration,
+                                    end: (slotIdx + 1) * slotDuration
+                                };
+                            }
+                        } else {
+                            timeData = parseDutyTime(dutyTime);
+                        }
+                        
+                        if (timeData) {
+                            startMin = timeData.start;
+                            endMin = timeData.end;
+                            if (endMin <= startMin) endMin = endMin + TOTAL_MINUTES;
+                        }
+                        
+                        const currentMin = getCurrentMinutes();
+                        let remainingMinutes = Math.max(0, endMin - currentMin);
+                        if (remainingMinutes > TOTAL_MINUTES) remainingMinutes = TOTAL_MINUTES;
+                        
+                        // Get visit count for today for this resident
+                        const visitEntries = (db.schedule || []).filter(s => s.date === today && s.name === resident.name);
+                        const totalVisits = visitEntries.reduce((sum, entry) => sum + (entry.VisitCount || 0), 0);
+                        
+                        resultMap[key] = {
+                            name: resident.name,
+                            phone: phone,
+                            specs: [],
+                            dutyTime: resident.dutyTime,
+                            startMin: startMin,
+                            endMin: endMin,
+                            remainingMinutes: remainingMinutes,
+                            isReserve: false,
+                            visitCount: totalVisits
+                        };
+                    }
+                    
+                    const specName = getSpecName(specCode);
+                    const icon = getSpecIcon(specCode);
+                    resultMap[key].specs.push({ code: specCode, name: specName, icon: icon });
+                }
+            }
+            
+            // Sort specs within each resident
+            for (const key in resultMap) {
+                resultMap[key].specs.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            
+            // Convert to array and sort by first spec name
+            const result = Object.values(resultMap);
+            result.sort((a, b) => {
+                const aSpec = a.specs[0]?.name || '';
+                const bSpec = b.specs[0]?.name || '';
+                return aSpec.localeCompare(bSpec);
+            });
+            
+            return result;
+        }
+
+        // ================================================================
+        // GET TRENDING RESIDENT FOR TODAY (most visits)
+        // ================================================================
+        function getTrendingResidentForToday() {
+            const targetDate = getMedicalDate();
+            const todayEntries = (db.schedule || []).filter(s => s.date === targetDate);
+            if (todayEntries.length === 0) return null;
+            
+            // Group by name and sum visit counts
+            const visitMap = {};
+            todayEntries.forEach(entry => {
+                const name = entry.name;
+                if (!visitMap[name]) visitMap[name] = 0;
+                visitMap[name] += (entry.VisitCount || 0);
+            });
+            
+            // Find the name with the highest visits
+            let maxVisits = 0;
+            let trendingName = null;
+            for (const [name, visits] of Object.entries(visitMap)) {
+                if (visits > maxVisits) {
+                    maxVisits = visits;
+                    trendingName = name;
+                }
+            }
+            
+            if (!trendingName || maxVisits === 0) return null;
+            
+            const resident = db.names.find(n => n.name === trendingName);
+            const specCode = todayEntries.find(e => e.name === trendingName)?.specCode || "NS";
+            const specName = getSpecName(specCode);
+            const icon = getSpecIcon(specCode);
+            return { 
+                name: trendingName, 
+                phone: resident?.phone || "رقم غير متوفر", 
+                specName, 
+                icon, 
+                VisitCount: maxVisits 
+            };
+        }
+
+        // ================================================================
+        // LEADERBOARD
+        // ================================================================
+        function getLeaderboardData(filter='today') {
+            let entries = db.schedule.filter(s => s.VisitCount && s.VisitCount > 0);
+            const now = new Date();
+            const todayStr = getMedicalDate();
+            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+            if (filter === 'today') entries = entries.filter(s => s.date === todayStr);
+            else if (filter === 'month') entries = entries.filter(s => { const parts=s.date.split('/'); return parts.length===3 && `${parts[1]}/${parts[2]}`===monthStr; });
+            const leaderboard = {};
+            entries.forEach(entry => {
+                if (!leaderboard[entry.name]) leaderboard[entry.name] = { name: entry.name, specCode: entry.specCode, totalVisits: 0, dates: [] };
+                leaderboard[entry.name].totalVisits += entry.VisitCount || 0;
+                leaderboard[entry.name].dates.push({ date: entry.date, visits: entry.VisitCount || 0 });
+            });
+            return Object.values(leaderboard).sort((a,b) => b.totalVisits - a.totalVisits);
+        }
+
+        function getSpecNameForLeaderboard(code) {
+            return specNames[code] || code;
+        }
+
+        function getSpecIconForLeaderboard(code) {
+            return specIcons[code] || "🏥";
+        }
+
+        // ================================================================
+        // THEME
+        // ================================================================
         function toggleTheme() {
             document.getElementById('app-body').classList.toggle('light');
             document.getElementById('app-body').classList.toggle('dark');
@@ -726,8 +1377,11 @@
             document.getElementById('app-body').classList.add('dark');
         }
 
-        // ========== TOAST ==========
+        // ================================================================
+        // TOAST
+        // ================================================================
         let toastTimeout = null;
+
         function showToast(message, type = 'info', duration = 3000) {
             if (toastTimeout) { clearTimeout(toastTimeout); document.getElementById('toast-container').querySelectorAll('.toast').forEach(t=>t.remove()); }
             const container = document.getElementById('toast-container');
@@ -740,7 +1394,9 @@
             toastTimeout = setTimeout(() => { toast.classList.remove('show'); setTimeout(()=>toast.remove(),500); toastTimeout=null; }, duration);
         }
 
-        // ========== SESSION ==========
+        // ================================================================
+        // SESSION
+        // ================================================================
         function saveSession() {
             if (document.getElementById('remember-me').checked) {
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
@@ -758,9 +1414,11 @@
             return session === 'authenticated';
         }
         function clearSession() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe'); localStorage.removeItem('rememberToken'); }
-        function logout() { clearSession(); userRole=null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('main-content').classList.add('hidden-content'); document.getElementById('password-input').value=''; document.getElementById('password-input').focus(); showToast('تم تسجيل الخروج','info'); }
+        function logout() { clearSession(); userRole=null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('main-content').classList.add('hidden-content'); document.getElementById('password-input').value=''; document.getElementById('password-input').focus(); showToast('تم تسجيل الخروج','info'); if(updateInterval){clearInterval(updateInterval);updateInterval=null;} if(countdownInterval){clearInterval(countdownInterval);countdownInterval=null;} }
 
-        // ========== LOGIN ==========
+        // ================================================================
+        // LOGIN
+        // ================================================================
         async function handleLogin() {
             const input = document.getElementById('password-input');
             const err = document.getElementById('lock-error');
@@ -777,7 +1435,6 @@
                     const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                     db = content;
                     dataLoaded = true;
-                    // Build specialty maps from data
                     buildSpecialtyMaps(db.specialties);
                     const userPass = content.passwords?.user || "12345";
                     const adminPass = content.passwords?.admin || "123";
@@ -806,10 +1463,14 @@
                 localStorage.setItem('rememberToken', btoa(document.getElementById('password-input').value));
             }
             renderRoster();
+            renderTrending();
+            startAutoUpdate();
             showToast('تم تسجيل الدخول بنجاح','success');
         }
 
-        // ========== AUTO LOGIN ==========
+        // ================================================================
+        // AUTO LOGIN
+        // ================================================================
         (function() {
             const token = localStorage.getItem('rememberToken');
             const rememberMe = localStorage.getItem('rememberMe');
@@ -841,6 +1502,8 @@
                     if (userRole === 'admin') resetBtn.classList.remove('hidden');
                     else resetBtn.classList.add('hidden');
                     renderRoster();
+                    renderTrending();
+                    startAutoUpdate();
                     showToast('تم تسجيل الدخول تلقائياً','success');
                     return;
                 }
@@ -849,7 +1512,400 @@
             document.getElementById('password-input').focus();
         }
 
-        // ========== RESET MODAL ==========
+        // ================================================================
+        // AUTO UPDATE
+        // ================================================================
+        function startAutoUpdate() {
+            if (updateInterval) clearInterval(updateInterval);
+            if (countdownInterval) clearInterval(countdownInterval);
+            
+            updateInterval = setInterval(() => {
+                renderRoster();
+                renderTrending();
+            }, 30000);
+            
+            countdownInterval = setInterval(() => {
+                updateCountdowns();
+            }, 1000);
+        }
+
+        // ================================================================
+        // UPDATE COUNTDOWNS
+        // ================================================================
+        function updateCountdowns() {
+            const currentMin = getCurrentMinutes();
+            const cards = document.querySelectorAll('.roster-card');
+            
+            cards.forEach(card => {
+                const timerEl = card.querySelector('.countdown-timer');
+                const endMin = parseInt(card.dataset.endMin || '0');
+                if (!timerEl || !endMin) return;
+                
+                let remaining = endMin - currentMin;
+                if (remaining < 0) remaining = 0;
+                if (remaining > TOTAL_MINUTES) remaining = TOTAL_MINUTES;
+                
+                const hours = Math.floor(remaining / 60);
+                const minutes = Math.floor(remaining % 60);
+                timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                
+                const isCrimson = remaining < 60 && remaining > 0;
+                const wrapper = card.closest('.roster-card-wrapper');
+                if (wrapper) {
+                    // Only toggle crimson, don't touch trending class
+                    wrapper.classList.toggle('crimson', isCrimson);
+                }
+                
+                if (remaining === 0) {
+                    setTimeout(() => { renderRoster(); renderTrending(); }, 2000);
+                }
+            });
+        }
+
+        // ================================================================
+        // TRACKING
+        // ================================================================
+        function trackContact(entryDate, residentName) {
+            const now = Date.now();
+            const key = `contact_${residentName}`;
+            if (clickCooldown[key] && (now - clickCooldown[key]) < COOLDOWN_TIME) {
+                showToast('⏳ تم تسجيل تفاعل مؤخراً، يرجى الانتظار','info');
+                return false;
+            }
+            const scheduleIndex = db.schedule.findIndex(s => s.date === entryDate && s.name === residentName);
+            if (scheduleIndex === -1) { showToast('❌ لم يتم العثور على المقيم في الجدول','error'); return false; }
+            if (!db.schedule[scheduleIndex].VisitCount) db.schedule[scheduleIndex].VisitCount = 0;
+            db.schedule[scheduleIndex].VisitCount += 1;
+            clickCooldown[key] = now;
+            showToast(`✅ تم تسجيل تفاعل مع ${residentName}`,'success');
+            saveToGithub();
+            renderTrending();
+            renderRoster();
+            return true;
+        }
+
+        // ================================================================
+        // SAVE TO GITHUB
+        // ================================================================
+        async function saveToGithub() {
+            try {
+                const body = {
+                    message: "Update visit counts",
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))))
+                };
+                if (fileSha) body.sha = fileSha;
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${GH_TOKEN}` },
+                    body: JSON.stringify(body)
+                });
+                if (res.ok) { const data = await res.json(); fileSha = data.content.sha; localStorage.setItem('duty_db_cache', JSON.stringify(db)); }
+            } catch(e) { console.error("Save error:", e); }
+        }
+
+        // ================================================================
+        // RENDER TRENDING CARD
+        // ================================================================
+        function renderTrending() {
+            const tc = document.getElementById('trending-container');
+            const trending = getTrendingResidentForToday();
+            const handHtml = `<span class="trending-hand ${!trendingHandVisible ? 'hidden' : ''}">👆</span>`;
+            
+            if (trending) {
+                tc.innerHTML = `
+                    <div class="trending-fire-border" onclick="handleTrendingClick()">
+                        <div class="trending-inner">
+                            ${handHtml}
+                            <div class="flex items-center gap-3">
+                                <span class="trending-fire-icon" onclick="event.stopPropagation(); showTrendingModal();">🔥</span>
+                                <span class="text-sm font-bold text-primary">Trending Today:</span>
+                                <span class="trending-badge text-sm px-3 py-1">
+                                    <i class="fas fa-star"></i> ${trending.name}
+                                </span>
+                                <span class="text-xs text-secondary">${trending.specName}</span>
+                            </div>
+                            <span class="text-sm font-bold text-amber-500">${trending.VisitCount || 0} interactions</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                tc.innerHTML = `
+                    <div class="glass-card p-3 text-center text-secondary/40 text-sm">
+                        <i class="fas fa-chart-line mr-1"></i> No trending resident yet. Interactions will appear here.
+                    </div>
+                `;
+            }
+        }
+
+        function handleTrendingClick() {
+            trendingHandVisible = false;
+            const hand = document.querySelector('.trending-hand');
+            if (hand) hand.classList.add('hidden');
+            triggerConfetti();
+        }
+
+        // ================================================================
+        // RENDER ROSTER - Complete design with badges inside card body
+        // ================================================================
+        function renderRoster() {
+            const container = document.getElementById('roster-container');
+            const currentTime = getCurrentTimeString();
+            document.getElementById('current-time-display').textContent = `⏰ الوقت الحالي: ${currentTime}`;
+
+            const currentResidents = getAllCurrentResidents();
+            const totalResidents = db.names.length;
+            const activeCount = db.names.filter(n => n.spec !== "RESERVE").length;
+            document.getElementById('count-tag').innerHTML = `<i class="fas fa-users mr-1"></i> ${totalResidents} مسجل · ${activeCount} نشط · ${currentResidents.length} في الخدمة`;
+
+            if (currentResidents.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-card p-8 text-center no-resident-card">
+                        <div class="icon">🕐</div>
+                        <div class="text-secondary/30 font-bold">لا يوجد مقيمين في الخدمة حالياً</div>
+                        <div class="text-secondary/20 text-sm mt-2">الوقت الحالي: ${currentTime}</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Get trending resident for today
+            const trending = getTrendingResidentForToday();
+            const trendingName = trending?.name || null;
+
+            container.innerHTML = currentResidents.map(resident => {
+                const isPhoneValid = resident.phone && resident.phone !== "رقم غير متوفر" && resident.phone.length > 5;
+                const phoneClean = isPhoneValid ? resident.phone.replace(/[^0-9]/g,'') : '';
+                const today = getMedicalDate();
+                const isCrimson = resident.remainingMinutes < 60 && resident.remainingMinutes > 0;
+                const isMultiple = resident.specs.length > 1;
+                const isTrending = resident.name === trendingName && resident.visitCount > 0;
+                
+                // Format time slot
+                let timeSlot = "طوال اليوم";
+                let dayIndicator = "";
+                if (resident.dutyTime) {
+                    const parsed = parseDutyTime(resident.dutyTime);
+                    if (parsed) {
+                        let start = parsed.start;
+                        let end = parsed.end;
+                        const isCrossDay = end <= start;
+                        if (isCrossDay) {
+                            end = end + TOTAL_MINUTES;
+                            dayIndicator = "(اليوم - الغد)";
+                        } else {
+                            dayIndicator = "";
+                        }
+                        timeSlot = `${minutesToTimeStr(start)} - ${minutesToTimeStr(end)}`;
+                    }
+                } else {
+                    const start = resident.startMin;
+                    const end = resident.endMin;
+                    if (end > start) {
+                        const isCrossDay = end > TOTAL_MINUTES;
+                        timeSlot = `${minutesToTimeStr(start)} - ${minutesToTimeStr(end)}`;
+                        dayIndicator = isCrossDay ? "(اليوم - الغد)" : "";
+                    }
+                }
+                
+                // Format remaining time
+                const hours = Math.floor(resident.remainingMinutes / 60);
+                const minutes = Math.floor(resident.remainingMinutes % 60);
+                const timerDisplay = resident.remainingMinutes > 0 
+                    ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+                    : '00:00';
+
+                // Generate specialty bubbles - LARGER
+                const specialtyBubbles = resident.specs.map(spec => {
+                    const bubbleClass = isMultiple ? 'specialty-bubble multiple' : 'specialty-bubble';
+                    return `<span class="${bubbleClass}">${spec.icon} ${spec.name}</span>`;
+                }).join('');
+
+                // Build status badge content (inside card body, top-left)
+                let statusBadgeHtml = '';
+                if (isTrending) {
+                    statusBadgeHtml = `<span class="status-badge"><span class="badge-trending"><i class="fas fa-fire"></i> Trending</span> <span class="badge-dot">·</span> <i class="fas fa-eye"></i> ${resident.visitCount}</span>`;
+                } else if (resident.visitCount > 0) {
+                    statusBadgeHtml = `<span class="status-badge"><i class="fas fa-eye"></i> ${resident.visitCount}</span>`;
+                } else {
+                    statusBadgeHtml = `<span class="status-badge" style="opacity:0.2;"><i class="fas fa-eye"></i> 0</span>`;
+                }
+
+                // Determine card wrapper classes
+                let wrapperClasses = 'roster-card-wrapper';
+                if (isTrending) wrapperClasses += ' trending';
+                if (isCrimson) wrapperClasses += ' crimson';
+
+                return `
+                    <div class="${wrapperClasses}">
+                        <div class="roster-card" data-end-min="${resident.endMin}"
+                             onmousemove="handleCardTilt(event, this)"
+                             onmouseleave="resetCardTilt(this)">
+                            
+                            <!-- TIMER RIBBON (Integrated inside card, top section) -->
+                            <div class="timer-ribbon">
+                                <span class="ribbon-label">الوقت المتبقي</span>
+                                <span class="countdown-timer">${timerDisplay}</span>
+                                <span class="timer-units">ساعات · دقائق</span>
+                            </div>
+                            
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <!-- STATUS BADGE (Inside card body, top-left) -->
+                                ${statusBadgeHtml}
+                                
+                                <!-- Specialty Bubbles (LARGER) -->
+                                <div class="specialty-bubbles">${specialtyBubbles}</div>
+                                
+                                <div class="resident-name">${resident.name}</div>
+                                
+                                <div class="resident-phone">${resident.phone}</div>
+                                
+                                <div class="divider"></div>
+                                
+                                <div class="duty-hours">
+                                    ${timeSlot}
+                                    <span class="day-indicator">${dayIndicator}</span>
+                                </div>
+                                
+                                <div class="card-actions">
+                                    <a href="${isPhoneValid ? 'whatsapp://send?phone='+phoneClean : '#'}" 
+                                       class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
+                                       onclick="${isPhoneValid ? `trackContact('${today}','${resident.name}'); event.preventDefault(); window.location.href=this.href;` : 'event.preventDefault();'}">
+                                        <i class="fab fa-whatsapp"></i>
+                                        WhatsApp
+                                    </a>
+                                    <a href="${isPhoneValid ? 'tel:'+phoneClean : '#'}" 
+                                       class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
+                                       onclick="${isPhoneValid ? `trackContact('${today}','${resident.name}');` : 'event.preventDefault();'}">
+                                        <i class="fas fa-phone"></i>
+                                        Call
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ================================================================
+        // 3D TILT EFFECT
+        // ================================================================
+        function handleCardTilt(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 16;
+            const rotateY = (centerX - x) / 16;
+            card.style.transform = `perspective(600px) translateY(-4px) scale(1.01) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        function resetCardTilt(card) {
+            card.style.transform = '';
+        }
+
+        // ================================================================
+        // LEADERBOARD MODAL
+        // ================================================================
+        function showTrendingModal() {
+            document.getElementById('trending-modal').classList.add('active');
+            switchLeaderboardFilter(currentLeaderboardFilter);
+        }
+
+        function closeTrendingModal() {
+            document.getElementById('trending-modal').classList.remove('active');
+        }
+
+        function switchLeaderboardFilter(filter) {
+            currentLeaderboardFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.filter === filter);
+            });
+            const content = document.getElementById('trending-content');
+            const leaderboard = getLeaderboardData(filter);
+            const topThree = leaderboard.slice(0,3);
+            const others = leaderboard.slice(3);
+            
+            if (leaderboard.length === 0) {
+                content.innerHTML = `<div class="text-center py-6 text-secondary/30"><div class="text-4xl mb-2">🏆</div><div>No interactions recorded yet.</div></div>`;
+                return;
+            }
+            
+            let html = '';
+            
+            if (topThree.length > 0) {
+                const maxVisits = topThree[0]?.totalVisits || 1;
+                const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
+                const medals = ['silver','gold','bronze'];
+                const medalIcons = ['🥈', '🥇', '🥉'];
+                
+                html += `
+                    <div class="step-chart-wrapper">
+                        <div class="step-chart-title">✦ TOP PERFORMERS ✦</div>
+                        <div class="step-chart">
+                `;
+                ordered.forEach((item, index) => {
+                    const maxHeight = 60;
+                    const ratio = item.totalVisits / maxVisits;
+                    const heightPx = Math.max(ratio * maxHeight, 4);
+                    const specName = getSpecNameForLeaderboard(item.specCode);
+                    const icon = getSpecIconForLeaderboard(item.specCode);
+                    html += `
+                        <div class="step-bar">
+                            <div class="bar-value">${item.totalVisits}</div>
+                            <div class="bar-wrap">
+                                <div class="bar ${medals[index]}" style="height: ${heightPx}px;"></div>
+                            </div>
+                            <div class="bar-label">${icon} ${item.name}</div>
+                            <div class="step-medal-icon">${medalIcons[index]}</div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+            }
+            
+            if (others.length > 0) {
+                html += `<div class="mt-2 space-y-1">`;
+                others.forEach((item, index) => {
+                    const specName = getSpecNameForLeaderboard(item.specCode);
+                    const icon = getSpecIconForLeaderboard(item.specCode);
+                    html += `<div class="medal-item"><span class="text-lg w-6">#${index+4}</span><div class="flex-1"><div class="font-bold text-primary text-sm">${icon} ${item.name}</div><div class="text-xs text-secondary">${specName}</div></div><div class="text-right"><div class="font-bold text-amber-500 text-sm">${item.totalVisits}</div></div></div>`;
+                });
+                html += `</div>`;
+            }
+            
+            const filterLabels = { 'today':'Today', 'month':'This Month', 'all':'All Time' };
+            html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
+            content.innerHTML = html;
+            
+            setTimeout(() => {
+                document.querySelectorAll('.step-bar .bar').forEach(bar => {
+                    void bar.offsetHeight;
+                });
+            }, 50);
+        }
+
+        // ================================================================
+        // CONFETTI
+        // ================================================================
+        function triggerConfetti() {
+            const count = 150;
+            const defaults = { origin: { y: 0.6 } };
+            function fire(particleRatio, opts) {
+                confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
+            }
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // ================================================================
+        // RESET MODAL
+        // ================================================================
         function showResetModal() {
             if (userRole !== 'admin') { showToast('غير مصرح لك بهذا الإجراء','error'); return; }
             document.getElementById('reset-modal').classList.add('active');
@@ -857,6 +1913,7 @@
         function closeResetModal() {
             document.getElementById('reset-modal').classList.remove('active');
         }
+
         function executeReset() {
             const selected = document.querySelector('input[name="reset-range"]:checked');
             if (!selected) { showToast('يرجى اختيار نطاق لإعادة الضبط','error'); return; }
@@ -884,275 +1941,64 @@
 
             saveToGithub().then(() => {
                 renderRoster();
+                renderTrending();
                 closeResetModal();
                 showToast(`✅ تم إعادة ضبط ${resetCount} إدخال${resetCount > 1 ? 'ات' : ''} بنجاح`, 'success');
             });
         }
 
-        // ========== TRACKING (unified cooldown per resident) ==========
-        function trackContact(entryDate, residentName) {
-            const now = Date.now();
-            const key = `contact_${residentName}`;
-            if (clickCooldown[key] && (now - clickCooldown[key]) < COOLDOWN_TIME) {
-                showToast('⏳ تم تسجيل تفاعل مؤخراً، يرجى الانتظار','info');
-                return false;
-            }
-            const scheduleIndex = db.schedule.findIndex(s => s.date === entryDate && s.name === residentName);
-            if (scheduleIndex === -1) { showToast('❌ لم يتم العثور على المقيم في الجدول','error'); return false; }
-            if (!db.schedule[scheduleIndex].VisitCount) db.schedule[scheduleIndex].VisitCount = 0;
-            db.schedule[scheduleIndex].VisitCount += 1;
-            clickCooldown[key] = now;
-            showToast(`✅ تم تسجيل تفاعل مع ${residentName}`,'success');
-            saveToGithub();
-            renderRoster();
-            return true;
-        }
-
-        // ========== SAVE TO GITHUB ==========
-        async function saveToGithub() {
-            try {
-                const body = {
-                    message: "Update visit counts",
-                    content: btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))))
-                };
-                if (fileSha) body.sha = fileSha;
-                const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                    method: "PUT",
-                    headers: { "Authorization": `token ${GH_TOKEN}` },
-                    body: JSON.stringify(body)
-                });
-                if (res.ok) { const data = await res.json(); fileSha = data.content.sha; localStorage.setItem('duty_db_cache', JSON.stringify(db)); }
-            } catch(e) { console.error("Save error:", e); }
-        }
-
-        // ========== GET TRENDING ==========
-        function getTrendingResident() {
-            const targetDate = getMedicalDate();
-            const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            if (todayEntries.length === 0) return null;
-            const sorted = [...todayEntries].sort((a,b) => (b.VisitCount||0) - (a.VisitCount||0));
-            const top = sorted[0];
-            if (!top.VisitCount || top.VisitCount === 0) return null;
-            const resident = db.names.find(n => n.name === top.name);
-            return { ...top, phone: resident?.phone || "رقم غير متوفر", specName: getSpecName(top.specCode), icon: getSpecIcon(top.specCode) };
-        }
-
-        // ========== LEADERBOARD ==========
-        function getLeaderboardData(filter='today') {
-            let entries = db.schedule.filter(s => s.VisitCount && s.VisitCount > 0);
-            const now = new Date();
-            const todayStr = getMedicalDate();
-            const monthStr = `${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
-            if (filter === 'today') entries = entries.filter(s => s.date === todayStr);
-            else if (filter === 'month') entries = entries.filter(s => { const parts=s.date.split('/'); return parts.length===3 && `${parts[1]}/${parts[2]}`===monthStr; });
-            const leaderboard = {};
-            entries.forEach(entry => {
-                if (!leaderboard[entry.name]) leaderboard[entry.name] = { name: entry.name, specCode: entry.specCode, totalVisits: 0, dates: [] };
-                leaderboard[entry.name].totalVisits += entry.VisitCount || 0;
-                leaderboard[entry.name].dates.push({ date: entry.date, visits: entry.VisitCount || 0 });
-            });
-            return Object.values(leaderboard).sort((a,b) => b.totalVisits - a.totalVisits);
-        }
-
-        // ========== RENDER ==========
-        function renderRoster() {
-            const container = document.getElementById('roster-container');
-            const targetDate = getMedicalDate();
-            const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            const totalResidents = db.names.length;
-            const activeCount = db.names.filter(n => n.spec !== "RESERVE").length;
-            document.getElementById('count-tag').innerHTML = `<i class="fas fa-users mr-1"></i> ${totalResidents} مسجل · ${activeCount} نشط · ${todayEntries.length} في الخدمة`;
-
-            // Trending card with fire border + hand
-            const trending = getTrendingResident();
-            const tc = document.getElementById('trending-container');
-            const handHtml = `<span class="trending-hand ${!trendingHandVisible ? 'hidden' : ''}">👆</span>`;
+        // ================================================================
+        // REPORT GENERATOR
+        // ================================================================
+        function generateAndCopyReport() {
+            const currentResidents = getAllCurrentResidents();
             
-            if (trending) {
-                tc.innerHTML = `
-                    <div class="trending-fire-border" onclick="handleTrendingClick()">
-                        <div class="trending-inner">
-                            ${handHtml}
-                            <div class="flex items-center gap-3">
-                                <span class="trending-fire-icon" onclick="event.stopPropagation(); showTrendingModal();">🔥</span>
-                                <span class="text-sm font-bold text-primary">Trending Today:</span>
-                                <span class="trending-badge text-sm px-3 py-1">
-                                    <i class="fas fa-star"></i> ${trending.name}
-                                </span>
-                                <span class="text-xs text-secondary">${trending.specName}</span>
-                            </div>
-                            <span class="text-sm font-bold text-amber-500">${trending.VisitCount || 0} interactions</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                tc.innerHTML = `
-                    <div class="glass-card p-4 text-center text-secondary/40 text-sm">
-                        <i class="fas fa-chart-line mr-1"></i> No trending resident yet. Interactions will appear here.
-                    </div>
-                `;
-            }
-
-            if (todayEntries.length === 0) {
-                container.innerHTML = `<div class="glass-card p-8 text-center"><div class="text-4xl mb-3 opacity-20">📭</div><div class="text-secondary/30 font-bold">لا يوجد مقيمين في الخدمة اليوم</div></div>`;
+            if (currentResidents.length === 0) {
+                showToast('لا يوجد مقيمين في الخدمة حالياً', 'error');
                 return;
             }
 
-            // ========== MERGE RESIDENTS WITH MULTIPLE SPECIALTIES ==========
-            const mergedMap = new Map();
-            
-            todayEntries.forEach(entry => {
-                if (mergedMap.has(entry.name)) {
-                    const existing = mergedMap.get(entry.name);
-                    existing.specCodes.push(entry.specCode);
-                    if ((entry.VisitCount || 0) > (existing.totalVisits || 0)) {
-                        existing.totalVisits = entry.VisitCount || 0;
-                    }
-                } else {
-                    mergedMap.set(entry.name, {
-                        name: entry.name,
-                        specCodes: [entry.specCode],
-                        totalVisits: entry.VisitCount || 0,
-                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
-                    });
-                }
-            });
-
-            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
-                a.specCodes[0].localeCompare(b.specCodes[0])
-            );
-
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            const trendingRes = getTrendingResident();
-            
-            container.innerHTML = mergedEntries.map(entry => {
-                const phone = entry.phone;
-                const isPhoneValid = phone && phone !== "رقم غير متوفر" && phone.length > 5;
-                const visitCount = entry.totalVisits || 0;
-                const isTrending = visitCount > 0 && trendingRes && trendingRes.name === entry.name;
-                const phoneClean = isPhoneValid ? phone.replace(/[^0-9]/g,'') : '';
-                const today = getMedicalDate();
-                const waHref = isPhoneValid ? `whatsapp://send?phone=${phoneClean}` : '#';
-                const isMultiple = entry.specCodes.length > 1;
-                
-                // Build specialty tags - each as a separate bubble using dynamic maps
-                const specTags = entry.specCodes.map((code) => {
-                    const specName = getSpecName(code);
-                    const icon = getSpecIcon(code);
-                    return `<span class="resident-spec ${isMultiple ? 'multiple' : ''}">${icon} ${specName}</span>`;
-                }).join(' ');
-                
-                // Use first specialty icon as main icon
-                const mainIcon = getSpecIcon(entry.specCodes[0]);
-                
-                return `
-                    <div class="roster-card" 
-                         onmousemove="handleCardTilt(event, this)"
-                         onmouseleave="resetCardTilt(this)">
-                        <div style="display:flex; gap:0.3rem; flex-wrap:wrap; justify-content:center; margin-bottom:0.1rem;">
-                            ${specTags}
-                        </div>
-                        <div class="resident-name"><span class="spec-icon">${mainIcon}</span> ${entry.name}</div>
-                        <div class="resident-phone">${phone}</div>
-                        <div class="card-actions">
-                            <a href="${isPhoneValid ? 'tel:'+phoneClean : '#'}" 
-                               class="action-btn-sm call ${!isPhoneValid ? 'opacity-40' : ''}"
-                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}');` : 'event.preventDefault();'}">
-                                <i class="fas fa-phone"></i> Call
-                            </a>
-                            <a href="${waHref}" 
-                               class="action-btn-sm wa ${!isPhoneValid ? 'opacity-40' : ''}"
-                               onclick="${isPhoneValid ? `trackContact('${today}','${entry.name}'); event.preventDefault(); window.location.href=this.href;` : 'event.preventDefault();'}">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
-                        </div>
-                        ${isTrending ? `<span class="trending-badge" style="position:absolute;top:8px;left:12px;font-size:0.5rem;"><i class="fas fa-fire"></i> Trending</span>` : ''}
-                        ${visitCount > 0 ? `<span style="position:absolute;bottom:8px;left:12px;font-size:0.6rem;opacity:0.4;">${visitCount} 👁️</span>` : ''}
-                        ${isMultiple ? `<span style="position:absolute;top:8px;right:12px;font-size:0.5rem;opacity:0.7;background:rgba(251,191,36,0.15);padding:0.1rem 0.5rem;border-radius:100px;border:1px solid rgba(251,191,36,0.1);">${entry.specCodes.length} تخصصات</span>` : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // ========== HANDLE TRENDING CLICK ==========
-        function handleTrendingClick() {
-            trendingHandVisible = false;
-            const hand = document.querySelector('.trending-hand');
-            if (hand) hand.classList.add('hidden');
-            triggerConfetti();
-        }
-
-        // ========== 3D TILT EFFECT ==========
-        function handleCardTilt(e, card) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 16;
-            const rotateY = (centerX - x) / 16;
-            card.style.transform = `perspective(600px) translateY(-6px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            card.style.setProperty('--mouse-x', (x / rect.width * 100) + '%');
-            card.style.setProperty('--mouse-y', (y / rect.height * 100) + '%');
-        }
-
-        function resetCardTilt(card) {
-            card.style.transform = '';
-        }
-
-        function getMedicalDate() {
-            const now = new Date();
-            if (now.getHours() < 8) now.setDate(now.getDate() - 1);
-            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
-        }
-        function getFormattedDate() {
-            const now = new Date();
-            return `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
-        }
-
-        // ========== REPORT GENERATOR — WITH MERGED SPECIALTIES ==========
-        function generateAndCopyReport() {
-            const targetDate = getMedicalDate();
-            const todayEntries = db.schedule.filter(s => s.date === targetDate);
-            if (todayEntries.length === 0) { 
-                showToast('لا يوجد مقيمين في الخدمة اليوم', 'error'); 
-                return; 
-            }
-            
-            const mergedMap = new Map();
-            todayEntries.forEach(entry => {
-                if (mergedMap.has(entry.name)) {
-                    const existing = mergedMap.get(entry.name);
-                    existing.specs.push(entry.specCode);
-                } else {
-                    mergedMap.set(entry.name, {
-                        name: entry.name,
-                        specs: [entry.specCode],
-                        phone: db.names.find(n => n.name === entry.name)?.phone || "رقم غير متوفر"
-                    });
-                }
-            });
-            
-            const mergedEntries = Array.from(mergedMap.values()).sort((a, b) => 
-                a.specs[0].localeCompare(b.specs[0])
-            );
-            
             const formattedDate = getFormattedDate();
             
-            let report = `🏥 *تبليغ خفراء اليوم*\n`;
+            let report = `🏥 *المقيمين في الخدمة*\n`;
             report += `📅 *${formattedDate}*\n`;
+            report += `⏰ *${getCurrentTimeString()}*\n`;
             report += `📍 مستشفى البصرة التعليمي — البصرة\n\n`;
-            report += `https://mhub96.github.io/BTH/Home\n\n`;
             
-            mergedEntries.forEach((entry) => {
-                const phone = entry.phone;
-                const specNames = entry.specs.map(code => getSpecName(code)).join(' + ');
+            currentResidents.forEach(res => {
+                const hours = Math.floor(res.remainingMinutes / 60);
+                const minutes = Math.floor(res.remainingMinutes % 60);
+                const timeLeft = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
                 
-                report += `*${specNames}*\n`;
-                report += `👨‍⚕️ *${entry.name}*\n`;
-                report += `☎️ _${phone}_\n`;
+                let timeSlot = "طوال اليوم";
+                let dayIndicator = "";
+                if (res.dutyTime) {
+                    const parsed = parseDutyTime(res.dutyTime);
+                    if (parsed) {
+                        let start = parsed.start;
+                        let end = parsed.end;
+                        const isCrossDay = end <= start;
+                        if (isCrossDay) {
+                            end = end + TOTAL_MINUTES;
+                            dayIndicator = "(اليوم - الغد)";
+                        }
+                        timeSlot = `${minutesToTimeStr(start)} - ${minutesToTimeStr(end)}`;
+                    }
+                }
+                
+                const specs = res.specs.map(s => `${s.icon} ${s.name}`).join(' + ');
+                const visitInfo = res.visitCount > 0 ? `👁️ ${res.visitCount} تفاعل` : '';
+                
+                report += `*${specs}*\n`;
+                report += `👨‍⚕️ *${res.name}*\n`;
+                report += `🕐 ${timeSlot} ${dayIndicator}\n`;
+                report += `⏳ الوقت المتبقي: *${timeLeft}*\n`;
+                if (visitInfo) report += `${visitInfo}\n`;
+                report += `☎️ _${res.phone}_\n`;
                 report += `┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
             });
+
+            report += `\nhttps://mhub96.github.io/BTH/Home`;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(report).then(() => {
@@ -1187,16 +2033,6 @@
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    const btn = document.getElementById('report-btn');
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Copied!';
-                    btn.style.borderColor = '#10b981';
-                    btn.style.color = '#10b981';
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.borderColor = '';
-                        btn.style.color = '';
-                    }, 3000);
                     showToast('تم نسخ التقرير إلى الحافظة', 'success');
                 } else {
                     showToast('فشل نسخ التقرير. حاول مرة أخرى.', 'error');
@@ -1207,95 +2043,9 @@
             document.body.removeChild(textArea);
         }
 
-        // ========== LEADERBOARD MODAL ==========
-        let currentFilter = 'today';
-        function showTrendingModal() {
-            document.getElementById('trending-modal').classList.add('active');
-            switchLeaderboardFilter(currentFilter);
-        }
-        function closeTrendingModal() { document.getElementById('trending-modal').classList.remove('active'); }
-        function switchLeaderboardFilter(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-tab').forEach(tab => { tab.classList.toggle('active', tab.dataset.filter === filter); });
-            const content = document.getElementById('trending-content');
-            const leaderboard = getLeaderboardData(filter);
-            const topThree = leaderboard.slice(0,3);
-            const others = leaderboard.slice(3);
-            
-            if (leaderboard.length === 0) {
-                content.innerHTML = `<div class="text-center py-6 text-secondary/30"><div class="text-4xl mb-2">🏆</div><div>No interactions recorded yet.</div></div>`;
-                return;
-            }
-            
-            let html = '';
-            
-            if (topThree.length > 0) {
-                const maxVisits = topThree[0]?.totalVisits || 1;
-                const ordered = [ topThree[1] || topThree[0], topThree[0], topThree[2] || topThree[0] ];
-                const medals = ['silver','gold','bronze'];
-                const medalIcons = ['🥈', '🥇', '🥉'];
-                
-                html += `
-                    <div class="step-chart-wrapper">
-                        <div class="step-chart-title">✦ TOP PERFORMERS ✦</div>
-                        <div class="step-chart">
-                `;
-                ordered.forEach((item, index) => {
-                    const maxHeight = 60;
-                    const ratio = item.totalVisits / maxVisits;
-                    const heightPx = Math.max(ratio * maxHeight, 4);
-                    const specName = getSpecName(item.specCode);
-                    const icon = getSpecIcon(item.specCode);
-                    html += `
-                        <div class="step-bar">
-                            <div class="bar-value">${item.totalVisits}</div>
-                            <div class="bar-wrap">
-                                <div class="bar ${medals[index]}" style="height: ${heightPx}px;"></div>
-                            </div>
-                            <div class="bar-label">${icon} ${item.name}</div>
-                            <div class="step-medal-icon">${medalIcons[index]}</div>
-                        </div>
-                    `;
-                });
-                html += `</div></div>`;
-            }
-            
-            if (others.length > 0) {
-                html += `<div class="mt-2 space-y-1">`;
-                others.forEach((item, index) => {
-                    const specName = getSpecName(item.specCode);
-                    const icon = getSpecIcon(item.specCode);
-                    html += `<div class="medal-item"><span class="text-lg w-6">#${index+4}</span><div class="flex-1"><div class="font-bold text-primary text-sm">${icon} ${item.name}</div><div class="text-xs text-secondary">${specName}</div></div><div class="text-right"><div class="font-bold text-amber-500 text-sm">${item.totalVisits}</div></div></div>`;
-                });
-                html += `</div>`;
-            }
-            
-            const filterLabels = { 'today':'Today', 'month':'This Month', 'all':'All Time' };
-            html += `<div class="mt-3 text-center text-[0.5rem] text-secondary/30 border-t border-white/5 pt-2">${leaderboard.length} residents · ${filterLabels[filter]||''}</div>`;
-            content.innerHTML = html;
-            
-            setTimeout(() => {
-                document.querySelectorAll('.step-bar .bar').forEach(bar => {
-                    void bar.offsetHeight;
-                });
-            }, 50);
-        }
-
-        // ========== CONFETTI ==========
-        function triggerConfetti() {
-            const count = 150;
-            const defaults = { origin: { y: 0.6 } };
-            function fire(particleRatio, opts) {
-                confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
-            }
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
-        }
-
-        // ========== INIT ==========
+        // ================================================================
+        // INIT
+        // ================================================================
         window.onload = async function() {
             if (checkSession()) {
                 const token = localStorage.getItem('rememberToken');
@@ -1323,7 +2073,11 @@
                 }
             }
             setTimeout(() => { const s=document.getElementById('shield'); if(s){s.style.opacity='0'; setTimeout(()=>s.remove(),500);} }, 800);
-            if (dataLoaded && document.getElementById('lock-screen').style.display === 'none') { renderRoster(); }
+            if (dataLoaded && document.getElementById('lock-screen').style.display === 'none') { 
+                renderRoster();
+                renderTrending();
+                startAutoUpdate();
+            }
         };
 
         document.addEventListener('keydown', function(e) {
@@ -1338,21 +2092,28 @@
             if (!this.checked) { localStorage.removeItem('rememberToken'); localStorage.removeItem('rememberMe'); }
         });
 
+        // ================================================================
+        // EXPOSE
+        // ================================================================
         window.logout = logout;
         window.generateAndCopyReport = generateAndCopyReport;
         window.toggleTheme = toggleTheme;
         window.showTrendingModal = showTrendingModal;
         window.closeTrendingModal = closeTrendingModal;
         window.switchLeaderboardFilter = switchLeaderboardFilter;
-        window.trackContact = trackContact;
         window.showResetModal = showResetModal;
         window.closeResetModal = closeResetModal;
         window.executeReset = executeReset;
-        window.triggerConfetti = triggerConfetti;
         window.handleLogin = handleLogin;
         window.handleCardTilt = handleCardTilt;
         window.resetCardTilt = resetCardTilt;
+        window.trackContact = trackContact;
+        window.renderRoster = renderRoster;
+        window.renderTrending = renderTrending;
+        window.showToast = showToast;
+        window.updateCountdowns = updateCountdowns;
         window.handleTrendingClick = handleTrendingClick;
+        window.triggerConfetti = triggerConfetti;
     </script>
 </body>
 </html>
