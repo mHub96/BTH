@@ -209,15 +209,6 @@
       "enabled": false
     },
     {
-      "id": "EM",
-      "name_ar": "طب الطوارئ",
-      "name_en": "Emergency Medicine",
-      "icon": "🏥",
-      "color": "#8cb3ed",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "NS",
       "name_ar": "جراحة الجملة العصبية",
       "name_en": "Neurosurgery",
@@ -225,6 +216,15 @@
       "color": "#fea101",
       "acceptPool": [],
       "enabled": true
+    },
+    {
+      "id": "EM",
+      "name_ar": "طب الطوارئ",
+      "name_en": "Emergency Medicine",
+      "icon": "🏥",
+      "color": "#8cb3ed",
+      "acceptPool": [],
+      "enabled": false
     },
     {
       "id": "FM",
