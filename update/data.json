@@ -84,22 +84,13 @@
       "enabled": true
     },
     {
-      "id": "NM",
-      "name_ar": "طب الجملة العصبية",
-      "name_en": "Neuromedicine",
-      "icon": "🧠",
-      "color": "#79e9f1",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "N",
       "name_ar": "طب امراض الكلى",
       "name_en": "Nephrology",
       "icon": "🧫",
       "color": "#ff5ccb",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "CT",
@@ -187,6 +178,15 @@
       "name_en": "Psychiatry",
       "icon": "🧠",
       "color": "#fef606",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "NM",
+      "name_ar": "طب الجملة العصبية",
+      "name_en": "Neuromedicine",
+      "icon": "🧠",
+      "color": "#79e9f1",
       "acceptPool": [],
       "enabled": false
     },
