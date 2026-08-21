@@ -199,15 +199,6 @@
       "enabled": false
     },
     {
-      "id": "ZZ",
-      "name_ar": "الجراحة الخارقة للطبيعة",
-      "name_en": "SUPERNATURAL SURGERY",
-      "icon": "😎",
-      "color": "#fbbf24",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "A",
       "name_ar": "التخدير و العناية المركزة",
       "name_en": "Anaethesia",
