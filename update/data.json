@@ -201,10 +201,10 @@
     },
     {
       "id": "Der",
-      "name_ar": "Der",
-      "name_en": "Der",
+      "name_ar": "الجلدية",
+      "name_en": "Dermatology",
       "icon": "🏥",
-      "color": "#10b981",
+      "color": "#e27ef6",
       "acceptPool": [],
       "enabled": true
     },
