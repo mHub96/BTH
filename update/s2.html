@@ -39,9 +39,6 @@
             overflow: hidden;
         }
 
-        /* ============================================================
-           NAVIGATION - FIXED TOP
-           ============================================================ */
         .nav-bar {
             position: fixed;
             top: 0;
@@ -173,9 +170,6 @@
             transform: scale(0.94);
         }
 
-        /* ============================================================
-           BOARD CONTAINER - FILLS SPACE BELOW NAV
-           ============================================================ */
         .board-container {
             position: fixed;
             top: var(--nav-h);
@@ -217,9 +211,6 @@
             border-radius: 20px;
         }
 
-        /* ============================================================
-           SPECIALTY TRACK CARD
-           ============================================================ */
         .specialty-track {
             flex: 0 0 auto;
             width: 340px;
@@ -444,16 +435,19 @@
         }
 
         .duty-slot .time-display.single-slot {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: rgba(212, 175, 55, 0.15);
+            background: rgba(212, 175, 55, 0.12);
+            border-color: rgba(212, 175, 55, 0.2);
             cursor: default;
-            opacity: 0.8;
+            opacity: 0.9;
             color: #fbbf24;
+            min-height: 36px;
+            justify-content: center;
+            align-items: center;
         }
 
         .duty-slot .time-display.single-slot:hover {
-            background: rgba(212, 175, 55, 0.1);
-            opacity: 0.8;
+            background: rgba(212, 175, 55, 0.12);
+            opacity: 0.9;
         }
 
         .duty-slot .time-display .time-start,
@@ -469,11 +463,12 @@
         }
 
         .duty-slot .time-display .single-slot-label {
-            font-size: 0.35rem;
-            opacity: 0.6;
+            font-size: 0.7rem;
+            font-weight: 800;
+            opacity: 1;
             display: block;
-            font-weight: 600;
             color: #fbbf24;
+            letter-spacing: 0.05em;
         }
 
         .duty-slot .input-wrapper {
@@ -704,9 +699,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           TIME PICKER POPUP - WITH AUTO-REDISTRIBUTE CHECKBOX
-           ============================================================ */
         .time-picker-popup {
             position: fixed;
             background: #1a2230;
@@ -717,7 +709,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(12px);
             display: none;
-            min-width: 210px;
+            min-width: 190px;
         }
 
         .time-picker-popup.active {
@@ -760,7 +752,6 @@
             gap: 0.3rem;
             margin-top: 0.4rem;
             justify-content: flex-end;
-            flex-wrap: wrap;
         }
 
         .time-picker-popup .picker-actions button {
@@ -784,43 +775,6 @@
             color: var(--text-secondary);
         }
 
-        /* --- Auto-Redistribute Checkbox --- */
-        .time-picker-popup .auto-redistribute-row {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            margin: 0.3rem 0 0.2rem;
-            padding: 0.2rem 0.3rem;
-            border-radius: 0.4rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .time-picker-popup .auto-redistribute-row input[type="checkbox"] {
-            width: 1rem;
-            height: 1rem;
-            accent-color: var(--spec-color, #60a5fa);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .time-picker-popup .auto-redistribute-row label {
-            font-size: 0.5rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .time-picker-popup .auto-redistribute-row .auto-hint {
-            font-size: 0.4rem;
-            opacity: 0.3;
-            margin-right: auto;
-        }
-
-        /* ============================================================
-           NAVIGATION ARROWS (Single View)
-           ============================================================ */
         .nav-arrows {
             display: none;
             position: fixed;
@@ -1038,7 +992,7 @@
                 font-size: 0.4rem;
             }
             .time-picker-popup {
-                min-width: 160px;
+                min-width: 150px;
                 padding: 0.5rem;
             }
             .time-picker-popup select {
@@ -1087,7 +1041,6 @@
 <body>
 
     <div id="app-wrapper">
-        <!-- ===== FIXED NAVIGATION ===== -->
         <div class="nav-bar">
             <div class="nav-brand">
                 <h1>Teaching Hosp.</h1>
@@ -1103,7 +1056,6 @@
             </div>
         </div>
 
-        <!-- ===== BOARD ===== -->
         <div class="board-container all-view" id="board">
             <button class="nav-arrows left" onclick="navigateTrack(-1)">‹</button>
             <button class="nav-arrows right" onclick="navigateTrack(1)">›</button>
@@ -1138,6 +1090,11 @@
         let touchStartX = 0;
         let touchStartY = 0;
         let isSwiping = false;
+
+        let pendingFocusDate = null;
+        let pendingFocusSpec = null;
+        let pendingFocusSlot = null;
+        let isRefreshing = false;
 
         // ================================================================
         // INIT
@@ -1494,37 +1451,61 @@
         }
 
         // ================================================================
-        // TIME REDISTRIBUTION FUNCTIONS
+        // EQUAL DIVISION OF TIME - REDISTRIBUTE EVERYTHING FROM SCRATCH
         // ================================================================
-        function calculateSlotTimes(numSlots, customOverrides = {}) {
+        function recalculateDaySlotTimes(date, specCode) {
+            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+            entries.sort((a, b) => (a.dutySlot || 0) - (b.dutySlot || 0));
+            entries.forEach((entry, idx) => { entry.dutySlot = idx; });
+
+            const numSlots = entries.length;
             if (numSlots === 0) return [];
-            if (numSlots === 1) return [{ start: 0, end: TOTAL_MINUTES }];
-            
+
+            // If only 1 slot: 24 hours
+            if (numSlots === 1) {
+                entries[0].dutyTime = '';
+                return [{ start: 0, end: TOTAL_MINUTES }];
+            }
+
+            // Divide equally among all slots
             const slotDuration = TOTAL_MINUTES / numSlots;
             const results = [];
-            
+
             for (let i = 0; i < numSlots; i++) {
-                let start = Math.round(i * slotDuration);
-                let end = Math.round((i + 1) * slotDuration);
-                const key = `slot_${i}`;
-                if (customOverrides[key]) {
-                    const custom = customOverrides[key];
-                    if (custom.start !== undefined && custom.end !== undefined) {
-                        let adjustedEnd = custom.end;
-                        if (custom.end <= custom.start) {
-                            adjustedEnd = custom.end + TOTAL_MINUTES;
-                        }
-                        if (custom.start >= 0 && custom.start < TOTAL_MINUTES && adjustedEnd > custom.start) {
-                            start = custom.start;
-                            end = adjustedEnd;
-                        }
-                    }
-                }
-                results.push({ start, end });
+                const start = Math.round(i * slotDuration);
+                const end = Math.round((i + 1) * slotDuration);
+                const timeData = { start, end };
+                results.push(timeData);
+                
+                // Apply to the entry
+                entries[i].dutyTime = formatDutyTime(start, end);
             }
+
             return results;
         }
 
+        function getDaySlots(date, specCode) {
+            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
+            return entries.map((entry, index) => {
+                let dutyTime = entry.dutyTime || null;
+                let timeData = null;
+                if (dutyTime) {
+                    timeData = parseDutyTime(dutyTime);
+                }
+                return {
+                    index,
+                    name: entry.name,
+                    dutyTime,
+                    timeData,
+                    visitCount: entry.VisitCount || 0,
+                    raw: entry
+                };
+            });
+        }
+
+        // ================================================================
+        // VALIDATE SLOT TIMES - DETECT GAPS
+        // ================================================================
         function validateSlotTimes(slots) {
             if (slots.length <= 1) return { valid: true, gaps: [], overlaps: false };
             
@@ -1549,101 +1530,6 @@
             }
             
             return { valid: gaps.length === 0, gaps, overlaps: false };
-        }
-
-        function autoCorrectSlotTimes(slots) {
-            if (slots.length <= 1) return [{ start: 0, end: TOTAL_MINUTES }];
-            const slotDuration = TOTAL_MINUTES / slots.length;
-            return slots.map((_, i) => ({
-                start: Math.round(i * slotDuration),
-                end: Math.round((i + 1) * slotDuration)
-            }));
-        }
-
-        function getDaySlots(date, specCode) {
-            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
-            return entries.map((entry, index) => {
-                let dutyTime = entry.dutyTime || null;
-                let timeData = null;
-                if (dutyTime) {
-                    timeData = parseDutyTime(dutyTime);
-                }
-                return {
-                    index,
-                    name: entry.name,
-                    dutyTime,
-                    timeData,
-                    visitCount: entry.VisitCount || 0,
-                    raw: entry
-                };
-            });
-        }
-
-        // ================================================================
-        // REDISTRIBUTE TIMES WITH AUTO-REDISTRIBUTE LOGIC
-        // ================================================================
-        function redistributeDayTimes(date, specCode, autoRedistribute = true) {
-            const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
-            entries.sort((a, b) => (a.dutySlot || 0) - (b.dutySlot || 0));
-            entries.forEach((entry, idx) => { entry.dutySlot = idx; });
-
-            const numSlots = entries.length;
-            if (numSlots === 0) return { times: [], hasGaps: false, gaps: [] };
-
-            if (numSlots === 1) {
-                entries[0].dutyTime = '';
-                return { times: [{ start: 0, end: TOTAL_MINUTES }], hasGaps: false, gaps: [] };
-            }
-
-            // Collect current time overrides
-            const timeOverrides = {};
-            let hasCustomTimes = false;
-            entries.forEach((entry, idx) => {
-                if (entry.dutyTime) {
-                    const parsed = parseDutyTime(entry.dutyTime);
-                    if (parsed) {
-                        timeOverrides[`slot_${idx}`] = parsed;
-                        hasCustomTimes = true;
-                    }
-                }
-            });
-
-            let calculatedTimes;
-
-            if (autoRedistribute) {
-                // Auto-redistribute: always recalculate from scratch with overrides
-                calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
-                
-                // Check if there are gaps after auto-redistribution
-                const validation = validateSlotTimes(calculatedTimes);
-                if (!validation.valid) {
-                    // If gaps exist, auto-correct them
-                    calculatedTimes = autoCorrectSlotTimes(calculatedTimes);
-                }
-            } else {
-                // Manual mode: keep existing times, just validate
-                if (hasCustomTimes) {
-                    calculatedTimes = calculateSlotTimes(numSlots, timeOverrides);
-                } else {
-                    // No custom times, calculate equal division
-                    calculatedTimes = calculateSlotTimes(numSlots, {});
-                }
-            }
-
-            // Apply calculated times
-            entries.forEach((entry, idx) => {
-                const timeData = calculatedTimes[idx] || { start: 0, end: TOTAL_MINUTES };
-                entry.dutyTime = formatDutyTime(timeData.start, timeData.end);
-            });
-
-            // Validate final times
-            const validation = validateSlotTimes(calculatedTimes);
-            return { 
-                times: calculatedTimes, 
-                hasGaps: !validation.valid, 
-                gaps: validation.gaps,
-                validation: validation
-            };
         }
 
         // ================================================================
@@ -1713,17 +1599,11 @@
                     const uid = `${String(d).padStart(2, '0')}-${spec.id}`;
                     const isWeekend = (dateObj.getDay() === 5 || dateObj.getDay() === 6);
                     
+                    // Recalculate times from scratch for this day
+                    const calculatedTimes = recalculateDaySlotTimes(dateFull, spec.id);
                     const entries = (db.schedule || []).filter(s => s.date === dateFull && s.specCode === spec.id);
-                    entries.sort((a, b) => (a.dutySlot || 0) - (b.dutySlot || 0));
-                    entries.forEach((entry, idx) => { entry.dutySlot = idx; });
                     const numSlots = entries.length;
                     const isSingleSlot = numSlots === 1;
-                    
-                    // Redistribute times with auto-redistribute default (true)
-                    const result = redistributeDayTimes(dateFull, spec.id, true);
-                    const calculatedTimes = result.times;
-                    const hasGaps = result.hasGaps;
-                    const gaps = result.gaps;
                     
                     html += `
                         <div class="day-box ${isWeekend ? 'weekend' : ''}" style="${isWeekend ? `border-left-color: ${specColor};` : ''}" data-day="${dateFull}" data-spec="${spec.id}">
@@ -1806,22 +1686,25 @@
                             `;
                         });
                         
-                        // Show gap warning if there are gaps
-                        if (hasGaps && gaps.length > 0) {
-                            const gapText = gaps.map(g => 
-                                `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
-                            ).join('، ');
-                            html += `
-                                <div class="slot-tip error" id="tip-${uid}">
-                                    ⚠️ يوجد فجوات في التوزيع: ${gapText}
-                                </div>
-                            `;
-                        } else if (numSlots > 1 && !hasGaps) {
-                            html += `
-                                <div class="slot-tip" id="tip-${uid}" style="color:#10b981; border-color:rgba(16,185,129,0.1); background:rgba(16,185,129,0.05);">
-                                    ✅ تم توزيع الوقت بالتساوي
-                                </div>
-                            `;
+                        // Check for gaps and show warning
+                        if (calculatedTimes && numSlots > 1) {
+                            const validation = validateSlotTimes(calculatedTimes);
+                            if (!validation.valid || validation.gaps.length > 0) {
+                                const gapText = validation.gaps.map(g => 
+                                    `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
+                                ).join('، ');
+                                html += `
+                                    <div class="slot-tip error" id="tip-${uid}">
+                                        ⚠️ يوجد فجوات في التوزيع: ${gapText}
+                                    </div>
+                                `;
+                            } else {
+                                html += `
+                                    <div class="slot-tip" id="tip-${uid}" style="color:#10b981; border-color:rgba(16,185,129,0.1); background:rgba(16,185,129,0.05);">
+                                        ✅ تم توزيع الوقت بالتساوي
+                                    </div>
+                                `;
+                            }
                         }
                     }
                     
@@ -1842,10 +1725,8 @@
         }
 
         // ================================================================
-        // TIME PICKER WITH AUTO-REDISTRIBUTE CHECKBOX
+        // TIME PICKER
         // ================================================================
-        let currentAutoRedistributeState = true; // Default: checked
-
         function openTimePicker(event, date, specCode, slotIndex) {
             event.stopPropagation();
             event.preventDefault();
@@ -1886,8 +1767,8 @@
             let left = rect.left + rect.width / 2 - 100;
             let top = rect.bottom + 8;
             if (left < 10) left = 10;
-            if (left + 210 > window.innerWidth) left = window.innerWidth - 220;
-            if (top + 240 > window.innerHeight) top = rect.top - 240;
+            if (left + 190 > window.innerWidth) left = window.innerWidth - 200;
+            if (top + 200 > window.innerHeight) top = rect.top - 200;
             
             popup.style.left = left + 'px';
             popup.style.top = top + 'px';
@@ -1921,36 +1802,19 @@
                         ).join('')}
                     </select>
                 </div>
-                <div class="auto-redistribute-row">
-                    <input type="checkbox" id="auto-redistribute-check" ${currentAutoRedistributeState ? 'checked' : ''}>
-                    <label for="auto-redistribute-check">إعادة توزيع تلقائي</label>
-                    <span class="auto-hint">(إعادة تقسيم الوقت على الآخرين)</span>
-                </div>
                 <div class="picker-actions">
                     <button class="btn-cancel" onclick="closeTimePicker()">إلغاء</button>
                     <button class="btn-confirm" onclick="confirmTimePicker(this.closest('.time-picker-popup'), '${date}', '${specCode}', ${slotIndex})">تأكيد</button>
                 </div>
             `;
             document.body.appendChild(popup);
-            
-            // Focus the checkbox
-            setTimeout(() => {
-                const checkbox = popup.querySelector('#auto-redistribute-check');
-                if (checkbox) checkbox.focus();
-            }, 50);
         }
 
         function confirmTimePicker(popup, date, specCode, slotIndex) {
             const startSelect = popup.querySelector('.picker-start');
             const endSelect = popup.querySelector('.picker-end');
-            const autoCheckbox = popup.querySelector('#auto-redistribute-check');
-            
             const startVal = parseFloat(startSelect.value);
             const endVal = parseFloat(endSelect.value);
-            const autoRedistribute = autoCheckbox ? autoCheckbox.checked : true;
-            
-            // Save the state for next time
-            currentAutoRedistributeState = autoRedistribute;
             
             if (startVal === endVal) {
                 showToast('❌ مدة الخفير لا يمكن أن تكون صفر', 'error', 2000);
@@ -1963,35 +1827,51 @@
                 return;
             }
             
-            // Apply the custom time to this slot
+            // Apply custom time to this slot
             const entry = entries[slotIndex];
             entry.dutyTime = formatDutyTime(startVal, endVal);
             
-            // Recalculate times with or without auto-redistribute
-            const result = redistributeDayTimes(date, specCode, autoRedistribute);
+            // Recalculate all times based on custom overrides
+            const timeOverrides = {};
+            entries.forEach((s, idx) => {
+                if (s.dutyTime) {
+                    const p = parseDutyTime(s.dutyTime);
+                    if (p) timeOverrides[`slot_${idx}`] = p;
+                }
+            });
+            
+            const numSlots = entries.length;
+            const slotDuration = TOTAL_MINUTES / numSlots;
+            const results = [];
+            
+            for (let i = 0; i < numSlots; i++) {
+                let start = Math.round(i * slotDuration);
+                let end = Math.round((i + 1) * slotDuration);
+                const key = `slot_${i}`;
+                if (timeOverrides[key]) {
+                    const custom = timeOverrides[key];
+                    let adjustedEnd = custom.end;
+                    if (custom.end <= custom.start) {
+                        adjustedEnd = custom.end + TOTAL_MINUTES;
+                    }
+                    if (custom.start >= 0 && custom.start < TOTAL_MINUTES && adjustedEnd > custom.start) {
+                        start = custom.start;
+                        end = adjustedEnd;
+                    }
+                }
+                results.push({ start, end });
+                entries[i].dutyTime = formatDutyTime(start, end);
+            }
             
             closeTimePicker();
             refreshView();
             
-            // Show result message
-            if (autoRedistribute) {
-                if (result.hasGaps && result.gaps.length > 0) {
-                    const gapText = result.gaps.map(g => 
-                        `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
-                    ).join(', ');
-                    showToast(`⚠️ فجوات: ${gapText}`, 'error', 3000);
-                } else {
-                    showToast('✅ تم تحديث الوقت وإعادة التوزيع', 'success', 1500);
-                }
+            // Check for gaps
+            const validation = validateSlotTimes(results);
+            if (!validation.valid || validation.gaps.length > 0) {
+                showToast(`⚠️ فجوات: ${validation.gaps.map(g => formatDutyTime(g.start, g.end)).join(', ')}`, 'error', 3000);
             } else {
-                if (result.hasGaps && result.gaps.length > 0) {
-                    const gapText = result.gaps.map(g => 
-                        `${minutesToTimeStr(g.start)} - ${minutesToTimeStr(g.end)}`
-                    ).join(', ');
-                    showToast(`⚠️ يوجد فجوات في التوزيع: ${gapText}`, 'error', 3000);
-                } else {
-                    showToast('✅ تم تحديث الوقت بدون فجوات', 'success', 1500);
-                }
+                showToast('✅ تم تحديث الوقت', 'success', 1500);
             }
         }
 
@@ -2002,6 +1882,7 @@
             const entries = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             const newIndex = entries.length;
             
+            // Create new entry with empty name - times will be recalculated
             const newEntry = {
                 date: date,
                 specCode: specCode,
@@ -2012,8 +1893,8 @@
             };
             db.schedule.push(newEntry);
             
-            // Redistribute times with auto-redistribute (default true)
-            redistributeDayTimes(date, specCode, true);
+            // Recalculate times from scratch for this day
+            recalculateDaySlotTimes(date, specCode);
             
             pendingFocusDate = date;
             pendingFocusSpec = specCode;
@@ -2041,11 +1922,12 @@
             const idx = db.schedule.indexOf(entryToRemove);
             if (idx !== -1) db.schedule.splice(idx, 1);
             
+            // Reassign duty slots
             const remaining = (db.schedule || []).filter(s => s.date === date && s.specCode === specCode);
             remaining.forEach((entry, idx) => { entry.dutySlot = idx; });
             
             if (remaining.length > 0) {
-                redistributeDayTimes(date, specCode, true);
+                recalculateDaySlotTimes(date, specCode);
             }
             
             refreshView();
@@ -2336,10 +2218,11 @@
                     dutySlot: slotIdx
                 };
                 db.schedule.push(newEntry);
-                redistributeDayTimes(date, specCode, true);
+                recalculateDaySlotTimes(date, specCode);
             } else {
                 entries[slotIdx].name = name;
-                redistributeDayTimes(date, specCode, true);
+                // Recalculate times to ensure proper distribution
+                recalculateDaySlotTimes(date, specCode);
             }
             
             input.classList.remove('invalid-name', 'new-entry');
@@ -2350,11 +2233,6 @@
         // ================================================================
         // REFRESH VIEW
         // ================================================================
-        let pendingFocusDate = null;
-        let pendingFocusSpec = null;
-        let pendingFocusSlot = null;
-        let isRefreshing = false;
-        
         function refreshView() {
             isRefreshing = true;
             generateBoard();
@@ -2488,7 +2366,6 @@
         window.handleBlur = handleBlur;
         window.closeAllMenus = closeAllMenus;
         window.showToast = showToast;
-        window.redistributeDayTimes = redistributeDayTimes;
     </script>
 </body>
 </html>
