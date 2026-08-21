@@ -1047,9 +1047,9 @@
     },
     {
       "name": "د. اياد يعرب",
-      "spec": "RESERVE",
       "phone": "+9647736024102",
-      "tag": "RESERVE",
+      "spec": "RESERVE",
+      "tag": "NS",
       "active": false
     },
     {
