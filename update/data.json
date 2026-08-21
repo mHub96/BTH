@@ -274,20 +274,20 @@
       "enabled": false
     },
     {
-      "id": "NS",
-      "name_ar": "جراحة الجملة العصبية",
-      "name_en": "Neurosurgery",
-      "icon": "🧠",
-      "color": "#fea101",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "RM",
       "name_ar": "طب الامراض التنفسية",
       "name_en": "Respiratory Medicine",
       "icon": "🫁",
       "color": "#3bb8f7",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "NS",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#fea101",
       "acceptPool": [],
       "enabled": false
     },
