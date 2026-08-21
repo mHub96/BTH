@@ -174,20 +174,20 @@
       "enabled": true
     },
     {
-      "id": "ZZ",
-      "name_ar": "الجراحة الخارقة للطبيعة",
-      "name_en": "SUPERNATURAL SURGERY",
-      "icon": "😎",
-      "color": "#fbbf24",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
       "id": "ON",
       "name_ar": "طب الاورام",
       "name_en": "Oncology",
       "icon": "☢️",
       "color": "#84cc16",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
+      "id": "ZZ",
+      "name_ar": "الجراحة الخارقة للطبيعة",
+      "name_en": "SUPERNATURAL SURGERY",
+      "icon": "😎",
+      "color": "#fbbf24",
       "acceptPool": [],
       "enabled": true
     },
