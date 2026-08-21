@@ -273,10 +273,10 @@
     },
     {
       "id": "RM",
-      "name_ar": "RM",
-      "name_en": "RM",
-      "icon": "🏥",
-      "color": "#10b981",
+      "name_ar": "طب الامراض التنفسية",
+      "name_en": "Respiratory Medicine",
+      "icon": "🫁",
+      "color": "#3bb8f7",
       "acceptPool": [],
       "enabled": true
     }
