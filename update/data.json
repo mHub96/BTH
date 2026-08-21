@@ -224,7 +224,7 @@
       "icon": "🏥",
       "color": "#f4f67e",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "GP",
@@ -233,7 +233,7 @@
       "icon": "🏥",
       "color": "#627ae4",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "H",
