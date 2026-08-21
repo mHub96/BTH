@@ -3977,12 +3977,6 @@
       "VisitCount": 1
     },
     {
-      "date": "21/08/2026",
-      "specCode": "D",
-      "name": "د. سجاد حسين",
-      "VisitCount": 2
-    },
-    {
       "date": "22/08/2026",
       "specCode": "D",
       "name": "د. نوره فالح",
@@ -4763,6 +4757,12 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "08:48"
+    },
+    {
+      "date": "21/08/2026",
+      "specCode": "D",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "10:52"
     }
   ],
   "passwords": {
