@@ -100,22 +100,14 @@
       "icon": "⚰️",
       "color": "#bababa",
       "acceptPool": [
+        "NS",
+        "CT",
         "GS",
         "US",
         "ENT",
         "OP",
         "ICU",
-        "G",
-        "R",
-        "GA",
-        "O",
-        "M",
-        "P",
-        "N",
-        "Pe",
-        "NM",
-        "MF",
-        "OR"
+        "G"
       ],
       "enabled": true
     },
