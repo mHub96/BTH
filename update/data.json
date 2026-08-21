@@ -75,15 +75,6 @@
       "enabled": false
     },
     {
-      "id": "N",
-      "name_ar": "طب امراض الكلى",
-      "name_en": "Nephrology",
-      "icon": "🧫",
-      "color": "#ff5ccb",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "CT",
       "name_ar": "جراحة الصدر و الاوعية الدموية",
       "name_en": "Cardiothoracic Surgery",
@@ -178,6 +169,15 @@
       "name_en": "Psychiatry",
       "icon": "🧠",
       "color": "#fef606",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "N",
+      "name_ar": "طب امراض الكلى",
+      "name_en": "Nephrology",
+      "icon": "🧫",
+      "color": "#ff5ccb",
       "acceptPool": [],
       "enabled": false
     },
