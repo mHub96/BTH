@@ -84,6 +84,15 @@
       "enabled": true
     },
     {
+      "id": "NS",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#fea101",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "GA",
       "name_ar": "تخدير صالة الولادة",
       "name_en": "GYN Anaesthesia",
@@ -134,15 +143,6 @@
       "name_en": "Gynecology",
       "icon": "🌸",
       "color": "#e40de7",
-      "acceptPool": [],
-      "enabled": true
-    },
-    {
-      "id": "NS",
-      "name_ar": "جراحة الجملة العصبية",
-      "name_en": "Neurosurgery",
-      "icon": "🧠",
-      "color": "#fea101",
       "acceptPool": [],
       "enabled": true
     },
