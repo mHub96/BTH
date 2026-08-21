@@ -121,6 +121,7 @@
         .lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; position: relative; z-index: 2; }
         .lock-card { border-radius: 2.5rem; padding: 2.5rem 2.2rem; width: 100%; max-width: 400px; box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
         .hidden-content { display: none; }
+        body.session-checking #lock-screen { visibility: hidden; }
         .phone-ltr { direction: ltr; unicode-bidi: plaintext; }
         .btn-save { transition: all 0.4s ease; min-width: 120px; }
         .btn-save.loading { background: #3b82f6 !important; color: white !important; cursor: wait; }
@@ -177,10 +178,34 @@
             border-radius: 0.8rem;
             border: 1px solid rgba(212,175,55,0.06);
             transition: all 0.3s ease;
-            cursor: pointer;
             flex-wrap: wrap;
         }
         .specialty-item:hover { background: rgba(212,175,55,0.04); border-color: rgba(212,175,55,0.12); }
+        .specialty-item.sorting-source { opacity: 0.35; }
+        .specialty-drag-handle {
+            width: 1.8rem;
+            height: 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 0.5rem;
+            background: rgba(128,128,128,0.08);
+            color: var(--text-secondary, #475569);
+            cursor: grab;
+            touch-action: none;
+            flex-shrink: 0;
+        }
+        .specialty-drag-handle:active { cursor: grabbing; }
+        .specialty-drag-handle i { font-size: 0.75rem; }
+        .specialty-drag-ghost {
+            position: fixed;
+            z-index: 2000;
+            pointer-events: none;
+            opacity: 0.94;
+            box-shadow: 0 18px 38px rgba(0,0,0,0.24);
+            transform: rotate(1deg) scale(1.02);
+        }
         .specialty-item .spec-icon { font-size: 1.2rem; width: 2rem; text-align: center; flex-shrink: 0; }
         .specialty-item .spec-id { font-weight: 700; font-size: 0.65rem; color: var(--text-secondary, #475569); min-width: 2rem; flex-shrink: 0; }
         .specialty-item .spec-name { flex: 1; font-weight: 600; font-size: 0.8rem; min-width: 60px; }
@@ -389,6 +414,19 @@
     </style>
 </head>
 <body class="light" id="app-body">
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.remove('light');
+                document.body.classList.add('dark');
+            }
+            const timestamp = Number(localStorage.getItem('admin_remember_timestamp'));
+            const hasRememberedSession = localStorage.getItem('admin_remember_enabled') === 'true' &&
+                localStorage.getItem('admin_remember_token') && timestamp &&
+                Date.now() - timestamp <= 7 * 24 * 60 * 60 * 1000;
+            if (hasRememberedSession) document.body.classList.add('session-checking');
+        })();
+    </script>
 
     <div id="toast-container"></div>
 
@@ -398,7 +436,7 @@
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <i class="fas fa-user-md text-3xl text-white"></i>
             </div>
-            <h2 class="text-2xl font-black text-primary mb-1">🔐 بوابة المقيمين</h2>
+            <h2 class="text-2xl font-black text-primary mb-1">🔐 <span data-hospital-name>Basra Teaching Hospital</span></h2>
             <p class="text-sm text-secondary mb-6">أدخل كلمة المرور للدخول</p>
             <div class="relative">
                 <input type="password" id="password-input" placeholder="•••••"
@@ -434,6 +472,11 @@
                 </p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
+                <div class="pl-3 border-l border-subtle">
+                    <button id="logout-btn" onclick="logout()" class="btn-ghost hidden items-center gap-2 px-3 py-1.5 text-xs text-red-600 dark:text-red-400" title="تسجيل الخروج" aria-label="تسجيل الخروج">
+                        <i class="fas fa-right-from-bracket"></i> خروج
+                    </button>
+                </div>
                 <div class="theme-toggle-wrap">
                     <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
                         <span class="icon-wrap">
@@ -448,6 +491,15 @@
                 </button>
                 <button id="admin-specialties-btn" onclick="toggleSpecialtiesPanel()" class="btn-ghost text-xs px-3 py-1.5 hidden items-center gap-1 border-blue-200 dark:border-blue-800/30 bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400">
                     <i class="fas fa-tags"></i> التخصصات
+                </button>
+                <button id="admin-import-btn" onclick="openImportModal()" class="btn-ghost text-xs px-3 py-1.5 hidden items-center gap-1 border-emerald-200 dark:border-emerald-800/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400">
+                    <i class="fas fa-file-import"></i> استيراد البيانات
+                </button>
+                <button id="admin-hospital-name-btn" onclick="openHospitalNameModal()" class="btn-ghost text-xs px-3 py-1.5 hidden items-center gap-1 border-violet-200 dark:border-violet-800/30 bg-violet-50 dark:bg-violet-950/20 text-violet-600 dark:text-violet-400">
+                    <i class="fas fa-hospital"></i> اسم المستشفى
+                </button>
+                <button onclick="toggleAddResidentPanel()" class="w-11 h-11 rounded-full bg-blue-600 dark:bg-amber-500 text-white dark:text-slate-950 flex items-center justify-center shadow-lg shadow-blue-500/25 dark:shadow-amber-500/20 transition-transform hover:scale-105 active:scale-95" title="إضافة مقيم" aria-label="إضافة مقيم">
+                    <i class="fas fa-plus text-base"></i>
                 </button>
                 <button id="main-save-btn" onclick="saveToGithub()" class="btn-ghost text-[10px] font-black uppercase flex items-center gap-2 px-4 py-2">
                     <i class="fas fa-cloud-upload-alt"></i> حفظ
@@ -487,10 +539,13 @@
         </div>
 
         <!-- Add Resident -->
-        <div class="glass-card p-6 mb-8">
-            <h3 class="text-sm font-bold text-primary mb-4 flex items-center gap-2">
-                <i class="fas fa-plus-circle text-blue-500 dark:text-amber-400"></i> إضافة مقيم جديد
-            </h3>
+        <div id="add-resident-panel" class="glass-card p-6 mb-8 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-sm font-bold text-primary flex items-center gap-2">
+                    <i class="fas fa-plus-circle text-blue-500 dark:text-amber-400"></i> إضافة مقيم جديد
+                </h3>
+                <button onclick="toggleAddResidentPanel(false)" class="text-secondary/50 hover:text-red-500 text-lg px-2" title="إغلاق" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            </div>
             <div class="flex flex-col gap-3">
                 <input type="text" id="new-name" placeholder="اسم المقيم" class="input-field">
                 <div class="grid grid-cols-2 gap-3">
@@ -521,9 +576,7 @@
         <div id="resident-list" class="space-y-1"></div>
 
         <!-- Footer -->
-        <div class="footer-credit text-secondary">
-            All rights reserved for Dr. Mohammed Riyadh
-        </div>
+        <div class="footer-credit text-secondary">All rights reserved for Dr. Mohammed Riyadh</div>
     </div>
 
     <!-- EDIT MODAL -->
@@ -589,6 +642,38 @@
         </div>
     </div>
 
+    <div id="import-modal" class="modal-overlay">
+        <div class="modal-card">
+            <h3 class="text-xl font-black text-primary mb-2 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-file-import text-emerald-500"></i> استيراد قاعدة البيانات
+            </h3>
+            <p class="text-xs text-secondary text-center mb-4">اختر دمج الأسماء فقط أو استبدال المقيمين والمناوبات. كلمات المرور وإعدادات التخصصات الحالية تبقى كما هي.</p>
+            <label class="text-xs font-bold text-secondary mb-1 block" for="import-file">ملف البيانات</label>
+            <input type="file" id="import-file" accept=".json,.txt,application/json,text/plain" onchange="loadImportFile(this)" class="input-field text-sm mb-3" />
+            <label class="text-xs font-bold text-secondary mb-1 block" for="import-data-text">محتوى البيانات</label>
+            <textarea id="import-data-text" class="input-field text-sm font-mono" rows="9" dir="ltr" placeholder='{"names": [], "schedule": [], "specialties": []}'></textarea>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                <button onclick="importDatabase('merge')" class="btn-gradient text-sm"><i class="fas fa-code-merge ml-1"></i> استيراد / دمج الأسماء</button>
+                <button onclick="importDatabase('replace')" class="btn-ghost border-red-200 dark:border-red-900/40 text-red-600 dark:text-red-400 text-sm"><i class="fas fa-arrows-rotate ml-1"></i> استبدال البيانات</button>
+            </div>
+            <button onclick="closeImportModal()" class="btn-ghost w-full mt-3 text-sm">إلغاء</button>
+        </div>
+    </div>
+
+    <div id="hospital-name-modal" class="modal-overlay">
+        <div class="modal-card" style="max-width:460px;">
+            <h3 class="text-xl font-black text-primary mb-2 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-hospital text-violet-500"></i> اسم المستشفى
+            </h3>
+            <p class="text-xs text-secondary text-center mb-4">سيظهر هذا الاسم في رؤوس صفحات النظام دون تغيير التصميم.</p>
+            <input type="text" id="hospital-name-input" class="input-field text-center" maxlength="100" placeholder="Hospital name" dir="auto" />
+            <div class="flex gap-3 mt-4">
+                <button onclick="saveHospitalName()" class="flex-1 btn-gradient"><i class="fas fa-check ml-1"></i> حفظ الاسم</button>
+                <button onclick="closeHospitalNameModal()" class="flex-1 btn-ghost">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ========== CONFIG ==========
         const CONFIG = { user: "mHub96", repo: "BTH", path: "update/data.json" };
@@ -596,13 +681,69 @@
         const GH_TOKEN = _p.join('');
 
         // ========== STATE ==========
-        let db = { specialties: [], names: [], schedule: [], passwords: {} };
+        const cachedHospitalName = localStorage.getItem('hospital_name_cache');
+        let db = { hospitalName: cachedHospitalName || 'Basra Teaching Hospital', specialties: [], names: [], schedule: [], passwords: {} };
         let fileSha = "";
         let currentEditIdx = null;
         let currentSpecialtyEditId = null;
         let isAdmin = false;
         let isDataLoaded = false;
         let isAutoLoginAttempted = false;
+        const REMEMBER_TOKEN_KEY = 'admin_remember_token';
+        const REMEMBER_ENABLED_KEY = 'admin_remember_enabled';
+        const REMEMBER_TIMESTAMP_KEY = 'admin_remember_timestamp';
+
+        function applyHospitalName() {
+            const hospitalName = String(db.hospitalName || 'Basra Teaching Hospital').trim() || 'Basra Teaching Hospital';
+            document.querySelectorAll('[data-hospital-name]').forEach(element => { element.textContent = hospitalName; });
+            localStorage.setItem('hospital_name_cache', hospitalName);
+            document.title = hospitalName + ' · نظام المقيمين';
+        }
+
+        applyHospitalName();
+
+        function saveRememberedLogin(password) {
+            if (document.getElementById('remember-me').checked && password) {
+                localStorage.setItem(REMEMBER_TOKEN_KEY, btoa(password));
+                localStorage.setItem(REMEMBER_ENABLED_KEY, 'true');
+                localStorage.setItem(REMEMBER_TIMESTAMP_KEY, Date.now().toString());
+            } else {
+                clearRememberedLogin();
+            }
+        }
+
+        function clearRememberedLogin() {
+            localStorage.removeItem(REMEMBER_TOKEN_KEY);
+            localStorage.removeItem(REMEMBER_ENABLED_KEY);
+            localStorage.removeItem(REMEMBER_TIMESTAMP_KEY);
+        }
+
+        function getRememberedAdminPassword() {
+            const token = localStorage.getItem(REMEMBER_TOKEN_KEY);
+            const enabled = localStorage.getItem(REMEMBER_ENABLED_KEY);
+            const timestamp = Number(localStorage.getItem(REMEMBER_TIMESTAMP_KEY));
+            const expired = !timestamp || Date.now() - timestamp > 7 * 24 * 60 * 60 * 1000;
+            if (!token || enabled !== 'true' || expired) {
+                if (expired) clearRememberedLogin();
+                return null;
+            }
+            try { return atob(token); } catch (error) { clearRememberedLogin(); return null; }
+        }
+
+        function logout() {
+            clearRememberedLogin();
+            isAdmin = false;
+            isDataLoaded = false;
+            const logoutButton = document.getElementById('logout-btn');
+            logoutButton.classList.add('hidden');
+            logoutButton.classList.remove('flex');
+            document.getElementById('lock-screen').style.display = 'flex';
+            document.getElementById('main-content').classList.add('hidden-content');
+            document.body.classList.remove('session-checking');
+            document.getElementById('password-input').value = '';
+            document.getElementById('password-input').focus();
+            showToast('تم تسجيل الخروج', 'info');
+        }
 
         // ========== TOAST SYSTEM ==========
         function showToast(message, type = 'info', duration = 3000) {
@@ -715,6 +856,8 @@
             }));
             db.schedule = content.schedule || [];
             db.passwords = content.passwords || {};
+            db.hospitalName = String(content.hospitalName || 'Basra Teaching Hospital').trim();
+            applyHospitalName();
             db.specialties = (content.specialties || []).map(s => ({
                 ...s,
                 enabled: s.enabled !== undefined ? s.enabled : true
@@ -722,20 +865,19 @@
 
             document.getElementById('lock-screen').style.display = 'none';
             document.getElementById('main-content').classList.remove('hidden-content');
+            document.body.classList.remove('session-checking');
 
             if (isAdmin) {
                 document.getElementById('admin-panel-btn').classList.remove('hidden');
                 document.getElementById('admin-specialties-btn').classList.remove('hidden');
+                document.getElementById('admin-import-btn').classList.remove('hidden');
+                document.getElementById('admin-hospital-name-btn').classList.remove('hidden');
             }
+            const logoutButton = document.getElementById('logout-btn');
+            logoutButton.classList.remove('hidden');
+            logoutButton.classList.add('flex');
 
-            if (document.getElementById('remember-me').checked) {
-                const pwd = document.getElementById('password-input').value;
-                localStorage.setItem('rememberToken', btoa(pwd));
-                localStorage.setItem('rememberMe', 'true');
-            } else {
-                localStorage.removeItem('rememberToken');
-                localStorage.removeItem('rememberMe');
-            }
+            saveRememberedLogin(document.getElementById('password-input').value);
 
             populateSpecialtySelects();
             renderSpecialties();
@@ -746,11 +888,10 @@
 
         // ========== AUTO-LOGIN ==========
         (function() {
-            const token = localStorage.getItem('rememberToken');
-            const rememberMe = localStorage.getItem('rememberMe');
-            if (token && rememberMe === 'true' && !isAutoLoginAttempted) {
+            const password = getRememberedAdminPassword();
+            if (password && !isAutoLoginAttempted) {
                 isAutoLoginAttempted = true;
-                try { const pwd = atob(token); performAutoLogin(pwd); } catch (e) { console.error("Auto-login error:", e); }
+                performAutoLogin(password);
             }
         })();
 
@@ -767,17 +908,22 @@
                     const adminPass = content.passwords?.admin || null;
                     if ((userPass && pwd === userPass) || (adminPass && pwd === adminPass)) {
                         isAdmin = (adminPass && pwd === adminPass);
+                        document.getElementById('password-input').value = pwd;
                         document.getElementById('lock-screen').style.display = 'none';
                         document.getElementById('main-content').classList.remove('hidden-content');
                         if (isAdmin) {
                             document.getElementById('admin-panel-btn').classList.remove('hidden');
                             document.getElementById('admin-specialties-btn').classList.remove('hidden');
+                            document.getElementById('admin-import-btn').classList.remove('hidden');
+                            document.getElementById('admin-hospital-name-btn').classList.remove('hidden');
                         }
                         loginSuccess(content);
                         return;
                     }
                 }
             } catch (e) { console.error("Auto-login load error:", e); }
+            clearRememberedLogin();
+            document.body.classList.remove('session-checking');
             document.getElementById('lock-screen').style.display = 'flex';
             document.getElementById('password-input').focus();
         }
@@ -946,12 +1092,13 @@
                 container.innerHTML = `<div class="text-center text-secondary/40 text-sm py-4">لا يوجد تخصصات. أضف تخصصاً جديداً.</div>`;
                 return;
             }
-            container.innerHTML = specialties.map(spec => {
+            container.innerHTML = specialties.map((spec, index) => {
                 const poolCount = (spec.acceptPool || []).length;
                 const color = spec.color || '#3b82f6';
                 const isEnabled = spec.enabled !== false;
                 return `
-                    <div class="specialty-item ${!isEnabled ? 'disabled-spec' : ''}">
+                    <div class="specialty-item ${!isEnabled ? 'disabled-spec' : ''}" data-spec-id="${spec.id}">
+                        <button class="specialty-drag-handle" type="button" aria-label="اسحب لترتيب التخصص" title="اسحب لترتيب التخصص"><i class="fas fa-grip-lines"></i></button>
                         <span class="spec-icon">${spec.icon || '🏥'}</span>
                         <span class="spec-id">${spec.id}</span>
                         <span class="spec-name">${spec.name_ar}</span>
@@ -974,6 +1121,82 @@
                     </div>
                 `;
             }).join('');
+            setupSpecialtyDragSorting();
+        }
+
+        function setupSpecialtyDragSorting() {
+            const container = document.getElementById('specialties-list');
+            if (!container) return;
+
+            container.querySelectorAll('.specialty-drag-handle').forEach(handle => {
+                handle.addEventListener('pointerdown', function(event) {
+                    if (!isAdmin || event.button !== 0) return;
+                    const source = handle.closest('.specialty-item');
+                    if (!source) return;
+
+                    event.preventDefault();
+                    const sourceId = source.dataset.specId;
+                    const originalOrder = Array.from(container.querySelectorAll('.specialty-item')).map(item => item.dataset.specId);
+                    const sourceRect = source.getBoundingClientRect();
+                    const ghost = source.cloneNode(true);
+                    ghost.classList.add('specialty-drag-ghost');
+                    ghost.style.width = sourceRect.width + 'px';
+                    ghost.style.left = sourceRect.left + 'px';
+                    ghost.style.top = sourceRect.top + 'px';
+                    document.body.appendChild(ghost);
+                    source.classList.add('sorting-source');
+
+                    function reorderWithAnimation(target, insertBefore) {
+                        const positions = new Map();
+                        container.querySelectorAll('.specialty-item').forEach(item => positions.set(item, item.getBoundingClientRect().top));
+                        container.insertBefore(source, insertBefore ? target : target.nextSibling);
+                        container.querySelectorAll('.specialty-item').forEach(item => {
+                            const previousTop = positions.get(item);
+                            const offset = previousTop === undefined ? 0 : previousTop - item.getBoundingClientRect().top;
+                            if (!offset) return;
+                            item.style.transition = 'none';
+                            item.style.transform = `translateY(${offset}px)`;
+                            requestAnimationFrame(() => {
+                                item.style.transition = 'transform 0.2s ease';
+                                item.style.transform = '';
+                            });
+                        });
+                    }
+
+                    function moveGhost(pointerEvent) {
+                        ghost.style.top = (pointerEvent.clientY - sourceRect.height / 2) + 'px';
+                        const target = document.elementFromPoint(pointerEvent.clientX, pointerEvent.clientY)?.closest('.specialty-item');
+                        if (!target || target === source || !container.contains(target)) return;
+
+                        const targetRect = target.getBoundingClientRect();
+                        if (pointerEvent.clientY < targetRect.top + targetRect.height / 2) {
+                            reorderWithAnimation(target, true);
+                        } else {
+                            reorderWithAnimation(target, false);
+                        }
+                    }
+
+                    function finishDrag() {
+                        document.removeEventListener('pointermove', moveGhost);
+                        document.removeEventListener('pointerup', finishDrag);
+                        document.removeEventListener('pointercancel', finishDrag);
+                        ghost.remove();
+                        source.classList.remove('sorting-source');
+
+                        const orderedIds = Array.from(container.querySelectorAll('.specialty-item')).map(item => item.dataset.specId);
+                        if (orderedIds.join('|') === originalOrder.join('|')) return;
+                        db.specialties = orderedIds.map(id => db.specialties.find(spec => spec.id === id)).filter(Boolean);
+                        populateSpecialtySelects();
+                        renderSpecialties();
+                        saveToGithub(false);
+                        showToast('تم تحديث ترتيب التخصصات', 'success', 1500);
+                    }
+
+                    document.addEventListener('pointermove', moveGhost);
+                    document.addEventListener('pointerup', finishDrag, { once: true });
+                    document.addEventListener('pointercancel', finishDrag, { once: true });
+                });
+            });
         }
 
         function openAddSpecialty() {
@@ -1044,7 +1267,7 @@
                 const isEnabled = spec.enabled !== false;
                 return `
                     <label class="pool-option ${isChecked ? 'selected' : ''}" style="${!isEnabled ? 'opacity:0.5;' : ''}">
-                        <input type="checkbox" value="${spec.id}" ${isChecked ? 'checked' : ''} ${!isEnabled ? 'disabled' : ''} />
+                        <input type="checkbox" value="${spec.id}" ${isChecked ? 'checked' : ''} />
                         <span class="spec-icon-small">${spec.icon || '🏥'}</span>
                         <span class="spec-label">${spec.name_ar}${!isEnabled ? ' 🔒' : ''}</span>
                     </label>
@@ -1149,12 +1372,229 @@
                 return;
             }
             db.passwords = { user: u, admin: a };
-            if (document.getElementById('remember-me').checked) {
-                localStorage.setItem('rememberToken', btoa(u));
-                localStorage.setItem('rememberMe', 'true');
-            }
+            clearRememberedLogin();
             saveToGithub(false);
-            showToast('تم تحديث كلمات المرور بنجاح', 'success');
+            showToast('تم تحديث كلمات المرور بنجاح. سجل الدخول مرة أخرى لتفعيل التذكر.', 'success');
+        }
+
+        function openHospitalNameModal() {
+            if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
+            const input = document.getElementById('hospital-name-input');
+            input.value = db.hospitalName || 'Basra Teaching Hospital';
+            document.getElementById('hospital-name-modal').classList.add('active');
+            input.focus();
+            input.select();
+        }
+
+        function closeHospitalNameModal() {
+            document.getElementById('hospital-name-modal').classList.remove('active');
+        }
+
+        function toggleAddResidentPanel(forceOpen) {
+            const panel = document.getElementById('add-resident-panel');
+            const shouldOpen = forceOpen === undefined ? panel.classList.contains('hidden') : forceOpen;
+            panel.classList.toggle('hidden', !shouldOpen);
+            if (shouldOpen) {
+                document.getElementById('new-name').focus();
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        async function saveHospitalName() {
+            if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
+            const hospitalName = document.getElementById('hospital-name-input').value.trim();
+            if (!hospitalName) {
+                showToast('الرجاء إدخال اسم المستشفى', 'error');
+                return;
+            }
+            db.hospitalName = hospitalName;
+            applyHospitalName();
+            closeHospitalNameModal();
+            await saveToGithub(false);
+            showToast('تم حفظ اسم المستشفى', 'success');
+        }
+
+        // ========== ADMIN DATA IMPORT ==========
+        function openImportModal() {
+            if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
+            document.getElementById('import-file').value = '';
+            document.getElementById('import-data-text').value = '';
+            document.getElementById('import-modal').classList.add('active');
+        }
+
+        function closeImportModal() {
+            document.getElementById('import-modal').classList.remove('active');
+        }
+
+        function loadImportFile(input) {
+            if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
+            const file = input.files && input.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('حجم الملف يجب أن لا يتجاوز 5MB', 'error');
+                input.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('import-data-text').value = reader.result;
+            };
+            reader.onerror = function() { showToast('تعذر قراءة الملف', 'error'); };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function normalizeImportedDatabase(data, mode) {
+            if (!data || typeof data !== 'object' || Array.isArray(data)) {
+                throw new Error('صيغة البيانات غير صالحة');
+            }
+            if (!Array.isArray(data.names)) {
+                throw new Error('يجب أن يحتوي الملف على names');
+            }
+            if (mode === 'replace' && !Array.isArray(data.schedule)) {
+                throw new Error('الاستبدال يتطلب حقل schedule أيضاً');
+            }
+
+            const names = data.names.map((item, index) => {
+                const name = String(item && (item.name || item[0]) || '').trim();
+                const spec = String(item && (item.spec || item[1]) || '').trim();
+                if (!name || !spec) throw new Error(`بيانات المقيم رقم ${index + 1} غير مكتملة`);
+                return {
+                    name,
+                    spec,
+                    phone: String(item && item.phone || ''),
+                    tag: String(item && item.tag || spec),
+                    active: item && item.active !== undefined ? Boolean(item.active) : spec !== 'RESERVE'
+                };
+            });
+
+            const schedule = (mode === 'replace' ? data.schedule : []).map((item, index) => {
+                const date = String(item && item.date || '').trim();
+                const specCode = String(item && item.specCode || '').trim();
+                const name = String(item && item.name || '').trim();
+                if (!date || !specCode || !name) throw new Error(`بيانات المناوبة رقم ${index + 1} غير مكتملة`);
+                return {
+                    date,
+                    specCode,
+                    name,
+                    VisitCount: Number.isFinite(Number(item && item.VisitCount)) ? Number(item.VisitCount) : 0,
+                    dutyTime: item && typeof item.dutyTime === 'string' ? item.dutyTime : '',
+                    dutySlot: Number.isInteger(Number(item && item.dutySlot)) ? Number(item.dutySlot) : null
+                };
+            });
+
+            const dutyGroups = {};
+            schedule.forEach(entry => {
+                const groupKey = entry.date + '|' + entry.specCode;
+                if (!dutyGroups[groupKey]) dutyGroups[groupKey] = [];
+                dutyGroups[groupKey].push(entry);
+            });
+            Object.values(dutyGroups).forEach(entries => {
+                if (entries.some(entry => entry.dutySlot === null)) {
+                    entries.forEach((entry, index) => { entry.dutySlot = index; });
+                }
+            });
+
+            const importedCodes = new Set();
+            names.forEach(resident => {
+                importedCodes.add(resident.spec);
+                importedCodes.add(resident.tag);
+            });
+            if (mode === 'replace') schedule.forEach(entry => importedCodes.add(entry.specCode));
+            const currentCodes = new Set((db.specialties || []).map(specialty => specialty.id));
+            const newSpecialtyCodes = Array.from(importedCodes)
+                .filter(code => code !== 'RESERVE' && !currentCodes.has(code))
+                .sort();
+
+            return { names, schedule, newSpecialtyCodes };
+        }
+
+        function createImportedSpecialty(code, index) {
+            const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#84cc16'];
+            return {
+                id: code,
+                name_ar: code,
+                name_en: code,
+                icon: '🏥',
+                color: colors[index % colors.length],
+                acceptPool: [],
+                enabled: true
+            };
+        }
+
+        function getComparablePhone(phone) {
+            return String(phone || '').replace(/\D/g, '').replace(/^964/, '');
+        }
+
+        function mergeImportedNames(importedNames) {
+            const existingNames = new Map();
+            const existingPhones = new Map();
+            db.names.forEach((resident, index) => {
+                const nameKey = String(resident.name || '').trim().toLocaleLowerCase();
+                const phoneKey = getComparablePhone(resident.phone);
+                if (nameKey) existingNames.set(nameKey, index);
+                if (phoneKey) existingPhones.set(phoneKey, index);
+            });
+
+            let updated = 0;
+            let added = 0;
+            importedNames.forEach(resident => {
+                const nameKey = resident.name.toLocaleLowerCase();
+                const phoneKey = getComparablePhone(resident.phone);
+                const existingIndex = existingNames.has(nameKey) ? existingNames.get(nameKey) : existingPhones.get(phoneKey);
+
+                if (existingIndex !== undefined) {
+                    db.names[existingIndex] = resident;
+                    existingNames.set(nameKey, existingIndex);
+                    if (phoneKey) existingPhones.set(phoneKey, existingIndex);
+                    updated++;
+                } else {
+                    db.names.push(resident);
+                    existingNames.set(nameKey, db.names.length - 1);
+                    if (phoneKey) existingPhones.set(phoneKey, db.names.length - 1);
+                    added++;
+                }
+            });
+            return { updated, added };
+        }
+
+        function importDatabase(mode) {
+            if (!isAdmin) { showToast('غير مصرح لك بهذا الإجراء', 'error'); return; }
+            if (mode !== 'merge' && mode !== 'replace') return;
+            const rawData = document.getElementById('import-data-text').value.trim();
+            if (!rawData) {
+                showToast('الصق البيانات أو اختر ملفاً أولاً', 'error');
+                return;
+            }
+
+            try {
+                const importedDb = normalizeImportedDatabase(JSON.parse(rawData), mode);
+                const specialtyNotice = importedDb.newSpecialtyCodes.length > 0
+                    ? `\nسيتم إنشاء التخصصات الجديدة التالية: ${importedDb.newSpecialtyCodes.join(', ')}\nيمكنك تعديل الاسم والرمز والرمز التعبيري واللون لاحقاً.`
+                    : '';
+                const confirmationText = mode === 'merge'
+                    ? `سيتم دمج ${importedDb.names.length} مقيم بالاعتماد على الاسم أو رقم الهاتف.\nلن يتم استيراد أو تعديل المناوبات الحالية.${specialtyNotice}\n\nمتابعة؟`
+                    : `سيتم حذف جميع المقيمين الحاليين والمناوبات الحالية، ثم استبدالها بـ ${importedDb.names.length} مقيم و ${importedDb.schedule.length} مناوبة.${specialtyNotice}\n\nمتابعة؟`;
+                if (!confirm(confirmationText)) return;
+
+                const mergeResult = mode === 'merge' ? mergeImportedNames(importedDb.names) : null;
+                if (mode === 'replace') {
+                    db.names = importedDb.names;
+                    db.schedule = importedDb.schedule;
+                }
+                importedDb.newSpecialtyCodes.forEach((code, index) => {
+                    db.specialties.push(createImportedSpecialty(code, index));
+                });
+                populateSpecialtySelects();
+                renderSpecialties();
+                renderResidents();
+                closeImportModal();
+                const resultMessage = mode === 'merge'
+                    ? `تم دمج الأسماء: ${mergeResult.updated} تحديث و ${mergeResult.added} إضافة. اضغط حفظ لنشر التغييرات.`
+                    : `تم استبدال البيانات بـ ${db.names.length} مقيم و ${db.schedule.length} مناوبة. اضغط حفظ لنشر التغييرات.`;
+                showToast(resultMessage, 'success', 5000);
+            } catch (error) {
+                showToast(error.message || 'تعذر قراءة بيانات JSON', 'error');
+            }
         }
 
         // ========== RENDER RESIDENTS ==========
@@ -1379,6 +1819,8 @@
             nameEl.value = "";
             phoneEl.value = "";
             specEl.value = "";
+            activeEl.checked = true;
+            toggleAddResidentPanel(false);
             renderResidents();
             await saveToGithub(false);
             showToast('تم إضافة المقيم بنجاح', 'success');
@@ -1434,6 +1876,12 @@
         document.getElementById('specialty-modal').addEventListener('click', function(e) {
             if (e.target === this) closeSpecialtyModal();
         });
+        document.getElementById('import-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeImportModal();
+        });
+        document.getElementById('hospital-name-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeHospitalNameModal();
+        });
 
         document.getElementById('new-name').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') addResident();
@@ -1441,13 +1889,11 @@
 
         document.getElementById('remember-me').addEventListener('change', function() {
             if (!this.checked) {
-                localStorage.removeItem('rememberToken');
-                localStorage.removeItem('rememberMe');
+                clearRememberedLogin();
             } else {
                 const pwd = document.getElementById('password-input').value;
                 if (pwd) {
-                    localStorage.setItem('rememberToken', btoa(pwd));
-                    localStorage.setItem('rememberMe', 'true');
+                    saveRememberedLogin(pwd);
                 }
             }
         });
@@ -1455,6 +1901,7 @@
         // ========== EXPOSE GLOBALLY ==========
         window.toggleTheme = toggleTheme;
         window.handleLogin = handleLogin;
+        window.logout = logout;
         window.toggleAdminPanel = toggleAdminPanel;
         window.toggleSpecialtiesPanel = toggleSpecialtiesPanel;
         window.openAddSpecialty = openAddSpecialty;
@@ -1463,6 +1910,14 @@
         window.deleteSpecialty = deleteSpecialty;
         window.closeSpecialtyModal = closeSpecialtyModal;
         window.savePasswords = savePasswords;
+        window.openHospitalNameModal = openHospitalNameModal;
+        window.closeHospitalNameModal = closeHospitalNameModal;
+        window.saveHospitalName = saveHospitalName;
+        window.toggleAddResidentPanel = toggleAddResidentPanel;
+        window.openImportModal = openImportModal;
+        window.closeImportModal = closeImportModal;
+        window.loadImportFile = loadImportFile;
+        window.importDatabase = importDatabase;
         window.addResident = addResident;
         window.openEdit = openEdit;
         window.saveEdit = saveEdit;
