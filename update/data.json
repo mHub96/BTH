@@ -654,10 +654,10 @@
       "active": true
     },
     {
-      "name": "د. عبدالحليم حسن موسى (ثوراسك)",
-      "spec": "RESERVE",
+      "name": "د. عبدالحليم حسن موسى",
       "phone": "+9647711207221",
-      "tag": "RESERVE",
+      "spec": "RESERVE",
+      "tag": "CT",
       "active": false
     },
     {
