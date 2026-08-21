@@ -38,6 +38,15 @@
       "enabled": true
     },
     {
+      "id": "ENT",
+      "name_ar": "الأذن و الأنف و الحنجرة",
+      "name_en": "ENT",
+      "icon": "👂",
+      "color": "#fbff00",
+      "acceptPool": [],
+      "enabled": true
+    },
+    {
       "id": "NS",
       "name_ar": "جراحة الجملة العصبية",
       "name_en": "Neurosurgery",
@@ -54,15 +63,6 @@
       "color": "#e05910",
       "acceptPool": [],
       "enabled": false
-    },
-    {
-      "id": "ENT",
-      "name_ar": "الأذن و الأنف و الحنجرة",
-      "name_en": "ENT",
-      "icon": "👂",
-      "color": "#fbff00",
-      "acceptPool": [],
-      "enabled": true
     },
     {
       "id": "OP",
