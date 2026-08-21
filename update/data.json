@@ -28,15 +28,6 @@
       "enabled": true
     },
     {
-      "id": "M",
-      "name_ar": "الباطنية",
-      "name_en": "Internal Medicine",
-      "icon": "💊",
-      "color": "#a1e972",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "ENT",
       "name_ar": "الأذن و الأنف و الحنجرة",
       "name_en": "ENT",
@@ -151,6 +142,15 @@
       "name_en": "Ophthalmology",
       "icon": "👁️",
       "color": "#38ffe8",
+      "acceptPool": [],
+      "enabled": false
+    },
+    {
+      "id": "M",
+      "name_ar": "الباطنية",
+      "name_en": "Internal Medicine",
+      "icon": "💊",
+      "color": "#a1e972",
       "acceptPool": [],
       "enabled": false
     },
