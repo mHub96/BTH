@@ -129,15 +129,6 @@
       "enabled": true
     },
     {
-      "id": "O",
-      "name_ar": "العيون",
-      "name_en": "Ophthalmology",
-      "icon": "👁️",
-      "color": "#38ffe8",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "CT",
       "name_ar": "جراحة الصدر و الاوعية الدموية",
       "name_en": "Cardiothoracic Surgery",
@@ -207,6 +198,15 @@
       "color": "#fbbf24",
       "acceptPool": [],
       "enabled": true
+    },
+    {
+      "id": "O",
+      "name_ar": "العيون",
+      "name_en": "Ophthalmology",
+      "icon": "👁️",
+      "color": "#38ffe8",
+      "acceptPool": [],
+      "enabled": false
     },
     {
       "id": "P",
