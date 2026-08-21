@@ -246,10 +246,10 @@
     },
     {
       "id": "NS",
-      "name_ar": "NS",
-      "name_en": "NS",
-      "icon": "🏥",
-      "color": "#ec4899",
+      "name_ar": "جراحة الجملة العصبية",
+      "name_en": "Neurosurgery",
+      "icon": "🧠",
+      "color": "#9a1cd4",
       "acceptPool": [],
       "enabled": true
     },
