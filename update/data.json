@@ -10,15 +10,6 @@
       "enabled": true
     },
     {
-      "id": "OR",
-      "name_ar": "الكسور",
-      "name_en": "Orthopaedics",
-      "icon": "🦴",
-      "color": "#ff0000",
-      "acceptPool": [],
-      "enabled": false
-    },
-    {
       "id": "GS",
       "name_ar": "الجراحة العامة",
       "name_en": "General Surgery",
@@ -62,6 +53,15 @@
       "color": "#d600af",
       "acceptPool": [],
       "enabled": true
+    },
+    {
+      "id": "OR",
+      "name_ar": "الكسور",
+      "name_en": "Orthopaedics",
+      "icon": "🦴",
+      "color": "#ff0000",
+      "acceptPool": [],
+      "enabled": false
     },
     {
       "id": "A",
