@@ -34,7 +34,7 @@
       "icon": "💊",
       "color": "#a1e972",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "ENT",
