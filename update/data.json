@@ -61,7 +61,7 @@
       "icon": "💉",
       "color": "#ff8e24",
       "acceptPool": [],
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "OP",
