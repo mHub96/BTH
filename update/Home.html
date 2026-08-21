@@ -39,6 +39,91 @@
             text-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         @media (min-width: 640px) { .header-3d { font-size: 2.8rem; } }
+
+        .hospital-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.55rem;
+            padding: 1.25rem 0 1.1rem;
+            margin: 0.3rem 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hospital-header::before {
+            content: '';
+            position: absolute;
+            right: 15%;
+            bottom: 0;
+            left: 15%;
+            height: 1px;
+            background: rgba(16,185,129,0.32);
+        }
+        .hospital-mark {
+            width: 5rem;
+            height: 5rem;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: #ffffff;
+            background: #0f766e;
+            box-shadow: 0 0 0 8px rgba(15,118,110,0.1), 0 12px 26px rgba(15,118,110,0.24);
+        }
+        .hospital-header-content { min-width: 0; }
+        .hospital-eyebrow {
+            color: #10b981;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .hospital-title {
+            margin: 0.3rem 0 0.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: 0;
+        }
+        body.light .hospital-title { color: #172554; }
+        body.dark .hospital-title { color: #f8fafc; }
+        .hospital-subtitle {
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        body.dark .hospital-subtitle { color: #a8b3c9; }
+        .hospital-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            width: min(100%, 29rem);
+            margin-top: 0.8rem;
+            padding: 0.5rem 0;
+        }
+        .hospital-meta .current-time-display {
+            margin: 0;
+            font-size: 0.66rem;
+            text-align: right;
+        }
+        .hospital-meta .counter-badge {
+            margin: 0;
+            font-size: 0.56rem;
+            white-space: nowrap;
+        }
+        @media (max-width: 430px) {
+            .hospital-header { padding: 1rem 0 0.9rem; }
+            .hospital-title { font-size: 2.25rem; }
+            .hospital-mark { width: 4rem; height: 4rem; font-size: 1.6rem; }
+            .hospital-meta { align-items: center; flex-direction: column; }
+        }
         
         .roster-grid {
             display: flex;
@@ -128,6 +213,12 @@
             background: rgba(220,38,38,0.1);
             border-bottom: 1px solid rgba(220,38,38,0.15);
         }
+        .roster-card-wrapper.trending.crimson .roster-card .timer-ribbon .countdown-timer {
+            color: #dc2626;
+            font-size: 1.6rem;
+            animation: timer-pulse 0.8s ease-in-out infinite;
+        }
+        .roster-card-wrapper.trending.crimson .roster-card .timer-ribbon .ribbon-label { color: #dc2626; opacity: 0.7; }
         
         /* --- Crimson Card (without trending) --- */
         .roster-card-wrapper.crimson:not(.trending) .roster-card {
@@ -152,21 +243,22 @@
             animation: timer-pulse 0.8s ease-in-out infinite;
         }
         .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon .ribbon-label { color: #dc2626; opacity: 0.7; }
-        .roster-card-wrapper.crimson:not(.trending) .roster-card .timer-ribbon .timer-units { color: #dc2626; opacity: 0.6; }
         
         /* --- TIMER RIBBON (Integrated inside card, top section) --- */
         .roster-card .timer-ribbon {
             width: 100%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
-            padding: 0.25rem 1rem;
+            gap: 0.1rem;
+            padding: 0.3rem 1rem;
             background: rgba(16,185,129,0.08);
             border-bottom: 1px solid rgba(16,185,129,0.1);
             min-height: 36px;
             flex-shrink: 0;
             border-radius: 1.5rem 1.5rem 0 0;
+            position: relative;
         }
         body.light .roster-card .timer-ribbon {
             background: rgba(16,185,129,0.06);
@@ -187,11 +279,41 @@
             letter-spacing: 0.05em;
             line-height: 1.2;
         }
-        .roster-card .timer-ribbon .timer-units {
-            font-size: 0.45rem;
-            font-weight: 600;
-            opacity: 0.4;
-            letter-spacing: 0.05em;
+        .roster-card .ribbon-status {
+            position: absolute;
+            top: 0.4rem;
+            left: 0.55rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            min-height: 1.25rem;
+            padding: 0.12rem 0.45rem;
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 100px;
+            background: rgba(16,185,129,0.1);
+            color: #10b981;
+            font-size: 0.58rem;
+            font-weight: 800;
+            line-height: 1;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(16,185,129,0.08);
+        }
+        .roster-card .ribbon-status i { font-size: 0.55rem; }
+        .roster-card .ribbon-status .ribbon-trending {
+            color: #fbbf24;
+            text-shadow: 0 0 12px rgba(251,191,36,0.35);
+        }
+        .roster-card .ribbon-status .ribbon-separator { opacity: 0.35; }
+        .roster-card .ribbon-status.muted { opacity: 0.35; }
+        .roster-card-wrapper.trending .roster-card .ribbon-status {
+            border-color: rgba(251,191,36,0.28);
+            background: rgba(251,191,36,0.1);
+            color: #fbbf24;
+        }
+        .roster-card-wrapper.crimson .roster-card .ribbon-status {
+            border-color: rgba(220,38,38,0.25);
+            background: rgba(220,38,38,0.1);
+            color: #dc2626;
         }
         
         /* --- Card Body --- */
@@ -205,51 +327,6 @@
             text-align: center;
             gap: 0.1rem;
             position: relative;
-        }
-        
-        /* --- STATUS BADGE (Inside card body, top-left) --- */
-        .roster-card .status-badge {
-            position: absolute;
-            top: 0.3rem;
-            left: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.2rem;
-            padding: 0.05rem 0.5rem;
-            border-radius: 100px;
-            font-size: 0.5rem;
-            font-weight: 700;
-            z-index: 10;
-            background: rgba(16,185,129,0.08);
-            border: 1px solid rgba(16,185,129,0.08);
-            color: #10b981;
-            backdrop-filter: blur(4px);
-            white-space: nowrap;
-            pointer-events: none;
-        }
-        .roster-card-wrapper.crimson .roster-card .status-badge {
-            background: rgba(220,38,38,0.08);
-            border-color: rgba(220,38,38,0.08);
-            color: #dc2626;
-        }
-        .roster-card-wrapper.trending .roster-card .status-badge {
-            background: rgba(251,191,36,0.08);
-            border-color: rgba(251,191,36,0.1);
-            color: #fbbf24;
-        }
-        .roster-card-wrapper.trending.crimson .roster-card .status-badge {
-            background: rgba(220,38,38,0.08);
-            border-color: rgba(220,38,38,0.08);
-            color: #dc2626;
-        }
-        .roster-card .status-badge i { font-size: 0.35rem; }
-        .roster-card .status-badge .badge-trending { 
-            color: #fbbf24 !important;
-            font-weight: 800;
-        }
-        .roster-card .status-badge .badge-dot { 
-            font-size: 0.2rem; 
-            opacity: 0.3; 
         }
         
         /* --- Specialty Bubbles (LARGER) --- */
@@ -296,6 +373,27 @@
             border-color: #f59e0b !important;
             box-shadow: 0 0 20px rgba(251,191,36,0.2);
         }
+        /* Earliest-ending specialty in a multi-specialty card: breathing glow around the bubble, not the bubble itself */
+        .roster-card .specialty-bubble-critical {
+            position: relative;
+            z-index: 1;
+        }
+        .roster-card .specialty-bubble-critical::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 100px;
+            z-index: -1;
+            pointer-events: none;
+            animation: bubble-critical-glow 1.8s ease-in-out infinite;
+        }
+        @keyframes bubble-critical-glow {
+            0%, 100% { box-shadow: 0 0 10px 3px rgba(220,38,38,0.2), 0 0 18px 6px rgba(220,38,38,0.08); }
+            50% { box-shadow: 0 0 18px 6px rgba(220,38,38,0.4), 0 0 30px 12px rgba(220,38,38,0.15); }
+        }
+        .roster-card .specialty-bubbles:has(.specialty-bubble-critical) {
+            margin-bottom: 1rem;
+        }
         
         /* --- Resident Name --- */
         .roster-card .resident-name {
@@ -332,21 +430,6 @@
             border-radius: 10px;
         }
         body.light .roster-card .divider { background: rgba(0,0,0,0.06); }
-        
-        /* --- Duty Hours Section --- */
-        .roster-card .duty-hours {
-            font-size: 0.7rem;
-            font-weight: 700;
-            opacity: 0.6;
-            margin: 0.05rem 0;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .roster-card .duty-hours .day-indicator {
-            font-size: 0.5rem;
-            font-weight: 600;
-            opacity: 0.4;
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-        }
         
         /* --- Action Buttons --- */
         .roster-card .card-actions {
@@ -897,7 +980,7 @@
 
     <div id="shield">
         <div class="shield-spinner"></div>
-        <span class="shield-text" style="color:rgba(212,175,55,0.06);font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;">Basra Teaching Hospital</span>
+        <span class="shield-text" data-hospital-name style="color:rgba(212,175,55,0.06);font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;">Basra Teaching Hospital</span>
     </div>
 
     <div id="toast-container"></div>
@@ -908,7 +991,7 @@
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <i class="fas fa-user-md text-3xl text-white"></i>
             </div>
-            <h2 class="text-2xl font-black text-primary mb-1">🔐 Basra Teaching Hospital</h2>
+            <h2 class="text-2xl font-black text-primary mb-1">🔐 <span data-hospital-name>Basra Teaching Hospital</span></h2>
             <p class="text-sm text-secondary mb-6">أدخل كلمة المرور للدخول</p>
             <div class="relative">
                 <input type="password" id="password-input" placeholder="•••••"
@@ -956,16 +1039,20 @@
             </div>
         </div>
 
-        <h1 class="header-3d">Basra Teaching Hospital</h1>
-        <p class="text-center text-sm font-bold text-secondary/50 mb-4 tracking-wider">On-Call Residents · Duty Roster</p>
-
-        <div class="text-center mb-4">
-            <span id="current-time-display" class="current-time-display"></span>
-        </div>
-
-        <p id="count-tag" class="counter-badge mt-2 mb-4 inline-block">
-            <i class="fas fa-users mr-1"></i> جاري التحميل...
-        </p>
+        <header class="hospital-header">
+            <div class="hospital-mark" aria-hidden="true"><i class="fas fa-hospital"></i></div>
+            <div class="hospital-header-content">
+                <div class="hospital-eyebrow">Basra · Iraq</div>
+                <h1 id="hospital-name" data-hospital-name class="hospital-title">Basra Teaching Hospital</h1>
+                <p class="hospital-subtitle">On-Call Residents · Duty Roster</p>
+            </div>
+            <div class="hospital-meta">
+                <span id="current-time-display" class="current-time-display"></span>
+                <p id="count-tag" class="counter-badge">
+                    <i class="fas fa-users mr-1"></i> جاري التحميل...
+                </p>
+            </div>
+        </header>
 
         <!-- TRENDING CARD -->
         <div id="trending-container" class="mb-4"></div>
@@ -1042,18 +1129,30 @@
         const _p = ["ghp_", "dAUtsFhTH", "a2KeJQO", "sxsCCt1v", "z8z1Z63Am", "sjS"];
         const GH_TOKEN = _p.join('');
 
-        let db = { names: [], schedule: [], passwords: {}, specialties: [] };
+        const cachedHospitalName = localStorage.getItem('hospital_name_cache');
+        let db = { hospitalName: cachedHospitalName || 'Basra Teaching Hospital', names: [], schedule: [], passwords: {}, specialties: [] };
         let fileSha = "";
         let dataLoaded = false;
         let userRole = null;
         let clickCooldown = {};
         const COOLDOWN_TIME = 30000;
         const STORAGE_KEY = 'basra_roster_session';
+        const REMEMBER_TOKEN_KEY = 'home_roster_remember_token';
+        const REMEMBER_ENABLED_KEY = 'home_roster_remember_enabled';
         let isAutoLoginAttempted = false;
         let updateInterval = null;
         let countdownInterval = null;
         let currentLeaderboardFilter = 'today';
         let trendingHandVisible = true;
+
+        function applyHospitalName() {
+            const hospitalName = String(db.hospitalName || 'Basra Teaching Hospital').trim() || 'Basra Teaching Hospital';
+            document.querySelectorAll('[data-hospital-name]').forEach(element => { element.textContent = hospitalName; });
+            localStorage.setItem('hospital_name_cache', hospitalName);
+            document.title = hospitalName + ' · Duty Roster 🇮🇶';
+        }
+
+        applyHospitalName();
 
         // ================================================================
         // DYNAMIC SPECIALTY MAPS
@@ -1222,61 +1321,72 @@
                 const resident = getCurrentResidentForSpecialty(specCode);
                 if (resident) {
                     const key = resident.name;
+
+                    let dutyTime = resident.dutyTime;
+                    let timeData = null;
+
+                    if (!dutyTime) {
+                        const entriesForDay = (db.schedule || []).filter(s => s.date === today && s.specCode === specCode);
+                        if (entriesForDay.length === 1) {
+                            timeData = { start: 0, end: TOTAL_MINUTES };
+                        } else {
+                            const slotIdx = resident.dutySlot || 0;
+                            const numSlots = entriesForDay.length;
+                            const slotDuration = TOTAL_MINUTES / numSlots;
+                            timeData = {
+                                start: slotIdx * slotDuration,
+                                end: (slotIdx + 1) * slotDuration
+                            };
+                        }
+                    } else {
+                        timeData = parseDutyTime(dutyTime);
+                    }
+
+                    let startMin = 0;
+                    let endMin = TOTAL_MINUTES;
+                    if (timeData) {
+                        startMin = timeData.start;
+                        endMin = timeData.end;
+                        if (endMin <= startMin) endMin = endMin + TOTAL_MINUTES;
+                    }
+
+                    const currentMin = getCurrentMinutes();
+                    let remainingMinutes = Math.max(0, endMin - currentMin);
+                    if (remainingMinutes > TOTAL_MINUTES) remainingMinutes = TOTAL_MINUTES;
+
                     if (!resultMap[key]) {
                         const phone = db.names.find(n => n.name === resident.name)?.phone || "رقم غير متوفر";
-                        
-                        let dutyTime = resident.dutyTime;
-                        let timeData = null;
-                        let startMin = 0;
-                        let endMin = TOTAL_MINUTES;
-                        
-                        if (!dutyTime) {
-                            const entriesForDay = (db.schedule || []).filter(s => s.date === today && s.specCode === specCode);
-                            if (entriesForDay.length === 1) {
-                                timeData = { start: 0, end: TOTAL_MINUTES };
-                            } else {
-                                const slotIdx = resident.dutySlot || 0;
-                                const numSlots = entriesForDay.length;
-                                const slotDuration = TOTAL_MINUTES / numSlots;
-                                timeData = {
-                                    start: slotIdx * slotDuration,
-                                    end: (slotIdx + 1) * slotDuration
-                                };
-                            }
-                        } else {
-                            timeData = parseDutyTime(dutyTime);
-                        }
-                        
-                        if (timeData) {
-                            startMin = timeData.start;
-                            endMin = timeData.end;
-                            if (endMin <= startMin) endMin = endMin + TOTAL_MINUTES;
-                        }
-                        
-                        const currentMin = getCurrentMinutes();
-                        let remainingMinutes = Math.max(0, endMin - currentMin);
-                        if (remainingMinutes > TOTAL_MINUTES) remainingMinutes = TOTAL_MINUTES;
-                        
+
                         // Get visit count for today for this resident
                         const visitEntries = (db.schedule || []).filter(s => s.date === today && s.name === resident.name);
                         const totalVisits = visitEntries.reduce((sum, entry) => sum + (entry.VisitCount || 0), 0);
-                        
+
                         resultMap[key] = {
                             name: resident.name,
                             phone: phone,
                             specs: [],
-                            dutyTime: resident.dutyTime,
+                            dutyTime: dutyTime,
                             startMin: startMin,
                             endMin: endMin,
                             remainingMinutes: remainingMinutes,
+                            criticalSpecCode: specCode,
                             isReserve: false,
                             visitCount: totalVisits
                         };
                     }
-                    
+
                     const specName = getSpecName(specCode);
                     const icon = getSpecIcon(specCode);
-                    resultMap[key].specs.push({ code: specCode, name: specName, icon: icon });
+                    resultMap[key].specs.push({ code: specCode, name: specName, icon: icon, endMin: endMin });
+
+                    // The specialty ending soonest drives the card's main timer
+                    if (endMin < resultMap[key].endMin) {
+                        resultMap[key].dutyTime = dutyTime;
+                        resultMap[key].startMin = startMin;
+                        resultMap[key].endMin = endMin;
+                        resultMap[key].remainingMinutes = remainingMinutes;
+                        resultMap[key].criticalSpecCode = specCode;
+                    }
                 }
             }
             
@@ -1401,9 +1511,9 @@
             if (document.getElementById('remember-me').checked) {
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
                 localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
-                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem(REMEMBER_ENABLED_KEY, 'true');
             } else {
-                localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe');
+                localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem(REMEMBER_ENABLED_KEY);
             }
         }
         function checkSession() {
@@ -1413,7 +1523,7 @@
             if (ts) { if ((Date.now()-parseInt(ts))/(1000*60*60*24) > 7) { clearSession(); return false; } }
             return session === 'authenticated';
         }
-        function clearSession() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem('rememberMe'); localStorage.removeItem('rememberToken'); }
+        function clearSession() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(STORAGE_KEY+'_timestamp'); localStorage.removeItem(REMEMBER_ENABLED_KEY); localStorage.removeItem(REMEMBER_TOKEN_KEY); }
         function logout() { clearSession(); userRole=null; document.getElementById('lock-screen').style.display='flex'; document.getElementById('main-content').classList.add('hidden-content'); document.getElementById('password-input').value=''; document.getElementById('password-input').focus(); showToast('تم تسجيل الخروج','info'); if(updateInterval){clearInterval(updateInterval);updateInterval=null;} if(countdownInterval){clearInterval(countdownInterval);countdownInterval=null;} }
 
         // ================================================================
@@ -1450,6 +1560,7 @@
 
         function loginSuccess(content) {
             db = content;
+            applyHospitalName();
             buildSpecialtyMaps(db.specialties);
             document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-content').classList.remove('hidden-content');
@@ -1459,8 +1570,8 @@
             if (document.getElementById('remember-me').checked) {
                 localStorage.setItem(STORAGE_KEY, 'authenticated');
                 localStorage.setItem(STORAGE_KEY+'_timestamp', Date.now().toString());
-                localStorage.setItem('rememberMe', 'true');
-                localStorage.setItem('rememberToken', btoa(document.getElementById('password-input').value));
+                localStorage.setItem(REMEMBER_ENABLED_KEY, 'true');
+                localStorage.setItem(REMEMBER_TOKEN_KEY, btoa(document.getElementById('password-input').value));
             }
             renderRoster();
             renderTrending();
@@ -1472,9 +1583,9 @@
         // AUTO LOGIN
         // ================================================================
         (function() {
-            const token = localStorage.getItem('rememberToken');
-            const rememberMe = localStorage.getItem('rememberMe');
-            if (token && rememberMe === 'true' && !isAutoLoginAttempted) {
+            const token = localStorage.getItem(REMEMBER_TOKEN_KEY);
+            const rememberMe = localStorage.getItem(REMEMBER_ENABLED_KEY);
+            if (checkSession() && token && rememberMe === 'true' && !isAutoLoginAttempted) {
                 isAutoLoginAttempted = true;
                 try { const pwd = atob(token); performAutoLogin(pwd); } catch(e) {}
             }
@@ -1679,34 +1790,7 @@
                 const isCrimson = resident.remainingMinutes < 60 && resident.remainingMinutes > 0;
                 const isMultiple = resident.specs.length > 1;
                 const isTrending = resident.name === trendingName && resident.visitCount > 0;
-                
-                // Format time slot
-                let timeSlot = "طوال اليوم";
-                let dayIndicator = "";
-                if (resident.dutyTime) {
-                    const parsed = parseDutyTime(resident.dutyTime);
-                    if (parsed) {
-                        let start = parsed.start;
-                        let end = parsed.end;
-                        const isCrossDay = end <= start;
-                        if (isCrossDay) {
-                            end = end + TOTAL_MINUTES;
-                            dayIndicator = "(اليوم - الغد)";
-                        } else {
-                            dayIndicator = "";
-                        }
-                        timeSlot = `${minutesToTimeStr(start)} - ${minutesToTimeStr(end)}`;
-                    }
-                } else {
-                    const start = resident.startMin;
-                    const end = resident.endMin;
-                    if (end > start) {
-                        const isCrossDay = end > TOTAL_MINUTES;
-                        timeSlot = `${minutesToTimeStr(start)} - ${minutesToTimeStr(end)}`;
-                        dayIndicator = isCrossDay ? "(اليوم - الغد)" : "";
-                    }
-                }
-                
+
                 // Format remaining time
                 const hours = Math.floor(resident.remainingMinutes / 60);
                 const minutes = Math.floor(resident.remainingMinutes % 60);
@@ -1714,20 +1798,21 @@
                     ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
                     : '00:00';
 
-                // Generate specialty bubbles - LARGER
+                // Generate specialty bubbles - LARGER. The earliest-ending specialty gets a breathing glow, multi-specialty cards only.
                 const specialtyBubbles = resident.specs.map(spec => {
-                    const bubbleClass = isMultiple ? 'specialty-bubble multiple' : 'specialty-bubble';
-                    return `<span class="${bubbleClass}">${spec.icon} ${spec.name}</span>`;
+                    const bubbleClasses = ['specialty-bubble'];
+                    if (isMultiple) bubbleClasses.push('multiple');
+                    if (isMultiple && spec.code === resident.criticalSpecCode) bubbleClasses.push('specialty-bubble-critical');
+                    return `<span class="${bubbleClasses.join(' ')}">${spec.icon} ${spec.name}</span>`;
                 }).join('');
 
-                // Build status badge content (inside card body, top-left)
-                let statusBadgeHtml = '';
+                let ribbonStatusHtml = '';
                 if (isTrending) {
-                    statusBadgeHtml = `<span class="status-badge"><span class="badge-trending"><i class="fas fa-fire"></i> Trending</span> <span class="badge-dot">·</span> <i class="fas fa-eye"></i> ${resident.visitCount}</span>`;
+                    ribbonStatusHtml = `<span class="ribbon-status"><span class="ribbon-trending"><i class="fas fa-fire"></i> Trending</span><span class="ribbon-separator">|</span><span><i class="fas fa-eye"></i> ${resident.visitCount}</span></span>`;
                 } else if (resident.visitCount > 0) {
-                    statusBadgeHtml = `<span class="status-badge"><i class="fas fa-eye"></i> ${resident.visitCount}</span>`;
+                    ribbonStatusHtml = `<span class="ribbon-status"><i class="fas fa-eye"></i><span>${resident.visitCount} visits</span></span>`;
                 } else {
-                    statusBadgeHtml = `<span class="status-badge" style="opacity:0.2;"><i class="fas fa-eye"></i> 0</span>`;
+                    ribbonStatusHtml = `<span class="ribbon-status muted"><i class="fas fa-eye"></i><span>No visits yet</span></span>`;
                 }
 
                 // Determine card wrapper classes
@@ -1743,16 +1828,13 @@
                             
                             <!-- TIMER RIBBON (Integrated inside card, top section) -->
                             <div class="timer-ribbon">
+                                ${ribbonStatusHtml}
                                 <span class="ribbon-label">الوقت المتبقي</span>
                                 <span class="countdown-timer">${timerDisplay}</span>
-                                <span class="timer-units">ساعات · دقائق</span>
                             </div>
                             
                             <!-- Card Body -->
                             <div class="card-body">
-                                <!-- STATUS BADGE (Inside card body, top-left) -->
-                                ${statusBadgeHtml}
-                                
                                 <!-- Specialty Bubbles (LARGER) -->
                                 <div class="specialty-bubbles">${specialtyBubbles}</div>
                                 
@@ -1761,11 +1843,6 @@
                                 <div class="resident-phone">${resident.phone}</div>
                                 
                                 <div class="divider"></div>
-                                
-                                <div class="duty-hours">
-                                    ${timeSlot}
-                                    <span class="day-indicator">${dayIndicator}</span>
-                                </div>
                                 
                                 <div class="card-actions">
                                     <a href="${isPhoneValid ? 'whatsapp://send?phone='+phoneClean : '#'}" 
@@ -2048,7 +2125,7 @@
         // ================================================================
         window.onload = async function() {
             if (checkSession()) {
-                const token = localStorage.getItem('rememberToken');
+                const token = localStorage.getItem(REMEMBER_TOKEN_KEY);
                 if (token) { try { const pwd = atob(token); await performAutoLogin(pwd); } catch(e) {} }
             }
             if (document.getElementById('lock-screen').style.display !== 'none') {
@@ -2064,12 +2141,13 @@
                         fileSha = data.sha;
                         const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g,'')))));
                         db = content; dataLoaded = true;
+                        applyHospitalName();
                         buildSpecialtyMaps(db.specialties);
                         localStorage.setItem('duty_db_cache', JSON.stringify(db));
                     }
                 } catch(e) {
                     const cached = localStorage.getItem('duty_db_cache');
-                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; buildSpecialtyMaps(db.specialties); } catch(e2) {}
+                    if (cached) try { db = JSON.parse(cached); dataLoaded = true; applyHospitalName(); buildSpecialtyMaps(db.specialties); } catch(e2) {}
                 }
             }
             setTimeout(() => { const s=document.getElementById('shield'); if(s){s.style.opacity='0'; setTimeout(()=>s.remove(),500);} }, 800);
@@ -2089,7 +2167,7 @@
         });
 
         document.getElementById('remember-me').addEventListener('change', function() {
-            if (!this.checked) { localStorage.removeItem('rememberToken'); localStorage.removeItem('rememberMe'); }
+            if (!this.checked) { localStorage.removeItem(REMEMBER_TOKEN_KEY); localStorage.removeItem(REMEMBER_ENABLED_KEY); }
         });
 
         // ================================================================
