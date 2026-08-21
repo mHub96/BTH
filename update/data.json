@@ -275,9 +275,9 @@
     },
     {
       "id": "AO",
-      "name_ar": "AO",
-      "name_en": "AO",
-      "icon": "🏥",
+      "name_ar": "المعاون الاداري",
+      "name_en": "Administrative Officer",
+      "icon": "🧑",
       "color": "#2563eb",
       "acceptPool": [],
       "enabled": true
