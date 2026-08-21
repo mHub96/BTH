@@ -228,10 +228,10 @@
     },
     {
       "id": "GP",
-      "name_ar": "GP",
-      "name_en": "GP",
+      "name_ar": "ممارسين",
+      "name_en": "General Practitioner",
       "icon": "🏥",
-      "color": "#8b5cf6",
+      "color": "#627ae4",
       "acceptPool": [],
       "enabled": true
     },
