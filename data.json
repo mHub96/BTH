@@ -5760,15 +5760,6 @@
       "dutyTime": "08:00AM - 08:00PM"
     },
     {
-      "date": "22/08/2026",
-      "specCode": "OR",
-      "name": "د. علي مطشر ابو كحيله",
-      "timestamp": "08:52",
-      "VisitCount": 4,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "13/08/2026",
       "specCode": "D",
       "name": "",
@@ -5980,6 +5971,13 @@
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
       "timestamp": "12:58",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "OR",
+      "name": "د. حسين احمد القيسي",
+      "timestamp": "20:06",
       "VisitCount": 0
     }
   ],
