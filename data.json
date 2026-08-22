@@ -5188,14 +5188,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/08/2026",
-      "specCode": "AO",
-      "name": "منير تعبان",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "23/08/2026",
       "specCode": "AO",
       "name": "ثائر رزاق",
@@ -5983,6 +5975,13 @@
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "AO",
+      "name": "محمد رحيم",
+      "timestamp": "12:33",
+      "VisitCount": 0
     }
   ],
   "passwords": {
