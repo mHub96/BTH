@@ -5725,15 +5725,6 @@
       "dutyTime": ""
     },
     {
-      "date": "22/08/2026",
-      "specCode": "G",
-      "name": "د. زينب حاكم فيصل",
-      "timestamp": "08:10",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "13/08/2026",
       "specCode": "D",
       "name": "",
@@ -5957,6 +5948,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "20:25",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "G",
+      "name": "د. سراء ياسين ساري",
+      "timestamp": "21:11",
       "VisitCount": 0
     }
   ],
