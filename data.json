@@ -3068,14 +3068,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/08/2026",
-      "specCode": "O",
-      "name": "د. الزهراء حسام",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "23/08/2026",
       "specCode": "O",
       "name": "د. غفران علي صبري",
@@ -5776,6 +5768,13 @@
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
       "timestamp": "06:55",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "O",
+      "name": "د. غفران علي صبري",
+      "timestamp": "08:06",
       "VisitCount": 0
     }
   ],
