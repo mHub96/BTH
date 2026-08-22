@@ -3740,14 +3740,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/08/2026",
-      "specCode": "M",
-      "name": "د. نوره فالح",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "23/08/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
@@ -5782,6 +5774,13 @@
       "specCode": "G",
       "name": "د. زينب حاكم فيصل",
       "timestamp": "08:10",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "M",
+      "name": "د. نوره فالح",
+      "timestamp": "08:27",
       "VisitCount": 0
     }
   ],
