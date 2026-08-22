@@ -5940,13 +5940,6 @@
     },
     {
       "date": "22/08/2026",
-      "specCode": "O",
-      "name": "د. مصطفى هادي",
-      "timestamp": "20:07",
-      "VisitCount": 0
-    },
-    {
-      "date": "22/08/2026",
       "specCode": "D",
       "name": "د. علي اعتدال",
       "timestamp": "20:24",
@@ -5956,6 +5949,13 @@
       "date": "22/08/2026",
       "specCode": "M",
       "name": "د. علي اعتدال",
+      "timestamp": "20:25",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
       "timestamp": "20:25",
       "VisitCount": 0
     }
