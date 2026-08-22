@@ -4732,14 +4732,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/08/2026",
-      "specCode": "D",
-      "name": "د. نوره فالح",
-      "VisitCount": 3,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
       "date": "23/08/2026",
       "specCode": "D",
       "name": "د. اسيل علي",
@@ -5759,14 +5751,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/08/2026",
-      "specCode": "D",
-      "name": "د. علي اعتدال",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "23/08/2026",
       "specCode": "D",
       "name": "د. المصطفى محمد",
@@ -5976,6 +5960,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "20:07",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "D",
+      "name": "د. علي اعتدال",
+      "timestamp": "20:24",
       "VisitCount": 0
     }
   ],
