@@ -4744,7 +4744,7 @@
       "specCode": "D",
       "name": "د. نوره فالح",
       "VisitCount": 2,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4752,7 +4752,7 @@
       "specCode": "D",
       "name": "د. اسيل علي",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4760,7 +4760,7 @@
       "specCode": "D",
       "name": "د. دعاء نبيل",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4768,7 +4768,7 @@
       "specCode": "D",
       "name": "د. بان عبد الامير صمد",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4776,7 +4776,7 @@
       "specCode": "D",
       "name": "د. الزهراء حسام",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4784,7 +4784,7 @@
       "specCode": "D",
       "name": "د. درر علي محمد",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4792,7 +4792,7 @@
       "specCode": "D",
       "name": "د. خلدون عبد الخالق",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4800,7 +4800,7 @@
       "specCode": "D",
       "name": "د. فلاح غيدان",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4808,7 +4808,7 @@
       "specCode": "D",
       "name": "د. ايات عبدالحسين",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -4816,7 +4816,7 @@
       "specCode": "D",
       "name": "د. ضحى جاسم محمد",
       "VisitCount": 0,
-      "dutyTime": "",
+      "dutyTime": "08:00AM - 08:00PM",
       "dutySlot": 0
     },
     {
@@ -5309,14 +5309,6 @@
     },
     {
       "date": "13/08/2026",
-      "specCode": "D",
-      "name": "د.فاطمه كريم",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
-      "date": "13/08/2026",
       "specCode": "M",
       "name": "د عباس المنصوري",
       "VisitCount": 0,
@@ -5752,35 +5744,133 @@
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
       "timestamp": "06:55",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/08/2026",
       "specCode": "O",
       "name": "د. غفران علي صبري",
       "timestamp": "08:06",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/08/2026",
       "specCode": "G",
       "name": "د. زينب حاكم فيصل",
       "timestamp": "08:10",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/08/2026",
       "specCode": "M",
       "name": "د. نوره فالح",
       "timestamp": "08:27",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/08/2026",
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "08:52",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
+    },
+    {
+      "date": "13/08/2026",
+      "specCode": "D",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "D",
+      "name": "د. علي اعتدال",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "23/08/2026",
+      "specCode": "D",
+      "name": "د. المصطفى محمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "24/08/2026",
+      "specCode": "D",
+      "name": "د. حسين جليل كاظم الساعدي",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "25/08/2026",
+      "specCode": "D",
+      "name": "د. عبد الجبار منذر",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "26/08/2026",
+      "specCode": "D",
+      "name": "د. محمد بشير",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "D",
+      "name": "د. منير عبد الوافي",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "D",
+      "name": "د. محمد خزعل",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "29/08/2026",
+      "specCode": "D",
+      "name": "د. نزار سليم",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "30/08/2026",
+      "specCode": "D",
+      "name": "د. علي عدنان",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "D",
+      "name": "د. احمد حسين هادي",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
     }
   ],
   "passwords": {
