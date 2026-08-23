@@ -3236,14 +3236,6 @@
       "dutySlot": 0
     },
     {
-      "date": "23/08/2026",
-      "specCode": "Pe",
-      "name": "د. ضرغام قاسم",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "24/08/2026",
       "specCode": "Pe",
       "name": "د. وعد سمير باسم",
@@ -5955,6 +5947,13 @@
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "03:59",
+      "VisitCount": 0
+    },
+    {
+      "date": "23/08/2026",
+      "specCode": "Pe",
+      "name": "د. زينب فلاح عبد المهدي",
+      "timestamp": "09:11",
       "VisitCount": 0
     }
   ],
