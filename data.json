@@ -2852,14 +2852,6 @@
       "dutySlot": 0
     },
     {
-      "date": "23/08/2026",
-      "specCode": "ENT",
-      "name": "د. وديان باقر كامل",
-      "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
       "date": "24/08/2026",
       "specCode": "ENT",
       "name": "د. درر علي محمد",
@@ -5885,14 +5877,6 @@
       "dutySlot": 1
     },
     {
-      "date": "23/08/2026",
-      "specCode": "ENT",
-      "name": "د. دعاء ناظم اسماعيل",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "22/08/2026",
       "specCode": "AO",
       "name": "محمد رحيم",
@@ -5960,6 +5944,13 @@
       "specCode": "OP",
       "name": "د. فاطمة عباس",
       "timestamp": "13:20",
+      "VisitCount": 0
+    },
+    {
+      "date": "23/08/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "timestamp": "13:45",
       "VisitCount": 0
     }
   ],
