@@ -5924,13 +5924,6 @@
     },
     {
       "date": "22/08/2026",
-      "specCode": "OR",
-      "name": "د. حسين احمد القيسي",
-      "timestamp": "20:06",
-      "VisitCount": 1
-    },
-    {
-      "date": "22/08/2026",
       "specCode": "D",
       "name": "د. علي اعتدال",
       "timestamp": "20:24",
@@ -5955,6 +5948,13 @@
       "specCode": "G",
       "name": "د. سراء ياسين ساري",
       "timestamp": "21:11",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/08/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "03:59",
       "VisitCount": 0
     }
   ],
