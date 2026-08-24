@@ -3044,14 +3044,6 @@
       "dutySlot": 0
     },
     {
-      "date": "24/08/2026",
-      "specCode": "O",
-      "name": "د. مصطفى هادي",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "25/08/2026",
       "specCode": "O",
       "name": "د. بشير حسن",
@@ -5948,6 +5940,13 @@
       "specCode": "ICU",
       "name": "د. علي خالد",
       "timestamp": "08:19",
+      "VisitCount": 0
+    },
+    {
+      "date": "24/08/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "timestamp": "08:22",
       "VisitCount": 0
     }
   ],
