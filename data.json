@@ -3204,14 +3204,6 @@
       "dutySlot": 0
     },
     {
-      "date": "24/08/2026",
-      "specCode": "Pe",
-      "name": "د. وعد سمير باسم",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "25/08/2026",
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
@@ -5947,6 +5939,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "08:22",
+      "VisitCount": 0
+    },
+    {
+      "date": "24/08/2026",
+      "specCode": "Pe",
+      "name": "د. لينا نجم عبد",
+      "timestamp": "08:39",
       "VisitCount": 0
     }
   ],
