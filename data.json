@@ -4467,14 +4467,6 @@
       "dutySlot": 0
     },
     {
-      "date": "25/08/2026",
-      "specCode": "OP",
-      "name": "د. علاء سلمان",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "26/08/2026",
       "specCode": "OP",
       "name": "د. رسل عوده ساري",
@@ -5943,6 +5935,13 @@
       "specCode": "AO",
       "name": "محمد رحيم",
       "timestamp": "14:24",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/08/2026",
+      "specCode": "OP",
+      "name": "د. ميسم اكرم",
+      "timestamp": "15:03",
       "VisitCount": 0
     }
   ],
