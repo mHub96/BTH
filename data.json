@@ -3035,14 +3035,6 @@
       "dutySlot": 0
     },
     {
-      "date": "25/08/2026",
-      "specCode": "O",
-      "name": "د. بشير حسن",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "26/08/2026",
       "specCode": "O",
       "name": "د. مصطفى فائز",
@@ -5945,6 +5937,13 @@
       "specCode": "OR",
       "name": "د. مصطفى عبد الإله",
       "timestamp": "10:55",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/08/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "timestamp": "12:44",
       "VisitCount": 0
     }
   ],
