@@ -5075,14 +5075,6 @@
       "dutySlot": 0
     },
     {
-      "date": "25/08/2026",
-      "specCode": "AO",
-      "name": "حيدر صدام",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "26/08/2026",
       "specCode": "AO",
       "name": "منير تعبان",
@@ -5944,6 +5936,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "12:44",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/08/2026",
+      "specCode": "AO",
+      "name": "محمد رحيم",
+      "timestamp": "14:24",
       "VisitCount": 0
     }
   ],
