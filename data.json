@@ -4219,14 +4219,6 @@
       "dutySlot": 0
     },
     {
-      "date": "26/08/2026",
-      "specCode": "ICU",
-      "name": "د. الاء اسماعيل",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "27/08/2026",
       "specCode": "ICU",
       "name": "د. اياد فالح",
@@ -6080,6 +6072,13 @@
       "specCode": "ENT",
       "name": "د. درر علي محمد",
       "timestamp": "13:11",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/08/2026",
+      "specCode": "ICU",
+      "name": "د. علاء سلمان",
+      "timestamp": "13:53",
       "VisitCount": 0
     }
   ],
