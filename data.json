@@ -2835,14 +2835,6 @@
       "dutySlot": 0
     },
     {
-      "date": "26/08/2026",
-      "specCode": "ENT",
-      "name": "د. دعاء ناظم اسماعيل",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "27/08/2026",
       "specCode": "ENT",
       "name": "د. بان عبد الامير صمد",
@@ -6082,6 +6074,13 @@
       "name": "د. عيسى وليد",
       "timestamp": "08:45",
       "VisitCount": 1
+    },
+    {
+      "date": "26/08/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "timestamp": "13:11",
+      "VisitCount": 0
     }
   ],
   "passwords": {
