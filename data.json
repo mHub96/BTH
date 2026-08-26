@@ -3019,14 +3019,6 @@
       "dutySlot": 0
     },
     {
-      "date": "26/08/2026",
-      "specCode": "O",
-      "name": "د. مصطفى فائز",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "27/08/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
@@ -6079,6 +6071,13 @@
       "specCode": "ICU",
       "name": "د. علاء سلمان",
       "timestamp": "13:53",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/08/2026",
+      "specCode": "O",
+      "name": "د. مصطفى فائز",
+      "timestamp": "15:24",
       "VisitCount": 0
     }
   ],
