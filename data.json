@@ -2243,14 +2243,6 @@
       "dutySlot": 0
     },
     {
-      "date": "26/08/2026",
-      "specCode": "GS",
-      "name": "د. تحسين علي حلو",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "27/08/2026",
       "specCode": "GS",
       "name": "د. حسنين كريم صالح",
@@ -6078,6 +6070,13 @@
       "specCode": "O",
       "name": "د. مصطفى فائز",
       "timestamp": "15:25",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/08/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد موسى",
+      "timestamp": "20:23",
       "VisitCount": 0
     }
   ],
