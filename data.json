@@ -2243,14 +2243,6 @@
       "dutySlot": 0
     },
     {
-      "date": "27/08/2026",
-      "specCode": "GS",
-      "name": "د. حسنين كريم صالح",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "28/08/2026",
       "specCode": "GS",
       "name": "د. احمد حارث عبدالمحسن",
@@ -6066,6 +6058,13 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "08:31",
+      "VisitCount": 0
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد موسى",
+      "timestamp": "08:34",
       "VisitCount": 0
     }
   ],
