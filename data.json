@@ -3163,14 +3163,6 @@
       "dutySlot": 0
     },
     {
-      "date": "27/08/2026",
-      "specCode": "Pe",
-      "name": "د. ضرغام قاسم",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "28/08/2026",
       "specCode": "Pe",
       "name": "د. وعد سمير باسم",
@@ -6066,6 +6058,13 @@
       "date": "27/08/2026",
       "specCode": "D",
       "name": "د. حيدر علي",
+      "timestamp": "08:31",
+      "VisitCount": 0
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "Pe",
+      "name": "د. لينا نجم عبد",
       "timestamp": "08:31",
       "VisitCount": 0
     }
