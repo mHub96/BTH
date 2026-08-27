@@ -4803,14 +4803,6 @@
       "dutySlot": 0
     },
     {
-      "date": "27/08/2026",
-      "specCode": "R",
-      "name": "د. رند اياد",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "28/08/2026",
       "specCode": "R",
       "name": "د. اسراء زهير",
@@ -6056,6 +6048,13 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "10:36",
+      "VisitCount": 0
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "R",
+      "name": "د. سهاد حسن",
+      "timestamp": "13:09",
       "VisitCount": 0
     }
   ],
