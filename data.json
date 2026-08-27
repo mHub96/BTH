@@ -3395,14 +3395,6 @@
       "dutySlot": 0
     },
     {
-      "date": "27/08/2026",
-      "specCode": "NM",
-      "name": "د. عيسى وليد",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "28/08/2026",
       "specCode": "NM",
       "name": "د. صبا ياسين",
@@ -6078,6 +6070,13 @@
       "name": "د. مصطفى محمد موسى",
       "timestamp": "20:23",
       "VisitCount": 2
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "NM",
+      "name": "د. صبا ياسين",
+      "timestamp": "08:24",
+      "VisitCount": 0
     }
   ],
   "passwords": {
