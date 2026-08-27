@@ -6017,13 +6017,6 @@
     },
     {
       "date": "27/08/2026",
-      "specCode": "D",
-      "name": "د. حيدر علي",
-      "timestamp": "08:31",
-      "VisitCount": 6
-    },
-    {
-      "date": "27/08/2026",
       "specCode": "NM",
       "name": "د. صبا ياسين",
       "timestamp": "09:04",
@@ -6055,6 +6048,13 @@
       "specCode": "GS",
       "name": "د. سعيد جندي لهمود",
       "timestamp": "19:39",
+      "VisitCount": 0
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:04",
       "VisitCount": 0
     }
   ],
