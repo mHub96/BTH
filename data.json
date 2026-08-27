@@ -6032,13 +6032,6 @@
     },
     {
       "date": "27/08/2026",
-      "specCode": "Pe",
-      "name": "د. لينا نجم عبد",
-      "timestamp": "08:31",
-      "VisitCount": 0
-    },
-    {
-      "date": "27/08/2026",
       "specCode": "GS",
       "name": "د. مصطفى محمد موسى",
       "timestamp": "08:34",
@@ -6057,6 +6050,13 @@
       "name": "د مها عباس جابر",
       "timestamp": "09:38",
       "VisitCount": 1
+    },
+    {
+      "date": "27/08/2026",
+      "specCode": "Pe",
+      "name": "د. لينا نجم عبد",
+      "timestamp": "10:36",
+      "VisitCount": 0
     }
   ],
   "passwords": {
