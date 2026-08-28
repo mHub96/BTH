@@ -2411,14 +2411,6 @@
       "dutySlot": 0
     },
     {
-      "date": "28/08/2026",
-      "specCode": "OR",
-      "name": "د. حسين احمد القيسي",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "29/08/2026",
       "specCode": "OR",
       "name": "د. غياث محمد",
@@ -6055,6 +6047,13 @@
       "name": "د. ذو الفقار باسم",
       "timestamp": "22:27",
       "VisitCount": 1
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "OR",
+      "name": "د. عبد الحكيم هادي",
+      "timestamp": "08:10",
+      "VisitCount": 0
     }
   ],
   "passwords": {
