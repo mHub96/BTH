@@ -6026,13 +6026,6 @@
     },
     {
       "date": "28/08/2026",
-      "specCode": "OR",
-      "name": "د. عبد الحكيم هادي",
-      "timestamp": "08:10",
-      "VisitCount": 0
-    },
-    {
-      "date": "28/08/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "08:12",
@@ -6043,6 +6036,13 @@
       "specCode": "NM",
       "name": "د. عيسى وليد",
       "timestamp": "08:12",
+      "VisitCount": 0
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "OR",
+      "name": "د. عبد الحكيم هادي",
+      "timestamp": "09:18",
       "VisitCount": 0
     }
   ],
