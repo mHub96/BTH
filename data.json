@@ -3363,14 +3363,6 @@
       "dutySlot": 0
     },
     {
-      "date": "28/08/2026",
-      "specCode": "NM",
-      "name": "د. صبا ياسين",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "29/08/2026",
       "specCode": "NM",
       "name": "د. عيسى وليد",
@@ -6043,6 +6035,13 @@
       "date": "28/08/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "08:12",
+      "VisitCount": 0
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "NM",
+      "name": "د. عيسى وليد",
       "timestamp": "08:12",
       "VisitCount": 0
     }
