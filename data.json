@@ -2243,14 +2243,6 @@
       "dutySlot": 0
     },
     {
-      "date": "28/08/2026",
-      "specCode": "GS",
-      "name": "د. احمد حارث عبدالمحسن",
-      "VisitCount": 2,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "29/08/2026",
       "specCode": "GS",
       "name": "د. احمد علي خلف",
@@ -6044,6 +6036,13 @@
       "name": "د. عبد الحكيم هادي",
       "timestamp": "09:18",
       "VisitCount": 3
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "GS",
+      "name": "د. احمد حارث عبدالمحسن",
+      "timestamp": "15:37",
+      "VisitCount": 0
     }
   ],
   "passwords": {
