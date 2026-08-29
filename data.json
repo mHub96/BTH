@@ -2403,14 +2403,6 @@
       "dutySlot": 0
     },
     {
-      "date": "29/08/2026",
-      "specCode": "OR",
-      "name": "د. غياث محمد",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "30/08/2026",
       "specCode": "OR",
       "name": "د. محمد خزعل",
@@ -6041,6 +6033,13 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "03:43",
+      "VisitCount": 0
+    },
+    {
+      "date": "29/08/2026",
+      "specCode": "OR",
+      "name": "د. عبد العزيز وئام عبد الحميد",
+      "timestamp": "08:11",
       "VisitCount": 0
     }
   ],
