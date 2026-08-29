@@ -2987,14 +2987,6 @@
       "dutySlot": 0
     },
     {
-      "date": "28/08/2026",
-      "specCode": "O",
-      "name": "د. غفران علي صبري",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "29/08/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
@@ -6043,6 +6035,13 @@
       "name": "د. احمد حارث عبدالمحسن",
       "timestamp": "15:37",
       "VisitCount": 7
+    },
+    {
+      "date": "28/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "03:43",
+      "VisitCount": 0
     }
   ],
   "passwords": {
