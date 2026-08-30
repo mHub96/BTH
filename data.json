@@ -6157,6 +6157,102 @@
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "D",
+      "name": "د. براء عباس",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "D",
+      "name": "د. علي قاسم حسن",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "D",
+      "name": "د. نزار سليم",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "D",
+      "name": "د. طه مشتاق ابراهيم",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "D",
+      "name": "د. فاتن سلمان",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "D",
+      "name": "د. مصطفى هادي",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "D",
+      "name": "د. زمن مصطفى",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "D",
+      "name": "د. عمر حسين",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "11/09/2026",
+      "specCode": "D",
+      "name": "د. مريم حسن",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "11/09/2026",
+      "specCode": "D",
+      "name": "د. ذو الفقار باسم",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "D",
+      "name": "د. نور عمار",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "D",
+      "name": "د. مصطفى فائز",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
     }
   ],
   "passwords": {
