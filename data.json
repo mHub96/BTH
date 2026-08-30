@@ -6031,6 +6031,22 @@
     {
       "date": "01/09/2026",
       "specCode": "D",
+      "name": "د. كرار حسن",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "D",
+      "name": "د. الزهراء علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "D",
       "name": "",
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
