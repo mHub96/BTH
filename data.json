@@ -3115,14 +3115,6 @@
       "dutySlot": 0
     },
     {
-      "date": "30/08/2026",
-      "specCode": "Pe",
-      "name": "د. زينب فلاح عبد المهدي",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "31/08/2026",
       "specCode": "Pe",
       "name": "د. ضرغام قاسم",
@@ -6019,6 +6011,13 @@
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "08:15",
+      "VisitCount": 0
+    },
+    {
+      "date": "30/08/2026",
+      "specCode": "Pe",
+      "name": "د. لينا نجم عبد",
+      "timestamp": "08:35",
       "VisitCount": 0
     }
   ],
