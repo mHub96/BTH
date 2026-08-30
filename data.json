@@ -4517,14 +4517,6 @@
       "dutySlot": 0
     },
     {
-      "date": "30/08/2026",
-      "specCode": "D",
-      "name": "د. ايات عبدالحسين",
-      "VisitCount": 1,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
       "date": "31/08/2026",
       "specCode": "D",
       "name": "د. ضحى جاسم محمد",
@@ -5450,14 +5442,6 @@
       "specCode": "D",
       "name": "د. محمد بشير",
       "VisitCount": 4,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
-      "date": "30/08/2026",
-      "specCode": "D",
-      "name": "د. علي عدنان",
-      "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
     },
@@ -6917,6 +6901,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "30/08/2026",
+      "specCode": "D",
+      "name": "د. هارون عاشور",
+      "timestamp": "20:05",
+      "VisitCount": 0
     }
   ],
   "passwords": {
