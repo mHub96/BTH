@@ -2987,14 +2987,6 @@
       "dutySlot": 0
     },
     {
-      "date": "30/08/2026",
-      "specCode": "O",
-      "name": "د. مصطفى فائز",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "31/08/2026",
       "specCode": "O",
       "name": "د. الزهراء حسام",
@@ -6020,6 +6012,13 @@
       "specCode": "D",
       "name": "د. نزار سليم",
       "timestamp": "20:21",
+      "VisitCount": 0
+    },
+    {
+      "date": "30/08/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "08:15",
       "VisitCount": 0
     }
   ],
