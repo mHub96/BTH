@@ -1929,6 +1929,13 @@
       "tag": "OR",
       "phone": "+9647726300975",
       "active": true
+    },
+    {
+      "name": "د. زهير فائق",
+      "spec": "OR",
+      "tag": "OR",
+      "phone": "+9647704720169",
+      "active": true
     }
   ],
   "schedule": [
