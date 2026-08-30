@@ -713,9 +713,9 @@
       "active": true
     },
     {
-      "name": "د. عبد الله جبار",
-      "spec": "US",
+      "name": "د. عبدالله جبار",
       "phone": "+9647703183503",
+      "spec": "US",
       "tag": "US",
       "active": true
     },
@@ -1947,22 +1947,22 @@
     {
       "name": "د. علي ضياء",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647702958143",
+      "tag": "OR",
       "active": true
     },
     {
       "name": "د. حسين عبد الامير",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647703347068",
+      "tag": "OR",
       "active": true
     },
     {
       "name": "د. محمد ليث",
       "spec": "OR",
-      "tag": "OR",
       "phone": "+9647710799367",
+      "tag": "OR",
       "active": true
     }
   ],
