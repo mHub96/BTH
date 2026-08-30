@@ -6019,6 +6019,22 @@
       "name": "د. لينا نجم عبد",
       "timestamp": "08:35",
       "VisitCount": 2
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "D",
+      "name": "د. زهراء ماجد",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "D",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
     }
   ],
   "passwords": {
