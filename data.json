@@ -7117,13 +7117,6 @@
     },
     {
       "date": "31/08/2026",
-      "specCode": "GS",
-      "name": "د. تحسين علي حلو",
-      "timestamp": "08:02",
-      "VisitCount": 6
-    },
-    {
-      "date": "31/08/2026",
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "13:56",
@@ -7142,6 +7135,13 @@
       "name": "د. عيسى وليد",
       "timestamp": "16:02",
       "VisitCount": 1
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "GS",
+      "name": "د. حسنين كريم صالح",
+      "timestamp": "19:46",
+      "VisitCount": 0
     }
   ],
   "passwords": {
