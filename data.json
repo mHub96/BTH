@@ -7107,13 +7107,6 @@
     },
     {
       "date": "31/08/2026",
-      "specCode": "NM",
-      "name": "د. عيسى وليد",
-      "timestamp": "16:02",
-      "VisitCount": 3
-    },
-    {
-      "date": "31/08/2026",
       "specCode": "GS",
       "name": "د. حسنين كريم صالح",
       "timestamp": "19:46",
@@ -7420,6 +7413,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "NM",
+      "name": "د. علي حسن",
+      "timestamp": "00:35",
+      "VisitCount": 0
     }
   ],
   "passwords": {
