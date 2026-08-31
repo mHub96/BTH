@@ -2301,14 +2301,6 @@
       "dutySlot": 0
     },
     {
-      "date": "31/08/2026",
-      "specCode": "GS",
-      "name": "د. احمد حارث عبدالمحسن",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "01/08/2026",
       "specCode": "OR",
       "name": "د. المصطفى سعد عبد الصمد",
@@ -7146,6 +7138,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "GS",
+      "name": "د. تحسين علي حلو",
+      "timestamp": "08:02",
+      "VisitCount": 0
     }
   ],
   "passwords": {
