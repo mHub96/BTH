@@ -7147,23 +7147,7 @@
       "specCode": "NM",
       "name": "",
       "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "03/09/2026",
-      "specCode": "NM",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
-      "date": "05/09/2026",
-      "specCode": "NM",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
+      "dutyTime": "",
       "dutySlot": 0
     },
     {
@@ -7171,8 +7155,8 @@
       "specCode": "NM",
       "name": "د. صبا ياسين",
       "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
+      "dutyTime": "",
+      "dutySlot": 0
     },
     {
       "date": "04/09/2026",
@@ -7187,24 +7171,8 @@
       "specCode": "NM",
       "name": "",
       "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
+      "dutyTime": "",
       "dutySlot": 0
-    },
-    {
-      "date": "07/09/2026",
-      "specCode": "NM",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
-      "date": "03/09/2026",
-      "specCode": "NM",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "12:00AM - 08:00AM",
-      "dutySlot": 2
     },
     {
       "date": "31/08/2026",
