@@ -2669,14 +2669,6 @@
       "dutySlot": 0
     },
     {
-      "date": "31/08/2026",
-      "specCode": "US",
-      "name": "حيدر علي",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "01/08/2026",
       "specCode": "ENT",
       "name": "د. بان عبد الامير صمد",
@@ -7213,6 +7205,13 @@
       "VisitCount": 0,
       "dutyTime": "12:00AM - 08:00AM",
       "dutySlot": 2
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "US",
+      "name": "د. حيدر علي",
+      "timestamp": "23:14",
+      "VisitCount": 0
     }
   ],
   "passwords": {
