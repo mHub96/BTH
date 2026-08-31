@@ -3133,14 +3133,6 @@
       "dutySlot": 0
     },
     {
-      "date": "31/08/2026",
-      "specCode": "Pe",
-      "name": "د. ضرغام قاسم",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "01/08/2026",
       "specCode": "NM",
       "name": "د. علي حسن",
@@ -7143,6 +7135,13 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "13:56",
       "VisitCount": 1
+    },
+    {
+      "date": "31/08/2026",
+      "specCode": "Pe",
+      "name": "د. زينب فلاح عبد المهدي",
+      "timestamp": "14:51",
+      "VisitCount": 0
     }
   ],
   "passwords": {
