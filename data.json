@@ -7268,9 +7268,21 @@
       "VisitCount": 0
     },
     {
+      "date": "22/09/2026",
+      "specCode": "ICU",
+      "name": "د غسق مصطفى",
+      "VisitCount": 0
+    },
+    {
       "date": "24/09/2026",
       "specCode": "ICU",
       "name": "د. ايات فيصل",
+      "VisitCount": 0
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "ICU",
+      "name": "د زينب عبد الرزاق",
       "VisitCount": 0
     },
     {
@@ -7298,6 +7310,18 @@
       "VisitCount": 0
     },
     {
+      "date": "15/09/2026",
+      "specCode": "OP",
+      "name": "د رسل عوده ساري",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "OP",
+      "name": "د رسل عوده ساري",
+      "VisitCount": 0
+    },
+    {
       "date": "29/09/2026",
       "specCode": "OP",
       "name": "د. ايات فيصل",
@@ -7313,6 +7337,12 @@
       "date": "03/09/2026",
       "specCode": "GA",
       "name": "د. ايات فيصل",
+      "VisitCount": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "GA",
+      "name": "د رسل عوده ساري",
       "VisitCount": 0
     },
     {
