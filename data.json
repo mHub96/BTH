@@ -9131,7 +9131,7 @@
       "specCode": "M",
       "name": "د. عبدالله ستار",
       "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
+      "dutyTime": "08:00PM - 02:00AM",
       "dutySlot": 1
     },
     {
@@ -9149,6 +9149,14 @@
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "M",
+      "name": "د. فلاح غيدان",
+      "VisitCount": 0,
+      "dutyTime": "02:00AM - 08:00AM",
+      "dutySlot": 2
     }
   ],
   "passwords": {
