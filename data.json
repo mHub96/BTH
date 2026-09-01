@@ -8294,10 +8294,50 @@
     {
       "date": "01/09/2026",
       "specCode": "ICU",
+      "name": "د. غسق مصطفى",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "OP",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "OP",
       "name": "",
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "OP",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "OP",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "OP",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "12:00AM - 08:00AM",
+      "dutySlot": 2
     }
   ],
   "passwords": {
