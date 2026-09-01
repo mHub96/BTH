@@ -7681,7 +7681,7 @@
     {
       "date": "04/09/2026",
       "specCode": "OP",
-      "name": "د رسل عوده ساري",
+      "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -7689,7 +7689,7 @@
     {
       "date": "05/09/2026",
       "specCode": "OP",
-      "name": "د. غسق مصطفى",
+      "name": "د. شهد عبد الله",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -8258,6 +8258,86 @@
       "date": "30/09/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "OP",
+      "name": "د. اياد فالح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "OP",
+      "name": "د. شهد عبد الله",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "OP",
+      "name": "د. غسق مصطفى",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "OP",
+      "name": "د. فاطمة سلطان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "OP",
+      "name": "د. علاء سلمان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "OP",
+      "name": "د. اديان محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "OP",
+      "name": "د. اياد فالح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "OP",
+      "name": "د. فاطمة سلطان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "OP",
+      "name": "د. غسق مصطفى",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "OP",
+      "name": "د. اديان محمد",
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
