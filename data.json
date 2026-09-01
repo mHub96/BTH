@@ -7665,7 +7665,7 @@
     {
       "date": "22/09/2026",
       "specCode": "ICU",
-      "name": "د غسق مصطفى",
+      "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -7674,14 +7674,6 @@
       "date": "24/09/2026",
       "specCode": "ICU",
       "name": "د. ايات فيصل",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "29/09/2026",
-      "specCode": "ICU",
-      "name": "د زينب عبد الرزاق",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -8184,6 +8176,86 @@
     },
     {
       "date": "19/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "20/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة سلطان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "21/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "ICU",
+      "name": "د. علي خالد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "ICU",
+      "name": "د. اديان محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "28/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة سلطان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "ICU",
+      "name": "د. رسل عوده ساري",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "ICU",
+      "name": "د. اياد فالح",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "30/09/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "VisitCount": 0,
