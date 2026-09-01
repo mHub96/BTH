@@ -6845,14 +6845,6 @@
       "VisitCount": 0
     },
     {
-      "date": "01/09/2026",
-      "specCode": "OR",
-      "name": "د. علي عبد الكريم عبدالله",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "02/09/2026",
       "specCode": "OR",
       "name": "د. عبد العزيز وئام عبد الحميد",
@@ -7943,6 +7935,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "OR",
+      "name": "د. منير عبد الوافي",
+      "timestamp": "12:45",
+      "VisitCount": 0
     }
   ],
   "passwords": {
