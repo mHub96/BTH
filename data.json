@@ -6019,16 +6019,8 @@
       "specCode": "MF",
       "name": "",
       "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
+      "dutyTime": "",
       "dutySlot": 0
-    },
-    {
-      "date": "01/10/2026",
-      "specCode": "MF",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
     },
     {
       "date": "01/09/2026",
