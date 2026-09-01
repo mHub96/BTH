@@ -8262,14 +8262,26 @@
       "specCode": "R",
       "name": "د. رند اياد",
       "timestamp": "19:54",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "01/09/2026",
       "specCode": "M",
       "name": "د. علي اعتدال",
       "timestamp": "20:55",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "N",
+      "name": "د. يونس باسل",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
     }
   ],
   "passwords": {
