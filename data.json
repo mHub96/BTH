@@ -7713,7 +7713,7 @@
     {
       "date": "15/09/2026",
       "specCode": "OP",
-      "name": "د رسل عوده ساري",
+      "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -7721,7 +7721,7 @@
     {
       "date": "26/09/2026",
       "specCode": "OP",
-      "name": "د رسل عوده ساري",
+      "name": "د. رسل عوده ساري",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -8338,6 +8338,110 @@
       "date": "14/09/2026",
       "specCode": "OP",
       "name": "د. اديان محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "OP",
+      "name": "د. ايثار عدنان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "OP",
+      "name": "د. اديان محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "OP",
+      "name": "د. علاء سلمان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "19/09/2026",
+      "specCode": "OP",
+      "name": "د. غسق مصطفى",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "20/09/2026",
+      "specCode": "OP",
+      "name": "د. شهد عبد الله",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "21/09/2026",
+      "specCode": "OP",
+      "name": "د. اديان محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "OP",
+      "name": "د. اياد فالح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "OP",
+      "name": "د. فاطمة سلطان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "OP",
+      "name": "د. اياد فالح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "OP",
+      "name": "د. ايثار عدنان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "OP",
+      "name": "د. ايثار عدنان",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "28/09/2026",
+      "specCode": "OP",
+      "name": "د. علي خالد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "30/09/2026",
+      "specCode": "OP",
+      "name": "د. ايثار عدنان",
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
