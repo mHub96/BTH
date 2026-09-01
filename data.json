@@ -1,4 +1,5 @@
 {
+  "hospitalName": "Basra Teaching Hospital",
   "names": [
     {
       "name": "د. مصطفى محمد علي الديوان",
@@ -7553,5 +7554,6 @@
   "passwords": {
     "user": "1234",
     "admin": "MrjBth1996*"
-  }
+  },
+  "specialties": []
 }
