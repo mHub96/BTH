@@ -7941,14 +7941,282 @@
       "specCode": "OR",
       "name": "د. منير عبد الوافي",
       "timestamp": "12:45",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "01/09/2026",
       "specCode": "GA",
       "name": "د. رسل عوده ساري",
       "timestamp": "13:57",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
+    },
+    {
+      "date": "01/10/2026",
+      "specCode": "MF",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "01/10/2026",
+      "specCode": "MF",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "01/10/2026",
+      "specCode": "MF",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "12:00AM - 08:00AM",
+      "dutySlot": 2
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "MF",
+      "name": "د. وضاح اكثم",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "MF",
+      "name": "د. وضاح اكثم",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "11/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "MF",
+      "name": "د. وضاح اكثم",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "19/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "20/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "21/09/2026",
+      "specCode": "MF",
+      "name": "د. وضاح اكثم",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "MF",
+      "name": "د. وضاح اكثم",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "28/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "30/09/2026",
+      "specCode": "MF",
+      "name": "د. تقى حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
     }
   ],
   "passwords": {
