@@ -7689,15 +7689,6 @@
     },
     {
       "date": "01/09/2026",
-      "specCode": "M",
-      "name": "د. نوره فالح",
-      "timestamp": "08:40",
-      "VisitCount": 3,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "01/09/2026",
       "specCode": "Pe",
       "name": "د مسره شهاب",
       "VisitCount": 1,
@@ -8272,6 +8263,13 @@
       "name": "د. رند اياد",
       "timestamp": "19:54",
       "VisitCount": 1
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "M",
+      "name": "د. علي اعتدال",
+      "timestamp": "20:55",
+      "VisitCount": 0
     }
   ],
   "passwords": {
