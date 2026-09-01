@@ -7420,6 +7420,166 @@
       "name": "د. علي حسن",
       "timestamp": "00:35",
       "VisitCount": 0
+    },
+    {
+      "date": "01/09/2026",
+      "specCode": "ENT",
+      "name": "د. الزهراء علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "ENT",
+      "name": "د. بان عبد الامير صمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "ENT",
+      "name": "د. وديان باقر كامل",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "ENT",
+      "name": "د. الزهراء علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "ENT",
+      "name": "د. بان عبد الامير صمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "11/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "ENT",
+      "name": "د. درر علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "ENT",
+      "name": "د. وديان باقر كامل",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "ENT",
+      "name": "د. بان عبد الامير صمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "ENT",
+      "name": "د. بان عبد الامير صمد",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
     }
   ],
   "passwords": {
