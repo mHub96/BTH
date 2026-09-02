@@ -8263,14 +8263,6 @@
       "dutySlot": 0
     },
     {
-      "date": "02/09/2026",
-      "specCode": "OP",
-      "name": "د. شهد عبد الله",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "03/09/2026",
       "specCode": "OP",
       "name": "د. غسق مصطفى",
@@ -9164,6 +9156,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "OP",
+      "name": "د. اياد فالح",
+      "timestamp": "12:48",
+      "VisitCount": 0
     }
   ],
   "passwords": {
