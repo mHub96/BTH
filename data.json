@@ -6031,14 +6031,6 @@
       "dutyTime": ""
     },
     {
-      "date": "02/09/2026",
-      "specCode": "MF",
-      "name": "د. تحسين فلاح",
-      "VisitCount": 8,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "03/09/2026",
       "specCode": "MF",
       "name": "د. وضاح اكثم",
@@ -9478,6 +9470,13 @@
       "name": "د. المصطفى محمد",
       "timestamp": "20:19",
       "VisitCount": 4
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "MF",
+      "name": "د. تحسين فلاح",
+      "timestamp": "02:20",
+      "VisitCount": 0
     }
   ],
   "passwords": {
