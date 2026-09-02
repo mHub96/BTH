@@ -7207,14 +7207,6 @@
       "dutyTime": ""
     },
     {
-      "date": "02/09/2026",
-      "specCode": "O",
-      "name": "د. مصطفى فائز",
-      "VisitCount": 3,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "03/09/2026",
       "specCode": "O",
       "name": "د. الزهراء حسام",
@@ -9477,6 +9469,13 @@
       "name": "د. تحسين فلاح",
       "timestamp": "02:22",
       "VisitCount": 3
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "02:50",
+      "VisitCount": 0
     }
   ],
   "passwords": {
