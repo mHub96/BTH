@@ -6511,14 +6511,6 @@
       "dutyTime": ""
     },
     {
-      "date": "02/09/2026",
-      "specCode": "OR",
-      "name": "د. عبد العزيز وئام عبد الحميد",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "03/09/2026",
       "specCode": "OR",
       "name": "د. علي عدنان",
@@ -9157,6 +9149,13 @@
       "VisitCount": 0,
       "dutyTime": "02:00AM - 08:00AM",
       "dutySlot": 2
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "OR",
+      "name": "د. محمد ناظم",
+      "timestamp": "08:14",
+      "VisitCount": 0
     }
   ],
   "passwords": {
