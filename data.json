@@ -9156,6 +9156,14 @@
       "name": "د. محمد ناظم",
       "timestamp": "08:14",
       "VisitCount": 0
+    },
+    {
+      "date": "02/10/2026",
+      "specCode": "N",
+      "name": "د. ايات عبدالحسين",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
     }
   ],
   "passwords": {
