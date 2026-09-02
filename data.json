@@ -6271,14 +6271,6 @@
       "dutyTime": ""
     },
     {
-      "date": "02/09/2026",
-      "specCode": "GS",
-      "name": "د. تحسين علي حلو",
-      "VisitCount": 3,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "03/09/2026",
       "specCode": "GS",
       "name": "د. حسنين كريم صالح",
@@ -9162,6 +9154,13 @@
       "specCode": "OP",
       "name": "د. اياد فالح",
       "timestamp": "12:48",
+      "VisitCount": 0
+    },
+    {
+      "date": "02/09/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد علي الديوان",
+      "timestamp": "13:16",
       "VisitCount": 0
     }
   ],
