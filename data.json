@@ -6263,14 +6263,6 @@
       "dutyTime": ""
     },
     {
-      "date": "03/09/2026",
-      "specCode": "GS",
-      "name": "د. حسنين كريم صالح",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "04/09/2026",
       "specCode": "GS",
       "name": "د. علي ناظم حسن",
@@ -9726,6 +9718,13 @@
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "GS",
+      "name": "د. حسنين فيصل",
+      "timestamp": "16:06",
+      "VisitCount": 0
     }
   ],
   "passwords": {
