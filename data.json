@@ -7801,18 +7801,18 @@
     {
       "date": "13/09/2026",
       "specCode": "D",
-      "name": "د. بشير حسن",
+      "name": "د. دعاء ناظم اسماعيل",
       "VisitCount": 0,
       "dutySlot": 0,
-      "dutyTime": ""
+      "dutyTime": "08:00AM - 08:00PM"
     },
     {
       "date": "14/09/2026",
       "specCode": "D",
-      "name": "د. حسين قحطان غضبان",
+      "name": "د. ثناء احمد",
       "VisitCount": 0,
       "dutySlot": 0,
-      "dutyTime": ""
+      "dutyTime": "08:00AM - 08:00PM"
     },
     {
       "date": "15/09/2026",
@@ -9582,6 +9582,22 @@
       "VisitCount": 1,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "D",
+      "name": "د. بشير حسن",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "D",
+      "name": "",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
     }
   ],
   "passwords": {
