@@ -7759,44 +7759,12 @@
       "dutyTime": "08:00AM - 08:00PM"
     },
     {
-      "date": "04/09/2026",
-      "specCode": "D",
-      "name": "د. زهير فائق صادق",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "05/09/2026",
-      "specCode": "D",
-      "name": "د. حسين عبد الامير",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "06/09/2026",
-      "specCode": "D",
-      "name": "د. محمد ليث",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "07/09/2026",
-      "specCode": "D",
-      "name": "د. علي قاسم حسن",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "08/09/2026",
       "specCode": "D",
-      "name": "د. طه مشتاق ابراهيم",
+      "name": "د. نزار سليم",
       "VisitCount": 0,
       "dutySlot": 0,
-      "dutyTime": ""
+      "dutyTime": "08:00AM - 02:00PM"
     },
     {
       "date": "09/09/2026",
@@ -9438,42 +9406,142 @@
       "specCode": "R",
       "name": "د. زينب فيصل",
       "timestamp": "16:12",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "02/09/2026",
       "specCode": "M",
       "name": "د. المصطفى محمد",
       "timestamp": "20:19",
-      "VisitCount": 4
+      "VisitCount": 4,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "02/09/2026",
       "specCode": "MF",
       "name": "د. تحسين فلاح",
       "timestamp": "02:22",
-      "VisitCount": 3
+      "VisitCount": 3,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "02/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "02:50",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "03/09/2026",
       "specCode": "OR",
       "name": "د. علي عدنان",
       "timestamp": "08:03",
-      "VisitCount": 3
+      "VisitCount": 3,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "03/09/2026",
       "specCode": "D",
       "name": "د. مروان غازي",
       "timestamp": "09:56",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": "08:00AM - 08:00PM"
+    },
+    {
+      "date": "03/09/2026",
+      "specCode": "D",
+      "name": "د. علي ضياء",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "D",
+      "name": "د. غفران قاسم هادي",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "D",
+      "name": "د. زهير فائق صادق",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "D",
+      "name": "د. أبرار مؤيد عبدالمنعم",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "D",
+      "name": "د. حسين عبد الامير",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "D",
+      "name": "د. امال ناصر ناجي",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "D",
+      "name": "د. محمد ليث",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "D",
+      "name": "د. براء عباس",
+      "VisitCount": 0,
+      "dutyTime": "08:00AM - 08:00PM",
+      "dutySlot": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "D",
+      "name": "د. علي قاسم عبدالله",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "D",
+      "name": "د. مصطفى فرات",
+      "VisitCount": 0,
+      "dutyTime": "02:00PM - 08:00PM",
+      "dutySlot": 1
+    },
+    {
+      "date": "08/09/2026",
+      "specCode": "D",
+      "name": "د. طه مشتاق ابراهيم",
+      "VisitCount": 0,
+      "dutyTime": "08:00PM - 08:00AM",
+      "dutySlot": 2
     }
   ],
   "passwords": {
