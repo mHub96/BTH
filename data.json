@@ -6039,14 +6039,6 @@
       "dutyTime": ""
     },
     {
-      "date": "04/09/2026",
-      "specCode": "MF",
-      "name": "د. حسن فائق",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "05/09/2026",
       "specCode": "MF",
       "name": "د. عبد الله وسام",
@@ -9724,6 +9716,13 @@
       "name": "د. غسق مصطفى",
       "timestamp": "08:05",
       "VisitCount": 1
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله وسام",
+      "timestamp": "08:12",
+      "VisitCount": 0
     }
   ],
   "passwords": {
