@@ -7631,14 +7631,6 @@
       "dutyTime": ""
     },
     {
-      "date": "04/09/2026",
-      "specCode": "OP",
-      "name": "د. رسل عوده ساري",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "05/09/2026",
       "specCode": "OP",
       "name": "د. شهد عبد الله",
@@ -9725,6 +9717,13 @@
       "name": "د. حسنين كريم صالح",
       "timestamp": "19:29",
       "VisitCount": 5
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "OP",
+      "name": "د. غسق مصطفى",
+      "timestamp": "08:05",
+      "VisitCount": 0
     }
   ],
   "passwords": {
