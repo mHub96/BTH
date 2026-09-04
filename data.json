@@ -7935,14 +7935,6 @@
       "dutySlot": 0
     },
     {
-      "date": "04/09/2026",
-      "specCode": "ICU",
-      "name": "د. ايات فلاح",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "05/09/2026",
       "specCode": "ICU",
       "name": "د. اديان محمد",
@@ -9723,6 +9715,13 @@
       "name": "د. عبد الله وسام",
       "timestamp": "08:12",
       "VisitCount": 1
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "ICU",
+      "name": "د. اياد فالح",
+      "timestamp": "08:25",
+      "VisitCount": 0
     }
   ],
   "passwords": {
