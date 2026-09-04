@@ -9424,22 +9424,6 @@
       "dutySlot": 1
     },
     {
-      "date": "04/09/2026",
-      "specCode": "D",
-      "name": "د. غفران قاسم هادي",
-      "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "04/09/2026",
-      "specCode": "D",
-      "name": "د. زهير فائق صادق",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "05/09/2026",
       "specCode": "D",
       "name": "د. أبرار مؤيد عبدالمنعم",
@@ -10058,6 +10042,13 @@
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
+    },
+    {
+      "date": "04/09/2026",
+      "specCode": "D",
+      "name": "د. مريم علي محمد",
+      "timestamp": "13:46",
+      "VisitCount": 0
     }
   ],
   "passwords": {
