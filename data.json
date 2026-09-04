@@ -7257,7 +7257,7 @@
     {
       "date": "12/09/2026",
       "specCode": "O",
-      "name": "د. غفران علي صبري",
+      "name": "د. نور الهدى علي",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -7265,7 +7265,7 @@
     {
       "date": "13/09/2026",
       "specCode": "O",
-      "name": "د. نور الهدى علي",
+      "name": "د. غفران علي صبري",
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
@@ -9700,28 +9700,140 @@
       "specCode": "GS",
       "name": "د. حسنين كريم صالح",
       "timestamp": "19:29",
-      "VisitCount": 5
+      "VisitCount": 5,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "04/09/2026",
       "specCode": "OP",
       "name": "د. غسق مصطفى",
       "timestamp": "08:05",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "04/09/2026",
       "specCode": "MF",
       "name": "د. عبد الله وسام",
       "timestamp": "08:12",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "04/09/2026",
       "specCode": "ICU",
       "name": "د. اياد فالح",
       "timestamp": "08:25",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "O",
+      "name": "د. الزهراء حسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "19/09/2026",
+      "specCode": "O",
+      "name": "د. بشير حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "20/09/2026",
+      "specCode": "O",
+      "name": "د. غفران علي صبري",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "21/09/2026",
+      "specCode": "O",
+      "name": "د. بشير حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "O",
+      "name": "د. الزهراء حسام",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "O",
+      "name": "د. نور الهدى علي",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "O",
+      "name": "د. غفران علي صبري",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "O",
+      "name": "د. نور الهدى علي",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "28/09/2026",
+      "specCode": "O",
+      "name": "د. بشير حسن",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "29/09/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
+    },
+    {
+      "date": "30/09/2026",
+      "specCode": "O",
+      "name": "د. مصطفى فائز",
+      "VisitCount": 0,
+      "dutyTime": "",
+      "dutySlot": 0
     }
   ],
   "passwords": {
