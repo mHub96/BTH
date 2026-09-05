@@ -6255,14 +6255,6 @@
       "dutyTime": ""
     },
     {
-      "date": "05/09/2026",
-      "specCode": "GS",
-      "name": "د. حسنين كريم صالح",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "06/09/2026",
       "specCode": "GS",
       "name": "د. امل اياد عبدالكريم",
@@ -10052,6 +10044,13 @@
       "specCode": "MF",
       "name": "د. حسن فائق",
       "timestamp": "09:35",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "GS",
+      "name": "د. علي احمد محسن",
+      "timestamp": "09:45",
       "VisitCount": 0
     }
   ],
