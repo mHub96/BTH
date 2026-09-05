@@ -6943,14 +6943,6 @@
       "dutyTime": ""
     },
     {
-      "date": "05/09/2026",
-      "specCode": "ENT",
-      "name": "د. دعاء ناظم اسماعيل",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "06/09/2026",
       "specCode": "ENT",
       "name": "د. وديان باقر كامل",
@@ -10051,6 +10043,13 @@
       "specCode": "GS",
       "name": "د. علي احمد محسن",
       "timestamp": "09:45",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "timestamp": "11:10",
       "VisitCount": 0
     }
   ],
