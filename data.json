@@ -10040,16 +10040,16 @@
     },
     {
       "date": "05/09/2026",
-      "specCode": "GS",
-      "name": "د. علي احمد محسن",
-      "timestamp": "09:45",
-      "VisitCount": 1
-    },
-    {
-      "date": "05/09/2026",
       "specCode": "ENT",
       "name": "د. مريم علي محمد",
       "timestamp": "11:10",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "GS",
+      "name": "د. حسنين كريم صالح",
+      "timestamp": "12:08",
       "VisitCount": 0
     }
   ],
