@@ -9996,13 +9996,6 @@
     },
     {
       "date": "05/09/2026",
-      "specCode": "OR",
-      "name": "د. علي عبد الكريم عبدالله",
-      "timestamp": "08:00",
-      "VisitCount": 5
-    },
-    {
-      "date": "05/09/2026",
       "specCode": "GA",
       "name": "د. شهد عبد الله",
       "timestamp": "08:04",
@@ -10041,6 +10034,13 @@
       "specCode": "D",
       "name": "د. مريم علي محمد",
       "timestamp": "14:12",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "OR",
+      "name": "د. عبد العزيز وئام عبد الحميد",
+      "timestamp": "21:29",
       "VisitCount": 0
     }
   ],
