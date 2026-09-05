@@ -7615,14 +7615,6 @@
       "dutyTime": ""
     },
     {
-      "date": "05/09/2026",
-      "specCode": "OP",
-      "name": "د. شهد عبد الله",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "06/09/2026",
       "specCode": "OP",
       "name": "د. ايات فيصل",
@@ -10053,6 +10045,13 @@
       "date": "05/09/2026",
       "specCode": "GA",
       "name": "د. شهد عبد الله",
+      "timestamp": "08:04",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "OP",
+      "name": "د. غسق مصطفى",
       "timestamp": "08:04",
       "VisitCount": 0
     }
