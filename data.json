@@ -6703,14 +6703,6 @@
       "dutyTime": ""
     },
     {
-      "date": "05/09/2026",
-      "specCode": "US",
-      "name": "د. حسين علي عطيه",
-      "VisitCount": 6,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "06/09/2026",
       "specCode": "US",
       "name": "د. حيدر علي",
@@ -10041,6 +10033,13 @@
       "specCode": "D",
       "name": "د. حسين عبد الامير",
       "timestamp": "22:31",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "US",
+      "name": "د. عمر حسين",
+      "timestamp": "01:37",
       "VisitCount": 0
     }
   ],
