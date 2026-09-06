@@ -6255,14 +6255,6 @@
       "dutyTime": ""
     },
     {
-      "date": "06/09/2026",
-      "specCode": "GS",
-      "name": "د. امل اياد عبدالكريم",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "07/09/2026",
       "specCode": "GS",
       "name": "د. احمد حسين هادي",
@@ -10018,6 +10010,13 @@
       "specCode": "D",
       "name": "د. منتظر حميد هاشم",
       "timestamp": "19:51",
+      "VisitCount": 0
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "GS",
+      "name": "د. احمد حسين هادي",
+      "timestamp": "20:01",
       "VisitCount": 0
     }
   ],
