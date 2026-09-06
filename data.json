@@ -9328,22 +9328,6 @@
       "dutySlot": 1
     },
     {
-      "date": "06/09/2026",
-      "specCode": "D",
-      "name": "د. امال ناصر ناجي",
-      "VisitCount": 2,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "06/09/2026",
-      "specCode": "D",
-      "name": "د. محمد ليث",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "07/09/2026",
       "specCode": "D",
       "name": "د. براء عباس",
@@ -10028,6 +10012,13 @@
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "13:53",
       "VisitCount": 2
+    },
+    {
+      "date": "06/09/2026",
+      "specCode": "D",
+      "name": "د. منتظر حميد هاشم",
+      "timestamp": "19:51",
+      "VisitCount": 0
     }
   ],
   "passwords": {
