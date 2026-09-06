@@ -10008,13 +10008,6 @@
     },
     {
       "date": "05/09/2026",
-      "specCode": "GS",
-      "name": "د. حسنين كريم صالح",
-      "timestamp": "12:08",
-      "VisitCount": 4
-    },
-    {
-      "date": "05/09/2026",
       "specCode": "OR",
       "name": "د. عبد العزيز وئام عبد الحميد",
       "timestamp": "21:29",
@@ -10039,6 +10032,13 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "05:01",
+      "VisitCount": 0
+    },
+    {
+      "date": "05/09/2026",
+      "specCode": "GS",
+      "name": "د. امل اياد عبدالكريم",
+      "timestamp": "07:46",
       "VisitCount": 0
     }
   ],
