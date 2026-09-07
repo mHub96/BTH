@@ -9304,22 +9304,6 @@
       "dutySlot": 1
     },
     {
-      "date": "07/09/2026",
-      "specCode": "D",
-      "name": "د. براء عباس",
-      "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "07/09/2026",
-      "specCode": "D",
-      "name": "د. علي قاسم عبدالله",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "08/09/2026",
       "specCode": "D",
       "name": "د. مصطفى فرات",
@@ -10008,6 +9992,13 @@
       "specCode": "M",
       "name": "د. مها عباس",
       "timestamp": "08:01",
+      "VisitCount": 0
+    },
+    {
+      "date": "07/09/2026",
+      "specCode": "D",
+      "name": "د. منتظر حميد",
+      "timestamp": "08:10",
       "VisitCount": 0
     }
   ],
