@@ -8890,14 +8890,6 @@
       "dutySlot": 0
     },
     {
-      "date": "09/09/2026",
-      "specCode": "NM",
-      "name": "د. منتظر حميد",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "10/09/2026",
       "specCode": "NM",
       "name": "د. علي حسن",
@@ -9959,6 +9951,13 @@
       "specCode": "M",
       "name": "د. ام البنين عبدالله",
       "timestamp": "12:12",
+      "VisitCount": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "NM",
+      "name": "د. صبا ياسين",
+      "timestamp": "12:55",
       "VisitCount": 0
     }
   ],
