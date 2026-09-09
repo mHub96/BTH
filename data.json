@@ -6911,14 +6911,6 @@
       "dutyTime": ""
     },
     {
-      "date": "09/09/2026",
-      "specCode": "ENT",
-      "name": "د. مريم علي محمد",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "10/09/2026",
       "specCode": "ENT",
       "name": "د. درر علي محمد",
@@ -9948,6 +9940,13 @@
       "specCode": "D",
       "name": "د. مصطفى هادي",
       "timestamp": "20:17",
+      "VisitCount": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "20:19",
       "VisitCount": 0
     }
   ],
