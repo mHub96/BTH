@@ -6687,14 +6687,6 @@
       "dutyTime": ""
     },
     {
-      "date": "09/09/2026",
-      "specCode": "US",
-      "name": "د. حيدر علي",
-      "VisitCount": 3,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "10/09/2026",
       "specCode": "US",
       "name": "د. حسين علي عطيه",
@@ -9947,6 +9939,13 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "20:19",
+      "VisitCount": 0
+    },
+    {
+      "date": "09/09/2026",
+      "specCode": "US",
+      "name": "د. عبدالله جبار",
+      "timestamp": "22:05",
       "VisitCount": 0
     }
   ],
