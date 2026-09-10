@@ -9894,13 +9894,6 @@
     },
     {
       "date": "10/09/2026",
-      "specCode": "M",
-      "name": "د. فاديا ثائر",
-      "timestamp": "08:58",
-      "VisitCount": 6
-    },
-    {
-      "date": "10/09/2026",
       "specCode": "D",
       "name": "د. المصطفى محمد",
       "timestamp": "09:11",
@@ -9926,6 +9919,13 @@
       "name": "د. ذو الفقار باسم",
       "timestamp": "15:00",
       "VisitCount": 1
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "M",
+      "name": "د. حسين جليل كاظم الساعدي",
+      "timestamp": "19:50",
+      "VisitCount": 0
     }
   ],
   "passwords": {
