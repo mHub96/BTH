@@ -9894,13 +9894,6 @@
     },
     {
       "date": "10/09/2026",
-      "specCode": "D",
-      "name": "د. المصطفى محمد",
-      "timestamp": "09:11",
-      "VisitCount": 5
-    },
-    {
-      "date": "10/09/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "13:43",
@@ -9926,6 +9919,13 @@
       "name": "د. درر علي محمد",
       "timestamp": "20:02",
       "VisitCount": 2
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "D",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "22:47",
+      "VisitCount": 0
     }
   ],
   "passwords": {
