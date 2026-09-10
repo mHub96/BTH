@@ -7807,14 +7807,6 @@
       "dutySlot": 0
     },
     {
-      "date": "10/09/2026",
-      "specCode": "ICU",
-      "name": "د. شهد عبد الله",
-      "VisitCount": 3,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "11/09/2026",
       "specCode": "ICU",
       "name": "د. اديان محمد",
@@ -9927,6 +9919,13 @@
       "specCode": "ENT",
       "name": "د. بان عبد الامير صمد",
       "timestamp": "13:37",
+      "VisitCount": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "timestamp": "13:42",
       "VisitCount": 0
     }
   ],
