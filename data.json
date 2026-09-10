@@ -7127,14 +7127,6 @@
       "dutyTime": ""
     },
     {
-      "date": "10/09/2026",
-      "specCode": "O",
-      "name": "د. نور الهدى علي",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "11/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
@@ -9926,6 +9918,13 @@
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "13:43",
+      "VisitCount": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "15:00",
       "VisitCount": 0
     }
   ],
