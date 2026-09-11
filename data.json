@@ -6463,14 +6463,6 @@
       "dutyTime": ""
     },
     {
-      "date": "11/09/2026",
-      "specCode": "OR",
-      "name": "د. علي عدنان",
-      "VisitCount": 4,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "12/09/2026",
       "specCode": "OR",
       "name": "د. غياث محمد",
@@ -9914,6 +9906,13 @@
       "specCode": "ENT",
       "name": "د. درر علي محمد",
       "timestamp": "08:10",
+      "VisitCount": 0
+    },
+    {
+      "date": "11/09/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "10:37",
       "VisitCount": 0
     }
   ],
