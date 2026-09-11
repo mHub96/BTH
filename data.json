@@ -6463,14 +6463,6 @@
       "dutyTime": ""
     },
     {
-      "date": "10/09/2026",
-      "specCode": "OR",
-      "name": "د. عبد الجبار منذر",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "11/09/2026",
       "specCode": "OR",
       "name": "د. علي عدنان",
@@ -9925,6 +9917,13 @@
       "specCode": "D",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "22:47",
+      "VisitCount": 0
+    },
+    {
+      "date": "10/09/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "07:12",
       "VisitCount": 0
     }
   ],
