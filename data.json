@@ -6879,14 +6879,6 @@
       "dutyTime": ""
     },
     {
-      "date": "12/09/2026",
-      "specCode": "ENT",
-      "name": "د. درر علي محمد",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "13/09/2026",
       "specCode": "ENT",
       "name": "د. وديان باقر كامل",
@@ -9912,6 +9904,13 @@
       "specCode": "OR",
       "name": "د. عبد الجبار منذر",
       "timestamp": "08:17",
+      "VisitCount": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "08:23",
       "VisitCount": 0
     }
   ],
