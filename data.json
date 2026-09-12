@@ -9872,13 +9872,6 @@
     },
     {
       "date": "12/09/2026",
-      "specCode": "ICU",
-      "name": "د. اياد فالح",
-      "timestamp": "11:40",
-      "VisitCount": 2
-    },
-    {
-      "date": "12/09/2026",
       "specCode": "GS",
       "name": "د. علي حسين عبدالرضا",
       "timestamp": "20:13",
@@ -9896,6 +9889,13 @@
       "specCode": "US",
       "name": "د. حسين علي عطيه",
       "timestamp": "21:00",
+      "VisitCount": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "ICU",
+      "name": "د. علاء سلمان",
+      "timestamp": "21:15",
       "VisitCount": 0
     }
   ],
