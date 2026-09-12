@@ -6279,14 +6279,6 @@
       "dutyTime": ""
     },
     {
-      "date": "12/09/2026",
-      "specCode": "GS",
-      "name": "د. احمد حسين هادي",
-      "VisitCount": 6,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "13/09/2026",
       "specCode": "GS",
       "name": "د. امل اياد عبدالكريم",
@@ -9907,6 +9899,13 @@
       "name": "د. اياد فالح",
       "timestamp": "11:40",
       "VisitCount": 2
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "GS",
+      "name": "د. علي حسين عبدالرضا",
+      "timestamp": "20:13",
+      "VisitCount": 0
     }
   ],
   "passwords": {
