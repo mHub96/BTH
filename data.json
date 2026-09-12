@@ -6463,14 +6463,6 @@
       "dutyTime": ""
     },
     {
-      "date": "12/09/2026",
-      "specCode": "OR",
-      "name": "د. غياث محمد",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "13/09/2026",
       "specCode": "OR",
       "name": "د. جمال كريم",
@@ -9914,6 +9906,13 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "20:05",
       "VisitCount": 1
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "OR",
+      "name": "د. عبد الجبار منذر",
+      "timestamp": "08:17",
+      "VisitCount": 0
     }
   ],
   "passwords": {
