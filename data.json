@@ -9858,13 +9858,6 @@
     },
     {
       "date": "12/09/2026",
-      "specCode": "US",
-      "name": "د. عبدالله جبار",
-      "timestamp": "08:26",
-      "VisitCount": 2
-    },
-    {
-      "date": "12/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "08:40",
@@ -9896,6 +9889,13 @@
       "specCode": "M",
       "name": "د. بشير كريم",
       "timestamp": "20:19",
+      "VisitCount": 0
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "US",
+      "name": "د. حسين علي عطيه",
+      "timestamp": "21:00",
       "VisitCount": 0
     }
   ],
