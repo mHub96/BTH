@@ -9886,17 +9886,17 @@
     },
     {
       "date": "12/09/2026",
-      "specCode": "US",
-      "name": "د. حسين علي عطيه",
-      "timestamp": "21:00",
-      "VisitCount": 3
-    },
-    {
-      "date": "12/09/2026",
       "specCode": "ICU",
       "name": "د. علاء سلمان",
       "timestamp": "21:15",
       "VisitCount": 2
+    },
+    {
+      "date": "12/09/2026",
+      "specCode": "US",
+      "name": "د. عمر حسين",
+      "timestamp": "00:54",
+      "VisitCount": 0
     }
   ],
   "passwords": {
