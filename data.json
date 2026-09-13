@@ -9874,17 +9874,17 @@
     },
     {
       "date": "13/09/2026",
-      "specCode": "D",
-      "name": "د. قمر بدر",
-      "timestamp": "08:05",
-      "VisitCount": 0
-    },
-    {
-      "date": "13/09/2026",
       "specCode": "ENT",
       "name": "د. مريم علي محمد",
       "timestamp": "20:04",
       "VisitCount": 2
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "D",
+      "name": "د. عمر حسين",
+      "timestamp": "20:49",
+      "VisitCount": 0
     }
   ],
   "passwords": {
