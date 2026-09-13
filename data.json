@@ -6847,14 +6847,6 @@
       "dutyTime": ""
     },
     {
-      "date": "13/09/2026",
-      "specCode": "ENT",
-      "name": "د. وديان باقر كامل",
-      "VisitCount": 3,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "14/09/2026",
       "specCode": "ENT",
       "name": "د. بان عبد الامير صمد",
@@ -9885,6 +9877,13 @@
       "specCode": "D",
       "name": "د. قمر بدر",
       "timestamp": "08:05",
+      "VisitCount": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "ENT",
+      "name": "د. مريم علي محمد",
+      "timestamp": "20:04",
       "VisitCount": 0
     }
   ],
