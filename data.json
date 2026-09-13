@@ -6279,14 +6279,6 @@
       "dutyTime": ""
     },
     {
-      "date": "13/09/2026",
-      "specCode": "GS",
-      "name": "د. امل اياد عبدالكريم",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "14/09/2026",
       "specCode": "GS",
       "name": "د. طيبة شاكر سبع",
@@ -9896,6 +9888,13 @@
       "specCode": "US",
       "name": "د. عمر حسين",
       "timestamp": "00:54",
+      "VisitCount": 0
+    },
+    {
+      "date": "13/09/2026",
+      "specCode": "GS",
+      "name": "د. علي حسين عبدالرضا",
+      "timestamp": "08:00",
       "VisitCount": 0
     }
   ],
