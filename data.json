@@ -9852,16 +9852,16 @@
     },
     {
       "date": "14/09/2026",
-      "specCode": "D",
-      "name": "د. ضحى جاسم محمد",
-      "timestamp": "14:49",
-      "VisitCount": 2
-    },
-    {
-      "date": "14/09/2026",
       "specCode": "GS",
       "name": "د. علي حسين عبدالرضا",
       "timestamp": "19:44",
+      "VisitCount": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "D",
+      "name": "د. بشير حسن",
+      "timestamp": "20:16",
       "VisitCount": 0
     }
   ],
