@@ -6279,14 +6279,6 @@
       "dutyTime": ""
     },
     {
-      "date": "14/09/2026",
-      "specCode": "GS",
-      "name": "د. طيبة شاكر سبع",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "15/09/2026",
       "specCode": "GS",
       "name": "د. علي ناظم حسن",
@@ -9875,6 +9867,13 @@
       "specCode": "GS",
       "name": "د. احمد حسين هادي",
       "timestamp": "23:03",
+      "VisitCount": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "GS",
+      "name": "د. احمد حسين هادي",
+      "timestamp": "08:01",
       "VisitCount": 0
     }
   ],
