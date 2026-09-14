@@ -9838,13 +9838,6 @@
     },
     {
       "date": "14/09/2026",
-      "specCode": "D",
-      "name": "د. عمر جليل عيسى",
-      "timestamp": "08:03",
-      "VisitCount": 0
-    },
-    {
-      "date": "14/09/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
       "timestamp": "08:28",
@@ -9862,6 +9855,13 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "13:19",
+      "VisitCount": 0
+    },
+    {
+      "date": "14/09/2026",
+      "specCode": "D",
+      "name": "د. ضحى جاسم محمد",
+      "timestamp": "14:49",
       "VisitCount": 0
     }
   ],
