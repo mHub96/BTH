@@ -8754,14 +8754,6 @@
       "dutySlot": 0
     },
     {
-      "date": "15/09/2026",
-      "specCode": "G",
-      "name": "د. زينب حاكم فيصل",
-      "VisitCount": 1,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "16/09/2026",
       "specCode": "G",
       "name": "د. وديان فرات كمال",
@@ -9853,6 +9845,13 @@
       "specCode": "D",
       "name": "د. احمد حسين هادي",
       "timestamp": "13:17",
+      "VisitCount": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "G",
+      "name": "د. وديان فرات كمال",
+      "timestamp": "13:32",
       "VisitCount": 0
     }
   ],
