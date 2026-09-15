@@ -7439,14 +7439,6 @@
       "dutyTime": ""
     },
     {
-      "date": "15/09/2026",
-      "specCode": "GA",
-      "name": "د. رسل عوده ساري",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "17/09/2026",
       "specCode": "GA",
       "name": "د. ايات فيصل",
@@ -9851,6 +9843,13 @@
       "specCode": "OP",
       "name": "د. رسل عوده ساري",
       "timestamp": "14:24",
+      "VisitCount": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "GA",
+      "name": "د. علاء سلمان",
+      "timestamp": "14:28",
       "VisitCount": 0
     }
   ],
