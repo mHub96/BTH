@@ -7399,14 +7399,6 @@
       "dutyTime": ""
     },
     {
-      "date": "15/09/2026",
-      "specCode": "OP",
-      "name": "د. رسل عوده ساري",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "26/09/2026",
       "specCode": "OP",
       "name": "د. رسل عوده ساري",
@@ -9853,6 +9845,13 @@
       "name": "د. وديان فرات كمال",
       "timestamp": "13:32",
       "VisitCount": 1
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "OP",
+      "name": "د. رسل عوده ساري",
+      "timestamp": "14:24",
+      "VisitCount": 0
     }
   ],
   "passwords": {
