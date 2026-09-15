@@ -9826,13 +9826,6 @@
     },
     {
       "date": "15/09/2026",
-      "specCode": "D",
-      "name": "د. احمد حسين هادي",
-      "timestamp": "13:17",
-      "VisitCount": 3
-    },
-    {
-      "date": "15/09/2026",
       "specCode": "G",
       "name": "د. وديان فرات كمال",
       "timestamp": "13:32",
@@ -9850,6 +9843,13 @@
       "specCode": "GA",
       "name": "د. علاء سلمان",
       "timestamp": "14:28",
+      "VisitCount": 0
+    },
+    {
+      "date": "15/09/2026",
+      "specCode": "D",
+      "name": "د. حسين احمد القيسي",
+      "timestamp": "20:26",
       "VisitCount": 0
     }
   ],
