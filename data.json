@@ -9790,13 +9790,6 @@
     },
     {
       "date": "16/09/2026",
-      "specCode": "M",
-      "name": "د. نزار سليم",
-      "timestamp": "08:04",
-      "VisitCount": 4
-    },
-    {
-      "date": "16/09/2026",
       "specCode": "D",
       "name": "د. ايمان نعيم",
       "timestamp": "09:27",
@@ -9829,6 +9822,13 @@
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "18:00",
       "VisitCount": 1
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "M",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:00",
+      "VisitCount": 0
     }
   ],
   "passwords": {
