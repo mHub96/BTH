@@ -9790,13 +9790,6 @@
     },
     {
       "date": "16/09/2026",
-      "specCode": "D",
-      "name": "د. ايمان نعيم",
-      "timestamp": "09:27",
-      "VisitCount": 0
-    },
-    {
-      "date": "16/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "11:54",
@@ -9828,6 +9821,13 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "20:17",
+      "VisitCount": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "D",
+      "name": "د. خلدون عبد الخالق",
+      "timestamp": "20:43",
       "VisitCount": 0
     }
   ],
