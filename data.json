@@ -9804,13 +9804,6 @@
     },
     {
       "date": "16/09/2026",
-      "specCode": "ENT",
-      "name": "د. مريم علي محمد",
-      "timestamp": "13:50",
-      "VisitCount": 1
-    },
-    {
-      "date": "16/09/2026",
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "15:30",
@@ -9829,6 +9822,13 @@
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:00",
       "VisitCount": 1
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "ENT",
+      "name": "د. دعاء ناظم اسماعيل",
+      "timestamp": "20:17",
+      "VisitCount": 0
     }
   ],
   "passwords": {
