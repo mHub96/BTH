@@ -9804,13 +9804,6 @@
     },
     {
       "date": "16/09/2026",
-      "specCode": "OR",
-      "name": "د. جمال كريم",
-      "timestamp": "10:05",
-      "VisitCount": 1
-    },
-    {
-      "date": "16/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "11:54",
@@ -9828,6 +9821,13 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "15:30",
+      "VisitCount": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "18:00",
       "VisitCount": 0
     }
   ],
