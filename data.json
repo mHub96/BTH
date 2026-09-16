@@ -7055,14 +7055,6 @@
       "dutyTime": ""
     },
     {
-      "date": "16/09/2026",
-      "specCode": "O",
-      "name": "د. نور الهدى علي",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "17/09/2026",
       "specCode": "O",
       "name": "د. مصطفى هادي",
@@ -9831,6 +9823,13 @@
       "specCode": "OR",
       "name": "د. جمال كريم",
       "timestamp": "10:05",
+      "VisitCount": 0
+    },
+    {
+      "date": "16/09/2026",
+      "specCode": "O",
+      "name": "د. ذو الفقار باسم",
+      "timestamp": "11:54",
       "VisitCount": 0
     }
   ],
