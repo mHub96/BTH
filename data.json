@@ -8199,22 +8199,6 @@
       "dutySlot": 1
     },
     {
-      "date": "17/09/2026",
-      "specCode": "M",
-      "name": "د. ام البنين عبدالله",
-      "VisitCount": 9,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "17/09/2026",
-      "specCode": "M",
-      "name": "د. زين العابدين عبد الرحمن عباس",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "18/09/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
@@ -9822,6 +9806,13 @@
       "name": "د. صبا ياسين",
       "timestamp": "15:07",
       "VisitCount": 1
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "M",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "19:57",
+      "VisitCount": 0
     }
   ],
   "passwords": {
