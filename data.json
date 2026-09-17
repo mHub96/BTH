@@ -7391,14 +7391,6 @@
       "dutyTime": ""
     },
     {
-      "date": "17/09/2026",
-      "specCode": "GA",
-      "name": "د. ايات فيصل",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "27/09/2026",
       "specCode": "GA",
       "name": "د. ايات فيصل",
@@ -9817,6 +9809,13 @@
       "specCode": "OR",
       "name": "د. عبد العزيز وئام عبد الحميد",
       "timestamp": "09:54",
+      "VisitCount": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "GA",
+      "name": "د. زينب عبد الرزاق",
+      "timestamp": "10:35",
       "VisitCount": 0
     }
   ],
