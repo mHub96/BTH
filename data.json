@@ -7031,14 +7031,6 @@
       "dutyTime": ""
     },
     {
-      "date": "17/09/2026",
-      "specCode": "O",
-      "name": "د. مصطفى هادي",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "01/09/2026",
       "specCode": "Pe",
       "name": "د مسره شهاب",
@@ -9816,6 +9808,13 @@
       "specCode": "GA",
       "name": "د. زينب عبد الرزاق",
       "timestamp": "10:35",
+      "VisitCount": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "O",
+      "name": "د. مصطفى هادي",
+      "timestamp": "13:33",
       "VisitCount": 0
     }
   ],
