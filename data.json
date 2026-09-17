@@ -6447,14 +6447,6 @@
       "dutyTime": ""
     },
     {
-      "date": "17/09/2026",
-      "specCode": "OR",
-      "name": "د. حسين احمد القيسي",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "18/09/2026",
       "specCode": "OR",
       "name": "د. محمد خزعل",
@@ -9818,6 +9810,13 @@
       "specCode": "D",
       "name": "د. ام البنين عبدالله",
       "timestamp": "09:02",
+      "VisitCount": 0
+    },
+    {
+      "date": "17/09/2026",
+      "specCode": "OR",
+      "name": "د. عبد العزيز وئام عبد الحميد",
+      "timestamp": "09:54",
       "VisitCount": 0
     }
   ],
