@@ -6295,14 +6295,6 @@
       "dutyTime": ""
     },
     {
-      "date": "18/09/2026",
-      "specCode": "GS",
-      "name": "د. احمد حسين هادي",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "19/09/2026",
       "specCode": "GS",
       "name": "د. تحسين علي حلو",
@@ -9812,6 +9804,13 @@
       "specCode": "D",
       "name": "د. بشير كريم",
       "timestamp": "20:02",
+      "VisitCount": 0
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "GS",
+      "name": "د. علي حسين عبدالرضا",
+      "timestamp": "08:03",
       "VisitCount": 0
     }
   ],
