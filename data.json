@@ -8183,22 +8183,6 @@
       "dutySlot": 1
     },
     {
-      "date": "18/09/2026",
-      "specCode": "M",
-      "name": "د. اسيل علي",
-      "VisitCount": 5,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "18/09/2026",
-      "specCode": "M",
-      "name": "د. المصطفى محمد",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "19/09/2026",
       "specCode": "M",
       "name": "د. نوره فالح",
@@ -9967,6 +9951,13 @@
       "name": "د. لينا نجم عبد",
       "timestamp": "12:09",
       "VisitCount": 2
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "M",
+      "name": "د. نزار سليم",
+      "timestamp": "20:03",
+      "VisitCount": 0
     }
   ],
   "passwords": {
