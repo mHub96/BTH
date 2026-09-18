@@ -9126,7 +9126,7 @@
     {
       "date": "18/09/2026",
       "specCode": "N",
-      "name": "د. ايات عبدالحسين",
+      "name": "د. يونس باسل",
       "VisitCount": 7,
       "dutyTime": "",
       "dutySlot": 0
@@ -9934,21 +9934,27 @@
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "12:09",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "18/09/2026",
       "specCode": "M",
       "name": "د. نزار سليم",
       "timestamp": "20:03",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "18/09/2026",
       "specCode": "D",
       "name": "د. عمر حسين",
       "timestamp": "20:26",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     }
   ],
   "passwords": {
