@@ -7775,14 +7775,6 @@
       "dutySlot": 0
     },
     {
-      "date": "19/09/2026",
-      "specCode": "OP",
-      "name": "د. غسق مصطفى",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "20/09/2026",
       "specCode": "OP",
       "name": "د. شهد عبد الله",
@@ -9950,6 +9942,13 @@
       "specCode": "D",
       "name": "د. مريم علي محمد",
       "timestamp": "07:59",
+      "VisitCount": 0
+    },
+    {
+      "date": "19/09/2026",
+      "specCode": "OP",
+      "name": "د. رسل عوده ساري",
+      "timestamp": "08:01",
       "VisitCount": 0
     }
   ],
