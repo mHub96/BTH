@@ -9940,18 +9940,16 @@
     },
     {
       "date": "18/09/2026",
-      "specCode": "D",
-      "name": "د. عمر حسين",
-      "timestamp": "20:26",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
-      "date": "18/09/2026",
       "specCode": "M",
       "name": "د. مصطفى فرات",
       "timestamp": "02:33",
+      "VisitCount": 0
+    },
+    {
+      "date": "18/09/2026",
+      "specCode": "D",
+      "name": "د. مريم علي محمد",
+      "timestamp": "07:59",
       "VisitCount": 0
     }
   ],
