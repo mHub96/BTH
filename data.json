@@ -8696,22 +8696,6 @@
       "dutySlot": 0
     },
     {
-      "date": "21/09/2026",
-      "specCode": "D",
-      "name": "د. مريم علي محمد",
-      "VisitCount": 1,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "21/09/2026",
-      "specCode": "D",
-      "name": "د. علي عباس مهجر",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "22/09/2026",
       "specCode": "D",
       "name": "د. علي مطشر ابو كحيله",
@@ -10049,6 +10033,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "13:08",
+      "VisitCount": 0
+    },
+    {
+      "date": "21/09/2026",
+      "specCode": "D",
+      "name": "د. ايات عبدالكريم",
+      "timestamp": "15:45",
       "VisitCount": 0
     }
   ],
