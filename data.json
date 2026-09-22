@@ -9978,13 +9978,6 @@
     },
     {
       "date": "22/09/2026",
-      "specCode": "D",
-      "name": "د. اسيل علي",
-      "timestamp": "09:17",
-      "VisitCount": 8
-    },
-    {
-      "date": "22/09/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
       "timestamp": "09:21",
@@ -10009,6 +10002,13 @@
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "16:11",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "D",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:04",
       "VisitCount": 0
     }
   ],
