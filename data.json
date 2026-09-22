@@ -8772,14 +8772,6 @@
       "dutySlot": 0
     },
     {
-      "date": "22/09/2026",
-      "specCode": "O",
-      "name": "د. مصطفى هادي",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "23/09/2026",
       "specCode": "O",
       "name": "د. الزهراء حسام",
@@ -10012,6 +10004,13 @@
       "specCode": "M",
       "name": "د. اسيل علي",
       "timestamp": "09:21",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "O",
+      "name": "د. نور الهدى علي",
+      "timestamp": "12:55",
       "VisitCount": 0
     }
   ],
