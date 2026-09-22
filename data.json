@@ -6423,14 +6423,6 @@
       "dutyTime": ""
     },
     {
-      "date": "22/09/2026",
-      "specCode": "OR",
-      "name": "د. جمال كريم",
-      "VisitCount": 5,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "23/09/2026",
       "specCode": "OR",
       "name": "د. المصطفى سعد عبد الصمد",
@@ -10011,6 +10003,13 @@
       "name": "د. وضاح اكثم",
       "timestamp": "13:02",
       "VisitCount": 1
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "OR",
+      "name": "د. علي مطشر ابو كحيله",
+      "timestamp": "16:11",
+      "VisitCount": 0
     }
   ],
   "passwords": {
