@@ -8135,22 +8135,6 @@
       "dutySlot": 1
     },
     {
-      "date": "22/09/2026",
-      "specCode": "M",
-      "name": "د. ام البنين عبدالله",
-      "VisitCount": 0,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "22/09/2026",
-      "specCode": "M",
-      "name": "د. عبدالله ستار",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "23/09/2026",
       "specCode": "M",
       "name": "د. احرار غانم",
@@ -10030,6 +10014,13 @@
       "specCode": "ICU",
       "name": "د. غسق مصطفى",
       "timestamp": "08:43",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "M",
+      "name": "د. اسيل علي",
+      "timestamp": "09:16",
       "VisitCount": 0
     }
   ],
