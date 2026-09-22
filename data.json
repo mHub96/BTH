@@ -7255,14 +7255,6 @@
       "dutyTime": ""
     },
     {
-      "date": "22/09/2026",
-      "specCode": "ICU",
-      "name": "د. رسل عوده ساري",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "24/09/2026",
       "specCode": "ICU",
       "name": "د. ايات فيصل",
@@ -10031,6 +10023,13 @@
       "specCode": "D",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "02:04",
+      "VisitCount": 0
+    },
+    {
+      "date": "22/09/2026",
+      "specCode": "ICU",
+      "name": "د. غسق مصطفى",
+      "timestamp": "08:43",
       "VisitCount": 0
     }
   ],
