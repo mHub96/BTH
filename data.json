@@ -6295,14 +6295,6 @@
       "dutyTime": ""
     },
     {
-      "date": "23/09/2026",
-      "specCode": "GS",
-      "name": "د. علي احمد محسن",
-      "VisitCount": 7,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "24/09/2026",
       "specCode": "GS",
       "name": "د. حسنين فيصل",
@@ -10024,6 +10016,13 @@
       "specCode": "D",
       "name": "د. منتظر حميد",
       "timestamp": "20:09",
+      "VisitCount": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "GS",
+      "name": "د. مصطفى محمد علي الديوان",
+      "timestamp": "20:12",
       "VisitCount": 0
     }
   ],
