@@ -10000,13 +10000,6 @@
     },
     {
       "date": "23/09/2026",
-      "specCode": "D",
-      "name": "د. صفا احمد",
-      "timestamp": "10:06",
-      "VisitCount": 0
-    },
-    {
-      "date": "23/09/2026",
       "specCode": "Pe",
       "name": "د هدير",
       "timestamp": "10:47",
@@ -10024,6 +10017,13 @@
       "specCode": "M",
       "name": "د. عيسى وليد",
       "timestamp": "20:05",
+      "VisitCount": 0
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "D",
+      "name": "د. منتظر حميد",
+      "timestamp": "20:09",
       "VisitCount": 0
     }
   ],
