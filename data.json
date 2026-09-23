@@ -8974,7 +8974,7 @@
     {
       "date": "23/09/2026",
       "specCode": "N",
-      "name": "د. يونس باسل",
+      "name": "د. علي احمد خزعل",
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
@@ -8982,7 +8982,7 @@
     {
       "date": "24/09/2026",
       "specCode": "N",
-      "name": "د. علي احمد خزعل",
+      "name": "د. يونس باسل",
       "VisitCount": 0,
       "dutyTime": "",
       "dutySlot": 0
@@ -9917,98 +9917,126 @@
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "08:03",
-      "VisitCount": 3
+      "VisitCount": 3,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "20/09/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:10",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "21/09/2026",
       "specCode": "MF",
       "name": "د. تقى حسن",
       "timestamp": "08:54",
-      "VisitCount": 8
+      "VisitCount": 8,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "21/09/2026",
       "specCode": "O",
       "name": "د. ذو الفقار باسم",
       "timestamp": "16:37",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "21/09/2026",
       "specCode": "GS",
       "name": "د. حسنين فلاح مهدي",
       "timestamp": "20:02",
-      "VisitCount": 4
+      "VisitCount": 4,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "21/09/2026",
       "specCode": "M",
       "name": "د. نزار سليم",
       "timestamp": "20:03",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "21/09/2026",
       "specCode": "D",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "02:04",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "ICU",
       "name": "د. غسق مصطفى",
       "timestamp": "08:43",
-      "VisitCount": 4
+      "VisitCount": 4,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "M",
       "name": "د. اسيل علي",
       "timestamp": "09:21",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
       "timestamp": "12:55",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "MF",
       "name": "د. وضاح اكثم",
       "timestamp": "13:02",
-      "VisitCount": 4
+      "VisitCount": 4,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "OR",
       "name": "د. علي مطشر ابو كحيله",
       "timestamp": "16:11",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "22/09/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:04",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "23/09/2026",
       "specCode": "OR",
       "name": "د. محمد ناظم",
       "timestamp": "08:02",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     }
   ],
   "passwords": {
