@@ -7311,14 +7311,6 @@
       "dutyTime": "08:00AM - 08:00PM"
     },
     {
-      "date": "23/09/2026",
-      "specCode": "D",
-      "name": "د. ام البنين عبدالله",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": "08:00AM - 08:00PM"
-    },
-    {
       "date": "24/09/2026",
       "specCode": "D",
       "name": "د. احرار غانم",
@@ -8622,14 +8614,6 @@
       "VisitCount": 1,
       "dutyTime": "",
       "dutySlot": 0
-    },
-    {
-      "date": "23/09/2026",
-      "specCode": "D",
-      "name": "د. حسن عبد علي",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
     },
     {
       "date": "24/09/2026",
@@ -10037,6 +10021,13 @@
       "VisitCount": 0,
       "dutySlot": 0,
       "dutyTime": ""
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "D",
+      "name": "د. صفا احمد",
+      "timestamp": "10:06",
+      "VisitCount": 0
     }
   ],
   "passwords": {
