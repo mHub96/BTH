@@ -10013,17 +10013,17 @@
     },
     {
       "date": "23/09/2026",
-      "specCode": "D",
-      "name": "د. منتظر حميد",
-      "timestamp": "20:09",
-      "VisitCount": 1
-    },
-    {
-      "date": "23/09/2026",
       "specCode": "GS",
       "name": "د. مصطفى محمد علي الديوان",
       "timestamp": "20:12",
       "VisitCount": 1
+    },
+    {
+      "date": "23/09/2026",
+      "specCode": "D",
+      "name": "د. محمد ناظم",
+      "timestamp": "05:37",
+      "VisitCount": 0
     }
   ],
   "passwords": {
