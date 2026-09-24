@@ -10001,13 +10001,6 @@
     },
     {
       "date": "24/09/2026",
-      "specCode": "GS",
-      "name": "د. علي قاسم عبدالله",
-      "timestamp": "10:48",
-      "VisitCount": 2
-    },
-    {
-      "date": "24/09/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "13:19",
@@ -10018,6 +10011,13 @@
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "13:40",
+      "VisitCount": 0
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "GS",
+      "name": "د. علي قاسم عبدالله",
+      "timestamp": "13:53",
       "VisitCount": 0
     }
   ],
