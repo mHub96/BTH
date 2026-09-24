@@ -6167,14 +6167,6 @@
       "dutyTime": ""
     },
     {
-      "date": "24/09/2026",
-      "specCode": "MF",
-      "name": "د. تقى حسن",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "25/09/2026",
       "specCode": "MF",
       "name": "د. عبد الله صادق",
@@ -10023,6 +10015,13 @@
       "specCode": "D",
       "name": "د. محمد ناظم",
       "timestamp": "05:37",
+      "VisitCount": 0
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "MF",
+      "name": "د. حسن فائق",
+      "timestamp": "08:01",
       "VisitCount": 0
     }
   ],
