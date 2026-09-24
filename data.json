@@ -7191,14 +7191,6 @@
       "dutyTime": ""
     },
     {
-      "date": "24/09/2026",
-      "specCode": "ICU",
-      "name": "د. ايات فيصل",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "11/09/2026",
       "specCode": "OP",
       "name": "د. ايات فيصل",
@@ -10021,6 +10013,13 @@
       "name": "د. علي قاسم عبدالله",
       "timestamp": "10:48",
       "VisitCount": 2
+    },
+    {
+      "date": "24/09/2026",
+      "specCode": "ICU",
+      "name": "د. فاطمة عباس",
+      "timestamp": "12:45",
+      "VisitCount": 0
     }
   ],
   "passwords": {
