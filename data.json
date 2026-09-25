@@ -7255,14 +7255,6 @@
       "dutyTime": "08:00AM - 08:00PM"
     },
     {
-      "date": "25/09/2026",
-      "specCode": "D",
-      "name": "د. وديان باقر كامل",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": "08:00AM - 08:00PM"
-    },
-    {
       "date": "26/09/2026",
       "specCode": "D",
       "name": "د. امنه شبير",
@@ -8502,14 +8494,6 @@
       "VisitCount": 1,
       "dutyTime": "",
       "dutySlot": 0
-    },
-    {
-      "date": "25/09/2026",
-      "specCode": "D",
-      "name": "د. ولاء سالم",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
     },
     {
       "date": "27/09/2026",
@@ -9990,6 +9974,13 @@
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "08:55",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "D",
+      "name": "د. منتظر حميد",
+      "timestamp": "09:10",
       "VisitCount": 0
     }
   ],
