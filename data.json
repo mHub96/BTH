@@ -7071,14 +7071,6 @@
       "dutyTime": ""
     },
     {
-      "date": "25/09/2026",
-      "specCode": "Pe",
-      "name": "د مسره شهاب",
-      "VisitCount": 0,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "26/09/2026",
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
@@ -9981,6 +9973,13 @@
       "specCode": "D",
       "name": "د. منتظر حميد",
       "timestamp": "09:10",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "Pe",
+      "name": "د. زينب فلاح عبد المهدي",
+      "timestamp": "09:17",
       "VisitCount": 0
     }
   ],
