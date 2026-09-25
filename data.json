@@ -9948,13 +9948,6 @@
     },
     {
       "date": "25/09/2026",
-      "specCode": "M",
-      "name": "د. بشير كريم",
-      "timestamp": "08:33",
-      "VisitCount": 4
-    },
-    {
-      "date": "25/09/2026",
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "08:55",
@@ -9979,6 +9972,13 @@
       "specCode": "US",
       "name": "د. حيدر علي",
       "timestamp": "18:20",
+      "VisitCount": 0
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "M",
+      "name": "د. زين العابدين عبد الرحمن عباس",
+      "timestamp": "20:06",
       "VisitCount": 0
     }
   ],
