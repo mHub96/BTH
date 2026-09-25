@@ -6287,14 +6287,6 @@
       "dutyTime": ""
     },
     {
-      "date": "25/09/2026",
-      "specCode": "GS",
-      "name": "د. مصطفى محمد علي الديوان",
-      "VisitCount": 4,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "26/09/2026",
       "specCode": "GS",
       "name": "د. علي قاسم عبدالله",
@@ -9980,6 +9972,13 @@
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:06",
       "VisitCount": 1
+    },
+    {
+      "date": "25/09/2026",
+      "specCode": "GS",
+      "name": "د. علي احمد محسن",
+      "timestamp": "21:32",
+      "VisitCount": 0
     }
   ],
   "passwords": {
