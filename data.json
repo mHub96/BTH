@@ -8585,14 +8585,6 @@
       "dutySlot": 0
     },
     {
-      "date": "26/09/2026",
-      "specCode": "O",
-      "name": "د. غفران علي صبري",
-      "VisitCount": 2,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "27/09/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
@@ -9996,6 +9988,13 @@
       "specCode": "US",
       "name": "د. عبدالله جبار",
       "timestamp": "10:03",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "O",
+      "name": "د. نور الهدى علي",
+      "timestamp": "12:08",
       "VisitCount": 0
     }
   ],
