@@ -6628,14 +6628,6 @@
       "dutyTime": ""
     },
     {
-      "date": "26/09/2026",
-      "specCode": "US",
-      "name": "د. عمر حسين",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "27/09/2026",
       "specCode": "US",
       "name": "د. حيدر علي",
@@ -9997,6 +9989,13 @@
       "specCode": "Pe",
       "name": "د مسره شهاب",
       "timestamp": "08:44",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "US",
+      "name": "د. عبدالله جبار",
+      "timestamp": "10:03",
       "VisitCount": 0
     }
   ],
