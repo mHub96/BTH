@@ -6420,14 +6420,6 @@
       "dutyTime": ""
     },
     {
-      "date": "26/09/2026",
-      "specCode": "OR",
-      "name": "د. المصطفى سعد عبد الصمد",
-      "VisitCount": 2,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "27/09/2026",
       "specCode": "OR",
       "name": "د. علي عبد الكريم عبدالله",
@@ -9995,6 +9987,13 @@
       "specCode": "O",
       "name": "د. نور الهدى علي",
       "timestamp": "12:08",
+      "VisitCount": 0
+    },
+    {
+      "date": "26/09/2026",
+      "specCode": "OR",
+      "name": "د. عبد العزيز وئام عبد الحميد",
+      "timestamp": "19:49",
       "VisitCount": 0
     }
   ],
