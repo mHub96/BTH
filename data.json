@@ -7980,22 +7980,6 @@
       "dutySlot": 1
     },
     {
-      "date": "27/09/2026",
-      "specCode": "M",
-      "name": "د. فاديا ثائر",
-      "VisitCount": 1,
-      "dutyTime": "08:00AM - 08:00PM",
-      "dutySlot": 0
-    },
-    {
-      "date": "27/09/2026",
-      "specCode": "M",
-      "name": "د. فلاح غيدان",
-      "VisitCount": 0,
-      "dutyTime": "08:00PM - 08:00AM",
-      "dutySlot": 1
-    },
-    {
       "date": "28/09/2026",
       "specCode": "M",
       "name": "د. دعاء نبيل",
@@ -9975,6 +9959,13 @@
       "specCode": "O",
       "name": "د. غفران علي صبري",
       "timestamp": "08:40",
+      "VisitCount": 0
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "M",
+      "name": "د. مها عباس",
+      "timestamp": "09:02",
       "VisitCount": 0
     }
   ],
