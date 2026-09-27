@@ -8731,7 +8731,7 @@
     {
       "date": "27/09/2026",
       "specCode": "N",
-      "name": "د. علي احمد خزعل",
+      "name": "د. علي وفي",
       "VisitCount": 3,
       "dutyTime": "",
       "dutySlot": 0
@@ -9768,196 +9768,252 @@
       "specCode": "Pe",
       "name": "د هدير",
       "timestamp": "10:47",
-      "VisitCount": 3
+      "VisitCount": 3,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "23/09/2026",
       "specCode": "GA",
       "name": "د. الاء اسماعيل",
       "timestamp": "11:34",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "23/09/2026",
       "specCode": "M",
       "name": "د. عيسى وليد",
       "timestamp": "20:05",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "23/09/2026",
       "specCode": "GS",
       "name": "د. مصطفى محمد علي الديوان",
       "timestamp": "20:12",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "23/09/2026",
       "specCode": "D",
       "name": "د. محمد ناظم",
       "timestamp": "05:37",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "MF",
       "name": "د. حسن فائق",
       "timestamp": "08:01",
-      "VisitCount": 12
+      "VisitCount": 12,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "Pe",
       "name": "د. لينا نجم عبد",
       "timestamp": "08:42",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "ICU",
       "name": "د. فاطمة عباس",
       "timestamp": "13:19",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "O",
       "name": "د. مصطفى هادي",
       "timestamp": "13:40",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "GS",
       "name": "د. علي قاسم عبدالله",
       "timestamp": "13:53",
-      "VisitCount": 10
+      "VisitCount": 10,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "M",
       "name": "د. مها عباس",
       "timestamp": "14:05",
-      "VisitCount": 5
+      "VisitCount": 5,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "24/09/2026",
       "specCode": "D",
       "name": "د. علي حسين عبدالرضا",
       "timestamp": "20:13",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "ENT",
       "name": "د. دعاء ناظم اسماعيل",
       "timestamp": "08:55",
-      "VisitCount": 10
+      "VisitCount": 10,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "D",
       "name": "د. منتظر حميد",
       "timestamp": "09:10",
-      "VisitCount": 7
+      "VisitCount": 7,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "Pe",
       "name": "د. زينب فلاح عبد المهدي",
       "timestamp": "09:17",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "US",
       "name": "د. حيدر علي",
       "timestamp": "18:20",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "M",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:06",
-      "VisitCount": 4
+      "VisitCount": 4,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "25/09/2026",
       "specCode": "GS",
       "name": "د. علي احمد محسن",
       "timestamp": "21:32",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "GS",
       "name": "د. حسنين فيصل",
       "timestamp": "08:14",
-      "VisitCount": 6
+      "VisitCount": 6,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "Pe",
       "name": "د مسره شهاب",
       "timestamp": "08:44",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "US",
       "name": "د. عبدالله جبار",
       "timestamp": "10:03",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "O",
       "name": "د. نور الهدى علي",
       "timestamp": "12:08",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "OR",
       "name": "د. عبد العزيز وئام عبد الحميد",
       "timestamp": "19:49",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "M",
       "name": "د. عيسى وليد",
       "timestamp": "19:55",
-      "VisitCount": 5
+      "VisitCount": 5,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "26/09/2026",
       "specCode": "D",
       "name": "د. زين العابدين عبد الرحمن عباس",
       "timestamp": "20:15",
-      "VisitCount": 0
+      "VisitCount": 0,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "27/09/2026",
       "specCode": "O",
       "name": "د. غفران علي صبري",
       "timestamp": "08:40",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "27/09/2026",
       "specCode": "M",
       "name": "د. مها عباس",
       "timestamp": "09:02",
-      "VisitCount": 2
+      "VisitCount": 2,
+      "dutySlot": 0,
+      "dutyTime": ""
     },
     {
       "date": "27/09/2026",
       "specCode": "D",
       "name": "د. اسيل علي",
       "timestamp": "10:07",
-      "VisitCount": 1
+      "VisitCount": 1,
+      "dutySlot": 0,
+      "dutyTime": ""
     }
   ],
   "passwords": {
