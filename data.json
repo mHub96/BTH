@@ -7052,14 +7052,6 @@
       "dutyTime": ""
     },
     {
-      "date": "27/09/2026",
-      "specCode": "Pe",
-      "name": "د. زينب فلاح عبد المهدي",
-      "VisitCount": 1,
-      "dutySlot": 0,
-      "dutyTime": ""
-    },
-    {
       "date": "28/09/2026",
       "specCode": "Pe",
       "name": "د مسره شهاب",
@@ -10014,6 +10006,13 @@
       "VisitCount": 1,
       "dutySlot": 0,
       "dutyTime": ""
+    },
+    {
+      "date": "27/09/2026",
+      "specCode": "Pe",
+      "name": "د هدير",
+      "timestamp": "12:05",
+      "VisitCount": 0
     }
   ],
   "passwords": {
