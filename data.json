@@ -10018,6 +10018,14 @@
       "VisitCount": 0,
       "dutyTime": "08:00PM - 08:00AM",
       "dutySlot": 1
+    },
+    {
+      "date": "28/09/2026",
+      "specCode": "D",
+      "name": "د. علي حسين عبدالرضا",
+      "VisitCount": 0,
+      "dutyTime": "12:00AM - 08:00AM",
+      "dutySlot": 2
     }
   ],
   "passwords": {
