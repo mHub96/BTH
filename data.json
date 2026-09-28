@@ -9902,7 +9902,7 @@
       "timestamp": "10:07",
       "VisitCount": 2,
       "dutySlot": 0,
-      "dutyTime": ""
+      "dutyTime": "08:00AM - 08:00PM"
     },
     {
       "date": "27/09/2026",
@@ -9956,7 +9956,7 @@
       "timestamp": "08:20",
       "VisitCount": 0,
       "dutySlot": 0,
-      "dutyTime": "08:00AM - 08:00PM"
+      "dutyTime": "08:00AM - 10:00PM"
     },
     {
       "date": "28/09/2026",
@@ -10005,6 +10005,14 @@
     },
     {
       "date": "28/09/2026",
+      "specCode": "D",
+      "name": "د. علي وفي",
+      "VisitCount": 0,
+      "dutyTime": "10:00PM - 08:00AM",
+      "dutySlot": 1
+    },
+    {
+      "date": "27/09/2026",
       "specCode": "D",
       "name": "",
       "VisitCount": 0,
