@@ -6029,14 +6029,6 @@
       "VisitCount": 0
     },
     {
-      "date": "01/10/2026",
-      "specCode": "MF",
-      "name": "",
-      "VisitCount": 0,
-      "dutyTime": "",
-      "dutySlot": 0
-    },
-    {
       "date": "01/09/2026",
       "specCode": "MF",
       "name": "د. عبد الله صادق",
@@ -10280,6 +10272,13 @@
       "specCode": "OP",
       "name": "د. غسق مصطفى",
       "timestamp": "08:06",
+      "VisitCount": 0
+    },
+    {
+      "date": "01/10/2026",
+      "specCode": "MF",
+      "name": "د. عبد الله صادق",
+      "timestamp": "08:10",
       "VisitCount": 0
     }
   ],
